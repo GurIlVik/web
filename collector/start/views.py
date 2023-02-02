@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+def privet(request):
+    return render(
+        request,
+        'start/index.html',
+        )
+    
