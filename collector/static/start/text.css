@@ -1,8 +1,9 @@
 
 body {
     height: 100%;
-    background: #d91f1f;
-    background-size: 100hv;
+    /* background-image: #d91f1f; */
+    /* background-image: url('/static/start/start.jpg'); */
+    background-size: 10hv;
     background-attachment: fixed;
     text-align: center;
     width: 100%;

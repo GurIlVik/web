@@ -6,12 +6,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'style_1.css'%}" type="text/css">
-    <script src="{% static 'file-1.js'%}"></script>   
+    <link rel="stylesheet" href="{% static 'start/text.css'%}" type="text/css">
+    <script src="{% static 'start/script.js'%}"></script>   
     <title>Сайт первая</title>
 </head>
 
-<body>
+<body style="background-image:url('{% static 'start/start.jpg'%}')">
+
     <h3>Игра в города.</h3>
     <p>Введите ваш город:</p>
     <p id = 'p1'>Вам город на букву: <span id="s3">любую</span></p>
@@ -19,6 +20,11 @@
     <p>мой город:   <span id="s1">ваш ход</span></p>
     <div id="finish"></div>
     <p id="s2"></p>
+    <input id="reg" type="button" value="Регистрация"  />
+
+    {% comment %}{% endcomment %}
+    <a href="/account/login/"><button>login</button></a>
+    
     
 </body>
     
@@ -26,6 +32,9 @@
           <div>Творческая студия:</div> 
           <div>GurIlVik</div> 
           <div>gilvik1@yandex.ru</div>
+          
+      <div id="memory"><p id="mempy">Москва,Красноярск,Архангельск,Краснодар,Ростов-на-Дону,Ульяновск,Калининград,Дмитров,Владивосток,Краснознаменск,Казань,Нальчик,Кировоград,</p></div> 
+
     </footer>
 </html>
 

@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.privet),
-    
+    path('', views.privet), 
 ]
+
+
