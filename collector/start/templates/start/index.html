@@ -1,4 +1,4 @@
-{% comment %} {% load static %} {% endcomment %}
+{% load static %}
 {% csrf_token %}
 <!DOCTYPE html>
 <html>
@@ -6,17 +6,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
-    {% comment %} <link rel="stylesheet" href="{% static "/account/base.css" %}" type='text/css'> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'style_1.css'%}" type="text/css">
+    <script src="{% static 'file-1.js'%}"></script>   
+    <title>Сайт первая</title>
 </head>
+
 <body>
-{% comment %} <div id="header">
-    <span class="logo">Bookmarks</span>
-</div> {% endcomment %}
-{% comment %} <div id="content">
-    {% block content %}
-    {% endblock %}
-</div> {% endcomment %}
-<p>ЭТО start</p>
+    <h3>Игра в города.</h3>
+    <p>Введите ваш город:</p>
+    <p id = 'p1'>Вам город на букву: <span id="s3">любую</span></p>
+    <input type="text" id="a1" value="" /> <input id="b1" type="button" value="ЖМИ"  />
+    <p>мой город:   <span id="s1">ваш ход</span></p>
+    <div id="finish"></div>
+    <p id="s2"></p>
+    
 </body>
+    
+    <footer>
+          <div>Творческая студия:</div> 
+          <div>GurIlVik</div> 
+          <div>gilvik1@yandex.ru</div>
+    </footer>
 </html>
+

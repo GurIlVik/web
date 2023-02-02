@@ -1,0 +1,56 @@
+
+body {
+    height: 100%;
+    background: #d91f1f;
+    background-size: 100hv;
+    background-attachment: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+h3 {
+    font-size: 5vw;
+    color: #263ec4;
+}
+
+#b1 {
+  font-size: 1.33vw;
+  background: #e7ef10;
+  height: 6vw;
+  width: 6vw;
+  border-radius: 100%;
+  color: #d91f1f
+}
+
+#a1 {
+    font-size: 2.6vw;
+    background:  #77e0c797;
+    height: 6vw;
+    width: 21vw;
+    border-radius: 55%;
+    color: black;
+    text-align: center;
+  }
+
+p {
+    font-size: 3vw; 
+    color: #263ec4
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background: #23041979;
+    height: 55px;
+    width: 100%;
+}
+
+#s2, #s3, #p1 {
+    font-size: 2vw;
+}
+
+#s3 {
+    font-size: 3vw;
+}
+
