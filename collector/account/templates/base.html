@@ -1,9 +1,10 @@
-{% comment %} {% load staticfiles %} {% endcomment %}
+{% load static %}
+{% csrf_token %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
-    {% comment %} <link href="{% static "css/base.css" %}" rel="stylesheet"> {% endcomment %}
+    <link href="{% static "/account/base.css" %}" rel="stylesheet" type='text/css'>
 </head>
 <body>
 <div id="header">
