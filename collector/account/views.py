@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UserRegistrationForm
+from django.contrib.auth.decorators import login_required
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -43,3 +45,7 @@ def register(request):
         request,
         'account/register.html',
         {'form': user_form})
+
+@login_required
+def personal_page (request, user_id=1):
+    return HttpResponse('<h1>%s</h1>' % user_id)
