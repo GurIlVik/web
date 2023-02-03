@@ -4,16 +4,20 @@ body {
     width: auto;
     background-position: center;
     background-size: cover;
+}
+
+#text1 {
+    height: 80%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 #text {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
 }
 
 p {
@@ -21,35 +25,6 @@ p {
     color: azure;
     font-family: "brush script mt";
 }
-/* 
-h3 {
-    font-size: 5vw;
-    color: #263ec4;
-}
-
-#b1 {
-  font-size: 1.33vw;
-  background: #e7ef10;
-  height: 6vw;
-  width: 6vw;
-  border-radius: 100%;
-  color: #d91f1f
-}
-
-#a1 {
-    font-size: 2.6vw;
-    background:  #77e0c797;
-    height: 6vw;
-    width: 21vw;
-    border-radius: 55%;
-    color: black;
-    text-align: center;
-  }
-
-p {
-    font-size: 3vw; 
-    color: #263ec4
-} */
 
 footer {
     color: white;
@@ -87,5 +62,4 @@ footer {
     min-width: 150px;
     border-radius: 30%;
     color: white;
-   
 }
