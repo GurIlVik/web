@@ -8,33 +8,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'start/text.css'%}" type="text/css">
     <script src="{% static 'start/script.js'%}"></script>   
-    <title>Сайт первая</title>
+    <title>Приветствие</title>
 </head>
 
 <body style="background-image:url('{% static 'start/start.jpg'%}')">
 
-    <h3>Игра в города.</h3>
-    <p>Введите ваш город:</p>
-    <p id = 'p1'>Вам город на букву: <span id="s3">любую</span></p>
-    <input type="text" id="a1" value="" /> <input id="b1" type="button" value="ЖМИ"  />
-    <p>мой город:   <span id="s1">ваш ход</span></p>
-    <div id="finish"></div>
-    <p id="s2"></p>
+    {% comment %} <div id="menu">
+        <div ><a class='fd2' href="/account/login/"><button class='fd2'>Вход по имени</button></a></div> 
+        <div ><a class='fd2' href=""><button class='fd2'>Вход по почте</button></a></div> 
+        <div ><a class='fd2' href="/account/register/"><button class='fd2'>Регистрация</button></a></div>
+    </div>  {% endcomment %}
+
+    <div id="text">
+        <p>Коллекционер - бережёт историю</p>
+        <p>История - определяет культуру</p>
+        <p>Культура - основа цивилизации</p>
+        <p></p>
+    </div>
 
 
-    {% comment %}{% endcomment %}
-    <a href="/account/login/"><button>login</button></a> <a href="/account/register/"><button>register</button></a>
-    
+
     
 </body>
-    
-    <footer>
-          <div>Творческая студия:</div> 
-          <div>GurIlVik</div> 
-          <div>gilvik1@yandex.ru</div>
-          
-      <div id="memory"><p id="mempy">Москва,Красноярск,Архангельск,Краснодар,Ростов-на-Дону,Ульяновск,Калининград,Дмитров,Владивосток,Краснознаменск,Казань,Нальчик,Кировоград,</p></div> 
 
-    </footer>
+<footer>
+    <div id="f_d1">
+        <div>Творческая студия:</div> 
+        <div>GurIlVik</div> 
+        <div>gilvik1@yandex.ru</div>
+    </div>
+    <div id="f_d2">
+        <div ><a class='fd2' href="/account/login/"><button class='fd2'>Вход по имени</button></a></div> 
+        <div ><a class='fd2' href="/account/login_email/"><button class='fd2'>Вход по почте</button></a></div> 
+        <div ><a class='fd2' href="/account/register/"><button class='fd2'>Регистрация</button></a></div>
+        <div ><a class='fd2' href=""><button class='fd2'>Без регистрация</button></a></div>
+    </div> 
+</footer>  
 </html>
 

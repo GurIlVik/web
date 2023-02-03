@@ -49,3 +49,6 @@ def register(request):
 @login_required
 def personal_page (request, user_id=1):
     return HttpResponse('<h1>%s</h1>' % user_id)
+
+def login_email (request):
+    return HttpResponse('<h1>В стадии разработки</h1>')

@@ -1,14 +1,27 @@
 
 body {
     height: 100%;
-    /* background-image: #d91f1f; */
-    /* background-image: url('/static/start/start.jpg'); */
-    background-size: 10hv;
-    background-attachment: fixed;
-    text-align: center;
-    width: 100%;
+    width: auto;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
+#text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+p {
+    font-size: 5vw;
+    color: azure;
+    font-family: "brush script mt";
+}
+/* 
 h3 {
     font-size: 5vw;
     color: #263ec4;
@@ -36,22 +49,43 @@ h3 {
 p {
     font-size: 3vw; 
     color: #263ec4
-}
+} */
 
 footer {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
+    color: white;
     background: #23041979;
-    height: 55px;
+    height: 45px;
     width: 100%;
+    position: absolute;
+    bottom: -20px;
+    left: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-#s2, #s3, #p1 {
-    font-size: 2vw;
+#f_d1 {
+    left: 0px;
+    font-size: 11px;
+    font-weight: 300;
+    width: 120px;
 }
 
-#s3 {
-    font-size: 3vw;
+#f_d2 {
+    width: 100%;
+    right: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
+.fd2 {
+    font-size: 18px;
+    background: #21211d;
+    height: 30px;
+    width: auto;
+    min-width: 150px;
+    border-radius: 30%;
+    color: white;
+   
+}
