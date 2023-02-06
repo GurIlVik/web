@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="{% static "/account/base.css" %}" type='text/css'>
 </head>
 <body>
-<div id="header">
+{% comment %} <div id="header">
     <span class="logo">Bookmarks</span>
-</div>
+</div> {% endcomment %}
 <div id="content">
     {% block content %}
     {% endblock %}
 </div>
-<p>ЭТО РЕГИСТРАЦИЯ И [ЕЩЕ ЧТО ТО]</p>
+
 </body>
 </html>
