@@ -30,13 +30,10 @@ def user_login(request):
     
 def register(request):
     if request.method == 'POST':
-        user_form = UserRegistrationForm(
-            request.POST)
+        user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
-            new_user = user_form.save(
-                commit=False)
-            new_user.set_password(
-                user_form.cleaned_data['password'])
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             return render(request, 'account/register_done.html', {'new_user': new_user})
     else:
@@ -44,7 +41,9 @@ def register(request):
     return render(
         request,
         'account/register.html',
-        {'user_form': user_form})
+        {'form': user_form},
+        # {'user_form': user_form},
+        )
 
 @login_required
 def personal_page (request, user_id=1):
