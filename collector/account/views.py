@@ -11,16 +11,16 @@ def user_login(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(
-                       username=cd['логин'],
-                       password=cd['пароль'])
+                       username=cd['username'],
+                       password=cd['password'])
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated successfully')
+                    return HttpResponse('Успешно')
                 else:
-                    return HttpResponse('Disabled account')
+                    return HttpResponse('Аккаунт заблокирован')
             else:
-                return HttpResponse('Invalid login')
+                return HttpResponse('Неверно введен логин/пароль')
     else:
         form = LoginForm()
     return render(
@@ -38,7 +38,7 @@ def register(request):
             new_user.set_password(
                 user_form.cleaned_data['password'])
             new_user.save()
-            return render(request, 'account/register_done.html', {'new_user': new_user})
+            return render(request, 'account/register_done.html', {'Логин': new_user})
     else:
         user_form = UserRegistrationForm()
     return render(

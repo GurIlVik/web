@@ -1,21 +1,30 @@
 {% extends "base.html" %}
-{% block title %}Register{% endblock %}
-{% block content %}
-    <h1>Log-in</h1>
+{% block title %}Регистрация{% endblock %}
+{% block content%}
+
+<div id="content2">
+
+<div id="login4">
+    <h1>Регистрация</h1>
     {% if form.errors %}
         <p>
             Your username and password didn't match.
             Please try again.
         </p>
     {% else %}
-        <p>Please, use the following form to register:</p>
+        <p>Заполите форму регистрации</p>
     {% endif %}
     <div class="login-form">
         <form action="{% url 'login' %}" method="post">
             {{ form.as_p }}
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}"/>
-            <p><input type="submit" value="Register"></p>
+            <p><input type="submit" value="регистрация"></p>
         </form>
     </div>
+</div>
+<div id="login3">
+    <div ><a href="/"><button class='fd2'>НАЗАД</button></a></div> 
+</div>
+</div>
 {% endblock %}
