@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account', 
     'start',
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,4 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_HOST_USER = 'dfg456htr@yandex.ru'
 EMAIL_HOST_PASSWOD = 'dfg456^&*Htr'
 EMAIL_PORT = 587
+EMAIL_USE_TLS = True
