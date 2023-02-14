@@ -8,25 +8,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <link rel="stylesheet" href="{% static "/main/base.css" %}" type='text/css'>
+    <script src="{% static 'main/script.js'%}"></script>   
 </head>
 <body>
     
-    {% comment %} {% block content %} {% endcomment %}
-    <div id="content1">
-    <div id="login1">
-        <div><h3>Вход по имени</h3></div>
-            <div><p>Пожалуйста, введите логин и пароль:</p></div>
-                <div><form id='login2' action="." method="post"></div>
-            {% comment %} {{ form.as_p }} {% endcomment %}
-            {% csrf_token %}
-            <div><p><input type="submit" value="ВХОД"></p></div>
-        </form>
+    <header>
+        <div><p><input class='fd2' type="submit" value="О сайте"></p></div>
+        <div><p><input class='fd2' type="submit" value="Предмет коллекции"></p></div>
+        <div><p><input class='fd2' type="submit" value="Статьи"></p></div>
+        <div><p><input class='fd2' type="submit" value="Приобретение"></p></div>
+
+        <div ><a href="/"><button class='fd2'>НАЗАД</button></a></div>  {% comment %} требуется дописать кнопку - регистрация или выход {% endcomment %}
+    </header>
+    
+
+    <div id="global">
+
+    <div id="advertisement">    
+    </div>    
+
+    <div id="basic">
     </div>
-    <div id="login3">
-        <div ><a href="/"><button class='fd2'>НАЗАД</button></a></div> 
+
     </div>
-    </div>
-    {% comment %} {% endblock %} {% endcomment %}
+    
+    
+    
     <footer>
         <div id="f_d1">
             <div>&nbsp  Творческая студия:</div> 
