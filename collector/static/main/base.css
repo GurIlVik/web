@@ -65,13 +65,14 @@ header {
     justify-content: flex-start;
 }
 
+
 footer {
     color: white;
     background: #23041979;
     height: 45px;
     width: 100%;
     position: absolute;
-    bottom: -40px;
+    bottom: -85px;
     left: 0px;
     display: flex;
     flex-direction: row;
