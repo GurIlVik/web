@@ -3,15 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.decorators import login_required
-# from django.shortcuts import redirect
 
-# from django.contrib.sites.shortcuts import get_current_site 
-# from django.utils.encoding import force_bytes, force_str 
-# from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode 
-# from django.template.loader import render_to_string 
-# from .token import account_activation_token 
-# from django.contrib.auth.models import User 
-# from django.core.mail import EmailMessage 
 
 
 def user_login(request):

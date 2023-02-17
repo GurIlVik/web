@@ -131,9 +131,9 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_HOST_USER = 'dfg456htr@yandex.ru'
-EMAIL_HOST_PASSWOD = 'dfg456^&*Htr'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+# EMAIL_USE_TLS = True   -  эта хрень не работает
+# EMAIL_HOST = 'smtp.yandex.ru'
+# EMAIL_HOST_USER = 'dfg456htr@yandex.ru'
+# EMAIL_HOST_PASSWOD = 'Q1fgh][p'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
