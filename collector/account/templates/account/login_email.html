@@ -1,8 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Вход по почте{% endblock %}
 {% block content %}
-    <h1>В стадии разаработки</h1>
+
+<div id="content1">
+    <div id="login1">
+        <div><h3>Вход по email'</h3></div>
+            <div><p>Пожалуйста, введите вашу электронную почту:</p></div>
+                <div><form id='login2' action="{% url 'login_email' %}" method="post"></div>
+            {{ form.as_p }}
+            {% csrf_token %}
+            <div><p><input type="submit" value="ПОЛУЧИТЬ КОД"></p></div>
+        </form>
+    </div>
+    <div id="login3">
+        <div ><a href="/"><button class='fd2'>НАЗАД</button></a></div> 
+    </div>
+    </div>
+    
+{% endblock %}
+
+{% comment %} <h1>В стадии разаработки</h1>
     <div id="login3">
     <div ><a href="/"><button class='fd2'>НАЗАД</button></a></div> 
-    </div>
-{% endblock %}
+    </div> {% endcomment %}

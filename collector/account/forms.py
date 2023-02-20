@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django import forms
+import secrets
 
-from django import forms 
-from django.contrib.auth.models import User 
+
 from django.contrib.auth.forms import UserCreationForm 
 from django.core.exceptions import ValidationError 
 from django.forms.fields import EmailField 
@@ -10,46 +10,39 @@ from django.forms.forms import Form
 # Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
 
 class LoginForm(Form):
-    print('lwerjngelrjkgn')
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
    
-
 # class UserRegistrationForm(forms.ModelForm):
 class UserRegistrationForm(UserCreationForm):  
-    print('lwerjngrfrjkgn')  
     username = forms.CharField(label='Пользователь', min_length=3, max_length=150) 
     email = EmailField(label='email') 
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
     password2 = forms.CharField(label='Повторить пароль', widget=forms.PasswordInput) 
  
-    def username_clean(self): 
-        print('lwerjngrfrjkgn1')  
+    def username_clean(self):  
         username = self.cleaned_data['username'].lower() 
         new = User.objects.filter(username = username) 
         if new.count(): 
-            raise ValidationError("User Already Exist") 
+            raise ValidationError("Пользователь уже существует") 
         return username 
  
-    def email_clean(self): 
-        print('lwerjngrfrjkgn2')  
+    def email_clean(self):  
         email = self.cleaned_data['email'].lower() 
         new = User.objects.filter(email=email) 
         if new.count(): 
-            raise ValidationError(" Email Already Exist") 
+            raise ValidationError("Электронная почта уже существует, войдите по почте") 
         return email 
  
     def clean_password2(self): 
-        print('lwerjngrfrjkgn3')  
         password1 = self.cleaned_data['password1'] 
         password2 = self.cleaned_data['password2'] 
  
         if password1 and password2 and password1 != password2: 
-            raise ValidationError("Password don't match") 
+            raise ValidationError("Пароль не совпадает") 
         return password2 
  
     def save(self, commit = True): 
-        print('lwerjngrfrjkgn4') 
         user = User.objects.create_user( 
             self.cleaned_data['username'], 
             self.cleaned_data['email'], 
@@ -59,7 +52,15 @@ class UserRegistrationForm(UserCreationForm):
         return user 
 # Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
     
+class LoginForm_Email(Form):
+    email = EmailField(label='email') 
     
+class LoginFormToken(Form):
+    token_us = forms.CharField(label='ключ', min_length=20, max_length=150)
+    
+    
+
+      
     
     
     
