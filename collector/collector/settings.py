@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms', # криспи
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -137,3 +138,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL_HOST_PASSWOD = 'Q1fgh][p'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
