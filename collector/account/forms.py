@@ -54,6 +54,7 @@ class UserRegistrationForm(UserCreationForm):
     
 class LoginForm_Email(Form):
     email_use = EmailField(label='email') 
+    # token_us = forms.CharField(label='ключ', min_length=20, max_length=150)
     # email = forms.CharField(label='email')
 
     

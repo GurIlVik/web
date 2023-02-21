@@ -35,12 +35,9 @@ def user_login(request):
         {'form': form})
     
 def register(request):
-    # form = UserRegistrationForm()
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST) 
-        print('lwerjngrfrjkgn34')  
         if form.is_valid(): 
-            print('lwerjngrfrjkgn45')  
             form.save() 
     else: 
         form = UserRegistrationForm() 
@@ -54,15 +51,13 @@ def personal_page (request, user_id=1):
     print('lwerjngewgwertgtrwegtgn')  
     return HttpResponse('<h1>%s</h1>' % user_id)
 
-def login_email (request):
-    
-    def otpravka (email_user, token_user):
+def otpravka (email_user, token_user):
         my_mail = 'forsitecollector@yandex.ru' # твоя почта с которой будешь отправлять письмо
         msg = MIMEMultipart()
         msg['From'] = my_mail  
         msg['To'] = email_user 
         msg['Subject'] = 'письмо с паролем для входа на сайт' # пишешь тему письма
-        message = f'Внизу код который необходимо ввести на сайте: \n \n \n {token_user}'
+        message = f'Внизу код который необходимо ввести на сайте: \n \n \n{token_user}'
         msg.attach(MIMEText(message))
         try:
             mailserver = smtplib.SMTP('smtp.yandex.ru',587)
@@ -76,94 +71,34 @@ def login_email (request):
             print("Письмо успешно отправлено")
         except smtplib.SMTPException:
             print("что то пошло не так ((")
-    
+
+def login_email (request):
+    key_token = secrets.token_urlsafe()
+    user_email_autorise = ''
+    text = 'Пожалуйста, введите вашу электронную почту:'
+    password = 'ПОЛУЧИТЬ КЛЮЧ'
     if request.method == 'POST':
-        
-        print('функция послать по мылу')  
-        key_token = secrets.token_urlsafe()
         form = LoginForm_Email(request.POST)
         if form.is_valid():
             email_user = form.cleaned_data 
-            otpravka(email_user['email_use'], key_token)
-            
-            # otpravka(email_user, key_token)
-            # token_user = LoginFormToken(request.POST)
-            # if key_token == token_user:
-            #     user = authenticate(
-            #         username=cd['username'],
-            #         password=cd['password'])
-            
-            
+            user_email_autorise = email_user['email_use']
+            n = 0
+            if n < 1:
+                otpravka(user_email_autorise, key_token)
+                n +=1
+            text = 'Пожалуйста, введите ключ с вашей электронной почты:'
+            password = 'ВХОД'
+            form1 = LoginFormToken(request.POST)
+            if form1.is_valid():
+                print('сюда попать труд')
+                token_of_user = form1.cleaned_data
+                token_of_user = token_of_user['token_us']
+                print(token_of_user)
+               
     else:
         form = LoginForm_Email()
+        form1 = None
     return render(
         request,
         'account/login_email.html',
-        {'form': form})
-    
-    
-    # print('23')  
-    # form = None
-    # key_token = secrets.token_urlsafe()
-    # if request.method == 'POST':
-    #     form = LoginForm_Email.email(request.POST)
-    #     if form.email_clean(form):
-    #         return key_token
-    # else:
-    #     form = LoginForm_Email()    
-        
-    # return render(
-    #     request,
-    #     'account/login-email.html',
-    #     {'form': form})
-    
-    
-    
-    
-    
-    
-    
-    
-    
-# class LoginForm_Email(Form):
-#     print('456')
-#     email = EmailField(label='email') 
-#     token_us = forms.CharField(label='ключ', min_length=20, max_length=150)
-    
-#     def email_clean(self):  
-#         email = self.cleaned_data['email'].lower() 
-#         new = User.objects.filter(email=email) 
-#         if new.count():
-#             return email
-#         else: 
-#             raise ValidationError("Электронная почта уже существует, войдите по почте") 
-    
-    
-    
-    
-    
-    # return HttpResponse(key_token)
-
-
-# from django.contrib.auth import forms 
-# from django.shortcuts import redirect, render 
-# from django.contrib import messages 
-# from django.contrib.auth.forms import UserCreationForm 
-# # from .forms import CustomUserCreationForm 
-# Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
-# Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
-    #     user_form = UserRegistrationForm(request.POST)
-    #     if user_form.is_valid():
-    #         new_user = user_form.save(commit=False)
-    #         new_user.set_password(user_form.cleaned_data['password'])
-    #         new_user.save()
-    #         return render(request, 'account/register_done.html', {'new_user': new_user})
-    # else:
-    #     user_form = UserRegistrationForm()
-    # return render(
-    #     request,
-    #     'account/register.html',
-    #     {'form': user_form},
-    #     # {'user_form': user_form},
-    #     )
-    
+        {'form': form, 'form1': form1, 'text': text, 'pasW': password})

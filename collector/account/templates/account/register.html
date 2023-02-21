@@ -17,9 +17,9 @@
     {% endif %}
     <div class="login-form">
         <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
             {{ form.as_p }}
             {% comment %} {{form|crispy}} {% endcomment %}
-            {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}"/>
             <p><input type="submit" value="регистрация"></p>
         </form>
