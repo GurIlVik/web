@@ -33,12 +33,23 @@ def user_login(request):
         request,
         'account/login.html',
         {'form': form})
-    
+
+from django.contrib.auth.models import User
+
+def confirmation(request, email, token):
+    print(email, token)
+    user = User.objects.create_user( 
+            email, 
+            'kuku 1', 
+            'jjjjkkkk' 
+        )
+    HttpResponse('Ok')
+
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST) 
-        if form.is_valid(): 
-            form.save() 
+        #if form.is_valid(): 
+        otpravka (form['username'], 'lll')
     else: 
         form = UserRegistrationForm() 
     context = { 
@@ -57,7 +68,9 @@ def otpravka (email_user, token_user):
         msg['From'] = my_mail  
         msg['To'] = email_user 
         msg['Subject'] = 'письмо с паролем для входа на сайт' # пишешь тему письма
-        message = f'Внизу код который необходимо ввести на сайте: \n \n \n{token_user}'
+        #message = f'Внизу код который необходимо ввести на сайте: \n \n \n{token_user}'
+        message = f'Пройдите по ссылке для завершения регистрации: \n \n http://127.0.0.1:8000/account/confirmation/email={email_user}/token={token_user}'
+        print(message)
         msg.attach(MIMEText(message))
         try:
             mailserver = smtplib.SMTP('smtp.yandex.ru',587)
@@ -95,7 +108,6 @@ def login_email (request):
             form1 = LoginFormToken(request.POST)
             if form1.is_valid():
                 print('сюда попаcть труд')
-                print(help(User))
                 token_of_user = form1.cleaned_data
                 token_of_user = token_of_user['token_us']
                 key_token = KEY_TOKEN
