@@ -72,8 +72,9 @@ def otpravka (email_user, token_user):
         except smtplib.SMTPException:
             print("что то пошло не так ((")
 
+KEY_TOKEN = ''
+
 def login_email (request):
-    key_token = secrets.token_urlsafe()
     user_email_autorise = ''
     text = 'Пожалуйста, введите вашу электронную почту:'
     password = 'ПОЛУЧИТЬ КЛЮЧ'
@@ -81,19 +82,43 @@ def login_email (request):
         form = LoginForm_Email(request.POST)
         if form.is_valid():
             email_user = form.cleaned_data 
-            user_email_autorise = email_user['email_use']
+            user_email_autorise = email_user['email_use'].lower() 
             n = 0
+            print('ljwefbgoiuerjbnvoierjbnoigrbe')
             if n < 1:
+                KEY_TOKEN = secrets.token_urlsafe()
+                key_token = KEY_TOKEN
                 otpravka(user_email_autorise, key_token)
                 n +=1
             text = 'Пожалуйста, введите ключ с вашей электронной почты:'
             password = 'ВХОД'
             form1 = LoginFormToken(request.POST)
             if form1.is_valid():
-                print('сюда попать труд')
+                print('сюда попаcть труд')
+                print(help(User))
                 token_of_user = form1.cleaned_data
                 token_of_user = token_of_user['token_us']
+                key_token = KEY_TOKEN
                 print(token_of_user)
+                print(key_token)
+                if key_token == key_token: # подделка из-за нерешенной второй отправки
+                    print('check')
+                    user = authenticate(
+                       useremail=user_email_autorise)
+                    print(user)
+                    print(type(user))
+                    if user.is_active:
+                        print('check3')
+                        login(request, user)
+                        print('check4')
+                        return HttpResponse('Успешно')
+                    else:
+                        return HttpResponse('Аккаунт заблокирован')
+                else:
+                    text = 'Ключ не соответствует почте:'
+                    
+                    
+                
                
     else:
         form = LoginForm_Email()
