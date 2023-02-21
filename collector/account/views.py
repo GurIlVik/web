@@ -58,13 +58,11 @@ def login_email (request):
     
     def otpravka (email_user, token_user):
         my_mail = 'forsitecollector@yandex.ru' # твоя почта с которой будешь отправлять письмо
-        user_email = email_user # вводишь почту кому будешь отправлять письмо
-
         msg = MIMEMultipart()
         msg['From'] = my_mail  
         msg['To'] = email_user 
         msg['Subject'] = 'письмо с паролем для входа на сайт' # пишешь тему письма
-        message = f'Внизу код который необходимо ввести на сайте: \n {token_user}'
+        message = f'Внизу код который необходимо ввести на сайте: \n \n \n {token_user}'
         msg.attach(MIMEText(message))
         try:
             mailserver = smtplib.SMTP('smtp.yandex.ru',587)
@@ -79,32 +77,23 @@ def login_email (request):
         except smtplib.SMTPException:
             print("что то пошло не так ((")
     
-    
-    print('wergfqfgqerngrfrjkgn')  
     if request.method == 'POST':
+        
+        print('функция послать по мылу')  
         key_token = secrets.token_urlsafe()
-        email_user = LoginForm_Email(request.POST)
-        if email_user != '':
-            otpravka(email_user, key_token)
-            token_user = LoginFormToken(request.POST)
-            if key_token == token_user:
-                user = authenticate(
-                    username=cd['username'],
-                    password=cd['password'])
+        form = LoginForm_Email(request.POST)
+        if form.is_valid():
+            email_user = form.cleaned_data 
+            otpravka(email_user['email_use'], key_token)
+            
+            # otpravka(email_user, key_token)
+            # token_user = LoginFormToken(request.POST)
+            # if key_token == token_user:
+            #     user = authenticate(
+            #         username=cd['username'],
+            #         password=cd['password'])
             
             
-           
-            user = authenticate(
-                       username=cd['username'],
-                       password=cd['password'])
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponse('Успешно')
-                else:
-                    return HttpResponse('Аккаунт заблокирован')
-            else:
-                return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
     else:
         form = LoginForm_Email()
     return render(

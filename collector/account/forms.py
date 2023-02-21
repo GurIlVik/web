@@ -53,7 +53,9 @@ class UserRegistrationForm(UserCreationForm):
 # Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
     
 class LoginForm_Email(Form):
-    email = EmailField(label='email') 
+    email_use = EmailField(label='email') 
+    # email = forms.CharField(label='email')
+
     
 class LoginFormToken(Form):
     token_us = forms.CharField(label='ключ', min_length=20, max_length=150)
