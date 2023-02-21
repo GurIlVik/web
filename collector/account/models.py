@@ -1,6 +1,15 @@
 # coding: utf-8
 from django.db import models
 
+
+class UserTemporaryModels():
+    self.token = ''
+    self.username = ''
+    self.password =''
+    self.time = ''
+    self.username2 = ''
+
+
 # Create your models here.
 
 
