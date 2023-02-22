@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django import forms
 import secrets
 
-
 from django.contrib.auth.forms import UserCreationForm 
 from django.core.exceptions import ValidationError 
 from django.forms.fields import EmailField 
@@ -13,7 +12,6 @@ class LoginForm(Form):
     username = EmailField(label='email')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
    
-# class UserRegistrationForm(forms.ModelForm):
 class UserRegistrationForm(UserCreationForm):  
     username = EmailField(label='email') 
     username2 = forms.CharField(label='Пользователь', min_length=3, max_length=150) 
@@ -63,36 +61,3 @@ class LoginFormToken(Form):
     token_us = forms.CharField(label='ключ', min_length=20, max_length=150)
     
     
-
-      
-    
-    
-    
-    
-    
-    # useremail = forms.EmailField(
-    #     label = "Введите email"
-    # )
-    # password = forms.CharField(
-    #     label='Пароль',
-    #     widget=forms.PasswordInput)
-    # password2 = forms.CharField(
-    #     label='Повтор Пароля',
-    #     widget=forms.PasswordInput)
-
-    # class Meta:
-    #     model = User
-    #     fields = (
-    #         'username',)
-            # 'first_name',
-            # 'email',)
-
-    # def clean_password2(self):
-    #     cd = self.cleaned_data
-    #     if cd['password'] != cd['password2']:
-    #         raise forms.ValidationError(
-    #             'Passwords don\'t match.')
-    #     return cd['password2'] 
-
-
-

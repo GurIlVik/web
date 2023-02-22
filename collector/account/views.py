@@ -9,6 +9,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from .sekret import password
+from .models import UserTemporaryModels
 
 def user_login(request):
     print('wergfqfgqerngrfrjkgn')  
@@ -47,14 +48,19 @@ def confirmation(request, email, token):
 
 def register(request):
     if request.method == 'POST':
-        form = UserRegistrationForm(request.POST) 
+        form = UserTemporaryModels(request.POST)
+        # form = UserRegistrationForm(request.POST) 
         #if form.is_valid(): 
-        otpravka (form['username'], 'lll')
+        otpravka (form['username'], form['key_token'])
     else: 
-        form = UserRegistrationForm() 
+        print('2')
+        form = UserTemporaryModels()
+        print('4')
+        # form = UserRegistrationForm() 
     context = { 
         'form':form 
     } 
+    print('3')
     return render(request, 'account/register.html', context) 
 
 @login_required

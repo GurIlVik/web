@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'crispy_forms', # криспи
+    # 'crispy_forms', # криспи
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,11 +133,9 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# EMAIL_USE_TLS = True   -  эта хрень не работает
-# EMAIL_HOST = 'smtp.yandex.ru'
-# EMAIL_HOST_USER = 'dfg456htr@yandex.ru'
-# EMAIL_HOST_PASSWOD = 'Q1fgh][p'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+
+
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
