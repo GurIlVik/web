@@ -37,8 +37,8 @@ def user_login(request):
 
 from django.contrib.auth.models import User
 
-def confirmation(request, email, token):
-    print(email, token)
+def confirmation(request, email):
+    print(email)
     user = User.objects.create_user( 
             email, 
             'kuku 1', 
@@ -48,19 +48,33 @@ def confirmation(request, email, token):
 
 def register(request):
     if request.method == 'POST':
-        form = UserTemporaryModels(request.POST)
-        # form = UserRegistrationForm(request.POST) 
-        #if form.is_valid(): 
-        otpravka (form['username'], form['key_token'])
+        # form = UserTemporaryModels(request.POST)
+        form = UserRegistrationForm(request.POST) 
+        if form.is_valid(): 
+            form = form.cleaned_data
+            use_token = secrets.token_urlsafe()
+            print(form['username'])
+            user_tempory = f"Pe-{form['username2']}"
+            print(user_tempory)
+            user_tempory = UserTemporaryModels(username= form['username'], 
+                                               username2 = form['username2'], 
+                                               password = form['password1'], 
+                                               password2 = form['password2'],
+                                            #    key_token = use_token,  #-  у меня не получается вписать токен - выбивает говорит, что такого столбца нет. 
+                                               )
+            print(21)
+            user_tempory.save() 
+            print(22)
+            otpravka (form['username'], use_token)
+            print(23)
+            context = { 'form2':'Перейдите из вашей почте по ссылке.' } 
+            # return render(request, 'account/register.html', {'form' : 'Перейдите из вашей почте по ссылке.'})
+            return render(request, 'account/register.html', context) 
     else: 
-        print('2')
-        form = UserTemporaryModels()
-        print('4')
-        # form = UserRegistrationForm() 
+        form = UserRegistrationForm() 
     context = { 
         'form':form 
     } 
-    print('3')
     return render(request, 'account/register.html', context) 
 
 @login_required
@@ -75,7 +89,10 @@ def otpravka (email_user, token_user):
         msg['To'] = email_user 
         msg['Subject'] = 'письмо с паролем для входа на сайт' # пишешь тему письма
         #message = f'Внизу код который необходимо ввести на сайте: \n \n \n{token_user}'
-        message = f'Пройдите по ссылке для завершения регистрации: \n \n http://127.0.0.1:8000/account/confirmation/email={email_user}/token={token_user}'
+        # message = f'Пройдите по ссылке для завершения регистрации: \n \n http://127.0.0.1:8000/account/confirmation/email={email_user}/token={token_user}'
+        message = f"""Пройдите по ссылке для завершения регистрации: \n \n 
+                        http://127.0.0.1:8000/account/confirmation/email={email_user} \n \n
+                        и введите ключ: \n \n {token_user}"""
         print(message)
         msg.attach(MIMEText(message))
         try:

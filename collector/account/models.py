@@ -3,21 +3,19 @@
 # from django.forms.forms import Form 
 from django.db import models
 # from django import forms
-import secrets
+
 
 class UserTemporaryModels(models.Model):   
     username = models.EmailField() 
     username2 = models.CharField(max_length = 100, blank=False) 
     password = models.CharField(max_length = 100, blank=False)
     password2 = models.CharField(max_length = 100, blank=False)
-    # time_sesion = models.DateTimeField(auto_now_add = True,)
-    # key_token = secrets.token_urlsafe()
-    # time_token = None
+    # key_token = models.CharField(max_length = 100, blank=False)
     
     def __str__(self):
         return f'{self.username2}      {self.username}'
     
-
+# https://www.youtube.com/watch?v=KH3eobiFhGA
 # все = class.object.all() - получить данные из модели список всех частей из модели
 # class.object.filter(username='строке') - получение конкретного значение из модели
 # class.object.filter(username='строке', username2='строка') - получение конкретного значение по двум и более значениям 

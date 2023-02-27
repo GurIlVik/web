@@ -11,10 +11,15 @@ from django.forms.forms import Form
 class LoginForm(Form):
     username = EmailField(label='email')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
+    
+    
+class UserRegisterForm(Form):
+    pass
+    
    
 class UserRegistrationForm(UserCreationForm):  
     username = EmailField(label='email') 
-    username2 = forms.CharField(label='Пользователь', min_length=3, max_length=150) 
+    username2 = forms.CharField(label='Придумайте псевдоним:', min_length=3, max_length=150) 
     # email = EmailField(label='email') 
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
     password2 = forms.CharField(label='Повторить пароль', widget=forms.PasswordInput) 
