@@ -15,6 +15,13 @@ class UserTemporaryModels(models.Model):
     def __str__(self):
         return f'{self.username2}      {self.username}'
     
+
+class UserTemporaryToken(models.Model):
+    username = models.EmailField()
+    key_token = models.CharField(max_length = 150, blank=False)
+        
+    
+    
 # https://www.youtube.com/watch?v=KH3eobiFhGA
 # все = class.object.all() - получить данные из модели список всех частей из модели
 # class.object.filter(username='строке') - получение конкретного значение из модели

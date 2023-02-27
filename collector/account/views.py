@@ -9,7 +9,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from .sekret import password
-from .models import UserTemporaryModels
+from .models import UserTemporaryModels, UserTemporaryToken
 
 def user_login(request):
     print('wergfqfgqerngrfrjkgn')  
@@ -53,6 +53,8 @@ def register(request):
         if form.is_valid(): 
             form = form.cleaned_data
             use_token = secrets.token_urlsafe()
+            print(type(use_token))
+            print(use_token)
             print(form['username'])
             user_tempory = f"Pe-{form['username2']}"
             print(user_tempory)
@@ -60,11 +62,14 @@ def register(request):
                                                username2 = form['username2'], 
                                                password = form['password1'], 
                                                password2 = form['password2'],
-                                            #    key_token = use_token,  #-  у меня не получается вписать токен - выбивает говорит, что такого столбца нет. 
+                                               #key_token = use_token,  #-  у меня не получается вписать токен - выбивает говорит, что такого столбца нет. 
                                                )
+            user_tempory_key = UserTemporaryToken(username= form['username'], key_token = use_token)
             print(21)
             user_tempory.save() 
-            print(22)
+            user_tempory_key.save()
+            print(user_tempory)
+            print(user_tempory_key)
             otpravka (form['username'], use_token)
             print(23)
             context = { 'form2':'Перейдите из вашей почте по ссылке.' } 
@@ -107,8 +112,6 @@ def otpravka (email_user, token_user):
             print("Письмо успешно отправлено")
         except smtplib.SMTPException:
             print("что то пошло не так ((")
-
-KEY_TOKEN = ''
 
 def login_email (request):
     user_email_autorise = ''
