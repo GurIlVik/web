@@ -37,18 +37,23 @@ def user_login(request):
 
 from django.contrib.auth.models import User
 
-def confirmation(request, email):
-    print(email)
+def confirmation(request, email, user2):
+    a = email[6::]
+    q = user2
+    s = user2[6::]
+    print(a)
+    print(s)
+    print(type(a))
+    print(type(s))
     user = User.objects.create_user( 
-            email, 
-            'kuku 1', 
-            'jjjjkkkk' 
+            a, 
+            s, 
         )
-    HttpResponse('Ok')
+    context = {'form1':user2}
+    return render(request, 'account/confirmation.html', context)
 
 def register(request):
     if request.method == 'POST':
-        # form = UserTemporaryModels(request.POST)
         form = UserRegistrationForm(request.POST) 
         if form.is_valid(): 
             form = form.cleaned_data
@@ -70,7 +75,7 @@ def register(request):
             user_tempory_key.save()
             print(user_tempory)
             print(user_tempory_key)
-            otpravka (form['username'], use_token)
+            otpravka (form['username'], use_token, form['username2'])
             print(23)
             context = { 'form2':'Перейдите из вашей почте по ссылке.' } 
             # return render(request, 'account/register.html', {'form' : 'Перейдите из вашей почте по ссылке.'})
@@ -87,7 +92,7 @@ def personal_page (request, user_id=1):
     print('lwerjngewgwertgtrwegtgn')  
     return HttpResponse('<h1>%s</h1>' % user_id)
 
-def otpravka (email_user, token_user):
+def otpravka (email_user, token_user, username2,):
         my_mail = 'forsitecollector@yandex.ru' # твоя почта с которой будешь отправлять письмо
         msg = MIMEMultipart()
         msg['From'] = my_mail  
@@ -96,8 +101,9 @@ def otpravka (email_user, token_user):
         #message = f'Внизу код который необходимо ввести на сайте: \n \n \n{token_user}'
         # message = f'Пройдите по ссылке для завершения регистрации: \n \n http://127.0.0.1:8000/account/confirmation/email={email_user}/token={token_user}'
         message = f"""Пройдите по ссылке для завершения регистрации: \n \n 
-                        http://127.0.0.1:8000/account/confirmation/email={email_user} \n \n
+                        http://127.0.0.1:8000/account/confirmation/email={email_user}/user2={username2} \n \n
                         и введите ключ: \n \n {token_user}"""
+                        # http://127.0.0.1:8000/account/confirmation/email={email_user} \n \n
         print(message)
         msg.attach(MIMEText(message))
         try:

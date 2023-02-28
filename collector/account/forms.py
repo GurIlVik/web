@@ -19,8 +19,7 @@ class UserRegisterForm(Form):
    
 class UserRegistrationForm(UserCreationForm):  
     username = EmailField(label='email') 
-    username2 = forms.CharField(label='Придумайте псевдоним:', min_length=3, max_length=150) 
-    # email = EmailField(label='email') 
+    username2 = forms.CharField(label='Придумайте псевдоним:', min_length=2, max_length=150) 
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
     password2 = forms.CharField(label='Повторить пароль', widget=forms.PasswordInput) 
     
@@ -28,14 +27,14 @@ class UserRegistrationForm(UserCreationForm):
         username = self.cleaned_data['username'].lower() 
         new = User.objects.filter(username = username) 
         if new.count(): 
-            raise ValidationError("Пользователь уже существует") 
+            raise ValidationError("Электронная почта уже существует, войдите по почте") 
         return username 
  
     def username2_clean(self):  
         username2 = self.cleaned_data['username2'].lower() 
         new = User.objects.filter(username2=username2) 
         if new.count(): 
-            raise ValidationError("Электронная почта уже существует, войдите по почте") 
+            raise ValidationError("Такой псевдоним уже есть, выберете другой") 
         return username2 
  
     def clean_password2(self): 
