@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UserRegistrationForm, LoginForm_Email, LoginFormToken
 from django.contrib.auth.decorators import login_required
@@ -103,7 +103,7 @@ def register(request):
                             )
                             j.delete()
                     i.delete()
-                    return render(request, 'account/register.html', {'text1':'успех'})
+                    return redirect('/')
                 else:
                     print(i.username)
                     print(i.key_token)
