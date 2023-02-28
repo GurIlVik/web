@@ -11,31 +11,28 @@ from django.forms.forms import Form
 class LoginForm(Form):
     username = EmailField(label='email')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
-    
-    
-class UserRegisterForm(Form):
-    pass
+
     
    
 class UserRegistrationForm(UserCreationForm):  
-    username = EmailField(label='email') 
-    username2 = forms.CharField(label='Придумайте псевдоним:', min_length=2, max_length=150) 
+    username = forms.CharField(label='Придумайте псевдоним:', min_length=2, max_length=150) 
+    email = EmailField(label='Введите адрес электроной почты') 
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
     password2 = forms.CharField(label='Повторить пароль', widget=forms.PasswordInput) 
     
     def username_clean(self):  
-        username = self.cleaned_data['username'].lower() 
+        username = self.cleaned_data['username']
         new = User.objects.filter(username = username) 
         if new.count(): 
-            raise ValidationError("Электронная почта уже существует, войдите по почте") 
+            raise ValidationError("Такой псевдоним уже есть, выберете другой") 
         return username 
  
-    def username2_clean(self):  
-        username2 = self.cleaned_data['username2'].lower() 
-        new = User.objects.filter(username2=username2) 
+    def email_clean(self):  
+        email = self.cleaned_data['email'].lower() 
+        new = User.objects.filter(email=email) 
         if new.count(): 
-            raise ValidationError("Такой псевдоним уже есть, выберете другой") 
-        return username2 
+            raise ValidationError("Пользователь с этой электронной почтой уже существует, войдите по почте") 
+        return email
  
     def clean_password2(self): 
         password1 = self.cleaned_data['password1'] 
@@ -48,11 +45,19 @@ class UserRegistrationForm(UserCreationForm):
     def save(self, commit = True): 
         user = User.objects.create_user( 
             self.cleaned_data['username'], 
-            self.cleaned_data['username2'], 
+            self.cleaned_data['email'], 
             self.cleaned_data['password1'] 
         ) 
         print('lwerjngrfrjkgn5') 
         return user 
+    
+    # class Meta:
+    #     model = User
+        # fields = '__all__'
+    #     fields = ('email', 'first_name')
+
+        
+    
 # Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
     
 class LoginForm_Email(Form):

@@ -38,36 +38,42 @@ def user_login(request):
 from django.contrib.auth.models import User
 
 def confirmation(request, email, user2):
-    a = email[6::]
-    q = user2
-    s = user2[6::]
-    print(a)
-    print(s)
-    print(type(a))
-    print(type(s))
-    user = User.objects.create_user( 
-            a, 
-            s, 
-        )
-    context = {'form1':user2}
-    return render(request, 'account/confirmation.html', context)
+    print(1)
+    d = UserTemporaryModels.objects.all()
+    print(d)
+    k = type(UserTemporaryModels)
+    print(k)
+    for i in d:
+        print(2)
+        if i.email == email[6::]:
+            print(3)
+            d = i.password
+            
+            user = User.objects.create_user( 
+                    user2[6::], 
+                    email[6::], 
+                    d
+                )
+            context = {'form1':user2}
+            return render(request, 'account/confirmation.html', context)
 
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST) 
+        form2 = LoginFormToken(request.POST) 
         if form.is_valid(): 
             form = form.cleaned_data
             use_token = secrets.token_urlsafe()
             print(type(use_token))
             print(use_token)
             print(form['username'])
-            user_tempory = f"Pe-{form['username2']}"
-            print(user_tempory)
-            user_tempory = UserTemporaryModels(username= form['username'], 
-                                               username2 = form['username2'], 
+            # user_tempory = f"Pe-{form['username2']}"
+            # print(user_tempory)
+            user_tempory = UserTemporaryModels(email = form['email'], 
+                                               username= form['username'], 
                                                password = form['password1'], 
                                                password2 = form['password2'],
-                                               #key_token = use_token,  #-  у меня не получается вписать токен - выбивает говорит, что такого столбца нет. 
+                                               
                                                )
             user_tempory_key = UserTemporaryToken(username= form['username'], key_token = use_token)
             print(21)
@@ -75,15 +81,43 @@ def register(request):
             user_tempory_key.save()
             print(user_tempory)
             print(user_tempory_key)
-            otpravka (form['username'], use_token, form['username2'])
+            otpravka (form['email'], use_token, form['username'])
             print(23)
-            context = { 'form2':'Перейдите из вашей почте по ссылке.' } 
-            # return render(request, 'account/register.html', {'form' : 'Перейдите из вашей почте по ссылке.'})
-            return render(request, 'account/register.html', context) 
+            form2 = LoginFormToken()
+            context2 = { 'form':form2,
+                        'text1':'введите электронный ключ из письма с вашей почты'}
+            return render(request, 'account/register.html', context2)
+        elif form2.is_valid(): 
+            print(32)
+            form2 = form2.cleaned_data
+            print(33)
+            print(form2['token_us'])
+            for i in UserTemporaryToken.objects.all():
+                if i.key_token == form2['token_us']:
+                    for j in UserTemporaryModels.objects.all():
+                        if i.username == j.username:
+                            user = User.objects.create_user( 
+                                j.username, 
+                                j.email, 
+                                j.password
+                            )
+                            j.delete()
+                    i.delete()
+                    return render(request, 'account/register.html', {'text1':'успех'})
+                else:
+                    print(i.username)
+                    print(i.key_token)
+            else:           
+                context = { 
+                            'form':form,
+                            'text1':'ключ введен не верно попробуйте пройти регистрацию заново'
+                        } 
+                return render(request, 'account/register.html', context) 
     else: 
         form = UserRegistrationForm() 
     context = { 
-        'form':form 
+        'form':form,
+        'text1':'Заполните форму регистрации'
     } 
     return render(request, 'account/register.html', context) 
 
@@ -97,15 +131,17 @@ def otpravka (email_user, token_user, username2,):
         msg = MIMEMultipart()
         msg['From'] = my_mail  
         msg['To'] = email_user 
-        msg['Subject'] = 'письмо с паролем для входа на сайт' # пишешь тему письма
+        msg['Subject'] = 'скопируйте ключ и вставьте в форму на сайте' # пишешь тему письма
         #message = f'Внизу код который необходимо ввести на сайте: \n \n \n{token_user}'
         # message = f'Пройдите по ссылке для завершения регистрации: \n \n http://127.0.0.1:8000/account/confirmation/email={email_user}/token={token_user}'
-        message = f"""Пройдите по ссылке для завершения регистрации: \n \n 
-                        http://127.0.0.1:8000/account/confirmation/email={email_user}/user2={username2} \n \n
-                        и введите ключ: \n \n {token_user}"""
+        # message = f"""Пройдите по ссылке для завершения регистрации: \n \n 
+        #                 http://127.0.0.1:8000/account/confirmation/email={email_user}/user2={username2} \n \n
+        #                 и введите ключ: \n \n {token_user}"""
                         # http://127.0.0.1:8000/account/confirmation/email={email_user} \n \n
-        print(message)
-        msg.attach(MIMEText(message))
+        # message = token_user
+        # print(message)
+        # msg.attach(MIMEText(message))
+        msg.attach(MIMEText(token_user))
         try:
             mailserver = smtplib.SMTP('smtp.yandex.ru',587)
             mailserver.set_debuglevel(True)

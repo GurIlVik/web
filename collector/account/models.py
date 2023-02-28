@@ -6,20 +6,22 @@ from django.db import models
 
 
 class UserTemporaryModels(models.Model):   
-    username = models.EmailField() 
-    username2 = models.CharField(max_length = 100, blank=False) 
+    email = models.EmailField(blank=True) 
+    username = models.CharField(max_length = 100, blank=False) 
     password = models.CharField(max_length = 100, blank=False)
     password2 = models.CharField(max_length = 100, blank=False)
     # key_token = models.CharField(max_length = 100, blank=False)
     
-    def __str__(self):
-        return f'{self.username2}      {self.username}'
+    # def __str__(self):
+    #     return f'{self.username2}      {self.username}'
     
 
 class UserTemporaryToken(models.Model):
     username = models.EmailField()
     key_token = models.CharField(max_length = 150, blank=False)
-        
+    
+    def __str__(self):
+        return self.key_token   
     
     
 # https://www.youtube.com/watch?v=KH3eobiFhGA

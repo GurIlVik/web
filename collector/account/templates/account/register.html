@@ -13,7 +13,7 @@
             Попробуйте снова.
         </p>
     {% else %}
-        <p>Заполите форму регистрации</p>
+        <p>{{text1}}</p>
     {% endif %}
     <div class="login-form">
         <form action="{% url 'register' %}" method="post">
