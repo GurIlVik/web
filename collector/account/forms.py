@@ -4,19 +4,18 @@ import secrets
 
 from django.contrib.auth.forms import UserCreationForm 
 from django.core.exceptions import ValidationError 
-from django.forms.fields import EmailField 
 from django.forms.forms import Form 
 # Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
 
 class LoginForm(Form):
-    username = EmailField(label='email')
+    username = forms.EmailField(label='email')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
 
     
    
 class UserRegistrationForm(UserCreationForm):  
     username = forms.CharField(label='Придумайте псевдоним:', min_length=2, max_length=150) 
-    email = EmailField(label='Введите адрес электроной почты') 
+    email = forms.EmailField(label='Введите адрес электроной почты') 
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
     password2 = forms.CharField(label='Повторить пароль', widget=forms.PasswordInput) 
     
@@ -27,7 +26,7 @@ class UserRegistrationForm(UserCreationForm):
             raise ValidationError("Такой псевдоним уже есть, выберете другой") 
         return username 
  
-    def email_clean(self):  
+    def clean_email(self):  
         email = self.cleaned_data['email'].lower() 
         new = User.objects.filter(email=email) 
         if new.count(): 
@@ -61,7 +60,7 @@ class UserRegistrationForm(UserCreationForm):
 # Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
     
 class LoginForm_Email(Form):
-    email_use = EmailField(label='email') 
+    email_use = forms.EmailField(label='email') 
     # token_us = forms.CharField(label='ключ', min_length=20, max_length=150)
     # email = forms.CharField(label='email')
 
