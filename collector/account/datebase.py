@@ -13,9 +13,9 @@ def open_file_bd(email, token, name):
     request = (f'''INSERT INTO otpravka_register (email, token, name)
             VALUES ("{email}", "{token}", "{name}")''')
     cursor.execute(request)
+    conn.commit()
     
-    otpravka = cursor.execute('SELECT * FROM otpravka_register')
-    for i in otpravka:
+    for i in cursor.execute('SELECT * FROM otpravka_register'):
         print(i)
     
     
