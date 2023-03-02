@@ -5,6 +5,7 @@ from django.db import models
 # from django import forms
 
 
+
 class UserTemporaryModels(models.Model):   
     email = models.EmailField(blank=True) 
     username = models.CharField(max_length = 100, blank=False) 

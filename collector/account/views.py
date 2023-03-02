@@ -10,6 +10,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from .sekret import password
 from .models import UserTemporaryModels, UserTemporaryToken
+from .datebase import open_file_bd
 
 def user_login(request):
     print('wergfqfgqerngrfrjkgn')  
@@ -64,11 +65,6 @@ def register(request):
         if form.is_valid(): 
             form = form.cleaned_data
             use_token = secrets.token_urlsafe()
-            print(type(use_token))
-            print(use_token)
-            print(form['username'])
-            # user_tempory = f"Pe-{form['username2']}"
-            # print(user_tempory)
             user_tempory = UserTemporaryModels(email = form['email'], 
                                                username= form['username'], 
                                                password = form['password1'], 
@@ -76,22 +72,16 @@ def register(request):
                                                
                                                )
             user_tempory_key = UserTemporaryToken(username= form['username'], key_token = use_token)
-            print(21)
             user_tempory.save() 
             user_tempory_key.save()
-            print(user_tempory)
-            print(user_tempory_key)
             otpravka (form['email'], use_token, form['username'])
-            print(23)
+            open_file_bd(form['email'], use_token, form['username'])
             form2 = LoginFormToken()
             context2 = { 'form':form2,
                         'text1':'введите электронный ключ из письма с вашей почты'}
             return render(request, 'account/register.html', context2)
         elif form2.is_valid(): 
-            print(32)
             form2 = form2.cleaned_data
-            print(33)
-            print(form2['token_us'])
             for i in UserTemporaryToken.objects.all():
                 if i.key_token == form2['token_us']:
                     for j in UserTemporaryModels.objects.all():
