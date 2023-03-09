@@ -6,3 +6,6 @@ class Amalker(models.Model):
     time = models.DateTimeField(auto_now_add=True, db_index=True)
     info = models.CharField(max_length=250)
     
+class Category(models.Model):
+    name = models.TextField(null=False, blank=False, unique=True)
+    

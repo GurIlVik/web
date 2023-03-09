@@ -1,5 +1,6 @@
 {% load static %}
 {% csrf_token %}
+{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
-    <link rel="stylesheet" href="{% static "/main/base.css" %}" type='text/css'>
-    <script src="{% static 'main/script.js'%}"></script>   
+    <link rel="stylesheet" href="{% static '/main/base.css' %}" type='text/css'>
+    <script src="{% static '/main/script.js' %}"></script>
+    {%comment%} {% static "/account/base.css" %} {%endcomment%}
 </head>
 <body>
     
@@ -24,7 +26,15 @@
 
     <div id="global">
 
-    <div id="advertisement">    
+    <div id="advertisement"> 
+          
+            <input id="poisk" type="text" oninput="find_cat(this)">
+            
+            <ul id="list_global">
+            {% for i in a %}
+            <li style="display: inline">{{ i.name }}</li>
+            {% endfor %}
+            </ul>   
     </div>    
 
     <div id="basic">
@@ -47,5 +57,5 @@
     </footer>  
 
 
-</body>
+</body> {% endblock %}
 </html>
