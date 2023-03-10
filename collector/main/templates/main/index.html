@@ -16,6 +16,8 @@
     
     <header>
         <div><p><input class='fd2' type="submit" value="О сайте"></p></div>
+        
+        
         <div><p><input class='fd2' type="submit" value="Предмет коллекции"></p></div>
         <div><p><input class='fd2' type="submit" value="Статьи"></p></div>
         <div><p><input class='fd2' type="submit" value="Приобретение"></p></div>
@@ -27,9 +29,7 @@
     <div id="global">
 
     <div id="advertisement"> 
-          
             <input id="poisk" type="text" oninput="find_cat(this)">
-            
             <ul id="list_global">
             {% for i in a %}
             <li style="display: inline">{{ i.name }}</li>

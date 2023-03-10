@@ -4,8 +4,7 @@ from .models import Category
 
 # Create your views here.
 def main_page(request):
-    a = Category.objects.all()
-    # a = Category.objects.extra(select={'field': 'SELECT name FROM core_page ORDER BY name ASC limit 1'})
+    a = Category.objects.all().order_by('name')  # сортировка списка по имени в базе
     context = {
         'a': a
     }
@@ -13,3 +12,4 @@ def main_page(request):
         request,
         'main/index.html', context
         )
+   

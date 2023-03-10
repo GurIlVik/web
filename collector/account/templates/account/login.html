@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Вход по имени{% endblock %}
 {% block content %}
-{% load crispy_forms_tags %} 
+
 
 
 
 <div id="content1">
 <div id="login1">
-    <div><h3>Вход по имени</h3></div>
-        <div><p>Пожалуйста, введите логин и пароль:</p></div>
+    <div><h3>Вход с паролем</h3></div>
+        <div><p>Пожалуйста, введите логин или email во втором поле пароль:</p></div>
             <div><form id='login2' action="." method="post"></div>
         {{ form.as_p }}
 

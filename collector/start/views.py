@@ -9,8 +9,4 @@ def privet(request):
         )
 
 
-
-# def login(request):
-#     return render(request, 'account/login.html')
-
-    
+ 
