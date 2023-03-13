@@ -10,7 +10,7 @@ function find_cat(my_obj) {
         } else { item.style.display = 'None';
          }
     }}
-
+    
 
 function menuPoint2() {
     let blok2 = document.getElementById('alternative_global_2').style.zIndex = '10';
@@ -33,7 +33,14 @@ function control_word (list_object, object) {
 
 }
 
-function menuPoint3(object) {
+function menuPoint20(object) {
+    // let catalog = document.getElementById('list_global')
+    // let list_global = []
+    // for (elem of catalog.children) {
+    //     list_global.push(elem.innerHTML);
+
+    // }
+
     console.log(object.id);
     let list_object = [];
     let value_list = document.getElementsByClassName("Child_main_menu2")
@@ -47,6 +54,14 @@ function menuPoint3(object) {
         div_object.innerHTML += `<p><span>&ensp;&ensp;</span><span class="Child_main_menu2">${object.id}</span><span>,</span></p> `
         list_object.push(object.id)
         console.log(list_object);
+        find_cat('')
+
     } 
 }
 
+function menuPoint23() {
+    let catalog = document.getElementById('list_global')
+    for (let item of catalog.children) {
+        item.style.display = 'inline'
+        }
+}
