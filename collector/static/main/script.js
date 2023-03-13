@@ -14,5 +14,39 @@ function find_cat(my_obj) {
 
 function menuPoint2() {
     let blok2 = document.getElementById('alternative_global_2').style.zIndex = '10';
+}
+
+function control_word (list_object, object) {
+    let lis_ob_li = list_object.length;
+    key = false;
+    for (let i = 0; i <= lis_ob_li; i +=1) {
+        console.log(list_object[i]);
+        console.log(typeof(list_object[i]));
+        console.log(object);
+        console.log(typeof(object));
+        if (list_object[i] == object) {
+            key = true;
+            return key
+        } 
+    }
+    return key
 
 }
+
+function menuPoint3(object) {
+    console.log(object.id);
+    let list_object = [];
+    let value_list = document.getElementsByClassName("Child_main_menu2")
+    for (let item of value_list) {
+        list_object.push(item.textContent)
+        }
+    console.log(list_object);
+    key = control_word (list_object, object.id)
+    if (key == false) {
+        let div_object = document.getElementById('plusPredmet');
+        div_object.innerHTML += `<p><span>&ensp;&ensp;</span><span class="Child_main_menu2">${object.id}</span><span>,</span></p> `
+        list_object.push(object.id)
+        console.log(list_object);
+    } 
+}
+
