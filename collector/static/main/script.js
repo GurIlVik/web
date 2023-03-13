@@ -61,7 +61,10 @@ function menuPoint20(object) {
 
 function menuPoint23() {
     let catalog = document.getElementById('list_global')
+    catalog.style.display = 'flex'
+    catalog.style.flexDirection = 'row';
+    catalog.style.alignContent = 'space-around';
     for (let item of catalog.children) {
-        item.style.display = 'inline'
+        item.style.display = 'flex'
         }
 }
