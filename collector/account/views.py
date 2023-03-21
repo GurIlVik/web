@@ -26,13 +26,13 @@ def user_login(request):
                 # print('уже кое что')
                 if pole1 == us_name.username or pole1 == us_name.email:
                     # print('уже кое что2')
-                    user = authenticate(
+                    user = authenticate(request,
                     username=us_name.username,
                     # email=us_name.email,
                     password=password2)
                     # print(user)
                     # print('уже кое что3')
-                    if user is None:
+                    if user is not None:
                         # print('не активен')
                         # if user.is_active:
                         login(request, user)
@@ -183,8 +183,14 @@ def login_email (request):
                             'pasW' : 'Вход'}
             return render(request, 'account/login_email.html', context2)
         elif form1.is_valid():
+            print('4')
             form1 = form1.cleaned_data
             for i in UserTemporaryToken.objects.all():
+                print('5')
+                # print(i)
+                # print(form1['token_us'])
+                # print(i.key_token)
+                # print(i.username)
                 if i.key_token == form1['token_us']:  
                     user_email = i.username
                     print(user_email)
@@ -192,14 +198,17 @@ def login_email (request):
                         print('refver')
                         print(user_email)
                         print(us_name.email)
+                        print(us_name.password)
                         if user_email == us_name.email:
-                            user = authenticate(
+                            print(us_name.username)
+                            print(us_name.password)
+                            user = authenticate(request,
                             username=us_name.username,
                             # email=us_name.email,
                             password=us_name.password)
                             print(user)
                             print('уже кое что3')
-                            if user is None:
+                            if user is not None:
                                 print('не активен')
                                 # if user.is_active:
                                 login(request, user)
@@ -211,9 +220,7 @@ def login_email (request):
                     i.delete()
                     return redirect('/')
                 else:
-                    print(i.username)
-                    print('eojnejrnv')
-                    print(i.key_token)
+                    print('нет соответствия в цикле')
             else:           
                 context = { 
                             'form':form,
