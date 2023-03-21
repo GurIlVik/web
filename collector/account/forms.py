@@ -10,9 +10,7 @@ from django.forms.forms import Form
 class LoginForm(Form):
     username = forms.CharField(label='введите email или псевдоним')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
-
-    
-   
+ 
 class UserRegistrationForm(UserCreationForm):  
     username = forms.CharField(label='Придумайте псевдоним:', min_length=2, max_length=150) 
     email = forms.EmailField(label='Введите адрес электроной почты') 
@@ -49,15 +47,6 @@ class UserRegistrationForm(UserCreationForm):
         ) 
         print('lwerjngrfrjkgn5') 
         return user 
-    
-    # class Meta:
-    #     model = User
-        # fields = '__all__'
-    #     fields = ('email', 'first_name')
-
-        
-    
-# Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
     
 class LoginForm_Email(Form):
     email_use = forms.EmailField(label='email') 
