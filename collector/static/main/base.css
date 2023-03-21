@@ -32,6 +32,43 @@ header {
     color: white;
 }
 
+#alternative_global_2 {
+    height: 40%;
+    width: 100%;
+    top: 40px;
+    position: absolute;
+    display: flex;
+    background-color: rgb(227, 239, 223);
+    flex-direction: column;
+    justify-content: center;
+    font-size: 2vw;
+    z-index: -10
+}
+
+.stringDIV {
+    margin: 0px;
+    padding: 10px;
+    border: 0px;
+    height: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.poleDIV {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    height: 55%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+
+}
+
 #global {
     height: 100%;
     width: 100%;
@@ -44,6 +81,7 @@ header {
     justify-content: space-around;
     font-size: 2vw;
 }
+
 
 #advertisement {
     height: 100%;
@@ -64,7 +102,6 @@ header {
     flex-direction: column;
     justify-content: flex-start;
 }
-
 
 footer {
     color: white;

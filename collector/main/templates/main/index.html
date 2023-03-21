@@ -15,26 +15,54 @@
 <body>
     
     <header>
+
         <div><p><input class='fd2' type="submit" value="О сайте"></p></div>
+        <div>
+            <button class='fd2' onclick="menuPoint2()" >Предмет коллекции</button>
+        </div>
         
-        
-        <div><p><input class='fd2' type="submit" value="Предмет коллекции"></p></div>
         <div><p><input class='fd2' type="submit" value="Статьи"></p></div>
         <div><p><input class='fd2' type="submit" value="Приобретение"></p></div>
-
         <div ><a href="/"><button class='fd2'>НАЗАД</button></a></div>  {% comment %} требуется дописать кнопку - регистрация или выход {% endcomment %}
+
     </header>
     
+    <div id="alternative_global_2">
+        <div class='stringDIV'>
+            <p style="display: inline">Введите в поле название предмета коллекционирования: </p>
+            <input style="display: inline" id="poisk" type="text" oninput="find_cat(this)" >
+        </div>
+
+        <div class='poleDIV'>
+            <ul id="list_global">
+                {% for i in a %}
+                    <li style="display: inline"><button id={{i.name}} class='fd2' onclick="menuPoint20(this)" >{{ i.name }}</button></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class='stringDIV' id='plusPredmet'>
+            <p>Предмет коллекционирования:</p>
+
+            <form method="post" action="">
+                {% csrf_token %}
+                {% comment %} <p> <input id="q1" name="pole" /></p> {% endcomment %}
+            </div>  
+        <div class='stringDIV'>
+                    <button class='fd2' onclick="menuPoint23()" >Добавить еще предмет</button>
+                    <input class='fd2' type="submit" value="К ПОИСКУ"></form>
+                </div>    
+         
+    </div>
+
 
     <div id="global">
 
     <div id="advertisement"> 
-            <input id="poisk" type="text" oninput="find_cat(this)">
-            <ul id="list_global">
-            {% for i in a %}
-            <li style="display: inline">{{ i.name }}</li>
-            {% endfor %}
-            </ul>   
+          
+            {% comment %} <input id="poisk" type="text" oninput="find_cat(this)" value="Предмет коллекции"> {% endcomment %}
+            
+            
     </div>    
 
     <div id="basic">

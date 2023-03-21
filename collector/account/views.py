@@ -13,28 +13,40 @@ from .models import UserTemporaryModels, UserTemporaryToken
 from .datebase import open_file_bd
 
 def user_login(request):
-    print('wergfqfgqerngrfrjkgn')  
+    # print('wergfqfgqerngrfrjkgn')  
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(
-                       username=cd['username'],
-                       password=cd['password'])
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponse('Успешно')
-                else:
-                    return HttpResponse('Аккаунт заблокирован')
-            else:
-                return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
+            pole1 = cd['username']
+            password2 = cd['password']
+            # print(pole1)
+            # print(password2)
+            for us_name in User.objects.all():
+                # print('уже кое что')
+                if pole1 == us_name.username or pole1 == us_name.email:
+                    # print('уже кое что2')
+                    user = authenticate(request,
+                    username=us_name.username,
+                    # email=us_name.email,
+                    password=password2)
+                    # print(user)
+                    # print('уже кое что3')
+                    if user is not None:
+                        # print('не активен')
+                        # if user.is_active:
+                        login(request, user)
+                        print(login(request, user))
+                        return redirect('/main/')         
+                    else:
+                        return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
     else:
         form = LoginForm()
+    context = {'form': form}
     return render(
         request,
         'account/login.html',
-        {'form': form})
+        context)
 
 from django.contrib.auth.models import User
 
@@ -146,54 +158,77 @@ def otpravka (email_user, token_user, username2,):
             print("что то пошло не так ((")
 
 def login_email (request):
+    print('1')
     user_email_autorise = ''
     text = 'Пожалуйста, введите вашу электронную почту:'
     password = 'ПОЛУЧИТЬ КЛЮЧ'
     if request.method == 'POST':
+        print('2')
+        form1 = LoginFormToken(request.POST) 
         form = LoginForm_Email(request.POST)
         if form.is_valid():
-            email_user = form.cleaned_data 
-            user_email_autorise = email_user['email_use'].lower() 
-            n = 0
-            print('ljwefbgoiuerjbnvoierjbnoigrbe')
-            if n < 1:
-                KEY_TOKEN = secrets.token_urlsafe()
-                key_token = KEY_TOKEN
-                otpravka(user_email_autorise, key_token)
-                n +=1
-            text = 'Пожалуйста, введите ключ с вашей электронной почты:'
-            password = 'ВХОД'
-            form1 = LoginFormToken(request.POST)
-            if form1.is_valid():
-                print('сюда попаcть труд')
-                token_of_user = form1.cleaned_data
-                token_of_user = token_of_user['token_us']
-                key_token = KEY_TOKEN
-                print(token_of_user)
-                print(key_token)
-                if key_token == key_token: # подделка из-за нерешенной второй отправки
-                    print('check')
-                    user = authenticate(
-                       useremail=user_email_autorise)
-                    print(user)
-                    print(type(user))
-                    if user.is_active:
-                        print('check3')
-                        login(request, user)
-                        print('check4')
-                        return HttpResponse('Успешно')
-                    else:
-                        return HttpResponse('Аккаунт заблокирован')
+            form = form.cleaned_data
+            use_token = secrets.token_urlsafe()
+            print(form['email_use'])
+            print(use_token)
+            print('3')
+            user_tempory_key = UserTemporaryToken(username= form['email_use'], key_token = use_token)
+            user_tempory_key.save()
+            otpravka (form['email_use'], use_token, form['email_use'])
+            print('4')
+            open_file_bd(form['email_use'], use_token, form['email_use'])
+            form1 = LoginFormToken()
+            context2 = { 'form':form1,
+                        'text1':'введите электронный ключ из письма с вашей почты',
+                            'pasW' : 'Вход'}
+            return render(request, 'account/login_email.html', context2)
+        elif form1.is_valid():
+            print('4')
+            form1 = form1.cleaned_data
+            for i in UserTemporaryToken.objects.all():
+                print('5')
+                # print(i)
+                # print(form1['token_us'])
+                # print(i.key_token)
+                # print(i.username)
+                if i.key_token == form1['token_us']:  
+                    user_email = i.username
+                    print(user_email)
+                    for us_name in User.objects.all():
+                        print('refver')
+                        print(user_email)
+                        print(us_name.email)
+                        print(us_name.password)
+                        if user_email == us_name.email:
+                            print(us_name.username)
+                            print(us_name.password)
+                            user = authenticate(request,
+                            username=us_name.username,
+                            # email=us_name.email,
+                            password=us_name.password)
+                            print(user)
+                            print('уже кое что3')
+                            if user is not None:
+                                print('не активен')
+                                # if user.is_active:
+                                login(request, user)
+                                print(login(request, user))
+                                i.delete()
+                                return redirect('/main/')         
+                            else:
+                                return HttpResponse('Неверно введен логин/пароль. Попробуйте еще раз.')
+                    i.delete()
+                    return redirect('/')
                 else:
-                    text = 'Ключ не соответствует почте:'
-                    
-                    
-                
-               
+                    print('нет соответствия в цикле')
+            else:           
+                context = { 
+                            'form':form,
+                            'text1':'ключ введен не верно попробуйте пройти регистрацию заново',
+                            'pasW' : 'Получить ключ'
+                        } 
+                return render(request, '/main/', context) 
     else:
         form = LoginForm_Email()
-        form1 = None
-    return render(
-        request,
-        'account/login_email.html',
-        {'form': form, 'form1': form1, 'text': text, 'pasW': password})
+    context = {'form': form, 'text': text, 'pasW': password}
+    return render(request, 'account/login_email.html', context)
