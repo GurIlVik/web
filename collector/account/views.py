@@ -13,28 +13,40 @@ from .models import UserTemporaryModels, UserTemporaryToken
 from .datebase import open_file_bd
 
 def user_login(request):
-    print('wergfqfgqerngrfrjkgn')  
+    # print('wergfqfgqerngrfrjkgn')  
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(
-                       username=cd['username'],
-                       password=cd['password'])
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponse('Успешно')
-                else:
-                    return HttpResponse('Аккаунт заблокирован')
-            else:
-                return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
+            pole1 = cd['username']
+            password2 = cd['password']
+            # print(pole1)
+            # print(password2)
+            for us_name in User.objects.all():
+                # print('уже кое что')
+                if pole1 == us_name.username or pole1 == us_name.email:
+                    # print('уже кое что2')
+                    user = authenticate(
+                    username=us_name.username,
+                    # email=us_name.email,
+                    password=password2)
+                    # print(user)
+                    # print('уже кое что3')
+                    if user is None:
+                        # print('не активен')
+                        # if user.is_active:
+                        login(request, user)
+                        print(login(request, user))
+                        return redirect('/main/')         
+                    else:
+                        return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
     else:
         form = LoginForm()
+    context = {'form': form}
     return render(
         request,
         'account/login.html',
-        {'form': form})
+        context)
 
 from django.contrib.auth.models import User
 

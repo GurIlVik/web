@@ -8,7 +8,7 @@ from django.forms.forms import Form
 # Источник: https://pythonpip.ru/django/django-usercreationform-sozdanie-novogo-polzovatelya
 
 class LoginForm(Form):
-    username = forms.EmailField(label='email')
+    username = forms.CharField(label='введите email или псевдоним')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput) 
 
     
