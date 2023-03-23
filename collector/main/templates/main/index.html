@@ -46,12 +46,12 @@
             </div>   
                 <div class='stringDIV'>
                     <button class='fd2' onclick="menuPoint23()" >Добавить еще предмет</button>
+                    <button class='fd2' onclick="menuPoint25()" >СБРОС</button>
                         <form id='formapredmet_collection' method="post" action="">
                         {% csrf_token %}
-                        <input id="q1" name="pole" /><button class='fd2' onclick="menuPoint25()" >К ПОИСКУ</button>
-                    {% comment %} <input class='fd2' type="submit" value="К ПОИСКУ">        {% endcomment %}
+                        <input id="q1" name="pole"/><button class='fd2' type="submit" >К ПОИСКУ</button>
+                    </form>
             </div>    
-            </form>
     </div>
 
 

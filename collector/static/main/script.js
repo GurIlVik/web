@@ -45,40 +45,26 @@ function menuPoint20(object) {
         div_object2.innerText += '${object.id}'
         list_object.push(object.id)
         console.log(list_object);
-        object.id += ', '
-
-
-      
+        let object_id2 = object.id + ', '
         console.log('value kukuk156', object.id);
-        div_object2.value += object.id;
+        div_object2.value += object_id2;
         console.log(list_object);
-
-
-
-
         find_cat('')
     } 
 }
 
-// function menuPoint25() {
-//     console.log('  fvgrevgr3bv     ')
-//     let div_object = document.getElementById('plusPredmet');
-//     console.log(div_object.innerText)
-//     let div_object2 = document.getElementById('q1');
- 
-
-//     console.log('value kukuk156', div_object.innerText);
-//     div_object2.value += div_object.innerText;
-//     // list_object.push(object.id)
-//     console.log(div_object.innerText);
-//     find_cat('')
-
-// }
+function menuPoint25() {
+    let value_list = document.getElementById('plusPredmet');
+    value_list.innerHTML = `<p>Предмет коллекционирования:</p>`
+    console.log(value_list.innerText)
+    let div_object2 = document.getElementById('q1');
+    div_object2.value = ''
+    div_object2.style.zIndex = '-10'
+    console.log(div_object2.value);
+}
 
 function menuPoint23() {
-    console.log('efvevf');
     menuPoint2();
-    console.log('efvevf');
     let catalog = document.getElementById('list_global');
     catalog.style.display = 'flex'
     catalog.style.flexDirection = 'row';
