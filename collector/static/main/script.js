@@ -1,3 +1,4 @@
+// очистка поля с коллекциями
 function find_cat(my_obj) {
     let catalog = document.getElementById('list_global') //.innerHTML
     let letter = my_obj.value
@@ -9,9 +10,12 @@ function find_cat(my_obj) {
     }}
     
 
+// Открывашка окна скрипта
 function menuPoint2() {
     let blok2 = document.getElementById('alternative_global_2').style.zIndex = '10';
 }
+
+// проверка на дублирование во втором меню
 function control_word (list_object, object) {
     let lis_ob_li = list_object.length;
     key = false;
@@ -28,6 +32,7 @@ function control_word (list_object, object) {
     return key
 }
 
+// разрисовывание функции объектов
 function menuPoint20(object) {
     console.log(object.id);
     let list_object = [];
@@ -49,10 +54,11 @@ function menuPoint20(object) {
         console.log('value kukuk156', object.id);
         div_object2.value += object_id2;
         console.log(list_object);
-        find_cat('')
+        // find_cat('')
     } 
 }
 
+// сброс выбранных параметров во 2 меню
 function menuPoint25() {
     let value_list = document.getElementById('plusPredmet');
     value_list.innerHTML = `<p>Предмет коллекционирования:</p>`
@@ -63,6 +69,7 @@ function menuPoint25() {
     console.log(div_object2.value);
 }
 
+// ввод меню для добавления элемента
 function menuPoint23() {
     menuPoint2();
     let catalog = document.getElementById('list_global');
