@@ -1,17 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Category
-# from .forms import Collectible_for_user
-# from html.parser import HTMLParser
-# from html.entities import *
 from .forms import ProstoList
 
 # Create your views here.
 def main_page(request):
     a = Category.objects.all().order_by('name')  # сортировка списка по имени в базе
     b = ProstoList('prosto list')
-
-    print('form')
     if request.method == 'POST':
         form = ProstoList(request.POST) 
         #print(form)
@@ -29,4 +24,3 @@ def main_page(request):
         request,
         'main/index.html', context
         )
-   
