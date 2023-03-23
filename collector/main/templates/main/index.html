@@ -43,15 +43,13 @@
 
         <div class='stringDIV' id='plusPredmet'>
             <p>Предмет коллекционирования:</p>
-
-            <form method="post" action="">
-                {% csrf_token %}
-                <p> <input id="q1" name="pole" /></p>
             </div>   
                 <div class='stringDIV'>
                     <button class='fd2' onclick="menuPoint23()" >Добавить еще предмет</button>
-                    <input class='fd2' type="submit" value="К ПОИСКУ">
-                
+                        <form id='formapredmet_collection' method="post" action="">
+                        {% csrf_token %}
+                        <input id="q1" name="pole" /><button class='fd2' onclick="menuPoint25()" >К ПОИСКУ</button>
+                    {% comment %} <input class='fd2' type="submit" value="К ПОИСКУ">        {% endcomment %}
             </div>    
             </form>
     </div>

@@ -12,7 +12,6 @@ function find_cat(my_obj) {
 function menuPoint2() {
     let blok2 = document.getElementById('alternative_global_2').style.zIndex = '10';
 }
-
 function control_word (list_object, object) {
     let lis_ob_li = list_object.length;
     key = false;
@@ -39,82 +38,55 @@ function menuPoint20(object) {
     console.log(list_object);
     key = control_word (list_object, object.id)
     if (key == false) {
-        let div_object2 = document.getElementById('plusPredmet');
-        let div_object = document.getElementById('q1');
-        console.log('value kukuk156', object.id);
-        div_object.value += object.id;
+        let div_object = document.getElementById('plusPredmet');
+        let div_object2 = document.getElementById('q1');
+        div_object2.style.zIndex = '-1000'
+        div_object.innerHTML += `<p><span>&ensp;&ensp;</span><span class="Child_main_menu2">${object.id}</span><span>,</span></p> `
+        div_object2.innerText += '${object.id}'
         list_object.push(object.id)
         console.log(list_object);
-        find_cat('')
+        object.id += ', '
 
+
+      
+        console.log('value kukuk156', object.id);
+        div_object2.value += object.id;
+        console.log(list_object);
+
+
+
+
+        find_cat('')
     } 
 }
+
+// function menuPoint25() {
+//     console.log('  fvgrevgr3bv     ')
+//     let div_object = document.getElementById('plusPredmet');
+//     console.log(div_object.innerText)
+//     let div_object2 = document.getElementById('q1');
+ 
+
+//     console.log('value kukuk156', div_object.innerText);
+//     div_object2.value += div_object.innerText;
+//     // list_object.push(object.id)
+//     console.log(div_object.innerText);
+//     find_cat('')
+
+// }
 
 function menuPoint23() {
     console.log('efvevf');
-    let blok2 = document.getElementById('alternative_global_2').style.zIndex = '10';
+    menuPoint2();
     console.log('efvevf');
-    // console.log(object.id);
-    let list_object = [];
-    let value_list = document.getElementsByClassName("Child_main_menu2")
-    for (let item of value_list) {
-        list_object.push(item.textContent)
+    let catalog = document.getElementById('list_global');
+    catalog.style.display = 'flex'
+    catalog.style.flexDirection = 'row';
+    catalog.style.alignContent = 'space-around';
+    for (let item of catalog.children) {
+        item.style.display = 'flex'
         }
-    console.log(list_object);
-    key = control_word (list_object, object.id)
-    if (key == false) {
-        let div_object2 = document.getElementById('plusPredmet');
-        let div_object = document.getElementById('q1');
-        console.log('value kukuk156', object.id);
-        div_object.value += object.id;
-        list_object.push(object.id)
-        console.log(list_object);
-        find_cat('')
-
-    } 
 }
-    // let catalog = document.getElementById('list_global');
-    // catalog.style.display = 'flex'
-    // catalog.style.flexDirection = 'row';
-    // catalog.style.alignContent = 'space-around';
-    // for (let item of catalog.children) {
-    //     item.style.display = 'flex'
-    //     }
 
 
 
-
-
-
-
-
-// function menuPoint20(object) {
-//     // let catalog = document.getElementById('list_global')
-//     // let list_global = []
-//     // for (elem of catalog.children) {
-//     //     list_global.push(elem.innerHTML);
-
-//     // }
-
-//     console.log(object.id);
-//     let list_object = [];
-//     let value_list = document.getElementsByClassName("Child_main_menu2")
-//     for (let item of value_list) {
-//         list_object.push(item.textContent)
-//         }
-//     console.log(list_object);
-//     key = control_word (list_object, object.id)
-//     if (key == false) {
-//         let div_object = document.getElementById('plusPredmet');
-//         let div_object2 = document.getElementById('q1');
-//         // let div_object = document.getElementById('q1');
-//         div_object.innerHTML += `<p><span>&ensp;&ensp;</span><span class="Child_main_menu2">${object.id}</span><span>,</span></p> `
-//         // div_object2.innerText += '${object.id}'
-//         list_object.push(object.id)
-//         div_object2.pole = object.id
-
-//         console.log(list_object);
-
-//         find_cat('')
-//     } 
-// }

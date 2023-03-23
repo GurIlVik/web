@@ -9,7 +9,9 @@ def main_page(request):
     b = ProstoList('prosto list')
     if request.method == 'POST':
         form = ProstoList(request.POST) 
-        #print(form)
+        print('ejfnvfejknefvev')
+        print(form)
+        
         print(request.POST) 
         if form.is_valid(): 
             #form = form.cleaned_data

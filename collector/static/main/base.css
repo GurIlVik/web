@@ -130,3 +130,6 @@ footer {
     flex-direction: row;
     justify-content: space-evenly;
 }
+ #q1{
+    z-index: -10;
+ }
