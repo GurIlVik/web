@@ -65,6 +65,56 @@
     </div>    
 
     <div id="basic">
+        {% for i in info_blok %}
+        <div class = 'info_blok_1'>
+            <div class = 'info_blok_2'>
+                <div class = 'info_blok_21'>
+                    {{i.picture_author}}
+                </div>
+                <div class = 'info_blok_22'>
+                    <div class = 'info_blok_221'>
+                        <div class = 'info_blok_2212'>
+                            {{i.page_author}}
+                        </div>
+                        <div class = 'info_blok_2213'>
+                            {{i.time_publication}}
+                        </div>
+                        <div class = 'info_blok_2214'>
+                            {{i.categories}}
+                        </div>
+                    </div>
+                    <div class = 'info_blok_222'>
+                        {{i.table_contents}}
+                    </div>
+                </div>
+            </div>
+            <div class = 'info_blok_3'>
+                {{i.text_contents}}
+            </div>
+            <div class = 'info_blok_4'>
+                <div class = 'info_blok_41'>
+                    <div class = 'info_blok_41'>
+                        {{i.symbol_ok}}
+                    </div>
+                    <div class = 'info_blok_41'>
+                        {{i.count_symbol_ok}}
+                    </div>
+                    <div class = 'info_blok_41'>
+                        {{i.symbol_bad}}
+                    </div>
+                    <div class = 'info_blok_41'>
+                        {{i.count_symbol_bad}}
+                    </div>
+                </div>
+                <div class = 'info_blok_42'>
+                    {{i.comment_article}}
+                </div>
+                <div class = 'info_blok_43'>
+                    {{i.write_author}}
+                </div>
+            </div>
+        </div>
+       {% endfor%}
     </div>
 
     </div>
