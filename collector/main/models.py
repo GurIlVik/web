@@ -26,6 +26,7 @@ class Information_block(models.Model):
     count_symbol_bad = models.CharField(max_length=5)
     comment_article = models.CharField(max_length=50)
     write_author = models.CharField(max_length=50)
+    access = models.BooleanField(null=True)
 
 # модель представления комментария 
 class Article_comments(models.Model):  
@@ -38,4 +39,5 @@ class Article_comments(models.Model):
     count_symbol_bad = models.CharField(max_length=5)
     comment_article = models.CharField(max_length=50)
     write_author = models.CharField(max_length=50)
+    access = models.BooleanField(null=True)
     

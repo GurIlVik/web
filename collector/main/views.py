@@ -1,16 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Category
+from .models import Category, Information_block, Article_comments, Amalker
 from .forms import ProstoList
 
 
 def main_page(request):
     a = Category.objects.all().order_by('name')  # сортировка списка по имени в базе
     b = ProstoList('prosto list')
+    c = Information_block.objects.all()
     predmet_collection_list = []   # В этом списке выбранные категории предметов
     context = {
         'a': a,
-        "form2" : b
+        "form2" : b,
+        'info_blok': c,
     }
     if request.method == 'POST':
         form = ProstoList(request.POST) 
