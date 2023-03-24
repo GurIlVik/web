@@ -9,7 +9,6 @@ function find_cat(my_obj) {
          }
     }}
     
-
 // Открывашка окна скрипта
 function menuPoint2() {
     let blok2 = document.getElementById('alternative_global_2').style.zIndex = '10';
