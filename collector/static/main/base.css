@@ -103,6 +103,142 @@ header {
     justify-content: flex-start;
 }
 
+.info_blok_1 {
+    border: black;
+    border: 1px;
+    margin: 2px;
+    padding: 3px;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.info_blok_2 {
+    width: 100%;
+    height: 25%;
+    border-color: black;
+    border: 1px;
+    margin: 2px;
+    padding: 1px;
+    background-color: rgb(87, 157, 219);
+    display: flex;
+    flex-direction: row;
+}
+
+.info_blok_21 {
+    width: 15%;
+    height: 100%;
+    margin: 1px;
+    padding: 1px;
+    background-color: rgb(41, 117, 183);
+    display: block;
+}
+
+.info_blok_22 {
+    width: 85%;
+    height: 100%;
+    margin: 1px;
+    padding: 1px;
+    background-color: rgb(114, 20, 108);
+    display: flex;
+    flex-direction: column;
+}
+
+.info_blok_221 {
+    width: 100%;
+    height: 100%;
+    margin: 1px;
+    padding: 1px;
+    background-color: rgb(93, 34, 39);
+    display: flex;
+    flex-direction: row;
+}
+.info_blok_2212 {
+    width: 33%;
+    height: 100%;
+    margin: 1px;
+    padding: 1px;
+    background-color: rgb(121, 235, 231);
+}
+
+.info_blok_2213 {
+    width: 33%;
+    height: 100%;
+    margin: 1px;
+    padding: 1px;
+    background-color: rgb(87, 80, 232);}
+
+.info_blok_2214 {
+    width: 33%;
+    height: 100%;
+    margin: 1px;
+    padding: 1px;
+    background-color: rgb(223, 114, 231);}
+
+
+
+
+
+.info_blok_222 {
+    width: 100%;
+    height: 100%;
+    margin: 1px;
+    padding: 1px;
+    background-color: rgb(98, 192, 91);
+}
+
+
+
+.info_blok_3 {
+    width: 100%;
+    height: 63%;
+    border: black;
+    border: 1px;
+    margin: 2px;
+    padding: 1px;
+    background-color: rgb(58, 196, 148);
+}
+
+.info_blok_4 {
+    width: 100%;
+    height: 12%;
+    border: black;
+    border: 1px;
+    margin: 2px;
+    padding: 1px;
+    background-color: rgb(230, 66, 236);
+    display: flex;
+    flex-direction: row;
+}
+
+.info_blok_41 {width: 20%;
+    height: 100%;
+    border: black;
+    border: 1px;
+    margin: 2px;
+    padding: 1px;
+    background-color: rgb(107, 60, 108);
+    display: flex;
+    flex-direction: row;}
+
+.info_blok_42 {height: 70%;
+    width: 100%;
+    border: black;
+    border: 1px;
+    margin: 2px;
+    padding: 1px;
+    background-color: rgb(184, 101, 186);}
+
+.info_blok_43 {height: 20%;
+    width: 100%;
+    border: black;
+    border: 1px;
+    margin: 2px;
+    padding: 1px;
+    background-color: rgb(232, 48, 235);}
+
 footer {
     color: white;
     background: #23041979;
