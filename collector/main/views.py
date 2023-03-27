@@ -14,12 +14,20 @@ def main_page(request):
         "form2" : b,
         'info_blok': c,
     }
+    print(c)
     if request.method == 'POST':
         form = ProstoList(request.POST) 
         if form.is_valid(): 
             form = form.cleaned_data
-            predmet_collection_list = motod_main_page_1(form['pole'])
-            print(predmet_collection_list)
+            predmet_collection_list = motod_main_page_1(form['pole']) # В этом списке выбранные категории предметов
+            d = []
+            for elem in predmet_collection_list:
+                for elem2 in c:
+                    if elem in elem2.categories:
+                        if elem2 not in d:
+                            d.append(elem2)
+            context['info_blok'] = d
+            return render(request, 'main/index.html', context)
         return render(request, 'main/index.html', context)
     
     return render(request, 'main/index.html', context)
