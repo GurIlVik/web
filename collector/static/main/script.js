@@ -80,6 +80,7 @@ function menuPoint23() {
         }
 }
 
+// функция отображения по интересу пользователя.
 function menuPoint3(as) {
     // let global_list = document.getElementById("basic");
     let value_list4 = document.getElementsByClassName("info_blok_1");
@@ -94,8 +95,8 @@ function menuPoint3(as) {
         // console.log(typeof('ПРОДАЮ'));
         // console.log('ПРОДАЮ');
         if (a == as) {
-            console.log('верно');
-            console.log(value_list4[i]);
+            // console.log('верно');
+            // console.log(value_list4[i]);
             value_list4[i].style.display = "flex";
         } else {
             value_list4[i].style.display = "none";
