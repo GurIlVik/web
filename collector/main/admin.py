@@ -11,7 +11,9 @@ admin.site.register(Category, CategoryAdmin)
         #list_display = ['name']#Category._meta.get_all_field_names()
         
 class Information_block_Admin(admin.ModelAdmin):    
-    list_display = ['table_contents', 'picture_author', 'page_author', ]
+    list_display = ['picture_author', 'page_author', 'time_publication', 'categories', # категории по списку предметов коллекционирования
+    'topic_interest', 'table_contents', 'text_contents', 'symbol_ok', 'count_symbol_ok', 'symbol_bad', 'count_symbol_bad', 'comment_article',
+    'write_author', 'access',]                           
 admin.site.register(Information_block, Information_block_Admin)
         
 class Amalker_Admin(admin.ModelAdmin):
@@ -19,9 +21,10 @@ class Amalker_Admin(admin.ModelAdmin):
 admin.site.register(Amalker, Amalker_Admin)    
     
 class Article_comments_Admin(admin.ModelAdmin):  
-    list_display = ['whom_message',  'time_publication', 'whose_message', 'text_message', 'count_symbol_ok', 'symbol_bad',
+    list_display = ['whom_message', 'time_publication', 'whose_message', 'text_message', 'count_symbol_ok', 'symbol_bad',
     'count_symbol_bad','comment_article', 'write_author',]
 admin.site.register(Article_comments, Article_comments_Admin)    
+
 
 class TopicInterestAdmin(admin.ModelAdmin):
     list_display = ['name']
