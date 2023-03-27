@@ -58,10 +58,16 @@
     <div id="global">
 
     <div id="advertisement"> 
-          
-            {% comment %} <input id="poisk" type="text" oninput="find_cat(this)" value="Предмет коллекции"> {% endcomment %}
-            
-            
+        {% for i in amalker %}
+        <div class = 'amalker_blok_1'>
+            <div class = 'amalker_blok_2'>
+                {{i.name_seller}}
+            </div>
+            <div class = 'amalker_blok_3'>
+                {{i.tabloid}}
+            </div>
+        </div>
+       {% endfor%}   
     </div>    
 
 {% comment %} basic блок с основной информацией {% endcomment %}    

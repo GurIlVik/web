@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Information_block, Article_comments, Amalker
+from .models import Category, Information_block, Article_comments, Amalker, TopicInterest
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -22,3 +22,7 @@ class Article_comments_Admin(admin.ModelAdmin):
     list_display = ['whom_message',  'time_publication', 'whose_message', 'text_message', 'count_symbol_ok', 'symbol_bad',
     'count_symbol_bad','comment_article', 'write_author',]
 admin.site.register(Article_comments, Article_comments_Admin)    
+
+class TopicInterestAdmin(admin.ModelAdmin):
+    list_display = ['name']
+admin.site.register(TopicInterest, TopicInterestAdmin)    

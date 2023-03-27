@@ -8,11 +8,13 @@ def main_page(request):
     a = Category.objects.all().order_by('name')  # сортировка списка по имени в базе
     b = ProstoList('prosto list')
     c = Information_block.objects.all()
+    e = Amalker.objects.all()
     predmet_collection_list = []   # В этом списке выбранные категории предметов
     context = {
         'a': a,
         "form2" : b,
         'info_blok': c,
+        'amalker' : e,
     }
     print(c)
     if request.method == 'POST':
@@ -27,6 +29,7 @@ def main_page(request):
                         if elem2 not in d:
                             d.append(elem2)
             context['info_blok'] = d
+            c = d
             return render(request, 'main/index.html', context)
         return render(request, 'main/index.html', context)
     

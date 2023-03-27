@@ -11,13 +11,18 @@ class Amalker(models.Model):
 # основная модель предмета коллекционирования   
 class Category(models.Model):
     name = models.TextField(blank=False, unique=True)
+   
+# вспомогательная модель поиска по интерессу 
+class TopicInterest(models.Model):
+    name = models.CharField(max_length=250, null=True)
 
 # модель размещения блока информации
 class Information_block(models.Model):
     picture_author = models.CharField(max_length=250)
     page_author = models.CharField(max_length=250)
     time_publication = models.DateTimeField(auto_now_add=True)
-    categories = models.CharField(max_length=250)
+    categories = models.CharField(max_length=250) # категории по списку предметов коллекционирования
+    topic_interest = models.CharField(max_length=250)      # категории по списку интереса и поиска
     table_contents = models.CharField(max_length=250)
     text_contents = models.TextField(blank=True)
     symbol_ok = models.CharField(max_length=1)
