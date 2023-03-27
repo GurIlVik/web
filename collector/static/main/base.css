@@ -126,6 +126,9 @@ header {
     
 }
 
+.display_none {
+    display: none;
+}
 
 #basic {
     height: 100%;

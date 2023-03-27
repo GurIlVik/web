@@ -21,8 +21,16 @@
             <button class='fd2' onclick="menuPoint2()" >Предмет коллекции</button>
         </div>
         
-        <div><p><input class='fd2' type="submit" value="Статьи"></p></div>
-        <div><p><input class='fd2' type="submit" value="Приобретение"></p></div>
+        <div>
+            <button class='fd2' onclick="menuPoint3()" >Статьи</button>
+        </div>
+        <div>
+            <button class='fd2' onclick="menuPoint4()" >Я ищу:</button>
+        </div>
+        <div>
+            <button class='fd2' onclick="menuPoint5()" >Продам</button>
+        </div>
+        
         <div ><a href="/"><button class='fd2'>НАЗАД</button></a></div>  {% comment %} требуется дописать кнопку - регистрация или выход {% endcomment %}
 
     </header>
@@ -120,6 +128,9 @@
                     {{i.write_author}}
                 </div>
             </div>
+        </div>
+        <div class = 'display_none'>
+            {{i.topic_interest}}
         </div>
        {% endfor%}
     </div>

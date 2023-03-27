@@ -80,5 +80,8 @@ function menuPoint23() {
         }
 }
 
-
+function menuPoint3() {
+    let value_list3 = document.getElementsByClassName("info_blok_21")
+    console.log(value_list3)
+}
 

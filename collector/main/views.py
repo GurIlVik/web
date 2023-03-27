@@ -21,15 +21,11 @@ def main_page(request):
         form = ProstoList(request.POST) 
         if form.is_valid(): 
             form = form.cleaned_data
-            predmet_collection_list = motod_main_page_1(form['pole']) # В этом списке выбранные категории предметов
-            d = []
-            for elem in predmet_collection_list:
-                for elem2 in c:
-                    if elem in elem2.categories:
-                        if elem2 not in d:
-                            d.append(elem2)
-            context['info_blok'] = d
-            c = d
+            predmet_collection_list = method_main_page_1(form['pole']) # В этом списке выбранные категории предметов
+            context['info_blok'] = method_main_page_2(predmet_collection_list, c)
+            context['amalker'] = method_main_page_2(predmet_collection_list, e)
+            c = method_main_page_2(predmet_collection_list, c)
+            e = method_main_page_2(predmet_collection_list, e)
             return render(request, 'main/index.html', context)
         return render(request, 'main/index.html', context)
     
@@ -37,7 +33,7 @@ def main_page(request):
     
     
 # Вспомогательная функция сортировки коллекционных предметов пришедших с формы после JScript
-def motod_main_page_1(a):
+def method_main_page_1(a):
     list_a = []
     str_a = ''
     for i in range(len(a)):
@@ -50,3 +46,11 @@ def motod_main_page_1(a):
             str_a += a[i]
     return list_a
 
+def method_main_page_2(a, b):
+    s = []
+    for elem in a:
+        for elem2 in b:
+            if elem in elem2.categories:
+                if elem2 not in s:
+                    s.append(elem2)
+    return s
