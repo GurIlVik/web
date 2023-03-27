@@ -80,7 +80,7 @@ function menuPoint23() {
         }
 }
 
-function menuPoint3() {
+function menuPoint3(as) {
     // let global_list = document.getElementById("basic");
     let value_list4 = document.getElementsByClassName("info_blok_1");
     let value_list3 = document.getElementsByClassName("display_none");
@@ -93,11 +93,10 @@ function menuPoint3() {
         // console.log(b);
         // console.log(typeof('ПРОДАЮ'));
         // console.log('ПРОДАЮ');
-        if (a == 'СТАТЬИ') {
+        if (a == as) {
             console.log('верно');
             console.log(value_list4[i]);
-            // console.log(value_list3[2]);
-            // global_list.innerHTML += b
+            value_list4[i].style.display = "flex";
         } else {
             value_list4[i].style.display = "none";
         }
