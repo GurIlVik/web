@@ -81,7 +81,26 @@ function menuPoint23() {
 }
 
 function menuPoint3() {
-    let value_list3 = document.getElementsByClassName("info_blok_21")
-    console.log(value_list3)
+    // let global_list = document.getElementById("basic");
+    let value_list4 = document.getElementsByClassName("info_blok_1");
+    let value_list3 = document.getElementsByClassName("display_none");
+    // global_list.innerHTML = ''
+    for (var i = value_list3.length - 1; i >= 0; i--) {
+        let a = value_list3[i].innerHTML.trim();
+        let b = value_list4[i];
+        // console.log(value_list4[i]);
+        // console.log(typeof(a));
+        // console.log(b);
+        // console.log(typeof('ПРОДАЮ'));
+        // console.log('ПРОДАЮ');
+        if (a == 'СТАТЬИ') {
+            console.log('верно');
+            console.log(value_list4[i]);
+            // console.log(value_list3[2]);
+            // global_list.innerHTML += b
+        } else {
+            value_list4[i].style.display = "none";
+        }
+    }
 }
 
