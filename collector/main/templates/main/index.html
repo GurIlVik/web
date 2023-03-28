@@ -30,7 +30,7 @@
             <button class='fd2' onclick="menuPoint3('ПРОДАЮ')">Продам</button>
         </div>
 
-        <div ><a href="/"><button class='fd2'>{{ log }}</button></a></div>
+        <div ><a href="{{ puth_exit_enter }}"><button class='fd2'>{{ log }}</button></a></div>
 
         {% comment %}<div ><a href="/"><button class='fd2'>НАЗАД</button></a></div>   требуется дописать кнопку - регистрация или выход {% endcomment %}
 
@@ -150,7 +150,12 @@
         </div>
         <div id="f_d2">
 
-            <div ><a class='fd2' href="/account/logout/"><button class='fd2'>ВЫХОД</button></a></div> 
+            <div >
+                {% if request.user.is_authenticated %}
+                <a class='fd2' href="/account/logout/"><button class='fd2'>ВЫХОД</button></a></div>
+                {% else %}
+                <a class='fd2' href="/"><button class='fd2'>Регистрация/ВХОД</button></a></div>
+                {% endif %}
             {% comment %} ЗДЕСЬ ДОЛЖЕН БЫТЬ ВЫХОД  {% endcomment %}
         </div> 
     </footer>  

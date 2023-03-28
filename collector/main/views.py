@@ -17,12 +17,14 @@ def main_page(request):
     e = Amalker.objects.all()
     predmet_collection_list = []   # В этом списке выбранные категории предметов
     g = chek_User_authenticated(request, 'Регистрация/ВХОД', 'ВЫХОД') 
+    h = chek_User_authenticated(request, "/account/logout/", "/") 
     context = {
         'a': a,
         "form2" : b,
         'info_blok': c,
         'amalker' : e,
         'log' : g,
+        'puth_exit_enter' : h,
     }
     print(c)
     if request.method == 'POST':
