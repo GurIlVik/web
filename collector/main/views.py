@@ -3,11 +3,7 @@ from django.http import HttpResponse
 from .models import Category, Information_block, Article_comments, Amalker
 from .forms import ProstoList
 
-# функция проеверки пользователя на аутентификацию с запросом
-def chek_User_authenticated(request, a = None, b = None):
-    if request.user.is_authenticated:
-        a = b
-    return a
+
         
 
 def main_page(request):
@@ -65,3 +61,10 @@ def method_main_page_2(a, b):
                 if elem2 not in s:
                     s.append(elem2)
     return s
+
+
+# функция проеверки пользователя на аутентификацию с запросом
+def chek_User_authenticated(request, a = None, b = None):
+    if request.user.is_authenticated:
+        a = b
+    return a
