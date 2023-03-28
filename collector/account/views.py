@@ -22,7 +22,6 @@ def logout_view(request):
         context)
 
 def user_login(request):
-    # print('wergfqfgqerngrfrjkgn')  
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -37,7 +36,7 @@ def user_login(request):
                     # print('уже кое что2')
                     user = authenticate(request,
                     username=us_name.username,
-                    # email=us_name.email,
+                    email=us_name.email,
                     password=password2)
                     # print(user)
                     # print('уже кое что3')
@@ -112,10 +111,19 @@ def register(request):
                                 j.email, 
                                 j.password
                             )
+                            user = authenticate(request,
+                            username=j.username,
+                            # email=us_name.email,
+                            password=j.password)
+                            if user is not None:
+                                # print('не активен')
+                                # if user.is_active:
+                                login(request, user)
                             j.delete()
+                            return redirect('/main/')
                     i.delete()
-                    # return redirect('/')
-                    return redirect('main/')
+                    return redirect('/')
+                    # return redirect('/main/')
                 else:
                     print(i.username)
                     print(i.key_token)
@@ -204,31 +212,40 @@ def login_email (request):
                 if i.key_token == form1['token_us']:  
                     user_email = i.username
                     print(user_email)
-                    for us_name in User.objects.all():
-                        print('refver')
-                        print(user_email)
-                        print(us_name.email)
-                        print(us_name.password)
-                        if user_email == us_name.email:
-                            print(us_name.username)
-                            print(us_name.password)
-                            user = authenticate(request,
-                            username=us_name.username,
-                            # email=us_name.email,
-                            password=us_name.password)
-                            print(user)
-                            print('уже кое что3')
-                            if user is not None:
-                                print('не активен')
-                                # if user.is_active:
-                                login(request, user)
-                                print(login(request, user))
-                                i.delete()
-                                return redirect('/main/')         
-                            else:
-                                return HttpResponse('Неверно введен логин/пароль. Попробуйте еще раз.')
+                    print(6)
+                    use = User.objects.get(email=user_email)
+                    print(use.username)
+                    print(use.email)
+                    print(use)
+                    use.set_password(form1['token_us'])
+                    use.save()
+                    use = authenticate(request,
+                    username=use.username,
+                    # email=us_name.email,
+                    password=form1['token_us'])
+                    if use is not None:
+                        # print('не активен')
+                        # if user.is_active:
+                        login(request, use)
+                    # for us_name in User.objects.all():
+                    #     print('refver')
+                    #     print(user_email)
+                    #     print(us_name.email)
+                    #     print(us_name.password)
+                    #     print('refver')
+                    #     if user_email == us_name.email:
+                    #         user = authenticate(request,
+                    #         username=us_name.username,
+                    #         password=us_name.password)
+                    #         print(user)
+                    #         print('уже кое что3')
+                    #         if request.user.is_authenticated:
+                    #             return HttpResponse('Вы уже авторизованны')    
+                    #         else:
+                                
+                    #             return HttpResponse('Неверно введен логин/пароль. Попробуйте еще раз.')
                     i.delete()
-                    return redirect('/')
+                    return redirect('/main/') # передалать на пользовательскую страницу
                 else:
                     print('нет соответствия в цикле')
             else:           
