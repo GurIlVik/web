@@ -7,7 +7,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('confirmation/<email>/<user2>', views.confirmation, name='confirmation'),
     path('login_email/', views.login_email, name='login_email'),
-    # path('logout/'), views.logout, name='logout'),
+    # path('logout/', views.LogoutVies.as_view, name='logout'), # попытка сделать выход
     path('user/<int:user_id>/', views.personal_page,),
 ]
 

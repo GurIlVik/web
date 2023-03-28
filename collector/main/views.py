@@ -5,9 +5,7 @@ from .forms import ProstoList
 
 # функция проеверки пользователя на аутентификацию с запросом
 def chek_User_authenticated(request, a = None, b = None):
-    a = 'Регистрация/ВХОД'
     if request.user.is_authenticated:
-        print('z d aeyrwbb')
         a = b
     return a
         
