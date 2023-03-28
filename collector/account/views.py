@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, UserRegistrationForm, LoginForm_Email, LoginFormToken
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -11,6 +11,15 @@ from email.mime.text import MIMEText
 from .sekret import password
 from .models import UserTemporaryModels, UserTemporaryToken
 from .datebase import open_file_bd
+
+
+def logout_view(request):
+    logout(request)
+    context = {'a' : 'Вы вышли из системы'}
+    return render(
+        request,
+        'account/logout.html',
+        context)
 
 def user_login(request):
     # print('wergfqfgqerngrfrjkgn')  
@@ -105,7 +114,8 @@ def register(request):
                             )
                             j.delete()
                     i.delete()
-                    return redirect('/')
+                    # return redirect('/')
+                    return redirect('main/')
                 else:
                     print(i.username)
                     print(i.key_token)
