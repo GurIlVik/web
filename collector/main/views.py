@@ -3,6 +3,14 @@ from django.http import HttpResponse
 from .models import Category, Information_block, Article_comments, Amalker
 from .forms import ProstoList
 
+# функция проеверки пользователя на аутентификацию с запросом
+def chek_User_authenticated(request, a = None, b = None):
+    a = 'Регистрация/ВХОД'
+    if request.user.is_authenticated:
+        print('z d aeyrwbb')
+        a = b
+    return a
+        
 
 def main_page(request):
     a = Category.objects.all().order_by('name')  # сортировка списка по имени в базе
@@ -10,11 +18,13 @@ def main_page(request):
     c = Information_block.objects.all()
     e = Amalker.objects.all()
     predmet_collection_list = []   # В этом списке выбранные категории предметов
+    g = chek_User_authenticated(request, 'Регистрация/ВХОД', 'ВЫХОД') 
     context = {
         'a': a,
         "form2" : b,
         'info_blok': c,
         'amalker' : e,
+        'log' : g,
     }
     print(c)
     if request.method == 'POST':
@@ -46,6 +56,7 @@ def method_main_page_1(a):
             str_a += a[i]
     return list_a
 
+# вспомогательная функция смены 
 def method_main_page_2(a, b):
     s = []
     for elem in a:
