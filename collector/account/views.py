@@ -34,7 +34,8 @@ def user_login(request):
             for us_name in User.objects.all():
                 # print('уже кое что')
                 if pole1 == us_name.username or pole1 == us_name.email:
-                    # print('уже кое что2')
+                    print('уже кое что2')
+                    print(us_name.username)
                     user = authenticate(request,
                     username=us_name.username,
                     email=us_name.email,
@@ -47,7 +48,7 @@ def user_login(request):
                         login(request, user)
                         print(login(request, user))
                         # return redirect('/account/confirmation/user={us_name.username}')
-                        return redirect('/personalpage/user={us_name.username}')         
+                        return redirect(f'/personalpage/{us_name.username}')         
                     else:
                         return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
     else:
