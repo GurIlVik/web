@@ -12,7 +12,7 @@ from .sekret import password
 from .models import UserTemporaryModels, UserTemporaryToken
 from .datebase import open_file_bd
 
-
+# Функция выхода из системы 
 def logout_view(request):
     logout(request)
     context = {'a' : 'Вы вышли из системы'}
@@ -21,6 +21,7 @@ def logout_view(request):
         'account/logout.html',
         context)
 
+# функция входа с паролем
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -45,7 +46,8 @@ def user_login(request):
                         # if user.is_active:
                         login(request, user)
                         print(login(request, user))
-                        return redirect('/main/')         
+                        # return redirect('/account/confirmation/user={us_name.username}')
+                        return redirect('/account/user={us_name.username}')         
                     else:
                         return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
     else:
@@ -56,28 +58,13 @@ def user_login(request):
         'account/login.html',
         context)
 
-from django.contrib.auth.models import User
+# функция входа на личную страницу пользователя
+def personal_page(request, user): 
+    
+    context = {'form1':user}
+    return render(request, 'account/individ_page.html', context)
 
-def confirmation(request, email, user2):
-    print(1)
-    d = UserTemporaryModels.objects.all()
-    print(d)
-    k = type(UserTemporaryModels)
-    print(k)
-    for i in d:
-        print(2)
-        if i.email == email[6::]:
-            print(3)
-            d = i.password
-            
-            user = User.objects.create_user( 
-                    user2[6::], 
-                    email[6::], 
-                    d
-                )
-            context = {'form1':user2}
-            return render(request, 'account/confirmation.html', context)
-
+# функция регистрации пользователя
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST) 
@@ -141,11 +128,13 @@ def register(request):
     } 
     return render(request, 'account/register.html', context) 
 
-@login_required
-def personal_page (request, user_id=1):
-    print('lwerjngewgwertgtrwegtgn')  
-    return HttpResponse('<h1>%s</h1>' % user_id)
 
+# @login_required
+# def personal_page (request, user_id=1):
+#     print('lwerjngewgwertgtrwegtgn')  
+#     return HttpResponse('<h1>%s</h1>' % user_id)
+
+# функция отправки писем с токеном
 def otpravka (email_user, token_user, username2,):
         my_mail = 'forsitecollector@yandex.ru' # твоя почта с которой будешь отправлять письмо
         msg = MIMEMultipart()
@@ -175,6 +164,7 @@ def otpravka (email_user, token_user, username2,):
         except smtplib.SMTPException:
             print("что то пошло не так ((")
 
+# функция входа без пароля по почте с обновлением пароля поля
 def login_email (request):
     print('1')
     user_email_autorise = ''
@@ -227,23 +217,6 @@ def login_email (request):
                         # print('не активен')
                         # if user.is_active:
                         login(request, use)
-                    # for us_name in User.objects.all():
-                    #     print('refver')
-                    #     print(user_email)
-                    #     print(us_name.email)
-                    #     print(us_name.password)
-                    #     print('refver')
-                    #     if user_email == us_name.email:
-                    #         user = authenticate(request,
-                    #         username=us_name.username,
-                    #         password=us_name.password)
-                    #         print(user)
-                    #         print('уже кое что3')
-                    #         if request.user.is_authenticated:
-                    #             return HttpResponse('Вы уже авторизованны')    
-                    #         else:
-                                
-                    #             return HttpResponse('Неверно введен логин/пароль. Попробуйте еще раз.')
                     i.delete()
                     return redirect('/main/') # передалать на пользовательскую страницу
                 else:
