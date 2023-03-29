@@ -1,0 +1,99 @@
+body {
+    height: 100%;
+    width: auto;
+    background: #fff7fc79;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    height: 40px;
+    width: 100%;
+    background: #c0c4ac79;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2vw;
+}
+
+.fd2 {
+    font-size: medium;
+    background-color:rgb(163, 163, 163);
+    height: 3.3vw;
+    max-height: 30px;
+    width: auto;
+    min-width: 120px;
+    border-radius: 20%;
+    color: white;
+}
+
+#global {
+    height: 100%;
+    width: 100%;
+    top: 40px;
+    position: absolute;
+    display: flex;
+    background-color: aqua;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2vw;
+}
+
+
+#personal_information {
+    height: 100%;
+    width: 20%;
+    position: relative;
+    background-color: chocolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#basic {
+    height: 100%;
+    width: 80%;
+    position: relative;
+    background-color: darkcyan;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+footer {
+    color: white;
+    background: #23041979;
+    height: 45px;
+    width: 100%;
+    position: absolute;
+    bottom: -85px;
+    left: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#f_d1 {
+    left: 0px;
+    font-size: 11px;
+    font-weight: 300;
+    width: 120px;
+}
+
+#f_d2 {
+    width: 100%;
+    right: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+ #q1{
+    display: none;
+ }
