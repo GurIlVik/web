@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig', 
     'start.apps.StartConfig',
     'main.apps.MainConfig',
+    'personalpage.apps.PersonalpageConfig',
 ]
 
 MIDDLEWARE = [

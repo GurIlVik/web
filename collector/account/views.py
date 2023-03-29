@@ -47,7 +47,7 @@ def user_login(request):
                         login(request, user)
                         print(login(request, user))
                         # return redirect('/account/confirmation/user={us_name.username}')
-                        return redirect('/account/user={us_name.username}')         
+                        return redirect('/personalpage/user={us_name.username}')         
                     else:
                         return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
     else:

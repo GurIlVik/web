@@ -11,6 +11,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('', include('start.urls')),
     path('main/', include('main.urls')),
+    path('personalpage/', include('personalpage.urls')),
 ]
 
 if settings.DEBUG:
