@@ -16,8 +16,7 @@
 <body>
     
     <header>
-        {% if request.user.is_authenticated %}
-        
+        {% if request.user.is_authenticated and access == True %}
         <div><p><input class='fd2' type="submit" value="НАСТРОЙКИ"></p></div>
         <div>
             <a class='fd2' href="/main/"><button class='fd2'>НАЗАД</button></a> 
@@ -26,12 +25,10 @@
             <a class='fd2' href="/account/logout/"><button class='fd2'>ВЫХОД</button></a></div>
         </div>
         {% endif %}
-        
     </header>
 
 
-    <div id="global">
-
+    <div id="global">ы
     <div id="personal_information"> 
         {% for i in amalker %}
         <div class = 'amalker_blok_1'>
