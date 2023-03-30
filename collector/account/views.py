@@ -59,7 +59,6 @@ def user_login(request):
         'account/login.html',
         context)
 
-
 # функция регистрации пользователя
 def register(request):
     if request.method == 'POST':
@@ -125,12 +124,6 @@ def register(request):
         'text1':'Заполните форму регистрации'
     } 
     return render(request, 'account/register.html', context) 
-
-
-# @login_required
-# def personal_page (request, user_id=1):
-#     print('lwerjngewgwertgtrwegtgn')  
-#     return HttpResponse('<h1>%s</h1>' % user_id)
 
 # функция отправки писем с токеном
 def otpravka (email_user, token_user, username2,):

@@ -45,14 +45,10 @@ class UserRegistrationForm(UserCreationForm):
             self.cleaned_data['email'], 
             self.cleaned_data['password1'] 
         ) 
-        print('lwerjngrfrjkgn5') 
         return user 
     
 class LoginForm_Email(Form):
     email_use = forms.EmailField(label='email') 
-    # token_us = forms.CharField(label='ключ', min_length=20, max_length=150)
-    # email = forms.CharField(label='email')
-
     
 class LoginFormToken(Form):
     token_us = forms.CharField(label='ключ', min_length=20, max_length=150)

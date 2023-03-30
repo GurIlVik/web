@@ -24,7 +24,6 @@ def main_page(request):
         'puth_exit_enter' : h,
         'puth_paesonalpage' : j,
     }
-    print(c)
     if request.method == 'POST':
         form = ProstoList(request.POST) 
         if form.is_valid(): 
@@ -38,8 +37,7 @@ def main_page(request):
         return render(request, 'main/index.html', context)
     
     return render(request, 'main/index.html', context)
-    
-    
+     
 # Вспомогательная функция сортировки коллекционных предметов пришедших с формы после JScript
 def method_main_page_1(a):
     list_a = []
