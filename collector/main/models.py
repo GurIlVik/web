@@ -19,17 +19,17 @@ class TopicInterest(models.Model):
 # модель размещения блока информации
 class Information_block(models.Model):
     picture_author = models.CharField(max_length=250)
-    page_author = models.CharField(max_length=250)
+    page_author = models.CharField(max_length=250)          # ник автора с отправкой на его страницу
     time_publication = models.DateTimeField(auto_now_add=True)
-    categories = models.CharField(max_length=250) # категории по списку предметов коллекционирования
-    topic_interest = models.CharField(max_length=250)      # категории по списку интереса и поиска
+    categories = models.CharField(max_length=250)           # категории по списку предметов коллекционирования
+    topic_interest = models.CharField(max_length=250)       # категории по списку интереса и поиска
     table_contents = models.CharField(max_length=250)
     text_contents = models.TextField(blank=True)
     symbol_ok = models.CharField(max_length=1)
     count_symbol_ok = models.CharField(max_length=5)
     symbol_bad = models.CharField(max_length=1)
     count_symbol_bad = models.CharField(max_length=5)
-    comment_article = models.CharField(max_length=50)
+    comment_article = models.CharField(max_length=50)       # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
     write_author = models.CharField(max_length=50)
     access = models.BooleanField(null=True)
 

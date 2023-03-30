@@ -36,48 +36,12 @@
         <div ><a href="{{ puth_exit_enter }}"><button class='fd2'>{{ log }}</button></a></div>
 
     </header>
-    
-    <div id="alternative_global_2">
-        <div class='stringDIV'>
-            <p style="display: inline">Введите в поле название предмета коллекционирования: </p>
-            <input style="display: inline" id="poisk" type="text" oninput="find_cat(this)" >
-        </div>
-
-        <div class='poleDIV'>
-            <ul id="list_global">
-                {% for i in a %}
-                    <li style="display: inline"><button id={{i.name}} class='fd2' onclick="menuPoint20(this)" >{{ i.name }}</button></li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class='stringDIV' id='plusPredmet'>
-            <p>Предмет коллекционирования:</p>
-            </div>   
-                <div class='stringDIV'>
-                    <button class='fd2' onclick="menuPoint23()" >Добавить еще предмет</button>
-                    <button class='fd2' onclick="menuPoint25()" >СБРОС</button>
-                        <form id='formapredmet_collection' method="post" action="">
-                        {% csrf_token %}
-                        <input id="q1" name="pole"/><button class='fd2' type="submit" >К ПОИСКУ</button>
-                    </form>
-            </div>    
-    </div>
 
 
     <div id="global">
 
     <div id="advertisement"> 
-        {% for i in amalker %}
-        <div class = 'amalker_blok_1'>
-            <div class = 'amalker_blok_2'>
-                {{i.name_seller}}
-            </div>
-            <div class = 'amalker_blok_3'>
-                {{i.tabloid}}
-            </div>
-        </div>
-       {% endfor%}   
+        {{a}} и  {{b}} 
     </div>    
 
 {% comment %} basic блок с основной информацией {% endcomment %}    
@@ -124,9 +88,8 @@
                     </div>
                 </div>
                 <div class = 'info_blok_42'>
-                    <a href='/main/{{i.page_author}}/{{i.id}}'>Коментировать</a>
-                    {% comment %} <a href="{{ puth_publication }}">Коментировать</a> {% endcomment %}
-                   
+                    <a href=f'/main/{i.page_author}/{i.time_publication}'>Коментировать</a>
+                    {% comment %} {{i.comment_article}} {% endcomment %}
                 </div>
                 <div class = 'info_blok_43'>
                     {{i.write_author}}

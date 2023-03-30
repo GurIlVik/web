@@ -5,7 +5,7 @@ from .forms import ProstoList
 
 
         
-
+# отображение главной страницы
 def main_page(request):
     a = Category.objects.all().order_by('name')  # сортировка списка по имени в базе
     b = ProstoList('prosto list')
@@ -15,6 +15,7 @@ def main_page(request):
     g = chek_User_authenticated(request, 'Регистрация/ВХОД', 'ВЫХОД') # предоставление значений согласно логик
     h = chek_User_authenticated(request, "/", "/account/logout/")  # предоставление путей согласно логик
     j = f'/personalpage/{str(request.user)}'      # получение имени и питу на личную страницу
+    # k = f'/personalpage/{str(request.user)}'
     context = {
         'a': a,
         "form2" : b,
@@ -23,6 +24,7 @@ def main_page(request):
         'log' : g,
         'puth_exit_enter' : h,
         'puth_paesonalpage' : j,
+        # 'puth_publication' : k,
     }
     if request.method == 'POST':
         form = ProstoList(request.POST) 
@@ -62,9 +64,18 @@ def method_main_page_2(a, b):
                     s.append(elem2)
     return s
 
-
 # функция проеверки пользователя на аутентификацию с запросом
 def chek_User_authenticated(request, a = None, b = None):
     if request.user.is_authenticated:
         a = b
     return a
+
+
+# отображение страницы публикации
+def publication(request, author, time):
+    context = {'a' : author,
+               'b' : time, }
+    return render(request, 'main/publication.html', context)
+
+
+
