@@ -59,11 +59,6 @@ def user_login(request):
         'account/login.html',
         context)
 
-# функция входа на личную страницу пользователя
-def personal_page(request, user): 
-    
-    context = {'form1':user}
-    return render(request, 'account/individ_page.html', context)
 
 # функция регистрации пользователя
 def register(request):
@@ -107,8 +102,10 @@ def register(request):
                                 # print('не активен')
                                 # if user.is_active:
                                 login(request, user)
+                            user_for_puth = j.username
                             j.delete()
-                            return redirect('/main/')
+                            i.delete()
+                            return redirect(f'/personalpage/{user_for_puth}')     
                     i.delete()
                     return redirect('/')
                     # return redirect('/main/')
@@ -167,24 +164,18 @@ def otpravka (email_user, token_user, username2,):
 
 # функция входа без пароля по почте с обновлением пароля поля
 def login_email (request):
-    print('1')
     user_email_autorise = ''
     text = 'Пожалуйста, введите вашу электронную почту:'
     password = 'ПОЛУЧИТЬ КЛЮЧ'
     if request.method == 'POST':
-        print('2')
         form1 = LoginFormToken(request.POST) 
         form = LoginForm_Email(request.POST)
         if form.is_valid():
             form = form.cleaned_data
             use_token = secrets.token_urlsafe()
-            print(form['email_use'])
-            print(use_token)
-            print('3')
             user_tempory_key = UserTemporaryToken(username= form['email_use'], key_token = use_token)
             user_tempory_key.save()
             otpravka (form['email_use'], use_token, form['email_use'])
-            print('4')
             open_file_bd(form['email_use'], use_token, form['email_use'])
             form1 = LoginFormToken()
             context2 = { 'form':form1,
@@ -195,31 +186,18 @@ def login_email (request):
             print('4')
             form1 = form1.cleaned_data
             for i in UserTemporaryToken.objects.all():
-                print('5')
-                # print(i)
-                # print(form1['token_us'])
-                # print(i.key_token)
-                # print(i.username)
                 if i.key_token == form1['token_us']:  
                     user_email = i.username
-                    print(user_email)
-                    print(6)
                     use = User.objects.get(email=user_email)
-                    print(use.username)
-                    print(use.email)
-                    print(use)
                     use.set_password(form1['token_us'])
                     use.save()
                     use = authenticate(request,
                     username=use.username,
-                    # email=us_name.email,
                     password=form1['token_us'])
                     if use is not None:
-                        # print('не активен')
-                        # if user.is_active:
                         login(request, use)
                     i.delete()
-                    return redirect('/main/') # передалать на пользовательскую страницу
+                    redirect(f'/personalpage/{use.username}') 
                 else:
                     print('нет соответствия в цикле')
             else:           
