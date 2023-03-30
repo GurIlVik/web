@@ -16,19 +16,21 @@
 <body>
     
     <header>
-        {% if request.user.is_authenticated and access == True %}
+        {% if access == True %}
         <div><p><input class='fd2' type="submit" value="НАСТРОЙКИ"></p></div>
         <div>
             <a class='fd2' href="/main/"><button class='fd2'>НАЗАД</button></a> 
-        </div>
+        </div> 
         <div>
             <a class='fd2' href="/account/logout/"><button class='fd2'>ВЫХОД</button></a></div>
         </div>
         {% endif %}
     </header>
 
-
+    {% if register == True %}
+    
     <div id="global">
+        <p>НУ ПОГОДИ!</p>
     <div id="personal_information"> 
         {% for i in amalker %}
         <div class = 'amalker_blok_1'>
@@ -101,9 +103,11 @@
     </div>
 
     </div>
+
+{% else %}
+<a class='fd2' href="/main/"><button class='fd2'>НАЗАД</button></a> 
+{% endif %}
 {% endblock %}
-
-
 <footer>
     <div id="f_d1">
         <div>&nbsp  Творческая студия:</div> 

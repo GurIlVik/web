@@ -12,8 +12,9 @@ def main_page(request):
     c = Information_block.objects.all()
     e = Amalker.objects.all()
     predmet_collection_list = []   # В этом списке выбранные категории предметов
-    g = chek_User_authenticated(request, 'Регистрация/ВХОД', 'ВЫХОД') 
-    h = chek_User_authenticated(request, "/", "/account/logout/") 
+    g = chek_User_authenticated(request, 'Регистрация/ВХОД', 'ВЫХОД') # предоставление значений согласно логик
+    h = chek_User_authenticated(request, "/", "/account/logout/")  # предоставление путей согласно логик
+    j = f'/personalpage/{str(request.user)}'      # получение имени и питу на личную страницу
     context = {
         'a': a,
         "form2" : b,
@@ -21,6 +22,7 @@ def main_page(request):
         'amalker' : e,
         'log' : g,
         'puth_exit_enter' : h,
+        'puth_paesonalpage' : j,
     }
     print(c)
     if request.method == 'POST':

@@ -29,10 +29,11 @@
         <div>
             <button class='fd2' onclick="menuPoint3('ПРОДАЮ')">Продам</button>
         </div>
+        {% if request.user.is_authenticated %}
+        <div ><a href="{{ puth_paesonalpage }}"><button class='fd2'>Своя страница</button></a></div>
+        {% endif %}
 
         <div ><a href="{{ puth_exit_enter }}"><button class='fd2'>{{ log }}</button></a></div>
-
-        {% comment %}<div ><a href="/"><button class='fd2'>НАЗАД</button></a></div>   требуется дописать кнопку - регистрация или выход {% endcomment %}
 
     </header>
     
