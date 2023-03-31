@@ -82,25 +82,39 @@ function menuPoint23() {
 
 // функция отображения по интересу пользователя.
 function menuPoint3(as) {
-    // let global_list = document.getElementById("basic");
     let value_list4 = document.getElementsByClassName("info_blok_1");
     let value_list3 = document.getElementsByClassName("display_none");
-    // global_list.innerHTML = ''
     for (var i = value_list3.length - 1; i >= 0; i--) {
         let a = value_list3[i].innerHTML.trim();
         let b = value_list4[i];
-        // console.log(value_list4[i]);
-        // console.log(typeof(a));
-        // console.log(b);
-        // console.log(typeof('ПРОДАЮ'));
-        // console.log('ПРОДАЮ');
         if (a == as) {
-            // console.log('верно');
-            // console.log(value_list4[i]);
             value_list4[i].style.display = "flex";
         } else {
             value_list4[i].style.display = "none";
         }
     }
 }
+
+
+
+function Comment_authentic_comment_not_register() {
+    let modal_not_register = document.getElementById('modal_not_register_id');
+    modal_not_register.style.display = "inline";
+}
+
+function close_modal_not_register() {
+    let modal_not_register = document.getElementById('modal_not_register_id');
+    modal_not_register.style.display = "none";
+}
+
+window.onclick = function(event) {
+    let modal_not_register = document.getElementById('modal_not_register_id');
+    if (event.target === modal_not_register) {
+        console.log(event.target)
+        let modal_not_register = document.getElementById('modal_not_register_id');
+        modal_not_register.style.display = "none";
+    } 
+}
+
+
 

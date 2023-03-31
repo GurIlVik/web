@@ -297,6 +297,35 @@ footer {
     flex-direction: row;
     justify-content: space-evenly;
 }
- #q1{
+#q1{
     display: none;
  }
+
+#for_win_up {
+    display: none;
+}
+
+.modal_not_register_class {
+    display: none;
+    position: relative;
+    z-index: 1;
+    left: 0px;
+    top: -30px;
+    height: 120px;
+    width: 400px;
+    overflow: auto;
+    background-color: rgb(227, 239, 223, 0.6);
+}
+
+.modal_not_register_contetnt_class {
+    background-color: rgba(92, 123, 82, 0.8);
+
+    border: 1px solid rgba(118, 230, 81, 0.7);
+}
+
+.close_modal_not_register {
+    color: aquamarine;
+    float: right;
+    font-size: medium;
+    font-weight: bold;
+}

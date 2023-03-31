@@ -15,25 +15,16 @@
     
     <header>
 
-        <div><p><input class='fd2' type="submit" value="О сайте"></p></div>
         <div>
-            <button class='fd2' onclick="menuPoint2()">Предмет коллекции</button>
-        </div>
-        
+            <p><input class='fd2' type="submit" value="О сайте"></p></div>
         <div>
-            <button class='fd2' onclick="menuPoint3('СТАТЬИ')">Статьи</button>
-        </div>
-        <div>
-            <button class='fd2' onclick="menuPoint3('Я ИЩУ')">Я ищу:</button>
-        </div>
-        <div>
-            <button class='fd2' onclick="menuPoint3('ПРОДАЮ')">Продам</button>
+            <a href="/main/"><button class='fd2'>На главную</button></a>
         </div>
         {% if request.user.is_authenticated %}
         <div ><a href="{{ puth_paesonalpage }}"><button class='fd2'>Своя страница</button></a></div>
+        {% else %}
+        <div ><a href="/"><button class='fd2'>Регистрация</button></a></div>
         {% endif %}
-
-        <div ><a href="{{ puth_exit_enter }}"><button class='fd2'>{{ log }}</button></a></div>
 
     </header>
 
@@ -63,6 +54,9 @@
                         <div class = 'info_blok_2214'>
                             {{i.categories}}
                         </div>
+                        <div class = 'info_blok_2215'>
+                            {{i.topic_interest}}
+                        </div>
                     </div>
                     <div class = 'info_blok_222'>
                         {{i.table_contents}}
@@ -88,15 +82,25 @@
                     </div>
                 </div>
                 <div class = 'info_blok_42'>
-                    <a href=f'/main/{i.page_author}/{i.time_publication}'>Коментировать</a>
-                    {% comment %} {{i.comment_article}} {% endcomment %}
-                </div>
-                <div class = 'info_blok_43'>
+                    {% if request.user.is_authenticated %}
+                    <button class='fd2' id='button_for_comment' onclick="Comment_authentic_comment">Комментировать</button>
+                    {% else %}
+                    <button class='fd2' id='not_register' onclick="Comment_authentic_comment_not_register()">Комментировать</button>
+                    <div class= 'modal_not_register_class' id='modal_not_register_id'>
+                        <div class= 'modal_not_register_contetnt_class'>
+                            <button class='close_modal_not_register' onclick='close_modal_not_register()'>&times;</button>
+                            <p class='close_modal_not_register2'>Вы не прошли регистрацию</p>
+                            <a class='close_modal_not_register2' href="/"><button class='fd2'>Регистрация/ВХОД</button></a></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class = 'info_blok_43'>
                     {{i.write_author}}
                 </div> 
-        <div class = 'display_none'>
-            {{i.topic_interest}}
-        </div>
+
+                </div>
+                
+        
             </div>
         </div>
        
@@ -122,7 +126,6 @@
                 {% else %}
                 <a class='fd2' href="/"><button class='fd2'>Регистрация/ВХОД</button></a></div>
                 {% endif %}
-            {% comment %} ЗДЕСЬ ДОЛЖЕН БЫТЬ ВЫХОД  {% endcomment %}
         </div> 
     </footer>  
 

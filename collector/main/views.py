@@ -72,9 +72,10 @@ def chek_User_authenticated(request, a = None, b = None):
 
 
 # отображение страницы публикации
-def publication(request, author, time):
+def publication(request, author, id):
+    c = Information_block.objects.filter(id = id)
     context = {'a' : author,
-               'b' : time, }
+               'info_blok' : c }
     return render(request, 'main/publication.html', context)
 
 
