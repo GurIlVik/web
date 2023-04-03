@@ -10,8 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
-    <link rel="stylesheet" href="{% static '/individ_page/base.css' %}" type='text/css'>
-    <script src="{% static '/individ_page/script.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/personalpage/base.css' %}" type='text/css'>
+    <script src="{% static '/personalpage/script.js' %}"></script>
 </head>
 <body>
     
@@ -30,7 +30,29 @@
     {% if register == True %}
     
     <div id="global">
+
     <div id="personal_information"> 
+
+        <div id = 'photo_user'>
+                Здесь должно быть фото
+            </div>
+        <div id = 'nik_user'>
+            {{nik_user}}
+        </div>
+        <div id = 'status_user'>
+            <p>коллекционер ли </p>
+        </div>
+        <div id = 'class_user'>
+            <p>пожтвержден ли </p>
+        </div>
+        <div id = 'predmet_collection_user'>
+            <p>Коллекция: </p>
+        </div>
+        <div id = 'secret_information_user'>
+            <p>Закрытая информация : </p>
+        </div>
+
+
         hfbvehrbvkherjb
         {% for i in amalker %}
         <div class = 'amalker_blok_1'>
@@ -46,9 +68,9 @@
 
 {% comment %} basic блок с основной информацией {% endcomment %}    
     
-        <div class = 'info_blok'>
+        <div id = 'info_blok'>
             er;lkgne;lrkgn
-        </div> 
+      
 
   
         {% for i in information_block %}
@@ -103,16 +125,16 @@
         </div>
             </div>
         </div>
-    </div> 
+    
        
        {% endfor%} 
-    
+    </div> 
 
 
     <div id="messenges">
         ergbberbgerbg
     </div>
-
+</div> 
 
    
 

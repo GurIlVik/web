@@ -18,12 +18,15 @@ def personal_page(request, user):
     print(search_user)      # тру-страница есть фальш - страницы нет
     print(registered_user)  # тру-зарегистрирован | нет фальш
     a = Information_block.objects.all()
+    b = user
     if search_user:
         password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
         context = {'nik_name' : nik_reguest,
                    'access' : password,
                    'register' : registered_user,
-                   'information_block' : a,}
+                   'information_block' : a,
+                   'nik_user' : b, 
+                   }
         return render(request, 'personalpage/index.html', context)
         
     return HttpResponse('такого пользователя нет')
