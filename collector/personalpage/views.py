@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
+from main.models import Information_block
 # from .models import UserTemporaryModels, UserTemporaryToken
 
 @ login_required
@@ -16,11 +17,13 @@ def personal_page(request, user):
     print(nik_reguest)      # имя зашедшего на страницу
     print(search_user)      # тру-страница есть фальш - страницы нет
     print(registered_user)  # тру-зарегистрирован | нет фальш
+    a = Information_block.objects.all()
     if search_user:
         password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
         context = {'nik_name' : nik_reguest,
                    'access' : password,
-                   'register' : registered_user}
+                   'register' : registered_user,
+                   'information_block' : a,}
         return render(request, 'personalpage/index.html', context)
         
     return HttpResponse('такого пользователя нет')
