@@ -46,15 +46,6 @@ header {
 }
 
 
-#personal_information {
-    height: 100%;
-    width: 20%;
-    position: relative;
-    background-color: chocolate;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
 
 #info_blok {
     height: 100%;
@@ -75,11 +66,6 @@ header {
     flex-direction: column;
     justify-content: flex-start;
 }
-
-
-
-
-
 
 footer {
     color: white;
@@ -111,3 +97,91 @@ footer {
  #q1{
     display: none;
  }
+
+ /* БЛОКИ ОТОБРАЖЕНИЯ ПЕРСОНАЛЬНОЙ ИНФОРМАЦИИ: */
+
+
+ #personal_information {
+    border: 1px solid black;
+    background-color: rgb(242, 242, 242);
+    height: 100%;
+    width: 180px;
+    position: relative;
+}
+
+#personal_information1 {
+    margin: 11px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#photo_user {
+    border: 2px solid black;
+    padding: 2px;
+    height: 150px;
+    width: 150px;
+    top: 8px;
+    /* left: 8px; */
+    /* position: relative; */
+    background-color: white;
+    font-family: serif;
+    font-stretch: 50%;
+}
+
+#nik_user {
+    padding: 4px;
+    height: 22px;
+    width: 150px;
+    top: 12px;
+    font-family: serif;
+    font-stretch: 50%;
+    text-align: center;
+    color: blue;
+}
+
+#status_user {
+    padding: 4px;
+    height: 22px;
+    width: 150px;
+    padding-top: 20px;
+    font-family: serif;
+    font-size: 23px;
+    text-align: center;
+    color: blue;
+    
+}
+
+#class_user {
+    padding: 4px;
+    height: 12px;
+    width: 150px;
+    padding-top: 12px;
+    font-family: serif;
+    font-size: 17px;
+    text-align: center;
+    color: blue;
+}
+
+#predmet_collection_user {
+    padding: 4px;
+    height: 50%;
+    width: 150px;
+    padding-top: 35px;
+    /* border-bottom: 2px black; */
+    font-family: serif;
+    font-size: 23px;
+    text-align: center;
+    color: blue;
+    border-bottom: 2px solid black;
+}
+
+#predmet_collection_user2 {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.predmet_collection_user3 {
+    color: blue;
+}
+

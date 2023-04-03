@@ -32,28 +32,34 @@
     <div id="global">
 
     <div id="personal_information"> 
-
+        <div id = 'personal_information1'>
         <div id = 'photo_user'>
-                Здесь должно быть фото
+                Здесь может быть фото
             </div>
         <div id = 'nik_user'>
             {{nik_user}}
         </div>
         <div id = 'status_user'>
-            <p>коллекционер ли </p>
+            <p>коллекционер</p>
         </div>
         <div id = 'class_user'>
-            <p>пожтвержден ли </p>
+            <p>не является ФФП</p>
         </div>
         <div id = 'predmet_collection_user'>
-            <p>Коллекция: </p>
+            <div id = 'predmet_collection_user2'>
+                <p>Интересует</p>
+            </div>
+            <div class = 'predmet_collection_user3'>
+                <p>object 1</p>
+                <p>object 2</p>
+            </div>
         </div>
         <div id = 'secret_information_user'>
             <p>Закрытая информация : </p>
         </div>
+    </div>
 
-
-        hfbvehrbvkherjb
+        {% comment %} hfbvehrbvkherjb
         {% for i in amalker %}
         <div class = 'amalker_blok_1'>
             <div class = 'amalker_blok_2'>
@@ -63,7 +69,7 @@
                 {{i.tabloid}}
             </div>
         </div>
-       {% endfor%}   
+       {% endfor%}    {% endcomment %}
     </div>    
 
 {% comment %} basic блок с основной информацией {% endcomment %}    
