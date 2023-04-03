@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # from django.contrib.auth import authenticate, login, logout
-# from .forms import LoginForm, UserRegistrationForm, LoginForm_Email, LoginFormToken
+from .forms import NewArticleForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
@@ -19,6 +19,7 @@ def personal_page(request, user):
     print(registered_user)  # тру-зарегистрирован | нет фальш
     a = Information_block.objects.all()
     b = user
+    c = NewArticleForm()
     if search_user:
         password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
         context = {'nik_name' : nik_reguest,
@@ -26,6 +27,7 @@ def personal_page(request, user):
                    'register' : registered_user,
                    'information_block' : a,
                    'nik_user' : b, 
+                   'form_art' : c,
                    }
         return render(request, 'personalpage/index.html', context)
         

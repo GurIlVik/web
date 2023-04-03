@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+
+class NewArticle(models.Model):
+    title = models.CharField( max_length=100, null=True, blank=True)
+    text = models.TextField( blank=False, null=False) 
+    photo = models.FileField(null=True, blank=True)
+

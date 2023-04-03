@@ -122,11 +122,9 @@ footer {
     height: 150px;
     width: 150px;
     top: 8px;
-    /* left: 8px; */
-    /* position: relative; */
     background-color: white;
     font-family: serif;
-    font-stretch: 50%;
+    font-size: 30px;
 }
 
 #nik_user {
@@ -184,4 +182,10 @@ footer {
 .predmet_collection_user3 {
     color: blue;
 }
+
+#secret_information_user {
+    font-size: 23px;
+}
+
+/* БЛОКИ ОТОБРАЖЕНИЯ ЦЕНТРАЛЬНОЙ ЧАСТИ: */
 
