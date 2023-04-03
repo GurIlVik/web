@@ -76,14 +76,11 @@
 {% comment %} basic блок с основной информацией {% endcomment %}    
     
         <div id = 'info_blok'>
-
             <div id = 'box_info_blok'>
 
-            
+{% comment %} 
 
-
-
-                <form id='box_write_info_blok' method="post" action="">
+        <form id='box_write_info_blok' method="post" action="">
             <div id = 'box_write_info_blok'>
             <p>Написать новую статью</p>
             {{ form_art.as_p }}
@@ -91,7 +88,7 @@
             <button class='fd2' type="submit" >ввод</button>
         </form>
 
-            er;lkgne;lrkgn
+            er;lkgne;lrkgn {% endcomment %}
 
 
 
@@ -108,11 +105,10 @@
 
 
 
-                <p><input type="submit" value="Send" ></p>    
-            <p><label for='id_title'>название</label><input id="q1" name="title" type='text' value='название' reguire id='id_title'/></p>
-            <div><input id="q1" name="text" type='text'/></div>
-            <div><input id="q1" name="text" type='file'/></div>
-                <button class='fd2' type="submit" >ввод</button>
+{% comment %} ПОПЫТКА ОСЕДЛАТЬ ТРИ СЦЕНАРИЯ ОДНОЙ ФОРМЫ {% endcomment %}
+                <button class='fd2' type="submit" name='memory'>сохранить</button>  
+                <button class='fd2' type="submit" name='write'>опубликовать</button>
+                <button class='fd2' type="submit" name='delete'>удалить</button>
             </form> 
 
   

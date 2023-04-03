@@ -20,6 +20,17 @@ def personal_page(request, user):
     a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
+    if request.method == 'POST':
+        c = NewArticleForm(request.POST) 
+        if c.is_valid(): 
+            c = c.cleaned_data
+            if 'memory' in request.POST:
+                print('memory')
+                
+            elif 'write' in request.POST:
+                print('write')
+            elif 'delete' in request.POST:
+                print('delete')
     if search_user:
         password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
         context = {'nik_name' : nik_reguest,
@@ -30,7 +41,7 @@ def personal_page(request, user):
                    'form_art' : c,
                    }
         return render(request, 'personalpage/index.html', context)
-        
+    
     return HttpResponse('такого пользователя нет')
 
 
