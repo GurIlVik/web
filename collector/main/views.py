@@ -8,7 +8,7 @@ from .forms import ProstoList
 # отображение главной страницы
 def main_page(request):
     a = Category.objects.all().order_by('name')  # сортировка списка по имени в базе
-    b = ProstoList('prosto list')
+    b = ProstoList('prosto_list')
     c = Information_block.objects.all()
     e = Amalker.objects.all()
     predmet_collection_list = []   # В этом списке выбранные категории предметов

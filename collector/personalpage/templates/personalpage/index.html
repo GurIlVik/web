@@ -55,7 +55,8 @@
             </div>
         </div>
         <div id = 'secret_information_user'>
-            <p>Закрытая информация : </p>
+            <p>Закрытая </p>
+            <p>информация : </p>
         </div>
     </div>
 
@@ -75,12 +76,44 @@
 {% comment %} basic блок с основной информацией {% endcomment %}    
     
         <div id = 'info_blok'>
-            <div>
+
+            <div id = 'box_info_blok'>
+
+            
+
+
+
+                <form id='box_write_info_blok' method="post" action="">
+            <div id = 'box_write_info_blok'>
+            <p>Написать новую статью</p>
             {{ form_art.as_p }}
             </div>  
+            <button class='fd2' type="submit" >ввод</button>
+        </form>
 
             er;lkgne;lrkgn
-      
+
+
+
+            <form id='box_write_info_blok' method="post" action="">
+                {% csrf_token %}
+                {% for field in form_art %}
+                <div class="form-group">
+                    {% comment %} {{field.label_tag}} {% endcomment %}
+                    <div>{{field}}</div>
+                    <div class="error">{{field.errors}}</div>
+                </div>
+                {% endfor %}
+               
+
+
+
+                <p><input type="submit" value="Send" ></p>    
+            <p><label for='id_title'>название</label><input id="q1" name="title" type='text' value='название' reguire id='id_title'/></p>
+            <div><input id="q1" name="text" type='text'/></div>
+            <div><input id="q1" name="text" type='file'/></div>
+                <button class='fd2' type="submit" >ввод</button>
+            </form> 
 
   
         {% for i in information_block %}
@@ -138,7 +171,7 @@
     
        
        {% endfor%} 
-    </div> 
+    </div> </div>  
 
 
     <div id="messenges">
