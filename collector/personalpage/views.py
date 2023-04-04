@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
 from main.models import Information_block
-# from .models import UserTemporaryModels, UserTemporaryToken
+from .models import NewArticle
 
 @ login_required
 def personal_page(request, user): 
