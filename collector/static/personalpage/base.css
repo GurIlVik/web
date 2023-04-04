@@ -179,8 +179,6 @@ footer {
 
 /* БЛОКИ ОТОБРАЖЕНИЯ ЦЕНТРАЛЬНОЙ ЧАСТИ: */
 
-
-
 #info_blok {
     height: 100%;
     width: max-content;
@@ -201,17 +199,16 @@ footer {
     background-color: rgb(242, 242, 242);
 }
 
+/* ОТРАЖЕНИЕ для новой статьи */
 #box_write_info_blok {
     padding: 3px;
     border: solid 2px black;
 }
 
-#id_title {
-    
-    width: 200px;
-}
+/* ОТРАЖЕНИЕ для редактируемой  */
 
-#box_write_info_blok2 {
-    padding: 3px;
+#box_for_editorial_office {
+    margin-top: 11px;
     border: solid 2px black;
+    padding: 3px;
 }

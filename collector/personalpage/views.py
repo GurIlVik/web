@@ -20,29 +20,51 @@ def personal_page(request, user):
     a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
-    if request.method == 'POST':
-        c = NewArticleForm(request.POST) 
-        if c.is_valid(): 
-            c = c.cleaned_data
-            if 'memory' in request.POST:
-                print('memory')
-                
-            elif 'write' in request.POST:
-                print('write')
-            elif 'delete' in request.POST:
-                print('delete')
-    if search_user:
-        password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
-        context = {'nik_name' : nik_reguest,
+    password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
+    d = NewArticle.objects.filter(author=user)
+    print(d)
+    for i in d:
+        
+        print(i.author)
+    context = {'nik_name' : nik_reguest,
                    'access' : password,
                    'register' : registered_user,
                    'information_block' : a,
                    'nik_user' : b, 
                    'form_art' : c,
+                   'for_editorial_office' : d,
                    }
+    if search_user == False:
+        return HttpResponse('такого пользователя нет')
+       
+    else:
+        if request.method == 'POST':
+            c = NewArticleForm(request.POST) 
+            if c.is_valid(): 
+                c = c.cleaned_data
+                if 'memory' in request.POST:
+                    c = NewArticle.objects.create(author=b, title=c['title'], 
+                                                  text=c['text'], photo=c['photo'],)
+                    print('memory')
+                    return render(request, 'personalpage/index.html', context)
+                elif 'write' in request.POST:
+                    print('write')
+                elif 'delete' in request.POST:
+                    print('delete')
+            return render(request, 'personalpage/index.html', context)
         return render(request, 'personalpage/index.html', context)
+    # if search_user:
+    #     password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
+    #     context = {'nik_name' : nik_reguest,
+    #                'access' : password,
+    #                'register' : registered_user,
+    #                'information_block' : a,
+    #                'nik_user' : b, 
+    #                'form_art' : c,
+    #                }
+    #     return render(request, 'personalpage/index.html', context)
     
-    return HttpResponse('такого пользователя нет')
+    # return HttpResponse('такого пользователя нет')
 
 
 # Функция получения имени пользователя из запроса 

@@ -17,12 +17,14 @@
     
     <header>
         {% if access == True %}
-        <div><p><input class='fd2' type="submit" value="НАСТРОЙКИ"></p></div>
+        <div>
+            <p><input class='fd2' type="submit" value="НАСТРОЙКИ"></p>
+        </div>
         <div>
             <a class='fd2' href="/main/"><button class='fd2'>К ОБЩЕСТВУ</button></a> 
         </div> 
         <div>
-            <a class='fd2' href="/account/logout/"><button class='fd2'>ВЫХОД</button></a></div>
+            <a class='fd2' href="/account/logout/"><button class='fd2'>ВЫХОД</button></a>
         </div>
         {% endif %}
     </header>
@@ -31,157 +33,147 @@
     
     <div id="global">
 
-    <div id="personal_information"> 
-        <div id = 'personal_information1'>
-        <div id = 'photo_user'>
-                Здесь может быть фото
-            </div>
-        <div id = 'nik_user'>
-            {{nik_user}}
-        </div>
-        <div id = 'status_user'>
-            <p>коллекционер</p>
-        </div>
-        <div id = 'class_user'>
-            <p>не является ФФП</p>
-        </div>
-        <div id = 'predmet_collection_user'>
-            <div id = 'predmet_collection_user2'>
-                <p>Интересует</p>
-            </div>
-            <div class = 'predmet_collection_user3'>
-                <p>object 1</p>
-                <p>object 2</p>
-            </div>
-        </div>
-        <div id = 'secret_information_user'>
-            <p>Закрытая </p>
-            <p>информация : </p>
-        </div>
-    </div>
-
-        {% comment %} hfbvehrbvkherjb
-        {% for i in amalker %}
-        <div class = 'amalker_blok_1'>
-            <div class = 'amalker_blok_2'>
-                {{i.name_seller}}
-            </div>
-            <div class = 'amalker_blok_3'>
-                {{i.tabloid}}
-            </div>
-        </div>
-       {% endfor%}    {% endcomment %}
-    </div>    
-
-{% comment %} basic блок с основной информацией {% endcomment %}    
-    
-        <div id = 'info_blok'>
-            <div id = 'box_info_blok'>
-
-{% comment %} 
-
-        <form id='box_write_info_blok' method="post" action="">
-            <div id = 'box_write_info_blok'>
-            <p>Написать новую статью</p>
-            {{ form_art.as_p }}
-            </div>  
-            <button class='fd2' type="submit" >ввод</button>
-        </form>
-
-            er;lkgne;lrkgn {% endcomment %}
-
-
-
-            <form id='box_write_info_blok' method="post" action="">
-                {% csrf_token %}
-                {% for field in form_art %}
-                <div class="form-group">
-                    {% comment %} {{field.label_tag}} {% endcomment %}
-                    <div>{{field}}</div>
-                    <div class="error">{{field.errors}}</div>
+        <div id="personal_information"> 
+            <div id = 'personal_information1'>
+                <div id = 'photo_user'>
+                    Здесь может быть фото
                 </div>
+                <div id = 'nik_user'>
+                    {{nik_user}}
+                </div>
+                <div id = 'status_user'>
+                    <p>коллекционер</p>
+                </div>
+                <div id = 'class_user'>
+                    <p>не является ФФП</p>
+                </div>
+                <div id = 'predmet_collection_user'>
+                    <div id = 'predmet_collection_user2'>
+                        <p>Интересует</p>
+                    </div>
+                    <div class = 'predmet_collection_user3'>
+                        <p>object 1</p>
+                        <p>object 2</p>
+                    </div>
+                </div>
+                <div id = 'secret_information_user'>
+                    <p>Закрытая </p>
+                    <p>информация : </p>
+                </div>
+            </div>
+        </div>
+{% comment %} basic блок с основной информацией {% endcomment %}    
+        <div id = 'info_blok'>     
+            <div id = 'box_info_blok'>
+                <form id='box_write_info_blok' method="post" action="">
+                    {% csrf_token %}
+                    {% for field in form_art %}
+                    <div class="form-group">
+                    {% comment %} {{field.label_tag}} {% endcomment %}
+                        <div class='widget_box_write_info_blok'>{{field}}</div>
+                        <div class="error">{{field.errors}}</div>
+                    </div>
+                    {% endfor %}
+                         {% comment %} ПОПЫТКА ОСЕДЛАТЬ ТРИ СЦЕНАРИЯ ОДНОЙ ФОРМЫ {% endcomment %}
+                    <button class='fd2' type="submit" name='memory'>сохранить</button>  
+                    <button class='fd2' type="submit" name='write'>опубликовать</button>
+                    <button class='fd2' type="submit" name='delete'>удалить</button>
+                </form> 
+           
+       
+  
+                {% for i in for_editorial_office %}
+                <div id = 'box_for_editorial_office'>
+                    <button class='fd2'>РЕДАКТИРОВАТЬ</button>
+                    <div class = 'or_editorial_office1'>
+                        <div class = 'or_editorial_office11'>
+                            <p> {{ i.title}}</p>
+                        </div>
+                    </div>
+                    <div class = 'or_editorial_office2'>
+                        <div class = 'or_editorial_office22'>
+                            <p> {{ i.text}}</p>
+                        </div>
+                    </div>
+                    <div class = 'or_editorial_office3'>
+                        <div class = 'or_editorial_office33'>
+                            <p> {{ i.photo}}</p>
+                        </div>
+                    </div>
+
+                </div> 
                 {% endfor %}
-               
-
-
-
-{% comment %} ПОПЫТКА ОСЕДЛАТЬ ТРИ СЦЕНАРИЯ ОДНОЙ ФОРМЫ {% endcomment %}
-                <button class='fd2' type="submit" name='memory'>сохранить</button>  
-                <button class='fd2' type="submit" name='write'>опубликовать</button>
-                <button class='fd2' type="submit" name='delete'>удалить</button>
-            </form> 
 
   
-        {% for i in information_block %}
-        <div class = 'info_blok_1'>
-            <div class = 'info_blok_2'>
-                <div class = 'info_blok_21'>
-                    {{i.picture_author}}
-                </div>
-                <div class = 'info_blok_22'>
-                    <div class = 'info_blok_221'>
-                        <div class = 'info_blok_2212'>
-                            {{i.page_author}}
+                {% for i in information_block %}
+                <div class = 'info_blok_1'>
+                    <div class = 'info_blok_2'>
+                        <div class = 'info_blok_21'>
+                            {{i.picture_author}}
                         </div>
-                        <div class = 'info_blok_2213'>
-                            {{i.time_publication}}
-                        </div>
-                        <div class = 'info_blok_2214'>
-                            {{i.categories}}
+                        <div class = 'info_blok_22'>
+                            <div class = 'info_blok_221'>
+                                <div class = 'info_blok_2212'>
+                                    {{i.page_author}}
+                                </div>
+                                <div class = 'info_blok_2213'>
+                                    {{i.time_publication}}
+                                </div>
+                                <div class = 'info_blok_2214'>
+                                    {{i.categories}}
+                                </div>
+                            </div>
+                            <div class = 'info_blok_222'>
+                                {{i.table_contents}}
+                            </div>
                         </div>
                     </div>
-                    <div class = 'info_blok_222'>
-                        {{i.table_contents}}
+                    <div class = 'info_blok_3'>
+                        {{i.text_contents}}
                     </div>
-                </div>
+                    <div class = 'info_blok_4'>
+                        <div class = 'info_blok_41'>
+                            <div class = 'info_blok_41'>
+                                {{i.symbol_ok}}
+                            </div>
+                            <div class = 'info_blok_41'>
+                                {{i.count_symbol_ok}}
+                            </div>
+                            <div class = 'info_blok_41'>
+                                {{i.symbol_bad}}
+                            </div>
+                            <div class = 'info_blok_41'>
+                                {{i.count_symbol_bad}}
+                            </div>
+                        </div>
+                        <div class = 'info_blok_42'>
+                            {{i.comment_article}}
+                        </div>
+                        <div class = 'info_blok_43'>
+                            {{i.write_author}}
+                        </div> 
+                        <div class = 'display_none'>
+                        {{i.topic_interest}}
+                        </div> 
+                    </div> 
+                </div>  
+                {% endfor%} 
             </div>
-            <div class = 'info_blok_3'>
-                {{i.text_contents}}
-            </div>
-            <div class = 'info_blok_4'>
-                <div class = 'info_blok_41'>
-                    <div class = 'info_blok_41'>
-                        {{i.symbol_ok}}
-                    </div>
-                    <div class = 'info_blok_41'>
-                        {{i.count_symbol_ok}}
-                    </div>
-                    <div class = 'info_blok_41'>
-                        {{i.symbol_bad}}
-                    </div>
-                    <div class = 'info_blok_41'>
-                        {{i.count_symbol_bad}}
-                    </div>
-                </div>
-                <div class = 'info_blok_42'>
-                    {{i.comment_article}}
-                </div>
-                <div class = 'info_blok_43'>
-                    {{i.write_author}}
-                </div> 
-        <div class = 'display_none'>
-            {{i.topic_interest}}
         </div>
-            </div>
-        </div>
-    
-       
-       {% endfor%} 
-    </div> </div>  
-
-
-    <div id="messenges">
-        ergbberbgerbg
+        
+        <div id="messenges">
+            ergbberbgerbg
+        </div> 
     </div>
-</div> 
+    
+
 
    
 
-
 {% else %}
 <a class='fd2' href="/main/"><button class='fd2'>НАЗАД</button></a> 
-{% endif %}
-{% endblock %}
+{% endif %} 
+{% endblock %} 
 <footer>
     <div id="f_d1">
         <div>&nbsp  Творческая студия:</div> 
