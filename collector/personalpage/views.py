@@ -44,13 +44,30 @@ def personal_page(request, user):
                 c = c.cleaned_data
                 if 'memory' in request.POST:
                     c = NewArticle.objects.create(author=b, title=c['title'], 
-                                                  text=c['text'], photo=c['photo'],)
+                                                  text=c['text'], photo=c['photo'], 
+                                                  categories=c['categories'], topic = c['topic'])
                     print('memory')
                     return render(request, 'personalpage/index.html', context)
                 elif 'write' in request.POST:
+                    с = Information_block.objects.create(
+                        picture_author = 'фото',
+                        page_author = b,       # ник автора с отправкой на его страницу
+                        # time_publication = models.DateTimeField(auto_now_add=True)
+                        categories = c['categories'],        # категории по списку предметов коллекционирования
+                        topic_interest = c['topic'],      # категории по списку интереса и поиска
+                        table_contents = c['title'],
+                        text_contents = c['text'],
+                        symbol_ok = 'ok',
+                        count_symbol_ok = '12',
+                        symbol_bad = 'out',
+                        count_symbol_bad = '3',
+                        comment_article = 'пока вопрос',     # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
+                        write_author = 'писать автору', 
+                        access = True)
                     print('write')
+                    return render(request, 'personalpage/index.html', context)
                 elif 'delete' in request.POST:
-                    print('delete')
+                    return render(request, 'personalpage/index.html', context)
             return render(request, 'personalpage/index.html', context)
         return render(request, 'personalpage/index.html', context)
     # if search_user:

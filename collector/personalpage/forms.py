@@ -5,7 +5,8 @@ from django.forms.forms import Form
 
 class NewArticleForm(Form):
     title = forms.CharField(initial="название", ) 
-    # title = forms.CharField(label='название') 
+    categories = forms.CharField(initial="по продукту") 
+    topic = forms.CharField(initial="статья/продажа/покупка")
     text = forms.CharField( widget=forms.Textarea, initial="текст") 
     photo = forms.FileField(label='введите файл', initial="сюда:", widget = ClearableFileInput(attrs={'multiple': True}))
     
