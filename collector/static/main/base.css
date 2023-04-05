@@ -315,12 +315,11 @@ footer {
     width: 400px;
     overflow: auto;
     background-color: rgb(227, 239, 223, 0.6);
+    border: 1px solid rgba(118, 230, 81, 0.7);
 }
 
 .modal_not_register_contetnt_class {
     background-color: rgba(92, 123, 82, 0.8);
-
-    border: 1px solid rgba(118, 230, 81, 0.7);
 }
 
 .close_modal_not_register {
