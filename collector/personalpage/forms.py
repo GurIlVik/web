@@ -1,14 +1,14 @@
 from django import forms 
 from django.forms import ClearableFileInput
-from django.forms.forms import Form 
+# from django.forms.forms import Form 
 
 
-class NewArticleForm(Form):
-    title = forms.CharField(initial="название", ) 
-    categories = forms.CharField(initial="по продукту") 
-    topic = forms.CharField(initial="статья/продажа/покупка")
-    text = forms.CharField( widget=forms.Textarea, initial="текст") 
-    photo = forms.FileField(label='введите файл', initial="сюда:", widget = ClearableFileInput(attrs={'multiple': True}))
+class NewArticleForm(forms.Form):
+    title = forms.CharField(initial="название", max_length=150, ) 
+    categories = forms.CharField(initial="по продукту",  max_length=150,) 
+    topic = forms.CharField(initial="статья/продажа/покупка",  max_length=150,)
+    text = forms.CharField( widget=forms.Textarea, initial="текст", ) 
+    photo = forms.FileField(label='введите файл', initial="сюда:", widget = ClearableFileInput(attrs={'multiple': True}), )
     
     # class Meta:
     #     widgets = {

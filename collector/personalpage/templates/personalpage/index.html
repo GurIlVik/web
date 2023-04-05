@@ -75,8 +75,8 @@
 
                     {% comment %} {{field.label_tag}} {% endcomment %}
                         <div class='widget_box_write_info_blok'>{{field}}</div>
-                        <div class='widget_box_write_info_blok'>{{field.title}}</div>
-                        <input id="q1" name="title"/>
+                        {% comment %} <div class='widget_box_write_info_blok'>{{field.title}}</div> {% endcomment %}
+                        {% comment %} <input id="q1" name="title"/> {% endcomment %}
                         <div class="error">{{field.errors}}</div>
                     </div>
                     {% endfor %}

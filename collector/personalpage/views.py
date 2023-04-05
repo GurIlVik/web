@@ -13,10 +13,10 @@ def personal_page(request, user):
     nik_reguest = getting_nickname_request(request)  # получение имени пришедшего пользователя
     search_user = user_page_search(user)  # получение булевого есть ли такой пользователь (тру/фальш)
     registered_user = chek_user_register(request)  # логик тру пользователь зарегистрирован или нет фальш
-    print(user)             # имя страницы пользователя
-    print(nik_reguest)      # имя зашедшего на страницу
-    print(search_user)      # тру-страница есть фальш - страницы нет
-    print(registered_user)  # тру-зарегистрирован | нет фальш
+    # print(user)             # имя страницы пользователя
+    # print(nik_reguest)      # имя зашедшего на страницу
+    # print(search_user)      # тру-страница есть фальш - страницы нет
+    # print(registered_user)  # тру-зарегистрирован | нет фальш
     a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
@@ -24,7 +24,6 @@ def personal_page(request, user):
     d = NewArticle.objects.filter(author=user)
     print(d)
     for i in d:
-        
         print(i.author)
     context = {'nik_name' : nik_reguest,
                    'access' : password,
@@ -36,16 +35,18 @@ def personal_page(request, user):
                    }
     if search_user == False:
         return HttpResponse('такого пользователя нет')
-       
     else:
         if request.method == 'POST':
-            c = NewArticleForm(request.POST) 
-            if c.is_valid(): 
-                c = c.cleaned_data
+            form = NewArticleForm(request.POST)
+            print(1)
+            # print(form)
+            if form.is_valid():
+                cd = form.cleaned_data
                 if 'memory' in request.POST:
-                    c = NewArticle.objects.create(author=b, title=c['title'], 
-                                                  text=c['text'], photo=c['photo'], 
-                                                  categories=c['categories'], topic = c['topic'])
+                    print(3)
+                    cd = NewArticle.objects.create(author=b, title=cd['title'], 
+                                                  text=cd['text'], photo=cd['photo'], 
+                                                  categories=cd['categories'], topic = cd['topic'])
                     print('memory')
                     return render(request, 'personalpage/index.html', context)
                 elif 'write' in request.POST:
@@ -68,6 +69,9 @@ def personal_page(request, user):
                     return render(request, 'personalpage/index.html', context)
                 elif 'delete' in request.POST:
                     return render(request, 'personalpage/index.html', context)
+            else:
+                print('что то идет не так')
+                print(form.errors)
             return render(request, 'personalpage/index.html', context)
         return render(request, 'personalpage/index.html', context)
     # if search_user:
