@@ -74,8 +74,11 @@ def chek_User_authenticated(request, a = None, b = None):
 # отображение страницы публикации
 def publication(request, author, id):
     c = Information_block.objects.filter(id = id)
+    j = f'/personalpage/{str(request.user)}' 
     context = {'a' : author,
-               'info_blok' : c }
+               'info_blok' : c, 
+               'puth_paesonalpage' : j,
+               }
     return render(request, 'main/publication.html', context)
 
 

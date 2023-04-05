@@ -11,6 +11,9 @@ class Amalker(models.Model):
 # основная модель предмета коллекционирования   
 class Category(models.Model):
     name = models.TextField(blank=False, unique=True)
+    
+    def __str__(self):
+        return self.name
    
 # вспомогательная модель поиска по интерессу 
 class TopicInterest(models.Model):
