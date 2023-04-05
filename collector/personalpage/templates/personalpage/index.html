@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная</title>
+    <title>Домашняя</title>
     <link rel="stylesheet" href="{% static '/personalpage/base.css' %}" type='text/css'>
     <script src="{% static '/personalpage/script.js' %}"></script>
 </head>
@@ -20,6 +20,9 @@
         <div>
             <p><input class='fd2' type="submit" value="НАСТРОЙКИ"></p>
         </div>
+        <div>
+            <button id='header2' class='fd2' onclick="article()">Написать</button>
+        </div> 
         <div>
             <a class='fd2' href="/main/"><button class='fd2'>К ОБЩЕСТВУ</button></a> 
         </div> 
@@ -69,9 +72,11 @@
                     {% csrf_token %}
                     {% for field in form_art %}
                     <div class="form-group">
+
                     {% comment %} {{field.label_tag}} {% endcomment %}
                         <div class='widget_box_write_info_blok'>{{field}}</div>
                         <div class='widget_box_write_info_blok'>{{field.title}}</div>
+                        <input id="q1" name="title"/>
                         <div class="error">{{field.errors}}</div>
                     </div>
                     {% endfor %}

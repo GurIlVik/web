@@ -97,23 +97,37 @@ function menuPoint3(as) {
 
 
 
+
 function Comment_authentic_comment_not_register() {
     let modal_not_register = document.getElementById('modal_not_register_id');
+    console.log(modal_not_register)
     modal_not_register.style.display = "inline";
+    console.log('3')
 }
 
 function close_modal_not_register() {
+    console.log('4')
     let modal_not_register = document.getElementById('modal_not_register_id');
     modal_not_register.style.display = "none";
 }
 
 window.onclick = function(event) {
-    let modal_not_register = document.getElementById('modal_not_register_id');
-    if (event.target === modal_not_register) {
-        console.log(event.target)
-        let modal_not_register = document.getElementById('modal_not_register_id');
-        modal_not_register.style.display = "none";
-    } 
+    let button_not_register = document.getElementById('not_register');
+    let modal_not_register = document.getElementById ('modal_not_register_id');
+    let modal_not_register1 = document.getElementById ('modal_not_register_id2');
+    let modal_not_register2 = document.getElementById ('modal_not_register_id3');
+    let modal_not_register3 = document.getElementById ('modal_not_register_id3');
+    if (event.target != button_not_register) {
+        if (event.target != modal_not_register 
+            && event.target != modal_not_register1 
+            && event.target != modal_not_register2
+            && event.target != modal_not_register3
+            ) {
+            close_modal_not_register()
+        }
+    } else {
+        console.log('6')
+    }
 }
 
 
