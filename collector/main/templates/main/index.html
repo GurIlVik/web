@@ -1,6 +1,4 @@
 {% load static %}
-{% csrf_token %}
-{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +9,11 @@
     <link rel="stylesheet" href="{% static '/main/base.css' %}" type='text/css'>
     <script src="{% static '/main/script.js' %}"></script>
 </head>
+{% block content %}
+{% csrf_token %}
 <body>
-    
-    <header>
 
+    <header>
         <div><p><input class='fd2' type="submit" value="О сайте"></p></div>
         <div>
             <button class='fd2' onclick="menuPoint2()">Предмет коллекции</button>
@@ -34,7 +33,6 @@
         {% endif %}
 
         <div ><a href="{{ puth_exit_enter }}"><button class='fd2'>{{ log }}</button></a></div>
-
     </header>
     
     <div id="alternative_global_2">
@@ -67,81 +65,78 @@
 
     <div id="global">
 
-    <div id="advertisement"> 
-        {% for i in amalker %}
-        <div class = 'amalker_blok_1'>
-            <div class = 'amalker_blok_2'>
-                {{i.name_seller}}
-            </div>
-            <div class = 'amalker_blok_3'>
-                {{i.tabloid}}
-            </div>
-        </div>
-       {% endfor%}   
-    </div>    
-
-{% comment %} basic блок с основной информацией {% endcomment %}    
-    <div id="basic">
-        {% for i in info_blok %}
-        <div class = 'info_blok_1'>
-            <div class = 'info_blok_2'>
-                <div class = 'info_blok_21'>
-                    {{i.picture_author}}
+        <div id="advertisement"> 
+            {% for i in amalker %}
+            <div class = 'amalker_blok_1'>
+                <div class = 'amalker_blok_2'>
+                    {{i.name_seller}}
                 </div>
-                <div class = 'info_blok_22'>
-                    <div class = 'info_blok_221'>
-                        <div class = 'info_blok_2212'>
+                <div class = 'amalker_blok_3'>
+                    {{i.tabloid}}
+                </div>
+            </div>
+            {% endfor%}   
+        </div>    
+
+        <div id="basic">
+            {% for i in info_blok %}
+            {% csrf_token %}
+            <div class = 'info_blok_grid_main'>
+                <div class = 'grid_main_field1'>
+                    <a href="/personalpage/{{i.page_author}}" class='grid_main_p'>
+                        {% comment %} <button > {% endcomment %}
                             {{i.page_author}}
-                        </div>
-                        <div class = 'info_blok_2213'>
-                            {{i.time_publication}}
-                        </div>
-                        <div class = 'info_blok_2214'>
-                            {{i.categories}}
-                        </div>
-                    </div>
-                    <div class = 'info_blok_222'>
-                        {{i.table_contents}}
-                    </div>
+                        {% comment %} </button> {% endcomment %}
+                    </a>
+                </div>
+                <div class = 'grid_main_field2'>
+                    <p class='grid_main_p'>{{ i.time_publication | date:"j E Y" }}</p>
+                </div>
+                <div class = 'grid_main_field3'>
+                    <p class='grid_main_p'></p>
+                </div>
+                <div class = 'grid_main_field4'>
+                    <p class='grid_main_p'>Кол-во фото</p>
+                </div>
+                <div class = 'grid_main_field5'>
+                    <p class='grid_main_p'> {{i.table_contents}} </p>
+                </div>
+                <div class = 'grid_main_field6'>
+                    <p class='grid_main_p'> {{i.text_contents}} </p>
+                </div>
+                <div class = 'grid_main_field7'>
+                    <p class='grid_main_p'>ФОТО 1</p>
+                </div>
+                <div class = 'grid_main_field8'>
+                    <p class='grid_main_p'>ФОТО 2</p>
+                </div>
+                <div class = 'grid_main_field9'>
+                    <p class='grid_main_p'>&#x1F44D;</p>
+                </div>
+                <div class = 'grid_main_field10'>
+                    <p class='grid_main_p'> {{i.count_symbol_ok}} </p>
+                </div>
+                <div class = 'grid_main_field11'>
+                    <p class='grid_main_p'>&#128078;</p>
+                </div>
+                <div class = 'grid_main_field12'>
+                    <p class='grid_main_p'>{{i.count_symbol_bad}}</p>
+                </div>
+                <div class = 'grid_main_field13'>
+                    <a href='/main/{{i.page_author}}/{{i.id}}' class='grid_main_p'>Подробнее</a>
+                </div>
+                <div class = 'grid_main_field14'>
+                    <p class='grid_main_p'>&#x270D; Автору</p>
+                </div>
+                <div class = 'grid_main_field15'>
+                    <p class='grid_main_p'>Не показывать</p>
                 </div>
             </div>
-            <div class = 'info_blok_3'>
-                {{i.text_contents}}
-            </div>
-            <div class = 'info_blok_4'>
-                <div class = 'info_blok_41'>
-                    <div class = 'info_blok_41'>
-                        {{i.symbol_ok}}
-                    </div>
-                    <div class = 'info_blok_41'>
-                        {{i.count_symbol_ok}}
-                    </div>
-                    <div class = 'info_blok_41'>
-                        {{i.symbol_bad}}
-                    </div>
-                    <div class = 'info_blok_41'>
-                        {{i.count_symbol_bad}}
-                    </div>
-                </div>
-                <div class = 'info_blok_42'>
-                    <a href='/main/{{i.page_author}}/{{i.id}}'>Подробнее/Коментировать</a>
-                    {% comment %} <a href="{{ puth_publication }}">Коментировать</a> {% endcomment %}
-                   
-                </div>
-                <div class = 'info_blok_43'>
-                    {{i.write_author}}
-                </div> 
-        <div class = 'display_none'>
-            {{i.topic_interest}}
+            {% endfor%}
         </div>
-            </div>
-        </div>
-       
-       {% endfor%}
-    </div>
 
     </div>
-    
+
     
     
     <footer>
@@ -159,10 +154,11 @@
                 {% else %}
                 <a class='fd2' href="/"><button class='fd2'>Регистрация/ВХОД</button></a></div>
                 {% endif %}
-            {% comment %} ЗДЕСЬ ДОЛЖЕН БЫТЬ ВЫХОД  {% endcomment %}
+            
         </div> 
     </footer>  
 
-
-</body> {% endblock %}
+    
+</body> 
+{% endblock %}
 </html>
