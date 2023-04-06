@@ -4,11 +4,12 @@
   }
   html,
   body {
-    height: 1000%;
+    height: 100%;
   }
 
 
 body {
+    height: inherit;
     width: auto;
     background: #fff7fc79;
     padding: 0px;
