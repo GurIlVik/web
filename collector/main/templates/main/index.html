@@ -81,15 +81,13 @@
         <div id="basic">
             {% for i in info_blok %}
             {% csrf_token %}
-            <div class = 'info_blok_grid_main'>
+            <div class = 'info_blok_grid_main' id='{{i.id}}'>
                 <div class = 'grid_main_field1'>
-                    <a href="/personalpage/{{i.page_author}}" class='grid_main_p'>
-                        {% comment %} <button > {% endcomment %}
+                        <a href="/personalpage/{{i.page_author}}" class='grid_main_p'>
                             {{i.page_author}}
-                        {% comment %} </button> {% endcomment %}
                     </a>
                 </div>
-                <div class = 'grid_main_field2'>
+                <div class = 'grid_main_field2' >
                     <p class='grid_main_p'>{{ i.time_publication | date:"j E Y" }}</p>
                 </div>
                 <div class = 'grid_main_field3'>
@@ -132,6 +130,7 @@
                     <p class='grid_main_p'>Не показывать</p>
                 </div>
             </div>
+            
             {% endfor%}
         </div>
 

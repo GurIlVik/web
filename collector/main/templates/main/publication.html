@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
-    <link rel="stylesheet" href="{% static '/main/base.css' %}" type='text/css'>
+    <link rel="stylesheet" href="{% static '/main/base2.css' %}" type='text/css'>
     <script src="{% static '/main/script.js' %}"></script>
 </head>
 <body>
@@ -30,80 +30,77 @@
 
 
     <div id="global">
-
-    <div id="advertisement"> 
-        {{a}} и  {{b}} 
-    </div>    
-
-{% comment %} basic блок с основной информацией {% endcomment %}    
-    <div id="basic">
         {% for i in info_blok %}
-        <div class = 'info_blok_1'>
-            <div class = 'info_blok_2'>
-                <div class = 'info_blok_21'>
+
+        <div id="advertisement"> 
+            <div id="photo_autor"> 
                     {{i.picture_author}}
-                </div>
-                <div class = 'info_blok_22'>
-                    <div class = 'info_blok_221'>
-                        <div class = 'info_blok_2212'>
-                            {{i.page_author}}
-                        </div>
-                        <div class = 'info_blok_2213'>
-                            {{i.time_publication}}
-                        </div>
-                        <div class = 'info_blok_2214'>
-                            {{i.categories}}
-                        </div>
-                        <div class = 'info_blok_2215'>
-                            {{i.topic_interest}}
-                        </div>
-                    </div>
-                    <div class = 'info_blok_222'>
-                        {{i.table_contents}}
-                    </div>
-                </div>
             </div>
-            <div class = 'info_blok_3'>
+            <div id="name_autor"> 
+                {{i.page_author}}
+            </div>
+            <div class="a_1"> 
+               <p>Название статьи</p>
+            </div>
+            <div class="a_2"> 
+                {{i.table_contents}}
+            </div>
+            <div class="a_1"> 
+                <p>Дата публикации</p>
+             </div>
+             <div class="a_2"> 
+                {{i.time_publication}}
+             </div>
+             <div class="a_1"> 
+                <p>Рубрика</p>
+             </div>
+             <div class="a_2"> 
+                {{i.categories}}
+             </div>
+             <div class="a_1"> 
+                <p>Раздел</p>
+             </div>
+             <div class="a_2"> 
+                {{i.topic_interest}}
+             </div>
+
+             
+        </div>    
+
+               {% comment %} basic блок с основной информацией {% endcomment %}    
+        <div id="basic">
+            <div id="info_blok_1"> 
+                {{i.table_contents}}
+            </div>
+            <div id="info_blok_2"> 
                 {{i.text_contents}}
             </div>
-            <div class = 'info_blok_4'>
-                <div class = 'info_blok_41'>
-                    <div class = 'info_blok_41'>
-                        {{i.symbol_ok}}
-                    </div>
-                    <div class = 'info_blok_41'>
-                        {{i.count_symbol_ok}}
-                    </div>
-                    <div class = 'info_blok_41'>
-                        {{i.symbol_bad}}
-                    </div>
-                    <div class = 'info_blok_41'>
-                        {{i.count_symbol_bad}}
-                    </div>
+            <div id="info_blok_3"> 
+                <div class = 'grid_main_field9'>
+                    <p class='grid_main_p'>&#x1F44D;</p>
                 </div>
-                <div class = 'info_blok_42'>
-                    {% if request.user.is_authenticated %}
-                    <button class='fd2' id='button_for_comment' onclick="Comment_authentic_comment">Комментировать</button>
-                    {% else %}
-                    <button class='fd2' id='not_register' onclick="Comment_authentic_comment_not_register()">Комментировать</button>
-                    <div class= 'modal_not_register_class' id='modal_not_register_id'>
-                        <div class= 'modal_not_register_contetnt_class' id='modal_not_register_id2'>
-                            <button class='close_modal_not_register' onclick='close_modal_not_register()'>&times;</button>
-                            <p class= 'modal_not_register_contetnt_class' id='modal_not_register_id3'>Вы не прошли регистрацию</p>
-                            <a class= 'modal_not_register_contetnt_class' id='modal_not_register_id4' href="/"><button class='fd2'>Регистрация/ВХОД</button></a></div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <div class = 'info_blok_43'>
-                    {{i.write_author}}
-                </div> 
+                <div class = 'grid_main_field10'>
+                    <p class='grid_main_p'> {{i.count_symbol_ok}} </p>
+                </div>
+                <div class = 'grid_main_field11'>
+                    <p class='grid_main_p'>&#128078;</p>
+                </div>
+                <div class = 'grid_main_field12'>
+                    <p class='grid_main_p'>{{i.count_symbol_bad}}</p>
+                </div>
+                <div class = 'grid_main_field13'>
+                    <a href='/main/{{i.page_author}}/{{i.id}}' class='grid_main_p'>Подробнее</a>
+                </div>
+                <div class = 'grid_main_field14'>
+                    <p class='grid_main_p'>&#x270D; Автору</p>
                 </div>
             </div>
-        </div>
-       
-       {% endfor%}
-    </div>
+            <div id="info_blok_4"> 
+            </div>
 
+
+        </div>
+        {% endfor%}
     </div>
     
     
