@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Category, Information_block, Article_comments, Amalker
-from .forms import ProstoList
+from .forms import ProstoList, CommemtUser
 
 
         
@@ -74,11 +74,28 @@ def chek_User_authenticated(request, a = None, b = None):
 # отображение страницы публикации
 def publication(request, author, id):
     c = Information_block.objects.filter(id = id)
+    print(';erotihg')
     j = f'/personalpage/{str(request.user)}' 
-    context = {'a' : author,
+    if request.method == 'POST':
+        print('reljkgnlijb')
+        form = CommemtUser(request.POST)
+        print(form)
+        if form.is_valid(): 
+            print(form)
+            form = form.cleaned_data
+            print(form)
+            return render(request, 'main/publication.html', context)
+        else:
+            print('jo,rf')
+    else:
+        print('lwerijghlwergibh')
+        form = CommemtUser()
+        context = {'a' : author,
                'info_blok' : c, 
                'puth_paesonalpage' : j,
+               'form' : form,
                }
+        
     return render(request, 'main/publication.html', context)
 
 

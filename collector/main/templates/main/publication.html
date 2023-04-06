@@ -1,5 +1,5 @@
 {% load static %}
-{% csrf_token %}
+{% comment %} {% csrf_token %} {% endcomment %}
 {% block content %}
 <!DOCTYPE html>
 <html>
@@ -76,28 +76,37 @@
                 {{i.text_contents}}
             </div>
             <div id="info_blok_3"> 
-                <div class = 'grid_main_field9'>
-                    <p class='grid_main_p'>&#x1F44D;</p>
-                </div>
-                <div class = 'grid_main_field10'>
-                    <p class='grid_main_p'> {{i.count_symbol_ok}} </p>
-                </div>
-                <div class = 'grid_main_field11'>
-                    <p class='grid_main_p'>&#128078;</p>
-                </div>
-                <div class = 'grid_main_field12'>
-                    <p class='grid_main_p'>{{i.count_symbol_bad}}</p>
-                </div>
-                <div class = 'grid_main_field13'>
-                    <a href='/main/{{i.page_author}}/{{i.id}}' class='grid_main_p'>Подробнее</a>
-                </div>
-                <div class = 'grid_main_field14'>
-                    <p class='grid_main_p'>&#x270D; Автору</p>
-                </div>
+                ЗДЕСЬ ДОЛЖНЫ БЫТЬ ФОТО
             </div>
             <div id="info_blok_4"> 
+                <div id="info_blok_41"> 
+                    <div class = 'grid_main_field9'>
+                        <p class='grid_main_p'>&#x1F44D;</p>
+                    </div>
+                    <div class = 'grid_main_field10'>
+                        <p class='grid_main_p'> {{i.count_symbol_ok}} </p>
+                    </div>
+                    <div class = 'grid_main_field11'>
+                        <p class='grid_main_p'>&#128078;</p>
+                    </div>
+                    <div class = 'grid_main_field12'>
+                        <p class='grid_main_p'>{{i.count_symbol_bad}}</p>
+                    </div>
+                </div>
+                <div id="info_blok_42"> 
+                    <div class = 'grid_main_field14'>
+                        <p class='grid_main_p'>&#x270D; Автору</p>
+                    </div>
+                </div>
             </div>
-
+            <form id='info_blok_5' method="post" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class='fd2' type="submit" id='info_blok_53'>ВВОД</button>
+            </form>
+            <div id='info_blok_6'>
+                <p>  </p>
+            </div>
 
         </div>
         {% endfor%}
@@ -126,3 +135,25 @@
 
 </body> {% endblock %}
 </html>
+
+{% comment %} 
+<p id='info_blok_51'>Комментировать:</p>
+<p><label for="{{ form1.comment.id_for_label }}" id='info_blok_511'></label></p>
+
+<textarea name="comment" cols="60" rows="10" row="10" required="" id="id_comment"></textarea></p>
+<button class='fd2' type="submit" name='comment' id='info_blok_53'>ВВОД</button>
+        {% endcomment %}
+
+        {% comment %} {{ form1.as_p }} {% endcomment %}
+              {% comment %} {% csrf_token %} {% endcomment %}
+
+
+
+
+              {% comment %} <p id='info_blok_51'>Комментировать:
+            </p>
+            {% csrf_token %}
+            <textarea name="comment" cols="60" rows="20" id='id_comment' required="" id="id_comment"></textarea>
+            <div class='form-error' id='info_blok_52'>{{form1.comment.errors}}</div>
+            <button class='fd2' type="submit" name='comment' id='info_blok_53'>ВВОД</button> {% endcomment %}
+            {% comment %} {% endfor %} {% endcomment %}
