@@ -74,30 +74,31 @@ def chek_User_authenticated(request, a = None, b = None):
 # отображение страницы публикации
 def publication(request, author, id):
     c = Information_block.objects.filter(id = id)
-    print(';erotihg')
+    k = Information_block.objects.get(id = id)
     j = f'/personalpage/{str(request.user)}'
     form = CommemtUser()
+    comm = Article_comments.objects.filter(whom_message = k.id)
     context = {'a' : author,
             'info_blok' : c, 
             'puth_paesonalpage' : j,
             'form' : form,
+            'model' : comm,
             } 
     if request.method == 'POST':
-        print('reljkgnlijb')
         form = CommemtUser(request.POST)
-        print(form)
         if form.is_valid(): 
-            print(form)
             form = form.cleaned_data
-            print(form)
-            context = {'a' : author,
-               'info_blok' : c, 
-               'puth_paesonalpage' : j,
-               'form' : form,
-               }
+            k = Information_block.objects.get(id = id)
+            Article_comments.objects.create(
+                whom_message = k.id,                                        # ID статьи автора статьи
+                whose_message = request.user,                               #  имя комментатора
+                text_message = form['comment'],                                        #  текст комментария
+                count_symbol_ok = 0,                                        # 
+                count_symbol_bad = 0,                                       #
+            )
             return render(request, 'main/publication.html', context)
         else:
-            print('jo,rf')
+            return HttpResponse('ЧТО_ТО ОПЯТЬ НЕ ТАК')
     else:
-        print('lwerijghlwergibh')
+        print('без запроса')
         return render(request, 'main/publication.html', context)

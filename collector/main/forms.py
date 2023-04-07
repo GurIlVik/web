@@ -6,5 +6,3 @@ class ProstoList(Form):
 
 class CommemtUser(Form):
     comment = forms.CharField(widget=forms.Textarea(attrs={'cols':60, 'rows':20}), label='Комментировать') 
-    def __str__(self):
-        return self.comment
