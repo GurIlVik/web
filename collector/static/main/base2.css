@@ -211,17 +211,21 @@ header {
     font-size: 18px;
 }
 
-.info_blok_73 {
+#info_blok_73 {
     display: none;
     z-index: 1;
-    margin: auto;
-    position: absolute;
+    position: relative;
     top: 0; left: 0; bottom: 0; right: 0;
     height: 80px;
-    width: 110px;
+    width: 80%;
     background-color: rgb(210, 255, 240);
     border: #000 solid 2px;
 }
+#id_comment2 {
+    height: 40px;
+    width: 100%;
+}
+
 
 /* отображение подвала */
 footer {

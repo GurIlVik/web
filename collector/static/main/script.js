@@ -131,5 +131,7 @@ window.onclick = function(event) {
 
 function comment_for_comment() {
     console.log('perjnvepirgjbn')
+    let field = document.getElementById('info_blok_73');
+    field.style.display = 'inline'
 }
 

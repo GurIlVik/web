@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Category, Information_block, Article_comments, Amalker
-from .forms import ProstoList, CommemtUser
+from .forms import *
 
 
         
@@ -78,14 +78,17 @@ def publication(request, author, id):
     j = f'/personalpage/{str(request.user)}'
     form = CommemtUser()
     comm = Article_comments.objects.filter(whom_message = k.id)
+    form2 = CommentForComment()
     context = {'a' : author,
             'info_blok' : c, 
             'puth_paesonalpage' : j,
             'form' : form,
             'model' : comm,
+            'form2' : form2,
             } 
     if request.method == 'POST':
         form = CommemtUser(request.POST)
+        form2 = CommentForComment(request.POST)
         if form.is_valid(): 
             form = form.cleaned_data
             k = Information_block.objects.get(id = id)
@@ -96,6 +99,10 @@ def publication(request, author, id):
                 count_symbol_ok = 0,                                        # 
                 count_symbol_bad = 0,                                       #
             )
+            return render(request, 'main/publication.html', context)
+        elif form2.is_valid(): 
+            form2 = form2.cleaned_data
+            print(form2)
             return render(request, 'main/publication.html', context)
         else:
             return HttpResponse('ЧТО_ТО ОПЯТЬ НЕ ТАК')
