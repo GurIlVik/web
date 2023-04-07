@@ -106,7 +106,6 @@ function Comment_authentic_comment_not_register() {
 }
 
 function close_modal_not_register() {
-    console.log('4')
     let modal_not_register = document.getElementById('modal_not_register_id');
     modal_not_register.style.display = "none";
 }
@@ -130,5 +129,7 @@ window.onclick = function(event) {
     }
 }
 
-
+function comment_for_comment() {
+    console.log('perjnvepirgjbn')
+}
 

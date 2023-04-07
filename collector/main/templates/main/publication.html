@@ -110,9 +110,26 @@
             <div id='info_blok_6'>
                 <p>  </p>
             </div>
-            <div id='info_blok_7'>
-                <p>  </p>
+            {% for j in model %}
+            <div class='info_blok_7'>
+                <div class='info_blok_71'>
+                    <p>{{ j.whose_message }}</p>
+                    <p>{{ j.time_publication | date:"j E Y" }}</p>
+                    <button class='fd2' onclick="comment_for_comment()">ОТВЕТИТЬ</button>
+                    <p>&#x1F44D;</p>
+                    <p>{{ j.count_symbol_ok }}</p>
+                    <p>&#128078;</p>
+                    <p>{{ j.count_symbol_bad }}</p>
+
+                </div>
+                <div class='info_blok_72'>
+                    <p>{{ j.text_message }}</p>
+                </div>
+                <div class='info_blok_73'>
+                    <p>{{ j.text_message }}</p>
+                </div>
             </div>
+            {% endfor%}
 
         </div>
         {% endfor%}
