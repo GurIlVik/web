@@ -115,7 +115,7 @@
                 <div class='info_blok_71'>
                     <p>{{ j.whose_message }}</p>
                     <p>{{ j.time_publication | date:"j E Y" }}</p>
-                    <button class='fd2' onclick="comment_for_comment()">ОТВЕТИТЬ</button>
+                    <button class='fd2' onclick="comment_for_comment(this)">ОТВЕТИТЬ</button>
                     
                     <p>&#x1F44D;</p>
                     <p>{{ j.count_symbol_ok }}</p>
@@ -123,12 +123,13 @@
                     <p>{{ j.count_symbol_bad }}</p>
 
                 </div>
-                <form id='info_blok_73' method="post" action="">
+                <form id='info_blok_73' class='info_blok_73' method="post" action="">
                     {% csrf_token %}
-                    {% comment %} <p id='info_blok_51'>Комментировать:</p> {% endcomment %}
+                    <p id='comment2_id_p'>{{ j.id }}</p>
                     <textarea cols="60" name="comment2" rows="20" id='id_comment2' required="" id="id_comment2"></textarea>
                     <div class='form-error' id='info_blok_52'>{{form2.comment.errors}}</div>
                     <button class='fd2' type="submit" id='info_blok_75'>ВВОД</button>
+                    <input type="text" name="comment2_id" required="" id="comment2_id">
                 </form>
                 <div class='info_blok_72'>
                     <p>{{ j.text_message }}</p>

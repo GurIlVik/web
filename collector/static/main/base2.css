@@ -225,6 +225,9 @@ header {
     height: 40px;
     width: 100%;
 }
+#comment2_id, #comment2_id_p {
+    display: none;
+}
 
 
 /* отображение подвала */

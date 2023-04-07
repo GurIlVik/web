@@ -110,28 +110,54 @@ function close_modal_not_register() {
     modal_not_register.style.display = "none";
 }
 
-window.onclick = function(event) {
-    let button_not_register = document.getElementById('not_register');
-    let modal_not_register = document.getElementById ('modal_not_register_id');
-    let modal_not_register1 = document.getElementById ('modal_not_register_id2');
-    let modal_not_register2 = document.getElementById ('modal_not_register_id3');
-    let modal_not_register3 = document.getElementById ('modal_not_register_id3');
-    if (event.target != button_not_register) {
-        if (event.target != modal_not_register 
-            && event.target != modal_not_register1 
-            && event.target != modal_not_register2
-            && event.target != modal_not_register3
-            ) {
-            close_modal_not_register()
-        }
-    } else {
-        console.log('6')
-    }
-}
+// window.onclick = function(event) {
+//     let button_not_register = document.getElementById('not_register');
+//     let modal_not_register = document.getElementById ('modal_not_register_id');
+//     let modal_not_register1 = document.getElementById ('modal_not_register_id2');
+//     let modal_not_register2 = document.getElementById ('modal_not_register_id3');
+//     let modal_not_register3 = document.getElementById ('modal_not_register_id3');
+//     if (event.target != button_not_register) {
+//         if (event.target != modal_not_register 
+//             && event.target != modal_not_register1 
+//             && event.target != modal_not_register2
+//             && event.target != modal_not_register3
+//             ) {
+//             close_modal_not_register()
+//         }
+//     } else {
+//         console.log('6')
+//     }
+// }
 
-function comment_for_comment() {
+function comment_for_comment(i) {
     console.log('perjnvepirgjbn')
-    let field = document.getElementById('info_blok_73');
-    field.style.display = 'inline'
+    // let field = document.getElementsByClassName('info_blok_7').innerHTML;
+    // let field = document.getElementsByClassName('info_blok_7').textContent;
+    let field = document.getElementsByClassName('info_blok_7')
+    console.log(field)
+
+    for (var j = field.length - 1; i>=0; i-=1) {
+            console.log(field[j].innerHTML)
+            console.log(field[j].value)
+        }
+    // let f = document.querySelectorAll('info_blok_7');
+    // for (var j = f.length -1; i>=0; i--) {
+    //     console.log(f[j])
+    // }
+    
+    // let f = document.getElementsByClassName('info_blok_73')
+    // f.style.display = 'inline';
+    // let field_input = document.getElementById('comment2_id');
+    // let field_p = document.getElementById('comment2_id_p');
+    // let a = field_p.textContent;
+    // console.log(a);
 }
 
+
+// <button class='fd2' id='not_register' onclick="Comment_authentic_comment_not_register()">Комментировать</button>
+// <div class= 'modal_not_register_class' id='modal_not_register_id'>
+//     <div class= 'modal_not_register_contetnt_class'>
+//         <button class='close_modal_not_register' onclick='close_modal_not_register()'>&times;</button>
+//         <p class='close_modal_not_register2'>Вы не прошли регистрацию</p>
+//         <a class='close_modal_not_register2' href="/"><button class='fd2'>Регистрация/ВХОД</button></a></div>
+//     </div>
