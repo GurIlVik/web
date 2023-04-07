@@ -49,7 +49,7 @@
                 <p>Дата публикации</p>
              </div>
              <div class="a_2"> 
-                {{i.time_publication}}
+                {{i.time_publication | date:"j E Y" }}
              </div>
              <div class="a_1"> 
                 <p>Рубрика</p>
@@ -101,7 +101,9 @@
             </div>
             <form id='info_blok_5' method="post" action="">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <p id='info_blok_51'>Комментировать:</p>
+                <textarea name="comment" cols="60" rows="20" id='id_comment' required="" id="id_comment"></textarea>
+                <div class='form-error' id='info_blok_52'>{{form.comment.errors}}</div>
                 <button class='fd2' type="submit" id='info_blok_53'>ВВОД</button>
             </form>
             <div id='info_blok_6'>
@@ -153,7 +155,8 @@
               {% comment %} <p id='info_blok_51'>Комментировать:
             </p>
             {% csrf_token %}
+            {{ form.as_p }}
             <textarea name="comment" cols="60" rows="20" id='id_comment' required="" id="id_comment"></textarea>
             <div class='form-error' id='info_blok_52'>{{form1.comment.errors}}</div>
             <button class='fd2' type="submit" name='comment' id='info_blok_53'>ВВОД</button> {% endcomment %}
-            {% comment %} {% endfor %} {% endcomment %}
+            {% comment %} {% endfor %} {% endcom

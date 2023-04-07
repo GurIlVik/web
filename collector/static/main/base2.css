@@ -146,10 +146,10 @@ header {
  /* ОТОБРАЖЕНИЯ ПОДБЛОКА КОММЕНТАРИЕВ */
 #info_blok_5 {
     display: grid;
-    height:100px;
+    height:200px;
     width: 100%;
     grid-template-columns: 3fr 13fr;
-    grid-template-rows: 25px 50px 25px;
+    grid-template-rows: 50px 100px 50px;
     border-bottom: #000 solid 2px;
 }
 
@@ -171,10 +171,10 @@ header {
     grid-row-start: 1;
     grid-row-end: 4;
     grid-column: 2;
-    height: 90%;
-    width: 90%;
+    height: 80%;
+    width: 80%;
     font-size: 20px;
-    padding: 20px;
+    padding: 10px 10px 10px 10px;
     margin-top: 1%;
 }
 #info_blok_53 {

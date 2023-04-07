@@ -75,7 +75,13 @@ def chek_User_authenticated(request, a = None, b = None):
 def publication(request, author, id):
     c = Information_block.objects.filter(id = id)
     print(';erotihg')
-    j = f'/personalpage/{str(request.user)}' 
+    j = f'/personalpage/{str(request.user)}'
+    form = CommemtUser()
+    context = {'a' : author,
+            'info_blok' : c, 
+            'puth_paesonalpage' : j,
+            'form' : form,
+            } 
     if request.method == 'POST':
         print('reljkgnlijb')
         form = CommemtUser(request.POST)
@@ -84,19 +90,14 @@ def publication(request, author, id):
             print(form)
             form = form.cleaned_data
             print(form)
+            context = {'a' : author,
+               'info_blok' : c, 
+               'puth_paesonalpage' : j,
+               'form' : form,
+               }
             return render(request, 'main/publication.html', context)
         else:
             print('jo,rf')
     else:
         print('lwerijghlwergibh')
-        form = CommemtUser()
-        context = {'a' : author,
-               'info_blok' : c, 
-               'puth_paesonalpage' : j,
-               'form' : form,
-               }
-        
-    return render(request, 'main/publication.html', context)
-
-
-
+        return render(request, 'main/publication.html', context)
