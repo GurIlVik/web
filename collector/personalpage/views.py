@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # from django.contrib.auth import authenticate, login, logout
-from .forms import NewArticleForm
+from .forms import NewArticleForm, Draft
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
@@ -38,6 +38,8 @@ def personal_page(request, user):
     else:
         if request.method == 'POST':
             form = NewArticleForm(request.POST)
+            form1 = Draft(request.POST)
+            
             print(1)
             # print(form)
             if form.is_valid():
@@ -69,6 +71,13 @@ def personal_page(request, user):
                     return render(request, 'personalpage/index.html', context)
                 elif 'delete' in request.POST:
                     return render(request, 'personalpage/index.html', context)
+            if form1.is_valid():
+                print('lwrifjbgritugh')
+                
+                
+                # Сюда дописывать функцию сохранения черновика
+                
+                
             else:
                 print('что то идет не так')
                 print(form.errors)

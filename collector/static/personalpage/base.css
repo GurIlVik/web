@@ -202,10 +202,10 @@ footer {
 }
 
 /* ОТРАЖЕНИЕ для новой статьи */
-#box_write_info_blok {
+.box_write_info_blok {
     display: grid;
     grid-template-columns: 1fr 18fr 18fr 18fr;
-    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-rows: 1fr 5fr 1fr 1fr;
     padding: 3px;
     border: solid 2px black;
 }
@@ -213,7 +213,7 @@ footer {
 #grid_write_p {
     color:rgb(81, 81, 81);
     grid-row-start: 1;
-    grid-row-end: 4;
+    grid-row-end: 5;
     grid-column: 1;
     font-size: 18px;
     writing-mode: vertical-lr; 
@@ -234,16 +234,22 @@ footer {
     font-size: 18px;
 }
 
-#button_1 {
+#paste_file {
+    grid-column-start: 2;
+    grid-column-end: 5;
     grid-row: 3;
+}
+
+#button_1 {
+    grid-row: 4;
     grid-column: 2;
 }
 #button_2 {
-    grid-row: 3;
+    grid-row: 4;
     grid-column: 3;
 }
 #button_2 {
-    grid-row: 3;
+    grid-row: 4;
     grid-column: 4;
 }
 
