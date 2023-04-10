@@ -98,17 +98,17 @@ function menuPoint3(as) {
 
 
 
-function Comment_authentic_comment_not_register() {
-    let modal_not_register = document.getElementById('modal_not_register_id');
-    console.log(modal_not_register)
-    modal_not_register.style.display = "inline";
-    console.log('3')
-}
+// function Comment_authentic_comment_not_register() {
+//     let modal_not_register = document.getElementById('modal_not_register_id');
+//     console.log(modal_not_register)
+//     modal_not_register.style.display = "inline";
+//     console.log('3')
+// }
 
-function close_modal_not_register() {
-    let modal_not_register = document.getElementById('modal_not_register_id');
-    modal_not_register.style.display = "none";
-}
+// function close_modal_not_register() {
+//     let modal_not_register = document.getElementById('modal_not_register_id');
+//     modal_not_register.style.display = "none";
+// }
 
 // window.onclick = function(event) {
 //     let button_not_register = document.getElementById('not_register');
@@ -130,13 +130,19 @@ function close_modal_not_register() {
 // }
 
 function comment_for_comment(i) {
+    console.log(i)
+    console.log(typeof(i))
     console.log('perjnvepirgjbn')
     // let field = document.getElementsByClassName('info_blok_7').innerHTML;
     // let field = document.getElementsByClassName('info_blok_7').textContent;
-    let field = document.getElementsByClassName('info_blok_7')
-    console.log(field)
+    // let field = document.getElementsByClassName('info_blok_7')
 
-    for (var j = field.length - 1; i>=0; i-=1) {
+    let field_comm_comment = document.getElementById(i)
+    
+    field_comm_comment.style.display = 'inline'
+    console.log(field_comm_comment)
+
+    for (var j = field.length - 1; j>=0; j-=1) {
             console.log(field[j].innerHTML)
             console.log(field[j].value)
         }
