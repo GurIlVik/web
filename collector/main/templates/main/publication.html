@@ -124,13 +124,13 @@
                 </div>
                 <form id='{{ j.id }}' class='info_blok_73' method="post" action="">
                     {% csrf_token %}
-                    <p id='comment2_id_p' class='comment2_id_p'>{{ i.id }}</p> {% comment %} для ад статьи {% endcomment %}
-                    <p id='comment2_id__id_p' class='comment2_id_p'>{{ j.id }}</p> {% comment %} для ад коммента {% endcomment %}
-                    <textarea cols="60" name="comment2" rows="20" required="" class="id_comment2"></textarea>
+                    <p id="comment2_id_p_{{ j.id }}" class='comment2_id_p'>{{ i.id }}</p> {% comment %} для ад статьи {% endcomment %}
+                    <p id="comment2_id_id_p_{{ j.id }}" class='comment2_id_p'>{{ j.id }}</p> {% comment %} для ад коммента {% endcomment %}
+                    <textarea cols="60" name="comment2" rows="20" required="" class="id_comment2" id="textarea_{{ j.id }}"></textarea>
                     <div class='form-error' id='info_blok_52'>{{form2.comment.errors}}</div>
                     <button type="submit" class='fd2' class="id_comment2">ВВОД</button>
-                    <input type="text" name="comment2_id" required="" id="comment2_id" class='comment2_id_p'>
-                    <input type="text" name="comment2_id_id" required="" id="comment2_id" class='comment2_id_p'>
+                    <input type="text" name="comment2_id" required="" id="comment2_id_i_{{ j.id }}" class='comment2_id_p'>
+                    <input type="text" name="comment2_id_id" required="" id="comment2_id_id_i_{{ j.id }}" class='comment2_id_p'>
                 </form>
                 <div class='info_blok_72'>
                     <p>{{ j.text_message }}</p>

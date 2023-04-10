@@ -213,7 +213,6 @@ header {
 
 .info_blok_73 {
     display: none;
-    /* display: none; */
     z-index: 10;
     position: relative;
     top: 0; left: 0; bottom: 0; right: 0;
@@ -223,7 +222,6 @@ header {
     border: #000 solid 2px;
 }
 .id_comment2 {
-    /* display: none; */
     height: 160px;
     width: 100%;
 }
@@ -231,6 +229,8 @@ header {
 
 .comment2_id_p {
     display: none;
+    /* display: inline;
+    z-index: 20; */
 }
 
 

@@ -130,22 +130,49 @@ function menuPoint3(as) {
 // }
 
 function comment_for_comment(i) {
-    console.log(i)
-    console.log(typeof(i))
-    console.log('perjnvepirgjbn')
-    // let field = document.getElementsByClassName('info_blok_7').innerHTML;
-    // let field = document.getElementsByClassName('info_blok_7').textContent;
-    // let field = document.getElementsByClassName('info_blok_7')
-
-    let field_comm_comment = document.getElementById(i)
-    
+    let field_comm_comment = document.getElementById(i);
     field_comm_comment.style.display = 'inline'
-    console.log(field_comm_comment)
+    let p_id_articl = document.getElementById('comment2_id_p_'+i);
+    let p_id_comment = document.getElementById('comment2_id_id_p_'+i);
+    let input_id_articl = field_comm_comment[3];
+    input_id_articl.value = p_id_articl.innerText
+    let input_id_comment = field_comm_comment[4];
+    input_id_comment.value = p_id_comment.innerText
 
-    for (var j = field.length - 1; j>=0; j-=1) {
-            console.log(field[j].innerHTML)
-            console.log(field[j].value)
-        }
+    // let text_ar = field_comm_comment[1];
+    // console.log(text_ar)
+    // let button_comment = field_comm_comment[2];
+    // console.log(button_comment)
+    // let input_id_articl = field_comm_comment[3];
+    // console.log(input_id_articl)
+    // let input_id_comment = field_comm_comment[4];
+    // console.log(input_id_comment)
+    // let a = field_comm_comment[0];
+    // console.log(a)
+    // let s = field_comm_comment[6];
+    // console.log(s)
+
+
+
+    // console.log(field_comm_comment.innerHTML)
+    // console.log(field_comm_comment.innerText);
+
+
+
+
+
+    // for (var j = field_comm_comment.length - 1; j>=0; j-=1) {
+    //         console.log(field_comm_comment.childNodes[j].innerHTML);
+    //         console.log(field_comm_comment.childNodes[j].innerText);
+    //         console.log(field_comm_comment.childNodes[j].textContent);
+    //         console.log(field_comm_comment.childNodes[j].value);
+    //     }
+    }
+
+
+
+
+
     // let f = document.querySelectorAll('info_blok_7');
     // for (var j = f.length -1; i>=0; i--) {
     //     console.log(f[j])
@@ -157,7 +184,7 @@ function comment_for_comment(i) {
     // let field_p = document.getElementById('comment2_id_p');
     // let a = field_p.textContent;
     // console.log(a);
-}
+
 
 
 // <button class='fd2' id='not_register' onclick="Comment_authentic_comment_not_register()">Комментировать</button>
