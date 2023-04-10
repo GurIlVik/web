@@ -23,7 +23,7 @@ class TopicInterest(models.Model):
 class Information_block(models.Model):
     picture_author = models.CharField(max_length=250)
     page_author = models.CharField(max_length=250)          # ник автора с отправкой на его страницу
-    time_publication = models.DateTimeField(auto_now_add=True)
+    time_publication = models.TimeField(auto_now_add=True, auto_now = False,)
     categories = models.CharField(max_length=250)           # категории по списку предметов коллекционирования
     topic_interest = models.CharField(max_length=250)       # категории по списку интереса и поиска
     table_contents = models.CharField(max_length=250)
@@ -39,7 +39,7 @@ class Information_block(models.Model):
 # модель представления комментария 
 class Article_comments(models.Model):  
     whom_message = models.CharField(max_length=50)
-    time_publication = models.DateTimeField(auto_now_add=True)
+    time_publication = models.TimeField(auto_now_add=True, auto_now = False,)
     whose_message = models.CharField(max_length=50)
     text_message = models.TextField(blank=True)
     count_symbol_ok = models.CharField(max_length=5)
@@ -49,3 +49,17 @@ class Article_comments(models.Model):
     write_author = models.CharField(max_length=50, null=False)
     access = models.BooleanField(null=False)
     
+
+# модель представления комментария на комментарий
+class Article_commentsTwo(models.Model):  
+    whom_message = models.CharField(max_length=50)                              # кому ответ
+    time_publication = models.TimeField(auto_now_add=True, auto_now = False,)   
+    whose_message = models.CharField(max_length=50)                             # кто ответил
+    text_message = models.TextField(blank=True)
+    count_symbol_ok = models.CharField(max_length=5)                            # счетчик +
+    id_articl = models.CharField(max_length=1, null=False)                      # id статьи
+    count_symbol_bad = models.CharField(max_length=5, null=True)                # счетчик -
+    id_comment = models.CharField(max_length=50, null=False)                    # id коммента
+    write_author = models.CharField(max_length=50, null=False)
+    access = models.BooleanField(null=False)
+

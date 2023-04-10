@@ -103,6 +103,7 @@ def publication(request, author, id):
         elif form2.is_valid(): 
             form2 = form2.cleaned_data
             print(form2)
+            print(form2['comment2_id'])
             return render(request, 'main/publication.html', context)
         else:
             return HttpResponse('ЧТО_ТО ОПЯТЬ НЕ ТАК')
