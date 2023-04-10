@@ -97,7 +97,8 @@ def publication(request, author, id):
                 whose_message = request.user,                               #  имя комментатора
                 text_message = form['comment'],                                        #  текст комментария
                 count_symbol_ok = 0,                                        # 
-                count_symbol_bad = 0,                                       #
+                count_symbol_bad = 0,  
+                access = True     #
             )
             return render(request, 'main/publication.html', context)
         elif form2.is_valid(): 

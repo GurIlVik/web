@@ -20,6 +20,7 @@ def logout_view(request):
         request,
         'account/logout.html',
         context)
+  
 
 # функция входа с паролем
 def user_login(request):

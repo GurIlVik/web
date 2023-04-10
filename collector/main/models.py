@@ -14,6 +14,10 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
+    
+# Допуск к статье предмета коллекционирования ВРЕМЕННО ПУСТАЯ МОДЕЛЬ
+class Allowance(models.Model):            
+    allowance_commit = models.BooleanField(null=True)   # допуск к комментам
    
 # вспомогательная модель поиска по интерессу 
 class TopicInterest(models.Model):
