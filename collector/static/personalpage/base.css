@@ -9,6 +9,7 @@ body {
     align-items: center;
 }
 
+/* отображение меню */
 header {
     height: 40px;
     width: 100%;
@@ -32,6 +33,7 @@ header {
     color: white;
 }
 
+/* ОТОБРАЖЕНИЕ ОСНОВНОЙ ЧАСТИ */
 #global {
     height: 100%;
     width: 100%;
@@ -201,14 +203,54 @@ footer {
 
 /* ОТРАЖЕНИЕ для новой статьи */
 #box_write_info_blok {
+    display: grid;
+    grid-template-columns: 1fr 18fr 18fr 18fr;
+    grid-template-rows: 1fr 5fr 1fr;
     padding: 3px;
     border: solid 2px black;
+}
+
+#grid_write_p {
+    color:rgb(81, 81, 81);
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column: 1;
+    font-size: 18px;
+    writing-mode: vertical-lr; 
+    text-orientation: upright;
+}
+
+#write_title {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row: 1;
+    font-size: 18px;
+}
+
+#write_text {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row: 2;
+    font-size: 18px;
+}
+
+#button_1 {
+    grid-row: 3;
+    grid-column: 2;
+}
+#button_2 {
+    grid-row: 3;
+    grid-column: 3;
+}
+#button_2 {
+    grid-row: 3;
+    grid-column: 4;
 }
 
 /* ОТРАЖЕНИЕ для редактируемой  */
 
-#box_for_editorial_office {
+/* #box_for_editorial_office {
     margin-top: 11px;
     border: solid 2px black;
     padding: 3px;
-}
+} */

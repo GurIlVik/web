@@ -66,24 +66,21 @@
             </div>
         </div>
 {% comment %} basic блок с основной информацией {% endcomment %}    
+
         <div id = 'info_blok'>     
             <div id = 'box_info_blok'>
                 <form id='box_write_info_blok' method="post" action="">
                     {% csrf_token %}
-                    {% for field in form_art %}
-                    <div class="form-group">
+                    {% comment %} <div id = 'box_write_blok'> {% endcomment %}
+                    <p id='grid_write_p'> Написать статью </p>
+                    <input type="text" name="title" required="" id="write_title" class='qwerty' placeholder="Название">
+                    <textarea cols="6" name="text" rows="2" required="" id="write_text" placeholder='Текст'></textarea>
+                    <button class='fd2' type="submit" name='memory' id='button_1'>сохранить</button>  
+                    <button class='fd2' type="submit" name='write' id='button_2'>опубликовать</button>
+                    <button class='fd2' type="submit" name='delete' id='button_3'>удалить</button>
+                    {% comment %} </div> {% endcomment %}
 
-                    {% comment %} {{field.label_tag}} {% endcomment %}
-                        <div class='widget_box_write_info_blok'>{{field}}</div>
-                        {% comment %} <div class='widget_box_write_info_blok'>{{field.title}}</div> {% endcomment %}
-                        {% comment %} <input id="q1" name="title"/> {% endcomment %}
-                        <div class="error">{{field.errors}}</div>
-                    </div>
-                    {% endfor %}
-                         {% comment %} ПОПЫТКА ОСЕДЛАТЬ ТРИ СЦЕНАРИЯ ОДНОЙ ФОРМЫ {% endcomment %}
-                    <button class='fd2' type="submit" name='memory'>сохранить</button>  
-                    <button class='fd2' type="submit" name='write'>опубликовать</button>
-                    <button class='fd2' type="submit" name='delete'>удалить</button>
+                    
                 </form> 
            
        
@@ -191,3 +188,32 @@
 
 </body> 
 </html>
+
+
+
+                       
+<p id='i_b_1'>Комментировать:</p>
+
+<textarea cols="60" name="comment" rows="20" id='id_comment' required="" id="id_comment"></textarea>
+<div class='form-error' id='info_blok_52'>{{form.comment.errors}}</div>
+<button class='fd2' type="submit" id='info_blok_53'>ВВОД</button>
+
+
+
+
+
+
+{% comment %} {% for field in form_art %}
+<div class="form-group">
+
+{{field.label_tag}}
+<div class='widget_box_write_info_blok'>{{field}}</div>
+<div class='widget_box_write_info_blok'>{{field.title}}</div>
+<input id="q1" name="title"/>
+<div class="error">{{field.errors}}</div>
+</div>
+{% endfor %}
+ ПОПЫТКА ОСЕДЛАТЬ ТРИ СЦЕНАРИЯ ОДНОЙ ФОРМЫ
+<button class='fd2' type="submit" name='memory'>сохранить</button>  
+<button class='fd2' type="submit" name='write'>опубликовать</button>
+<button class='fd2' type="submit" name='delete'>удалить</button> {% endcomment %}
