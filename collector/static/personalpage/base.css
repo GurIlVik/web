@@ -1,5 +1,15 @@
-body {
+* {
+    margin: 0;
+    padding: 0;
+  }
+  html,
+  body {
     height: 100%;
+  }
+
+
+body {
+    height: inherit;
     width: auto;
     background: #fff7fc79;
     padding: 0px;
@@ -14,7 +24,6 @@ header {
     height: 40px;
     width: 100%;
     background: #c0c4ac79;
-    position: absolute;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -35,16 +44,13 @@ header {
 
 /* ОТОБРАЖЕНИЕ ОСНОВНОЙ ЧАСТИ */
 #global {
-    height: 100%;
     width: 100%;
     top: 40px;
-    position: absolute;
     display: flex;
     background-color: aqua;
     flex-direction: row;
-    align-items: center;
+    font-size: 2vw;
     justify-content: center;
-    font-size: 25px;
 }
 
 
@@ -64,9 +70,7 @@ footer {
     background: #23041979;
     height: 45px;
     width: 100%;
-    position: absolute;
-    bottom: -85px;
-    left: 0px;
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -274,4 +278,45 @@ footer {
     display: none;
     border: solid 3px black;
     background-color: rgba(233, 234, 234, 0.945);
+}
+
+#pu_div1 {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: blue;
+}
+#pu_div2 {
+    width: 360px;
+    min-width: 20%;
+    max-width: 40%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(153, 46, 131);
+}
+
+#pu_div3 {
+    width: 1200px;
+    min-width: 60%;
+    max-width: 90%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(232, 140, 214);
+}
+.p_popup {
+    margin-top: 50px;
+    margin-bottom: 25px;
+
 }

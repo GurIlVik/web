@@ -30,7 +30,7 @@ def personal_page(request, user):
                    'register' : registered_user,
                    'information_block' : a,
                    'nik_user' : b, 
-                   'form_art' : c,
+                   'form' : c,
                    'for_editorial_office' : d,
                    }
     if search_user == False:

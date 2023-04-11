@@ -35,13 +35,47 @@
     {% if register == True %}
     
     <div id="global">
-        <div id="alternativ_global">
-            <form class='box_write_info_blok' method="post" action="">
+        <form class='alternativ_form' method="post" action="" id="alternativ_global">
             {% csrf_token %}
             <div id="pu_div1">
-            </div>
-            <div id="pu_div2">
+                <div id="pu_div2">
                 
+                    <p class='p_popup'>Выберите предмет коллекционирования (правила демонстрации смотрите в настойках личного кабинета):</p>
+                    <div id="pu_div21">{{ form.categories }}</div>
+                    <p class='p_popup'>Выберите категорию статьи:</p>
+                    <div id="pu_div22">{{ form.topic }}</div>
+                    <p class='p_popup'>Разрешить ли комментировать статью:</p>
+                    <div id="pu_div23">{{ form.allowance }}</div>
+                    <p class='p_popup'>Добавление фотографий:</p>
+                    <div id="pu_div24">{{ form.photo }}</div>
+                    <p>ewrfewfrewfgr</p>
+                    <p></p>
+
+                    
+                    
+                    
+                    
+
+                </div>  
+                <div id="pu_div3">
+                    <div id="pu_div3">
+                        {{ form.title }}
+                        {{ form.text }}
+                    </div>
+             
+                    <div id="pu_div4">
+                        <button class='fd2' type="submit" name='memory'>сохранить</button>  
+                        <button class='fd2' type="submit" name='write'>опубликовать</button>
+                        <button class='fd2' type="submit" name='delete'>удалить</button>
+                    </div>
+                </div>
+            </div>
+            {% comment %} <div id="pu_div2">
+            </div>  
+            <div id="pu_div3">
+            </div>
+            <div id="pu_div4">
+            </div>   {% endcomment %}
                     
                     {% comment %} <div id = 'box_write_blok'> 
                     <p id='grid_write_p'> Написать статью </p>
@@ -53,10 +87,10 @@
                     <button class='fd2' type="submit" name='delete' id='button_3'>удалить</button>
                     </div> {% endcomment %}
                 
-            </div>
+            
         </form> 
 
-        </div>
+        
 
 
 
@@ -232,3 +266,70 @@
 <button class='fd2' type="submit" name='memory'>сохранить</button>  
 <button class='fd2' type="submit" name='write'>опубликовать</button>
 <button class='fd2' type="submit" name='delete'>удалить</button> {% endcomment %}
+
+{% comment %} 
+<form class="box_write_info_blok" method="post" action="">
+    <p>
+<label for="id_title">Title:</label>
+<input type="text" name="title" value="название" class="main_form_title" maxlength="150" required="" id="id_title">
+
+
+</p>
+
+
+<p>
+<label for="id_categories">Предмет коллекционирования:</label>
+<select name="categories" required="" id="id_categories">
+<option value="" selected="">К выбору обязателен</option>
+
+<option value="1">ОБЩЕЕ</option>
+
+<option value="2">ФИЛОСОФИЯ</option>
+
+<option value="3">марки</option>
+
+<option value="5">метеориты</option>
+
+<option value="4">монеты</option>
+
+</select>
+
+
+</p>
+
+
+<p>
+<label for="id_topic">Topic:</label>
+<input type="text" name="topic" value="статья/продажа/покупка" class="main_form_topic" maxlength="150" required="" id="id_topic">
+
+
+</p>
+
+
+<p>
+<label for="id_text">Text:</label>
+<textarea name="text" cols="40" rows="10" required="" id="id_text">текст</textarea>
+
+
+</p>
+
+
+<p>
+<label for="id_allowance">Allowance:</label>
+<input type="text" name="allowance" value="допуск" maxlength="50" required="" id="id_allowance">
+
+
+</p>
+
+
+<p>
+<label for="id_photo">введите файл:</label>
+<input type="file" name="photo" multiple="" class="main_form_text" id="id_photo">
+
+
+
+
+</p>
+
+    
+</form> {% endcomment %}
