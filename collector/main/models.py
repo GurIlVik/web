@@ -14,10 +14,12 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
-    
-# Допуск к статье предмета коллекционирования ВРЕМЕННО ПУСТАЯ МОДЕЛЬ
-class Allowance(models.Model):            
-    allowance_commit = models.BooleanField(null=True)   # допуск к комментам
+ 
+# Модель отображения рубрики 
+class Catalogy(models.Model):
+    name = models.CharField(max_length=50, blank=False,)
+   
+
    
 # вспомогательная модель поиска по интерессу 
 class TopicInterest(models.Model):
@@ -66,4 +68,3 @@ class Article_commentsTwo(models.Model):
     id_comment = models.CharField(max_length=50, null=False)                    # id коммента
     write_author = models.CharField(max_length=50, null=False)
     access = models.BooleanField(null=False)
-

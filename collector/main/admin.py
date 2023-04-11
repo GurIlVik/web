@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Information_block, Article_comments, Amalker, TopicInterest, Article_commentsTwo, Allowance
+from .models import *
 
 
 class CategoryAdmin(admin.ModelAdmin):   # ОСНОВНОЙ СПИСОК ПРЕДМЕТОВ КОЛЛЕКЦИОНИРРОВАНИЯ
@@ -35,6 +35,6 @@ class  Article_commentsTwoAdmin(admin.ModelAdmin):
     'count_symbol_bad','id_comment', 'write_author', 'access']
 admin.site.register(Article_commentsTwo, Article_commentsTwoAdmin) 
 
-class  AllowanceAdmin(admin.ModelAdmin):
-     list_display = ['allowance_commit']
-admin.site.register(Allowance, AllowanceAdmin) 
+class CatalogyAdmin(admin.ModelAdmin):
+    list_display = ['name']
+admin.site.register(Catalogy, CatalogyAdmin)    
