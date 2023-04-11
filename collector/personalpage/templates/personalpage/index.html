@@ -35,15 +35,16 @@
     {% if register == True %}
     
     <div id="global">
+
         <form class='alternativ_form' method="post" action="" id="alternativ_global">
             {% csrf_token %}
             <div id="pu_div1">
                 <div id="pu_div2">
                 
                     <p class='p_popup'>Выберите предмет коллекционирования (правила демонстрации смотрите в настойках личного кабинета):</p>
-                    <div id="pu_div21">{{ form.categories }}</div>
-                    <p class='p_popup'>Выберите категорию статьи:</p>
-                    <div id="pu_div22">{{ form.topic }}</div>
+                    <div id="pu_div21">{{ form.topic }}</div>
+                    <p class='p_popup'>Выберите категорию:</p>
+                    <div id="pu_div22">{{ form.categories }}</div>
                     <p class='p_popup'>Разрешить ли комментировать статью:</p>
                     <div id="pu_div23">{{ form.allowance }}</div>
                     <p class='p_popup'>Добавление фотографий:</p>
@@ -123,7 +124,7 @@
                 </div>
             </div>
         </div>
-{% comment %} basic блок с основной информацией {% endcomment %}    
+                                                    {% comment %} basic блок с основной информацией {% endcomment %}    
 
         <div id = 'info_blok'>     
             <div id = 'box_info_blok'>
@@ -241,11 +242,11 @@
 
 
                        
-<p id='i_b_1'>Комментировать:</p>
+{% comment %} <p id='i_b_1'>Комментировать:</p>
 
 <textarea cols="60" name="comment" rows="20" id='id_comment' required="" id="id_comment"></textarea>
 <div class='form-error' id='info_blok_52'>{{form.comment.errors}}</div>
-<button class='fd2' type="submit" id='info_blok_53'>ВВОД</button>
+<button class='fd2' type="submit" id='info_blok_53'>ВВОД</button> {% endcomment %}
 
 
 

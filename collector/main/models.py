@@ -18,18 +18,19 @@ class Amalker(models.Model):
 # модель категории статьи
 class Category(models.Model):
     name = models.TextField(blank=False, unique=True)
-    
-    # class Meta:
-    #     name = 'Категории'
-    
     def __str__(self):
         return self.name
  
 # Основная модель отображения предметов коллекционирования 
 class Catalogy(models.Model):
     name = models.CharField(max_length=50, blank=False,)
-    # class Meta:
-    #     name = 'Предмет коллекционирования'
+    def __str__(self):
+        return self.name
+    
+class AllowanceComment(models.Model):
+    name = models.CharField(max_length=50, blank=False,)
+    def __str__(self):
+        return self.name
 
    
 # вспомогательная модель поиска по интерессу 

@@ -1,6 +1,6 @@
 from django import forms 
 from django.forms import ClearableFileInput
-from main.models import Category, Catalogy
+from main.models import Category, Catalogy, AllowanceComment
 # from django.forms.forms import Form 
 
 
@@ -20,9 +20,10 @@ class NewArticleForm(forms.Form):
     
     text = forms.CharField( widget=forms.Textarea, initial="текст",                        # текст сообщения
             ) 
-    allowance = forms.CharField(initial="допуск", max_length=50,                            # допуск к статьи
-        #     queryset=Allowance.objects.all().order_by('name'),
-            )
+    allowance = forms.ModelChoiceField(                                                        # каталог
+            queryset=AllowanceComment.objects.all().order_by('name'),
+            label='',
+            empty_label = 'К выбору обязателен',)
     
     photo = forms.FileField(label='введите файл',                                          # загрузка файлов
             initial="сюда:", 

@@ -38,3 +38,7 @@ admin.site.register(Article_commentsTwo, Article_commentsTwoAdmin)
 class CatalogyAdmin(admin.ModelAdmin):
     list_display = ['name']
 admin.site.register(Catalogy, CatalogyAdmin)    
+
+class AllowanceCommentAdmin(admin.ModelAdmin):
+    list_display = ['name']
+admin.site.register(AllowanceComment, AllowanceCommentAdmin) 
