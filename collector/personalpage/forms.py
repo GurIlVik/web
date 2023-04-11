@@ -1,20 +1,23 @@
 from django import forms 
 from django.forms import ClearableFileInput
-from main.models import Category, Allowance
+from main.models import Category, Catalogy
 # from django.forms.forms import Form 
 
 
 class NewArticleForm(forms.Form):
     title = forms.CharField(initial="название", max_length=150,                            # название статьи
             widget=forms.TextInput(attrs={'class': 'main_form_title'})) 
-    categories = forms.ModelChoiceField(                                                   # предмет коллекционирования
+    categories = forms.ModelChoiceField(                                                   # категория
             queryset=Category.objects.all().order_by('name'),
-            label='Предмет коллекционирования',
+            label='Категория статьи',
             empty_label = 'К выбору обязателен',
             # widget=forms.TextInput(attrs={'class': 'main_form_categories'}),
             )  
-    topic = forms.CharField(initial="статья/продажа/покупка",  max_length=150,             # категория сообщения 
-            widget=forms.TextInput(attrs={'class': 'main_form_topic'}))
+    topic = forms.ModelChoiceField(                                                        # каталог
+            queryset=Catalogy.objects.all().order_by('name'),
+            label='Предмет коллекционирования',
+            empty_label = 'К выбору обязателен',)
+    
     text = forms.CharField( widget=forms.Textarea, initial="текст",                        # текст сообщения
             ) 
     allowance = forms.CharField(initial="допуск", max_length=50,                            # допуск к статьи

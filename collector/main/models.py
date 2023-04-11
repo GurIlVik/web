@@ -7,23 +7,35 @@ class Amalker(models.Model):
     time_publication = models.TimeField(auto_now_add=True, auto_now = False,)
     time_ending = models.DateTimeField(auto_now_add=True)
     categories = models.CharField(max_length=250) # указывается предмет или список ...ов коллекции
+    # class Meta:
+    #     name_seller = 'рекламодатель'
+    #     tabloid = 'текст сообщения'
+    #     time_publication = 'время публикации'
+    #     time_ending = 'срок публикации'
+    #     categories = 'предмет коллекционирования'
+        
 
-# основная модель предмета коллекционирования   
+# модель категории статьи
 class Category(models.Model):
     name = models.TextField(blank=False, unique=True)
+    
+    # class Meta:
+    #     name = 'Категории'
     
     def __str__(self):
         return self.name
  
-# Модель отображения рубрики 
+# Основная модель отображения предметов коллекционирования 
 class Catalogy(models.Model):
     name = models.CharField(max_length=50, blank=False,)
-   
+    # class Meta:
+    #     name = 'Предмет коллекционирования'
 
    
 # вспомогательная модель поиска по интерессу 
 class TopicInterest(models.Model):
     name = models.CharField(max_length=250, null=True)
+    
 
 # модель размещения блока информации
 class Information_block(models.Model):
@@ -41,6 +53,15 @@ class Information_block(models.Model):
     comment_article = models.CharField(max_length=50)       # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
     write_author = models.CharField(max_length=50)
     access = models.BooleanField(null=True)
+    # class Meta:
+    #     page_author = 'автор'
+    #     text_contents = 'текст сообщения'
+    #     time_publication = 'время публикации'
+    #     categories = 'предмет коллекционирования'
+    #     topic_interest = 'рубрика'
+    #     table_contents = 'Название'
+    #     count_symbol_ok = 'счетчик положительных отзывов'
+    #     ount_symbol_bad = 'счетчик отрицательных отзывов'
 
 # модель представления комментария 
 class Article_comments(models.Model):  
@@ -54,7 +75,13 @@ class Article_comments(models.Model):
     comment_article = models.CharField(max_length=50, null=False)
     write_author = models.CharField(max_length=50, null=False)
     access = models.BooleanField(null=False)
-    
+    # class Meta:
+    #     whom_message = 'автор статьи'
+    #     whose_message = 'комментатор'
+    #     text_message = 'текст сообщения'
+    #     time_publication = 'время публикации'
+    #     count_symbol_ok = 'счетчик положительных отзывов'
+    #     ount_symbol_bad = 'счетчик отрицательных отзывов'
 
 # модель представления комментария на комментарий
 class Article_commentsTwo(models.Model):  
@@ -68,3 +95,10 @@ class Article_commentsTwo(models.Model):
     id_comment = models.CharField(max_length=50, null=False)                    # id коммента
     write_author = models.CharField(max_length=50, null=False)
     access = models.BooleanField(null=False)
+    # class Meta:
+    #     whom_message = 'автор коммента'
+    #     whose_message = 'комментатор'
+    #     text_message = 'текст сообщения'
+    #     time_publication = 'время публикации'
+    #     count_symbol_ok = 'счетчик положительных отзывов'
+    #     ount_symbol_bad = 'счетчик отрицательных отзывов'
