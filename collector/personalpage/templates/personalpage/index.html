@@ -35,6 +35,30 @@
     {% if register == True %}
     
     <div id="global">
+        <div id="alternativ_global">
+            <form class='box_write_info_blok' method="post" action="">
+            {% csrf_token %}
+            <div id="pu_div1">
+            </div>
+            <div id="pu_div2">
+                
+                    
+                    {% comment %} <div id = 'box_write_blok'> 
+                    <p id='grid_write_p'> Написать статью </p>
+                    <input type="text" name="title" required="" id="write_title" class='qwerty' placeholder="Название">
+                    <textarea cols="6" name="text" rows="2" required="" id="write_text" placeholder='Текст'></textarea>
+                    <input type="file" name="photo" multiple="" class="main_form_text" id="paste_file">
+                    <button class='fd2' type="submit" name='memory' id='button_1'>сохранить</button>  
+                    <button class='fd2' type="submit" name='write' id='button_2'>опубликовать</button>
+                    <button class='fd2' type="submit" name='delete' id='button_3'>удалить</button>
+                    </div> {% endcomment %}
+                
+            </div>
+        </form> 
+
+        </div>
+
+
 
         <div id="personal_information"> 
             <div id = 'personal_information1'>
@@ -70,16 +94,9 @@
         <div id = 'info_blok'>     
             <div id = 'box_info_blok'>
                 <form class='box_write_info_blok' method="post" action="">
-                    {% csrf_token %}
-                    {% comment %} <div id = 'box_write_blok'> {% endcomment %}
-                    <p id='grid_write_p'> Написать статью </p>
-                    <input type="text" name="title" required="" id="write_title" class='qwerty' placeholder="Название">
-                    <textarea cols="6" name="text" rows="2" required="" id="write_text" placeholder='Текст'></textarea>
-                    <input type="file" name="photo" multiple="" class="main_form_text" id="paste_file">
-                    <button class='fd2' type="submit" name='memory' id='button_1'>сохранить</button>  
-                    <button class='fd2' type="submit" name='write' id='button_2'>опубликовать</button>
-                    <button class='fd2' type="submit" name='delete' id='button_3'>удалить</button>
-                    {% comment %} </div> {% endcomment %}
+                    {{ form_art.as_p }}
+
+                    
                 </form> 
                 
   
