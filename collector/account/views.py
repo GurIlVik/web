@@ -49,7 +49,7 @@ def user_login(request):
                         login(request, user)
                         print(login(request, user))
                         # return redirect('/account/confirmation/user={us_name.username}')
-                        return redirect(f'/personalpage/{us_name.username}')         
+                        return redirect(f'/personalpage/{us_name.username}', permanent=True)          # см urls в настройках
                     else:
                         return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
     else:

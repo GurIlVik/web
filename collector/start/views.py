@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 # from personalpage.views import getting_nickname_request
 # from django.contrib.auth.models import User
 
@@ -16,5 +16,6 @@ def privet(request):
         context
         )
 
-
+def page_not_found(request, exception):
+    return HttpResponseNotFound('Что-то пошло не так')
  
