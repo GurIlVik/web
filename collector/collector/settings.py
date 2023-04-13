@@ -41,10 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'account.apps.AccountConfig', 
     'start.apps.StartConfig',
     'main.apps.MainConfig',
     'personalpage.apps.PersonalpageConfig',
+    'crispy_forms',
+    "crispy_bootstrap4",
 ]
 
 MIDDLEWARE = [
@@ -149,5 +150,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
-# CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"  # форма криспи для регистрации  и установить    pip install django-crispy-forms
+CRISPY_TEMPLATE_PACK = "bootstrap4"           # форма криспи для регистрации  и установить    pip install crispy-bootstrap4
+# CRISPY_TEMPLATE_PACK = 'uni_form'  # форма криспи для регистрации  и установить    pip install django-crispy-forms

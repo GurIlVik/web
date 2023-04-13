@@ -35,7 +35,7 @@ def logout_view(request):
     context = {'a' : 'Вы вышли из системы'}
     return render(
         request,
-        'account/logout.html',
+        'start/logout.html',
         context)
   
 
@@ -71,10 +71,11 @@ def user_login(request):
                         return HttpResponse('Неверно введен логин/пароль. Войдите через почту.')
     else:
         form = LoginForm()
-    context = {'form': form}
+    context = {'form': form,
+               'title': 'Вход с паролем'}
     return render(
         request,
-        'account/login.html',
+        'start/login.html',
         context)
 
 # функция регистрации пользователя
@@ -99,7 +100,7 @@ def register(request):
             form2 = LoginFormToken()
             context2 = { 'form':form2,
                         'text1':'введите электронный ключ из письма с вашей почты'}
-            return render(request, 'account/register.html', context2)
+            return render(request, 'start/register.html', context2)
         elif form2.is_valid(): 
             form2 = form2.cleaned_data
             for i in UserTemporaryToken.objects.all():
@@ -134,14 +135,15 @@ def register(request):
                             'form':form,
                             'text1':'ключ введен не верно попробуйте пройти регистрацию заново'
                         } 
-                return render(request, 'account/register.html', context) 
+                return render(request, 'start/register.html', context) 
     else: 
         form = UserRegistrationForm() 
     context = { 
         'form':form,
-        'text1':'Заполните форму регистрации'
+        'text1':'Заполните форму регистрации',
+        'title' : 'Регистрация',
     } 
-    return render(request, 'account/register.html', context) 
+    return render(request, 'start/register.html', context) 
 
 # функция отправки писем с токеном
 def otpravka (email_user, token_user, username2,):
@@ -175,7 +177,6 @@ def otpravka (email_user, token_user, username2,):
 
 # функция входа без пароля по почте с обновлением пароля поля
 def login_email (request):
-    user_email_autorise = ''
     text = 'Пожалуйста, введите вашу электронную почту:'
     password = 'ПОЛУЧИТЬ КЛЮЧ'
     if request.method == 'POST':
@@ -192,7 +193,7 @@ def login_email (request):
             context2 = { 'form':form1,
                         'text1':'введите электронный ключ из письма с вашей почты',
                             'pasW' : 'Вход'}
-            return render(request, 'account/login_email.html', context2)
+            return render(request, 'start/login_email.html', context2)
         elif form1.is_valid():
             print('4')
             form1 = form1.cleaned_data
@@ -208,7 +209,7 @@ def login_email (request):
                     if use is not None:
                         login(request, use)
                     i.delete()
-                    redirect(f'/personalpage/{use.username}') 
+                    return redirect(f'/personalpage/{use.username}') 
                 else:
                     print('нет соответствия в цикле')
             else:           
@@ -217,8 +218,8 @@ def login_email (request):
                             'text1':'ключ введен не верно попробуйте пройти регистрацию заново',
                             'pasW' : 'Получить ключ'
                         } 
-                return render(request, '/main/', context) 
+                # return render(request, '/main/', context) 
     else:
         form = LoginForm_Email()
-    context = {'form': form, 'text': text, 'pasW': password}
-    return render(request, 'account/login_email.html', context)
+    context = {'form': form, 'text': text, 'pasW': password, 'title' : 'Забыли пароль',}
+    return render(request, 'start/login_email.html', context)

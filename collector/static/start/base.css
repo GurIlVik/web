@@ -103,3 +103,22 @@ footer {
     font-family: "brush script mt";
     overflow: hidden;
 }
+
+.login-form {
+    /* background-color: aquamarine; */
+
+}
+
+
+#login4 {
+    display: block;
+    width: auto;
+    height: auto;
+    border: rgb(91, 83, 83) solid 2px;
+    padding: 12px 80px 12px 12px;
+    background-color: rgba(200, 200, 200, 0.683);
+}
+
+h1 {
+    color: rgb(88, 88, 88);
+}
