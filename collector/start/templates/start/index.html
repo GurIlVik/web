@@ -1,45 +1,57 @@
-{% load static %}
-{% csrf_token %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'start/text.css'%}" type="text/css">
-    <script src="{% static 'start/script.js'%}"></script>   
-    <title>Приветствие</title>
-</head>
+{% extends "start/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block menu %}
+<div id="f_d2">
+    {% if request.user.is_authenticated %}
+    <div ><a class='fd2' href="/main"><button class='fd2'>На главную</button></a></div>
+    <div ><a class='fd2' href="/personalpage/{{ puth_paesonalpage }}"><button class='fd2'>В личный кабинет</button></a></div>
+    <div ><a class='fd2' href="/account/logout/"><button class='fd2'>ВЫХОД</button></a></div>
+    {% else %}
+    <div ><a class='fd2' href="{% url 'login' %}"><button class='fd2'>Вход с паролем</button></a></div> 
+    <div ><a class='fd2' href="{% url 'login_email' %}"><button class='fd2'>Забыли пароль</button></a></div> 
+    <div ><a class='fd2' href="{% url 'register' %}"><button class='fd2'>Регистрация</button></a></div>
+    <div ><a class='fd2' href="{% url 'main' %}"><button class='fd2'>Без регистрация</button></a></div>
+    {% endif %}
+</div> 
+{% endblock %}
 
-<body style="background-image:url('{% static 'start/start.jpg'%}')">
+{% block Slogan %}
+<div id="text">
+    <p class='start_p'>Коллекционер - бережёт историю</p>
+    <p class='start_p'>История - определяет культуру</p>
+    <p class='start_p'>Культура - основа цивилизации</p>
+    <p class='start_p'></p>
+</div>
+{% endblock %}
 
-    <div id="text1">
-    <div id="text">
-        <p>Коллекционер - бережёт историю</p>
-        <p>История - определяет культуру</p>
-        <p>Культура - основа цивилизации</p>
-        <p></p>
+
+{% block content%}
+<div id="content2">
+
+<div id="login4">
+    <h1>Регистрация</h1>
+    {% if form.errors %}
+        <p>
+            Форма заполнена не верно.
+            Попробуйте снова.
+        </p>
+    {% else %}
+        <p>{{text1}}</p>
+    {% endif %}
+    <div class="login-form">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{form2}}
+            {% comment %} {{form|crispy}} {% endcomment %}
+            <input type="hidden" name="next" value="{{ next }}"/>
+            <p><input type="submit" value="регистрация"></p>
+        </form>
     </div>
-</body>
-
-<footer>
-    <div id="f_d1">
-        <div>&nbsp  Творческая студия:</div> 
-        <div>&nbsp  GurIlVik</div> 
-        <div>&nbsp  gilvik1@yandex.ru</div>
-    </div>
-    <div id="f_d2">
-        {% if request.user.is_authenticated %}
-        <div ><a class='fd2' href="/main"><button class='fd2'>На главную</button></a></div>
-        <div ><a class='fd2' href="/personalpage/{{ puth_paesonalpage }}"><button class='fd2'>В личный кабинет</button></a></div>
-        <div ><a class='fd2' href="/account/logout/"><button class='fd2'>ВЫХОД</button></a></div>
-        {% else %}
-        <div ><a class='fd2' href="{% url 'login' %}"><button class='fd2'>Вход с паролем</button></a></div> 
-        <div ><a class='fd2' href="{% url 'login_email' %}"><button class='fd2'>Забыли пароль</button></a></div> 
-        <div ><a class='fd2' href="{% url 'register' %}"><button class='fd2'>Регистрация</button></a></div>
-        <div ><a class='fd2' href="{% url 'main' %}"><button class='fd2'>Без регистрация</button></a></div>
-        {% endif %}
-    </div> 
-</footer>  
-</html>
+</div>
+<div id="login3">
+    <div ><a href="/"><button class='fd2'>НАЗАД</button></a></div> 
+</div>
+</div>
+{% endblock content%}
 

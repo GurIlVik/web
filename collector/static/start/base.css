@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  html,
+  body {
+    height: 100%;
+  }
+
+
+body {
+    height: inherit;
+    width: auto;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+}
+
+#global {
+    width: 100%;
+    height: 100%;
+    top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* отображение меню */
+header {
+    height: 40px;
+    width: 100%;
+    background: #c0c4ac79;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2vw;
+}
+
+
+#text1 {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.start_p {
+    font-size: 5vw;
+    color: azure;
+    font-family: "brush script mt";
+}
+
+footer {
+    color: white;
+    background: #23041979;
+    position: absolute;
+    bottom: -1px;
+    height: 45px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#f_d1 {
+    left: 0px;
+    font-size: 11px;
+    font-weight: 300;
+    width: 120px;
+}
+
+#f_d2 {
+    width: 100%;
+    right: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.fd2 {
+    font-size: 18px;
+    background: #21211d;
+    height: 30px;
+    width: auto;
+    min-width: 150px;
+    border-radius: 30%;
+    color: white;
+}
+
+#p_footer {
+    font-size: 22px;
+    color: white;
+    font-family: "brush script mt";
+}

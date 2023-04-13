@@ -10,5 +10,8 @@ class NewArticleAdmin(admin.ModelAdmin):
     list_filter = ('title', 'author', )                         # список полей в админке по которым можно фильтровать
 #    prepopulated_fields = {'slug': ('name',)}                   # необходимо для автоматического заполнения, но может быть повтор по этому лучше ID
 #    prepopulated_fields = {'slug': (f'{NewArticle.title}_{NewArticle.id}')}                   # проба
+    fields = ('title', 'author', 'text',)                       # порядок и список редактируемых полей в форме представления статьи
+    readonly_fields = ('author', 'photo')                       # порядок и список НЕ редактируемых полей 
+    save_on_top = True                                          # дублирует работающее меню на верх 
 admin.site.register(NewArticle, NewArticleAdmin)    
 
