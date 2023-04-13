@@ -5,6 +5,9 @@
   html,
   body {
     height: 100%;
+    width: 1200px;
+    min-width: 30%;
+    max-width: 100%;
   }
 
 
@@ -98,4 +101,5 @@ footer {
     font-size: 22px;
     color: white;
     font-family: "brush script mt";
+    overflow: hidden;
 }

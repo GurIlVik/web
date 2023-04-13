@@ -1,19 +1,7 @@
 {% extends "start/base.html" %}
+
 {% block title %}{{ title }}{% endblock %}
-{% block menu %}
-<div id="f_d2">
-    {% if request.user.is_authenticated %}
-    <div ><a class='fd2' href="/main"><button class='fd2'>На главную</button></a></div>
-    <div ><a class='fd2' href="/personalpage/{{ puth_paesonalpage }}"><button class='fd2'>В личный кабинет</button></a></div>
-    <div ><a class='fd2' href="/account/logout/"><button class='fd2'>ВЫХОД</button></a></div>
-    {% else %}
-    <div ><a class='fd2' href="{% url 'login' %}"><button class='fd2'>Вход с паролем</button></a></div> 
-    <div ><a class='fd2' href="{% url 'login_email' %}"><button class='fd2'>Забыли пароль</button></a></div> 
-    <div ><a class='fd2' href="{% url 'register' %}"><button class='fd2'>Регистрация</button></a></div>
-    <div ><a class='fd2' href="{% url 'main' %}"><button class='fd2'>Без регистрация</button></a></div>
-    {% endif %}
-</div> 
-{% endblock %}
+
 
 {% block Slogan %}
 <div id="text">
@@ -25,7 +13,7 @@
 {% endblock %}
 
 
-{% block content%}
+{% block register%}
 <div id="content2">
 
 <div id="login4">
@@ -53,5 +41,5 @@
     <div ><a href="/"><button class='fd2'>НАЗАД</button></a></div> 
 </div>
 </div>
-{% endblock content%}
+{% endblock %}
 

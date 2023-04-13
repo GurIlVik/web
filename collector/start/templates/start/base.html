@@ -15,9 +15,18 @@
 <body style="background-image:url('{% static 'start/start.jpg'%}')">
     <header>
         <div id="f_d2">
-            {% block menu %}{% endblock %}
+            {% if request.user.is_authenticated %}
+            <div ><a class='fd2' href="{% url 'main' %}"><button class='fd2'>На главную</button></a></div>
+            <div ><a class='fd2' href="/personalpage/{{ puth_paesonalpage }}"><button class='fd2'>В личный кабинет</button></a></div>
+            <div ><a class='fd2' href="{% url 'logout' %}"><button class='fd2'>ВЫХОД</button></a></div>
+            {% else %}
+            <div ><a class='fd2' href="{% url 'login' %}"><button class='fd2'>Вход с паролем</button></a></div> 
+            <div ><a class='fd2' href="{% url 'login_email' %}"><button class='fd2'>Забыли пароль</button></a></div> 
+            <div ><a class='fd2' href="{% url 'register' %}"><button class='fd2'>Регистрация</button></a></div>
+            <div ><a class='fd2' href="{% url 'main' %}"><button class='fd2'>Без регистрация</button></a></div>
+            {% endif %}
         </div> 
-    </header>
+    </header>s
 
 
 
@@ -25,10 +34,6 @@
         {% block Slogan %}
         {% endblock %}
     </div>
-
-    
-    {% comment %} {% block content %}
-    {% endblock content %} {% endcomment %}
 
 
     <footer>

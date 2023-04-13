@@ -1,7 +1,5 @@
 from django.contrib import admin
 from django.urls import path, include
-# from django.views.generic.base import RedirectView
-# from django.contrib.staticfiles.storage import staticfiles_storage
 from django.conf import settings
 from django.conf.urls.static import static
 from start.views import page_not_found
@@ -10,7 +8,6 @@ from collector import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('account.urls')),
     path('', include('start.urls')),
     path('main/', include('main.urls')),
     path('personalpage/', include('personalpage.urls')),

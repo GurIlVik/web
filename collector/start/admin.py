@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import UserTemporaryModels, UserTemporaryToken
 
-# Register your models here.
+admin.site.register(UserTemporaryModels)
+admin.site.register(UserTemporaryToken)

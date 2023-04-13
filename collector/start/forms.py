@@ -52,5 +52,6 @@ class LoginForm_Email(Form):
     
 class LoginFormToken(Form):
     token_us = forms.CharField(label='ключ', min_length=20, max_length=150)
-    
-    
+
+
+PASSWORD_EMAIL = 'hsphhbxdhczhzrhc'
