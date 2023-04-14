@@ -1,4 +1,5 @@
 {% extends "personalpage/base.html" %}
+{% load crispy_forms_tags %}
 
 
 {% block title %}{{ title }}{% endblock %}
@@ -66,37 +67,8 @@
 {% block personal_information_write %}
         <form class='alternativ_form' method="post" action="" id="p_inf_write">
             {% csrf_token %}
-            <div id="pu_div1">
-                <div id="pu_div2">
-                ВВОД ЛИЧНОЙ ИНФОРМАЦИИ 
-                    <p class='p_popup'>Выберите предмет коллекционирования (правила демонстрации смотрите в настойках личного кабинета):</p>
-                    <div id="pu_div21">{{ form.topic }}</div>
-                    <p class='p_popup'>Выберите категорию:</p>
-                    <div id="pu_div22">{{ form.categories }}</div>
-                    <p class='p_popup'>Разрешить ли комментировать статью:</p>
-                    <div id="pu_div23">{{ form.allowance }}</div>
-                    <p class='p_popup'>Добавление фотографий:</p>
-                    <div id="pu_div24">{{ form.photo }}</div>
-                    <p></p>
-                    <p></p>
-                </div>  
-                <div id="pu_div3">
-                    <div id="pu_div3">
-                        <p class='p_popup1'>Название статьи:</p>
-                        {{ form.title }}
-                        <p class='p_popup1'>Текст:</p>
-                        {{ form.text }}
-                    </div>
-            
-                    <div id="pu_div4">
-                        <button class='fd2' type="submit" name='memory'>сохранить</button>  
-                        <button class='fd2' type="submit" name='write'>опубликовать</button>
-                        <button class='fd2' type="submit" name='delete'>удалить</button>
-                    </div>
-                </div>
-            </div>
-                
-            
+            {{ form_info|crispy }}
+            <input type="submit" value="Подтверждаю">
         </form> 
 {% endblock %}
 

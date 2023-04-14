@@ -34,20 +34,8 @@ class NewArticleForm(forms.Form):
             widget = ClearableFileInput(attrs={'multiple': True, 'class': 'main_form_text'}), 
             )
     
-    
-# class Draft(forms.Form):
-#     title = forms.CharField(initial="название", max_length=150,                            # название статьи
-#             widget=forms.TextInput(attrs={'class': 'main_form_title'})) 
-#     text = forms.CharField( widget=forms.Textarea, initial="текст",                        # текст сообщения
-#             ) 
-#     photo = forms.FileField(label='введите файл',                                          # загрузка файлов
-#             initial="сюда:", 
-#             widget = ClearableFileInput(attrs={'multiple': True, 'class': 'main_form_text'}), 
-#             )
-
 class PersonalInformationUser(forms.ModelForm):
     class Meta:
         model = PresentationUser
-        fields = '__all__'
-        # fields = ['photo', "profession", 'interest']
+        fields = ['photo', "profession", 'interest']
         
