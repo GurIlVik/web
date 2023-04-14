@@ -1,14 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # from django.contrib.auth import authenticate, login, logout
-from .forms import NewArticleForm, Draft
-from django.contrib.auth.decorators import login_required
+from .forms import PersonalInformationUser, NewArticleForm
+# from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
 from main.models import Information_block
 from .models import NewArticle
 
-@ login_required
+# @ login_required
 def personal_page(request, user): 
     nik_reguest = getting_nickname_request(request)  # получение имени пришедшего пользователя
     search_user = user_page_search(user)  # получение булевого есть ли такой пользователь (тру/фальш)
@@ -22,6 +22,16 @@ def personal_page(request, user):
     c = NewArticleForm()
     password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
     d = NewArticle.objects.filter(author=user)
+    e = PersonalInformationUser()
+    title = 'Кабинет'
+    menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
+    menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
+    menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
+    # menu3 = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
+    if password:
+        menu = menu1
+    elif registered_user:
+        menu = menu2
     print(d)
     for i in d:
         print(i.author)
@@ -32,13 +42,16 @@ def personal_page(request, user):
                    'nik_user' : b, 
                    'form' : c,
                    'for_editorial_office' : d,
+                   'title' : title,
+                   'menu' : menu,
+                   'form_info' : e,
                    }
     if search_user == False:
         return HttpResponse('такого пользователя нет')
     else:
         if request.method == 'POST':
             form = NewArticleForm(request.POST)
-            form1 = Draft(request.POST)
+            # form1 = Draft(request.POST)
             
             print(1)
             # print(form)
@@ -71,8 +84,8 @@ def personal_page(request, user):
                     return render(request, 'personalpage/index.html', context)
                 elif 'delete' in request.POST:
                     return render(request, 'personalpage/index.html', context)
-            if form1.is_valid():
-                print('lwrifjbgritugh')
+            # if form1.is_valid():
+            #     print('lwrifjbgritugh')
                 
                 
                 # Сюда дописывать функцию сохранения черновика

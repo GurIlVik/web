@@ -9,7 +9,7 @@
 
 
 body {
-    height: inherit;
+    height: 100%;
     width: auto;
     background: #fff7fc79;
     padding: 0px;
@@ -45,6 +45,7 @@ header {
 /* ОТОБРАЖЕНИЕ ОСНОВНОЙ ЧАСТИ */
 #global {
     width: 100%;
+    height: 100%;
     top: 40px;
     display: flex;
     background-color: aqua;
@@ -70,6 +71,8 @@ footer {
     background: #23041979;
     height: 45px;
     width: 100%;
+    position: absolute;
+    bottom: -45px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -206,7 +209,7 @@ footer {
 
 /* ОТРАЖЕНИЕ для новой статьи */
 .box_write_info_blok {
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 18fr 18fr 18fr;
     grid-template-rows: 1fr 5fr 1fr 1fr;
     padding: 3px;
@@ -265,7 +268,7 @@ footer {
 } */
 
 /* ВСПЛЫВАЮЩЕЕ ОКНО ДЛЯ ЗАПИСИ СТАТЬИ */
-#alternativ_global {
+#alternativ_global, #p_inf_write {
     height: 90%;
     width: 90%;
     margin: 0%;
@@ -311,11 +314,31 @@ footer {
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     background-color: rgb(232, 140, 214);
 }
 .p_popup {
     margin-top: 50px;
     margin-bottom: 25px;
     font-size: 18px;
+}
+
+.p_popup1 {
+    margin: 20px;
+    font-size: 22px;
+}
+#id_topic, #id_categories, #id_allowance, #id_photo, #id_title, #id_text {
+    width: 200px;
+    height: 40px;
+    font-size: 14px;
+}
+
+#id_title, #id_text {
+    width: auto;
+    margin: 0px 20px 20px 20px;
+}
+#id_text {
+    height: 100px;
+    min-height: 50%;
+    max-height: 100%;
 }

@@ -1,41 +1,31 @@
-{% block content %}
-{% block title %}{% endblock %}
-{% load static %}
-{% csrf_token %}
+{% extends "personalpage/base.html" %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Домашняя</title>
-    <link rel="stylesheet" href="{% static '/personalpage/base.css' %}" type='text/css'>
-    <script src="{% static '/personalpage/script.js' %}"></script>
-</head>
-<body>
-    
-    <header>
-        {% if access == True %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block menu_block %} 
+        {% comment %} {% if access == True %} {% endcomment %}
+        {% comment %} {% for i in menu %} {% endcomment %}
         <div>
-            <p><input class='fd2' type="submit" value="НАСТРОЙКИ"></p>
+            {% comment %} <button id='header2' class='fd2' onclick="article()">{{ i }}</button> {% endcomment %}
+            <button class='fd2' onclick="infoUser()">{{ menu.0 }}</button>
         </div>
         <div>
-            <button id='header2' class='fd2' onclick="article()">Написать</button>
+            <button class='fd2' onclick="article()">{{ menu.1 }}</button>
         </div> 
         <div>
-            <a class='fd2' href="/main/"><button class='fd2'>К ОБЩЕСТВУ</button></a> 
+            <a class='fd2' href="{% url 'main' %}"><button class='fd2'>{{ menu.2 }}</button></a> 
         </div> 
         <div>
-            <a class='fd2' href="{% url 'logout' %}"><button class='fd2'>ВЫХОД</button></a>
+            <a class='fd2' href="{% url 'logout' %}"><button class='fd2'>{{ menu.3 }}</button></a>
         </div>
-        {% endif %}
-    </header>
+        {% comment %} {% endfor %} {% endcomment %}
+        {% comment %} {% endif %} {% endcomment %}
+{% endblock %}
 
-    {% if register == True %}
     
-    <div id="global">
-
+{% block alternativ_form %}
         <form class='alternativ_form' method="post" action="" id="alternativ_global">
             {% csrf_token %}
             <div id="pu_div1">
@@ -49,18 +39,14 @@
                     <div id="pu_div23">{{ form.allowance }}</div>
                     <p class='p_popup'>Добавление фотографий:</p>
                     <div id="pu_div24">{{ form.photo }}</div>
-                    <p>ewrfewfrewfgr</p>
                     <p></p>
-
-                    
-                    
-                    
-                    
-
+                    <p></p>
                 </div>  
                 <div id="pu_div3">
                     <div id="pu_div3">
+                        <p class='p_popup1'>Название статьи:</p>
                         {{ form.title }}
+                        <p class='p_popup1'>Текст:</p>
                         {{ form.text }}
                     </div>
              
@@ -71,31 +57,52 @@
                     </div>
                 </div>
             </div>
-            {% comment %} <div id="pu_div2">
-            </div>  
-            <div id="pu_div3">
-            </div>
-            <div id="pu_div4">
-            </div>   {% endcomment %}
-                    
-                    {% comment %} <div id = 'box_write_blok'> 
-                    <p id='grid_write_p'> Написать статью </p>
-                    <input type="text" name="title" required="" id="write_title" class='qwerty' placeholder="Название">
-                    <textarea cols="6" name="text" rows="2" required="" id="write_text" placeholder='Текст'></textarea>
-                    <input type="file" name="photo" multiple="" class="main_form_text" id="paste_file">
-                    <button class='fd2' type="submit" name='memory' id='button_1'>сохранить</button>  
-                    <button class='fd2' type="submit" name='write' id='button_2'>опубликовать</button>
-                    <button class='fd2' type="submit" name='delete' id='button_3'>удалить</button>
-                    </div> {% endcomment %}
                 
             
         </form> 
+{% endblock %}
 
+
+{% block personal_information_write %}
+        <form class='alternativ_form' method="post" action="" id="p_inf_write">
+            {% csrf_token %}
+            <div id="pu_div1">
+                <div id="pu_div2">
+                ВВОД ЛИЧНОЙ ИНФОРМАЦИИ 
+                    <p class='p_popup'>Выберите предмет коллекционирования (правила демонстрации смотрите в настойках личного кабинета):</p>
+                    <div id="pu_div21">{{ form.topic }}</div>
+                    <p class='p_popup'>Выберите категорию:</p>
+                    <div id="pu_div22">{{ form.categories }}</div>
+                    <p class='p_popup'>Разрешить ли комментировать статью:</p>
+                    <div id="pu_div23">{{ form.allowance }}</div>
+                    <p class='p_popup'>Добавление фотографий:</p>
+                    <div id="pu_div24">{{ form.photo }}</div>
+                    <p></p>
+                    <p></p>
+                </div>  
+                <div id="pu_div3">
+                    <div id="pu_div3">
+                        <p class='p_popup1'>Название статьи:</p>
+                        {{ form.title }}
+                        <p class='p_popup1'>Текст:</p>
+                        {{ form.text }}
+                    </div>
+            
+                    <div id="pu_div4">
+                        <button class='fd2' type="submit" name='memory'>сохранить</button>  
+                        <button class='fd2' type="submit" name='write'>опубликовать</button>
+                        <button class='fd2' type="submit" name='delete'>удалить</button>
+                    </div>
+                </div>
+            </div>
+                
+            
+        </form> 
+{% endblock %}
+
+
+{% block personal_information %}
         
-
-
-
-        <div id="personal_information"> 
             <div id = 'personal_information1'>
                 <div id = 'photo_user'>
                     Здесь может быть фото
@@ -123,10 +130,11 @@
                     <p>информация : </p>
                 </div>
             </div>
-        </div>
-                                                    {% comment %} basic блок с основной информацией {% endcomment %}    
+        
+{% endblock %}                                                    {% comment %} basic блок с основной информацией {% endcomment %}    
 
-        <div id = 'info_blok'>     
+
+{% block info_blok %}            
             <div id = 'box_info_blok'>
                 <form class='box_write_info_blok' method="post" action="">
                     {{ form_art.as_p }}
@@ -212,125 +220,15 @@
                 </div>  
                 {% endfor%} 
             </div>
-        </div>
+{% endblock %}        
         
-        <div id="messenges">
-            ergbberbgerbg
-        </div> 
-    </div>
+ 
+{% block messenges %}  ierhgoiu4t3bgo 
+{% endblock %}
+
+   
     
 
 
    
 
-{% else %}
-<a class='fd2' href="/main/"><button class='fd2'>НАЗАД</button></a> 
-{% endif %} 
-{% endblock %} 
-<footer>
-    <div id="f_d1">
-        <div>&nbsp  Творческая студия:</div> 
-        <div>&nbsp  GurIlVik</div> 
-        <div>&nbsp  gilvik1@yandex.ru</div>
-    </div>
-</footer>  
-
-
-</body> 
-</html>
-
-
-
-                       
-{% comment %} <p id='i_b_1'>Комментировать:</p>
-
-<textarea cols="60" name="comment" rows="20" id='id_comment' required="" id="id_comment"></textarea>
-<div class='form-error' id='info_blok_52'>{{form.comment.errors}}</div>
-<button class='fd2' type="submit" id='info_blok_53'>ВВОД</button> {% endcomment %}
-
-
-
-
-
-
-{% comment %} {% for field in form_art %}
-<div class="form-group">
-
-{{field.label_tag}}
-<div class='widget_box_write_info_blok'>{{field}}</div>
-<div class='widget_box_write_info_blok'>{{field.title}}</div>
-<input id="q1" name="title"/>
-<div class="error">{{field.errors}}</div>
-</div>
-{% endfor %}
- ПОПЫТКА ОСЕДЛАТЬ ТРИ СЦЕНАРИЯ ОДНОЙ ФОРМЫ
-<button class='fd2' type="submit" name='memory'>сохранить</button>  
-<button class='fd2' type="submit" name='write'>опубликовать</button>
-<button class='fd2' type="submit" name='delete'>удалить</button> {% endcomment %}
-
-{% comment %} 
-<form class="box_write_info_blok" method="post" action="">
-    <p>
-<label for="id_title">Title:</label>
-<input type="text" name="title" value="название" class="main_form_title" maxlength="150" required="" id="id_title">
-
-
-</p>
-
-
-<p>
-<label for="id_categories">Предмет коллекционирования:</label>
-<select name="categories" required="" id="id_categories">
-<option value="" selected="">К выбору обязателен</option>
-
-<option value="1">ОБЩЕЕ</option>
-
-<option value="2">ФИЛОСОФИЯ</option>
-
-<option value="3">марки</option>
-
-<option value="5">метеориты</option>
-
-<option value="4">монеты</option>
-
-</select>
-
-
-</p>
-
-
-<p>
-<label for="id_topic">Topic:</label>
-<input type="text" name="topic" value="статья/продажа/покупка" class="main_form_topic" maxlength="150" required="" id="id_topic">
-
-
-</p>
-
-
-<p>
-<label for="id_text">Text:</label>
-<textarea name="text" cols="40" rows="10" required="" id="id_text">текст</textarea>
-
-
-</p>
-
-
-<p>
-<label for="id_allowance">Allowance:</label>
-<input type="text" name="allowance" value="допуск" maxlength="50" required="" id="id_allowance">
-
-
-</p>
-
-
-<p>
-<label for="id_photo">введите файл:</label>
-<input type="file" name="photo" multiple="" class="main_form_text" id="id_photo">
-
-
-
-
-</p>
-
-    
-</form> {% endcomment %}

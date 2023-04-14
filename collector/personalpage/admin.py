@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import NewArticle
+from .models import *
 
 
 class NewArticleAdmin(admin.ModelAdmin):
@@ -15,3 +15,31 @@ class NewArticleAdmin(admin.ModelAdmin):
     save_on_top = True                                          # дублирует работающее меню на верх 
 admin.site.register(NewArticle, NewArticleAdmin)    
 
+# class InfoUserAdmin(admin.ModelAdmin):
+#     list_display = ['user', 'profession', 'FFP', 'interest', 'in_publishid']
+#     search_fields = ('user', 'profession', 'FFP',)
+#     list_filter = ('user', 'profession', 'FFP',)
+# admin.site.register(InfoUser, InfoUserAdmin)  
+
+# class ProfessionalAdmin(admin.ModelAdmin):
+#     list_display = ['name'] 
+#     fields = ('name',) 
+#     readonly_fields = ('name',)
+#     search_fields = ('name',)
+#     list_filter = ('name',)
+# admin.site.register(Professional, ProfessionalAdmin)    
+
+class AllowanceAdmin(admin.ModelAdmin):
+    list_display = ['user', 'for_page', 'for_inform', ]
+admin.site.register(Allowance, AllowanceAdmin)
+
+class PresentationUserAdmin(admin.ModelAdmin):
+    list_display = ['user', 'photo', 'profession', 'FFP', 'interest', 'in_publishid',]
+admin.site.register(PresentationUser, PresentationUserAdmin)
+
+class InfoUserAdmin(admin.ModelAdmin):
+    list_display = ['user', 'name', 'name_last', 'name_first', 'telephon', ]
+admin.site.register(InfoUser, InfoUserAdmin)
+
+
+admin.site.register(Professional)   

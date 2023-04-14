@@ -20,3 +20,10 @@ function article() {
 
 
 }
+
+
+function infoUser() {
+    console.log('kjwwfvwvfdhbv');
+    let global2 = document.getElementById('p_inf_write');
+    global2.style.display = 'block';
+}

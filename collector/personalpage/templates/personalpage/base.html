@@ -1,0 +1,45 @@
+{% load static %}
+{% csrf_token %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static '/personalpage/base.css' %}" type='text/css'> 
+    <script src="{% static '/personalpage/script.js' %}"></script> 
+</head>
+<body>
+    <header>
+        {% block menu_block %} {% endblock %}
+    </header>
+
+    <div id="global">
+
+        {% block alternativ_form %}{% endblock %}
+        {% block personal_information_write %}{% endblock %}
+
+        <div id="personal_information"> 
+            {% block personal_information %} {% endblock %}
+        </div>
+        <div id = 'info_blok'> 
+            {% block info_blok %} {% endblock %}
+        </div> 
+        <div id="messenges">
+            {% block messenges %} {% endblock %}
+        </div>  
+
+    </div>
+
+    <footer>
+        <div id="f_d1">
+            <div>&nbsp  Творческая студия:</div> 
+            <div>&nbsp  GurIlVik</div> 
+            <div>&nbsp  gilvik1@yandex.ru</div>
+        </div> 
+    </footer>  
+
+</body> 
+</html>
