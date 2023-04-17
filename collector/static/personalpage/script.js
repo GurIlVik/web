@@ -24,6 +24,23 @@ function article() {
 
 function infoUser() {
     console.log('kjwwfvwvfdhbv');
-    let global2 = document.getElementById('p_inf_write');
+    let global2 = document.getElementById('alternativ_form_div');
     global2.style.display = 'block';
+    let global3 = document.getElementById('alternativ_form_div1');
+    global3.style.display = 'flex';
+    // global3.style.
+}
+
+function infoUser1() {
+    console.log('1-1');
+    let global2 = document.getElementById('form_use1');
+    global2.style.display = 'flex';
+
+    let global3 = document.getElementById('p_inf_write');
+    global3.style.display = 'block';
+    // // global3.style.
+}
+
+function viborPredmet(){
+
 }

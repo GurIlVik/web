@@ -23,7 +23,7 @@ class NewArticle(models.Model):
 class Professional(models.Model):
     name = models.CharField( max_length=50, db_index=True, verbose_name = 'профессия')
     class Meta:
-         verbose_name_plural = 'Коллекционер/Продавец'                 # отображение в админе единственное число      
+         verbose_name_plural = 'Род деятельности'                 # отображение в админе единственное число      
     def __str__(self):
         return self.name
     
@@ -41,9 +41,9 @@ class Allowance(models.Model):
 class PresentationUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to=f"photos/{user}/%Y/%m/%d/", verbose_name='Фото')
-    profession = models.ForeignKey('Professional', on_delete=models.PROTECT)
+    profession = models.ForeignKey('Professional', on_delete=models.PROTECT, verbose_name='Род деятельности')        # коллекционер/продавец
     FFP = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'ФФП')
-    interest = models.CharField( max_length=255, null=True, blank=True, verbose_name = 'интерес')
+    interest = models.CharField( max_length=255, null=True)  # список инетересующих тем
     in_publishid = models.BooleanField(default=False)         # Если  инфо опубликованна
     class Meta:
         verbose_name = 'ВИЗИТКА'
