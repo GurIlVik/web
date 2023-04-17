@@ -67,10 +67,63 @@
 {% block personal_information_write %}
 <div id="alternativ_form_div" >
     <div id="alternativ_form_div1" >
+        <div id='form_use1'>
+            <p class='p_popup'>1. Выбирите предмет интереса: </p><button class='fd2' onclick="viborPredmet()" >Выбрать</button>
+            
+            <form class='alternativ_form' method="post" action="" id="p_inf_write">
+                {% csrf_token %}
+                {{ form_info.interest }} 
+                <p class='p_popup'>2. Введите фотографию для отображения профиля:</p>
+                {{ form_info.photo }} 
+                <div>
+                    <p class='p_popup'>3. Заполните поле для отражения рода вашей деятельности на сайте (представлен базовый пакет, при желании увеличить объемы размещаемых объявлений искать информацию на странице о сайте):</p>
+                    <table>
+                        <tr>
+                            <td>Рубрика \ род деятельности</td>
+                            <td>Коллекционер</td>
+                            <td>Продавец</td>
+                            <td>Эксперт</td> 
+                            <td>Музей</td>
+                        </tr>
+                        <tr>
+                            <td>Статьи - размещение общей информации о коллекционировании не привязанной к продаже и/или приобретению</td>
+                            <td>Без ограничений</td>
+                            <td>Не более 1/мес</td>
+                            <td>Без ограничений</td> 
+                            <td>Без ограничений</td>
+                        </tr>
+                        <tr>
+                            <td>"Я ИЩУ" - размещение информации коллекционера о поиске предмета в коллекцию</td>
+                            <td>Без ограничений</td>
+                            <td>Закрыто</td>
+                            <td>Не более 1/мес</td> 
+                            <td>Без ограничений</td>
+                        </tr>
+                        <tr>
+                            <td>"ПРОДАЮ" - размещение информации о продаже предметов коллекционирования</td>
+                            <td>не более 3/мес</td>
+                            <td>не более 50/мес</td>
+                            <td>не более 3/мес</td> 
+                            <td>Закрыто</td>
+                        </tr>
+                        <tr>
+                            <td>"УСЛУГИ" - размещение информации о продаже предметов коллекционирования</td>
+                            <td>не более 1/мес</td>
+                            <td>не более 10/мес</td>
+                            <td>не более 10/мес</td> 
+                            <td>не более 2/мес</td>
+                        </tr>
+                    </table>
+                </div>
+                {{ form_info.profession }}
+                <p></p>
+                <input class='fd2' id='form_clik1' type="submit" value="Подтверждаю"> 
+            </form>  
+        </div>
         <div class="alternativ_form_div" >
             <p class='p_popup'>Настройки личного профиля (обязательны для публикации материалов):</p>
             <button class='fd2' onclick="infoUser1()">Настроить</button>
-            <div id='form_use1'>
+            {% comment %} <div id='form_use1'>
                 <p class='p_popup'>1. Выбирите предмет интереса: </p><button class='fd2' onclick="viborPredmet()" >Выбрать</button>
                 
                 <form class='alternativ_form' method="post" action="" id="p_inf_write">
@@ -78,11 +131,50 @@
                     {{ form_info.interest }} 
                     <p class='p_popup'>2. Введите фотографию для отображения профиля:</p>
                     {{ form_info.photo }} 
-                    <p class='p_popup'>3. Выберите род деятельности:</p>
+                    <div>
+                        <p class='p_popup'>3. Заполните поле для отражения рода вашей деятельности на сайте (представлен базовый пакет, при желании увеличить объемы размещаемых объявлений искать информацию на странице о сайте):</p>
+                        <table>
+                            <tr>
+                                <td>Рубрика \ род деятельности</td>
+                                <td>Коллекционер</td>
+                                <td>Продавец</td>
+                                <td>Эксперт</td> 
+                                <td>Музей</td>
+                            </tr>
+                            <tr>
+                                <td>Статьи - размещение общей информации о коллекционировании не привязанной к продаже и/или приобретению</td>
+                                <td>Без ограничений</td>
+                                <td>Не более 1/мес</td>
+                                <td>Без ограничений</td> 
+                                <td>Без ограничений</td>
+                            </tr>
+                            <tr>
+                                <td>"Я ИЩУ" - размещение информации коллекционера о поиске предмета в коллекцию</td>
+                                <td>Без ограничений</td>
+                                <td>Закрыто</td>
+                                <td>Не более 1/мес</td> 
+                                <td>Без ограничений</td>
+                            </tr>
+                            <tr>
+                                <td>"ПРОДАЮ" - размещение информации о продаже предметов коллекционирования</td>
+                                <td>не более 3/мес</td>
+                                <td>не более 50/мес</td>
+                                <td>не более 3/мес</td> 
+                                <td>Закрыто</td>
+                            </tr>
+                            <tr>
+                                <td>"УСЛУГИ" - размещение информации о продаже предметов коллекционирования</td>
+                                <td>не более 1/мес</td>
+                                <td>не более 10/мес</td>
+                                <td>не более 10/мес</td> 
+                                <td>не более 2/мес</td>
+                            </tr>
+                        </table>
+                    </div>
                     {{ form_info.profession }}
                     <input id='form_clik1' type="submit" value="Подтверждаю"> 
                 </form>  
-            </div>
+            </div> {% endcomment %}
         </div>
         <div class="alternativ_form_div" >
             <p class='p_popup'>Настройки доступа к стронице и личной информации:</p>
@@ -100,24 +192,6 @@
         </div>
     </div>
 </div>        
-
-{% comment %} <form class="alternativ_form" method="post" action="" id="p_inf_write" style="display: block;">
-    <input type="hidden" name="csrfmiddlewaretoken" value="uIkzdVC8WbBGNnkGbDVGzBL6mkag7aTy7LFsY4axi20YBTt1i2PfiATgBRVt7y5k">
-    
-
-<div id="div_id_photo" class="form-group"> <label for="id_photo" class=" requiredField">
-Фото<span class="asteriskField">*</span> </label> <div> <input type="file" name="photo" accept="image/*" class="clearablefileinput form-control-file" required="" id="id_photo"> </div> </div> <div id="div_id_profession" class="form-group"> <label for="id_profession" class=" requiredField">
-Profession<span class="asteriskField">*</span> </label> <div> <select name="profession" class="select form-control" required="" id="id_profession"> <option value="" selected="">---------</option> <option value="1">Коллекционер</option> <option value="2">Продавец</option> <option value="3">Эксперт</option> <option value="4">Музей</option>
-
-</select> </div> </div> <div id="div_id_interest" class="form-group"> <label for="id_interest" class="">
-Интерес
-</label> <div> <input type="text" name="interest" maxlength="255" class="textinput form-control" id="id_interest"> </div> </div>
-
-    <input type="submit" value="Подтверждаю">
-</form> {% endcomment %}
-
-
-
 
 {% endblock %}
 

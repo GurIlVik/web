@@ -33,14 +33,18 @@ function infoUser() {
 
 function infoUser1() {
     console.log('1-1');
+    let block1 = document.getElementsByClassName('alternativ_form_div');
+    console.log(block1)
+    for (let i = 0; i<block1.length; i ++) {
+        console.log(block1[i])
+        block1[i].style.display = 'none';
+    }
     let global2 = document.getElementById('form_use1');
     global2.style.display = 'flex';
-
     let global3 = document.getElementById('p_inf_write');
     global3.style.display = 'block';
-    // // global3.style.
 }
 
 function viborPredmet(){
-
+    console.log('1-3')
 }

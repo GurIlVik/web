@@ -419,6 +419,6 @@ label {
 }
 
 #form_clik1 {
-    position: absolute;
-    bottom: -100px;
+    /* position: absolute; */
+    margin: 200px;
 }
