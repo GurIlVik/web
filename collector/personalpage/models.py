@@ -39,8 +39,9 @@ class Allowance(models.Model):
 
 # МОДЕЛЬ ОТОБРАЖЕНИЕ ЛИЧНОЙ ИНФОРМАЦИИ 
 class PresentationUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to=f"photos/{user}/%Y/%m/%d/", verbose_name='Фото')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    photo = models.ImageField(upload_to=f"photos/%Y/%m/%d/", verbose_name='Фото')
+    # photo = models.ImageField(upload_to=f"photos/{User.username}/%Y/%m/%d/", verbose_name='Фото')
     profession = models.ForeignKey('Professional', on_delete=models.PROTECT, verbose_name='Род деятельности')        # коллекционер/продавец
     FFP = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'ФФП')
     interest = models.CharField( max_length=255, null=True)  # список инетересующих тем
@@ -49,7 +50,7 @@ class PresentationUser(models.Model):
         verbose_name = 'ВИЗИТКА'
         verbose_name_plural = 'ВИЗИТКА'      
     def __str__(self):
-        return self.user
+        return str(self.user)
     
  # МОДЕЛЬ ОТОБРАЖЕНИЕ СЕКРЕТНОЙ  ИНФОРМАЦИИ  ПОЛЬЗОВАТЕЛЯ 
 class InfoUser(models.Model):

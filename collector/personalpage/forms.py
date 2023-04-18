@@ -34,12 +34,12 @@ class NewArticleForm(forms.Form):
             widget = ClearableFileInput(attrs={'multiple': True, 'class': 'main_form_text'}), 
             )
     
-class PersonalInformationUser(forms.ModelForm):
-    class Meta:
-        model = PresentationUser
-        fields = ['photo', "profession", 'interest']
-        widgets = {'interest': TextInput(attrs={
-                                                'placeholder' : "Предмет интереса"})}
+# class PersonalInformationUser(forms.ModelForm):
+#     class Meta:
+#         model = PresentationUser
+#         fields = ['photo', "profession", 'interest']
+#         widgets = {'interest': TextInput(attrs={
+#                                                 'placeholder' : "Предмет интереса"})}
         
 
 class AllowanceForm(forms.ModelForm):
@@ -51,3 +51,17 @@ class SpecialInfoUser(forms.ModelForm):
      class Meta:
         model = InfoUser
         fields = ['name', 'name_last', 'name_first', 'telephon']   
+        
+        
+class PersonalInformationUser(forms.Form):
+    
+    interest = forms.CharField(max_length=150,)
+    profession = forms.ModelChoiceField(                                                   # категория
+            queryset=Professional.objects.all().order_by('name'),
+            label='Род деятельности',
+            empty_label = 'К выбору обязателен',
+            # widget=forms.TextInput(attrs={'class': 'main_form_categories'}),
+            )  
+    
+    photo = forms.ImageField(label='введите файл',                                       # загрузка файлов
+            )

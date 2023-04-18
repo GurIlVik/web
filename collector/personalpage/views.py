@@ -1,12 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
 # from django.contrib.auth import authenticate, login, logout
 from .forms import PersonalInformationUser, NewArticleForm
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
 from main.models import Information_block, Catalogy
-from .models import NewArticle
+from .models import NewArticle, PresentationUser
 from main.views import method_main_page_1
 
 
@@ -53,16 +54,65 @@ def personal_page(request, user):
     if search_user == False:
         return HttpResponse('такого пользователя нет')
     else:
-        if request.method == 'POST':
+        if request.method == 'POST' and request.FILES:
+            form_user1 = PersonalInformationUser(request.POST, request.FILES)
+            if form_user1.is_valid():
+                form_user1 = form_user1.cleaned_data
+                print('попасть сюда ')
+            #     f = PresentationUser.object.create(
+            #     user = request.user,
+            #     photo = form_user1['photo'],
+            #     profession = form_user1['profession'],       # коллекционер/продавец
+            #     interest = form_user1['interest'],  # список инетересующих тем
+            #     in_publishid = True,
+            # )
+                # form_user1.save()
+                print(form_user1)
+                f = PresentationUser(
+                user = request.user,
+                photo = form_user1['photo'],
+                profession = form_user1['profession'],       # коллекционер/продавец
+                interest = form_user1['interest'],  # список инетересующих тем
+                in_publishid = True,)
+                f.save()
+                
+            # form_user1.is_valid()
+            # form_user1 = form_user1.cleaned_data
+            # print(form_user1['interest'])
+            # print(form_user1['profession'])
+            # file = request.FILES['photo']
+            # print(file)
+            # fs = FileSystemStorage()
+            # filename = fs.save(file.name, file)
+            # print(filename)
+            # file_url = fs.url(filename)
+            # print(file_url)
+            # e = PresentationUser.object.create(
+            #     user = request.user,
+            #     photo = file,
+            #     profession = form_user1['profession'],       # коллекционер/продавец
+            #     interest = form_user1['interest'],  # список инетересующих тем
+            #     in_publishid = True,
+            # )
+            
+            
+            # if form_user1.is_valid():
+            #     print('Cюда бы попасть?')
+            #     form_user1 = form_user1.cleaned_data
+            #     print(form_user1['photo'])
+            #     print(form_user1['interest'])
+            #     print(form_user1['profession'])
+            #     predmet_collection_list = method_main_page_1(form_user1['interest'])
+            #     print('Cюда бы попасть?')
+            #     print(predmet_collection_list)
+                return render(request, 'personalpage/index.html', context)
+            
+            
+            
+        elif request.method == 'POST':
             form = NewArticleForm(request.POST)
-            form_user1 = PersonalInformationUser(request.POST)
             
             print(1)
-            # print(form)
-            
-            print(form_user1['photo']) 
-            print(form_user1['profession']) 
-            print(form_user1['interest']) 
             
             if form.is_valid():
                 cd = form.cleaned_data
@@ -95,12 +145,12 @@ def personal_page(request, user):
                     return render(request, 'personalpage/index.html', context)
              
             
-            elif form_user1.is_valid():
-                form_user1 = form_user1.cleaned_data
-                predmet_collection_list = method_main_page_1(form_user1['pole'])
-                print('lwrifjbgritugh')
-                print(predmet_collection_list)
-                
+            # elif form_user1.is_valid():
+            #     form_user1 = form_user1.cleaned_data
+            #     predmet_collection_list = method_main_page_1(form_user1['interest'])
+            #     print('Cюда бы попасть?')
+            #     print(predmet_collection_list)
+            #     return render(request, 'personalpage/index.html', context)
                 # Сюда дописывать функцию сохранения черновика
                 
                 
@@ -109,6 +159,7 @@ def personal_page(request, user):
             else:
                 print('что то идет не так')
                 print(form.errors)
+                # print(form_user1.errors)
                 return render(request, 'personalpage/index.html', context)
             
             

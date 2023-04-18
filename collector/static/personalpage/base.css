@@ -414,9 +414,7 @@ h4 {
 label {
     font-size: 20px;
 }
-#id_interest {
-    display: none;
-}
+
 
 #form_clik1 {
     /* position: absolute; */
@@ -448,3 +446,7 @@ label {
     align-content: space-around;
 
 }
+
+/* #id_interest {
+    display: none;
+} */
