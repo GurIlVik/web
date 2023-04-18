@@ -97,8 +97,6 @@ footer {
  }
 
  /* БЛОКИ ОТОБРАЖЕНИЯ ПЕРСОНАЛЬНОЙ ИНФОРМАЦИИ: */
-
-
  #personal_information {
     border: 1px solid black;
     background-color: rgb(242, 242, 242);
@@ -115,17 +113,17 @@ footer {
 }
 
 #photo_user {
-    border: 2px solid black;
     padding: 2px;
     height: 150px;
     width: 150px;
     top: 8px;
-    background-color: white;
+  
     font-family: serif;
     font-size: 30px;
 }
 
 #nik_user {
+    margin-top: 20px;
     padding: 4px;
     height: 22px;
     width: 150px;
@@ -145,7 +143,7 @@ footer {
     font-size: 23px;
     text-align: center;
     color: blue;
-    
+    margin-top: 30px;
 }
 
 #class_user {
@@ -164,7 +162,6 @@ footer {
     height: 50%;
     width: 150px;
     padding-top: 35px;
-    /* border-bottom: 2px black; */
     font-family: serif;
     font-size: 23px;
     text-align: center;
@@ -173,6 +170,7 @@ footer {
 }
 
 #predmet_collection_user2 {
+    margin-top: 20px;
     margin-bottom: 0px;
     padding-bottom: 0px;
 }
@@ -183,6 +181,10 @@ footer {
 
 #secret_information_user {
     font-size: 23px;
+}
+
+.predmet_collection_user5 {
+    margin-top: 20px;
 }
 
 /* БЛОКИ ОТОБРАЖЕНИЯ ЦЕНТРАЛЬНОЙ ЧАСТИ: */

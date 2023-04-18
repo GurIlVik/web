@@ -4,7 +4,7 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-
+{% comment %} ОТОБРАЖЕИЕ МЕНЮ {% endcomment %}
 {% block menu_block %} 
         {% comment %} {% if access == True %} {% endcomment %}
         {% comment %} {% for i in menu %} {% endcomment %}
@@ -25,7 +25,7 @@
         {% comment %} {% endif %} {% endcomment %}
 {% endblock %}
 
-    
+{% comment %} Меню написания статьи  {% endcomment %}
 {% block alternativ_form %}
         <form class='alternativ_form' method="post" action="" id="alternativ_global">
             {% csrf_token %}
@@ -63,6 +63,7 @@
         </form> 
 {% endblock %}
 
+{% comment %} Меню подбора категорий {% endcomment %}
 {% block pop_up_list %}
     <div id="alternative_global_3">
         <div class='stringDIV'>
@@ -90,7 +91,7 @@
     </div>
 {% endblock %}
 
-
+{% comment %} Блок ввода персональной информации  {% endcomment %}
 {% block personal_information_write %}
     <div id="alternativ_form_div" >
         <div id="alternativ_form_div1" >
@@ -172,35 +173,61 @@
 
 
 {% block personal_information %}
-        
-            <div id = 'personal_information1'>
-                <div id = 'photo_user'>
-                    Здесь может быть фото
+    {% if logik_1 != True %}
+        <div id = 'personal_information1'>
+            <div id = 'photo_user'>
+                Здесь может быть фото
+            </div>
+            <div id = 'nik_user'>
+                
+                {{nik_user}}
+            </div>
+            <div id = 'status_user'>
+                <p>Род деятельности</p>
+            </div>
+            <div id = 'class_user'>
+                <p>не является ФФП</p>
+            </div>
+            <div id = 'predmet_collection_user'>
+                <div id = 'predmet_collection_user2'>
+                    <p>Интересует</p>
                 </div>
-                <div id = 'nik_user'>
-                    {{nik_user}}
-                </div>
-                <div id = 'status_user'>
-                    <p>коллекционер</p>
-                </div>
-                <div id = 'class_user'>
-                    <p>не является ФФП</p>
-                </div>
-                <div id = 'predmet_collection_user'>
-                    <div id = 'predmet_collection_user2'>
-                        <p>Интересует</p>
-                    </div>
-                    <div class = 'predmet_collection_user3'>
-                        <p>object 1</p>
-                        <p>object 2</p>
-                    </div>
-                </div>
-                <div id = 'secret_information_user'>
-                    <p>Закрытая </p>
-                    <p>информация : </p>
+                <div class = 'predmet_collection_user3'>
+                    <p>Предмет интереса</p>
+                    <p>Предмет интереса</p>
                 </div>
             </div>
-        
+        </div>
+    {% else %}
+        <div id = 'personal_information1'>
+            <div id = 'photo_user'>
+                <img src="{{ persona.photo.url }}"
+                width="100%" height:"100%" object-fit:'contain'
+                >
+            </div>
+            <div id = 'nik_user'>
+                {{nik_user}}
+            </div>
+            <div id = 'status_user'>
+                <p>{{ persona.profession }}</p>
+            </div>
+            <div id = 'class_user'>
+                <p>не является ФФП</p>
+            </div>
+            <div id = 'predmet_collection_user'>
+                <div id = 'predmet_collection_user2'>
+                    <p>Интересует:</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                </div>
+                <div class = 'predmet_collection_user3'>
+                    {% for i in predmets %}
+                    <p class='predmet_collection_user5'> {{ i }} </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}                                                    {% comment %} basic блок с основной информацией {% endcomment %}    
 
 
@@ -210,6 +237,7 @@
                 <p>Вам открыто комментрование и просмотр постов доступных только членам клуба </p>
                 <p>Но для размещения собственных постов, просьба пройти в настройки </p>
                 <p>И настроить личный профиль!  </p>
+                <p>Допуск на обновления до 5 минут</p>
                 </div>
                 {% else %}
                 

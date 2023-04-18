@@ -27,7 +27,9 @@ def personal_page(request, user):
     d = NewArticle.objects.filter(author=user)
     e = PersonalInformationUser()
     f = Catalogy.objects.all().order_by('name')
-    g = ''
+    g = ''                                      # логика получения информации о заполненности анкеты потльзователя
+    h = None                                    # отображение информации о пользователи из модели
+    k = []                                       #   отображение коллекционного листа
     title = 'Кабинет'
     menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
@@ -36,8 +38,10 @@ def personal_page(request, user):
     if password:                                           # если это страница юзера
         menu = menu1
         g = PresentationUser.objects.filter(user__username = nik_reguest)
-
         for i in g:
+            h = i
+            k = func_str_for_list(i.interest)
+            print(k)
             if i.in_publishid == True:
                 g = True
             else:
@@ -47,6 +51,7 @@ def personal_page(request, user):
     print(d)
     for i in d:
         print(i.author)
+    print(k)
     context = {'nik_name' : nik_reguest,
                    'access' : password,
                    'register' : registered_user,
@@ -59,6 +64,8 @@ def personal_page(request, user):
                    'form_info' : e,
                    'list_a': f,
                    'logik_1': g,
+                   'persona' : h,
+                   'predmets' : k,
                    }
     if search_user == False:
         return HttpResponse('такого пользователя нет')
@@ -139,3 +146,15 @@ def chek_user_register(request):
         return True
     return False
     
+def func_str_for_list(inlist):
+    res = []
+    string = ''
+    for i, elem in enumerate(inlist):
+        if i >= 2 and i != len(inlist)-1:
+            if elem not in ["'", " ", ","]:
+                string += elem
+            elif elem == "'" and string != '':
+                res.append(string)
+                string = ''
+    return res
+            
