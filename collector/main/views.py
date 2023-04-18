@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Category, Information_block, Article_comments, Amalker
+from .models import Category, Information_block, Article_comments, Amalker, Catalogy
 from .forms import *
 
 
         
 # отображение главной страницы
 def main_page(request):
-    a = Category.objects.all().order_by('name')  # сортировка списка по имени в базе
+    a = Catalogy.objects.all().order_by('name')  # сортировка списка по имени в базе
     b = ProstoList('prosto_list')
     c = Information_block.objects.all()
     e = Amalker.objects.all()

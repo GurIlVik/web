@@ -268,7 +268,7 @@ footer {
 } */
 
 /* ВСПЛЫВАЮЩЕЕ ОКНО ДЛЯ ЗАПИСИ СТАТЬИ */
-#alternativ_global, #alternativ_form_div {
+#alternativ_global, #alternativ_form_div, #alternative_global_3{
     height: 90%;
     width: 90%;
     margin: 0%;
@@ -421,4 +421,30 @@ label {
 #form_clik1 {
     /* position: absolute; */
     margin: 200px;
+}
+
+
+/* блоки поля выбора предмета коллекционирования */
+.stringDIV {
+    margin: 0px;
+    padding: 10px;
+    border: 0px;
+    height: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.poleDIV {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    height: 55%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+
 }

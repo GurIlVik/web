@@ -63,67 +63,38 @@
         </form> 
 {% endblock %}
 
+{% block pop_up_list %}
+    <div id="alternative_global_3">
+        <div class='stringDIV'>
+            <p style="display: inline">Введите в поле название предмета коллекционирования: </p>
+            <input style="display: inline" id="poisk" type="text" oninput="find_cat(this)" >
+        </div>
+
+        <div class='poleDIV'>
+            <ul id="list_global">
+                {% for i in list_a %}
+                    <li style="display: inline"><button id={{i.name}} class='fd2' onclick="menuPoint20(this)" >{{ i.name }}</button></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class='stringDIV' id='plusPredmet'>
+            <p>Предмет коллекционирования:</p>
+            </div>   
+                <div class='stringDIV'>
+                    <button class='fd2' onclick="menuPoint23()" >Добавить еще предмет</button>
+                    <button class='fd2' onclick="menuPoint25()" >СБРОС</button>
+                    <button class='fd2' onclick="menuPoint24()" >ЗАПОМНИТЬ</button>
+
+            </div>    
+    </div>
+{% endblock %}
+
 
 {% block personal_information_write %}
-<div id="alternativ_form_div" >
-    <div id="alternativ_form_div1" >
-        <div id='form_use1'>
-            <p class='p_popup'>1. Выбирите предмет интереса: </p><button class='fd2' onclick="viborPredmet()" >Выбрать</button>
-            
-            <form class='alternativ_form' method="post" action="" id="p_inf_write">
-                {% csrf_token %}
-                {{ form_info.interest }} 
-                <p class='p_popup'>2. Введите фотографию для отображения профиля:</p>
-                {{ form_info.photo }} 
-                <div>
-                    <p class='p_popup'>3. Заполните поле для отражения рода вашей деятельности на сайте (представлен базовый пакет, при желании увеличить объемы размещаемых объявлений искать информацию на странице о сайте):</p>
-                    <table>
-                        <tr>
-                            <td>Рубрика \ род деятельности</td>
-                            <td>Коллекционер</td>
-                            <td>Продавец</td>
-                            <td>Эксперт</td> 
-                            <td>Музей</td>
-                        </tr>
-                        <tr>
-                            <td>Статьи - размещение общей информации о коллекционировании не привязанной к продаже и/или приобретению</td>
-                            <td>Без ограничений</td>
-                            <td>Не более 1/мес</td>
-                            <td>Без ограничений</td> 
-                            <td>Без ограничений</td>
-                        </tr>
-                        <tr>
-                            <td>"Я ИЩУ" - размещение информации коллекционера о поиске предмета в коллекцию</td>
-                            <td>Без ограничений</td>
-                            <td>Закрыто</td>
-                            <td>Не более 1/мес</td> 
-                            <td>Без ограничений</td>
-                        </tr>
-                        <tr>
-                            <td>"ПРОДАЮ" - размещение информации о продаже предметов коллекционирования</td>
-                            <td>не более 3/мес</td>
-                            <td>не более 50/мес</td>
-                            <td>не более 3/мес</td> 
-                            <td>Закрыто</td>
-                        </tr>
-                        <tr>
-                            <td>"УСЛУГИ" - размещение информации о продаже предметов коллекционирования</td>
-                            <td>не более 1/мес</td>
-                            <td>не более 10/мес</td>
-                            <td>не более 10/мес</td> 
-                            <td>не более 2/мес</td>
-                        </tr>
-                    </table>
-                </div>
-                {{ form_info.profession }}
-                <p></p>
-                <input class='fd2' id='form_clik1' type="submit" value="Подтверждаю"> 
-            </form>  
-        </div>
-        <div class="alternativ_form_div" >
-            <p class='p_popup'>Настройки личного профиля (обязательны для публикации материалов):</p>
-            <button class='fd2' onclick="infoUser1()">Настроить</button>
-            {% comment %} <div id='form_use1'>
+    <div id="alternativ_form_div" >
+        <div id="alternativ_form_div1" >
+            <div id='form_use1'>
                 <p class='p_popup'>1. Выбирите предмет интереса: </p><button class='fd2' onclick="viborPredmet()" >Выбрать</button>
                 
                 <form class='alternativ_form' method="post" action="" id="p_inf_write">
@@ -172,26 +143,30 @@
                         </table>
                     </div>
                     {{ form_info.profession }}
-                    <input id='form_clik1' type="submit" value="Подтверждаю"> 
+                    <p></p>
+                    <input class='fd2' id='form_clik1' type="submit" value="Подтверждаю"> 
                 </form>  
-            </div> {% endcomment %}
-        </div>
-        <div class="alternativ_form_div" >
-            <p class='p_popup'>Настройки доступа к стронице и личной информации:</p>
-            <button class='fd2' onclick="infoUser2()">Настроить</button>
-            <div id='form_use2'>
-                
+            </div>
+            <div class="alternativ_form_div" >
+                <p class='p_popup'>Настройки личного профиля (обязательны для публикации материалов):</p>
+                <button class='fd2' onclick="infoUser1()">Настроить</button>
+            </div>
+            <div class="alternativ_form_div" >
+                <p class='p_popup'>Настройки доступа к стронице и личной информации:</p>
+                <button class='fd2' onclick="infoUser2()">Настроить</button>
+                <div id='form_use2'>
+                    
+                </div>
+            </div>
+            <div class="alternativ_form_div" >
+                <p class='p_popup'>Контактная информация видна только администрации сайта:</p>
+                <button class='fd2' onclick="infoUser3()">Настроить</button>
+                <div id='form_use3'>
+                    
+                </div>
             </div>
         </div>
-        <div class="alternativ_form_div" >
-            <p class='p_popup'>Контактная информация видна только администрации сайта:</p>
-            <button class='fd2' onclick="infoUser3()">Настроить</button>
-            <div id='form_use3'>
-                
-            </div>
-        </div>
-    </div>
-</div>        
+    </div>        
 
 {% endblock %}
 

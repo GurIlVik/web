@@ -5,8 +5,10 @@ from .forms import PersonalInformationUser, NewArticleForm
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
-from main.models import Information_block
+from main.models import Information_block, Catalogy
 from .models import NewArticle
+from main.views import method_main_page_1
+
 
 # @ login_required
 def personal_page(request, user): 
@@ -23,6 +25,7 @@ def personal_page(request, user):
     password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
     d = NewArticle.objects.filter(author=user)
     e = PersonalInformationUser()
+    f = Catalogy.objects.all().order_by('name')
     title = 'Кабинет'
     menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
@@ -45,16 +48,22 @@ def personal_page(request, user):
                    'title' : title,
                    'menu' : menu,
                    'form_info' : e,
+                   'list_a': f,
                    }
     if search_user == False:
         return HttpResponse('такого пользователя нет')
     else:
         if request.method == 'POST':
             form = NewArticleForm(request.POST)
-            # form1 = Draft(request.POST)
+            form_user1 = PersonalInformationUser(request.POST)
             
             print(1)
             # print(form)
+            
+            print(form_user1['photo']) 
+            print(form_user1['profession']) 
+            print(form_user1['interest']) 
+            
             if form.is_valid():
                 cd = form.cleaned_data
                 if 'memory' in request.POST:
@@ -84,17 +93,25 @@ def personal_page(request, user):
                     return render(request, 'personalpage/index.html', context)
                 elif 'delete' in request.POST:
                     return render(request, 'personalpage/index.html', context)
-            # if form1.is_valid():
-            #     print('lwrifjbgritugh')
-                
+             
+            
+            elif form_user1.is_valid():
+                form_user1 = form_user1.cleaned_data
+                predmet_collection_list = method_main_page_1(form_user1['pole'])
+                print('lwrifjbgritugh')
+                print(predmet_collection_list)
                 
                 # Сюда дописывать функцию сохранения черновика
                 
                 
+            
+                    
             else:
                 print('что то идет не так')
                 print(form.errors)
-            return render(request, 'personalpage/index.html', context)
+                return render(request, 'personalpage/index.html', context)
+            
+            
         return render(request, 'personalpage/index.html', context)
     # if search_user:
     #     password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
