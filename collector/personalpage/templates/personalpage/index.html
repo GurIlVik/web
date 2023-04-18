@@ -97,9 +97,8 @@
             <div id='form_use1'>
                 <p class='p_popup'>1. Выбирите предмет интереса: </p><button class='fd2' onclick="viborPredmet()" >Выбрать</button>
                 
-                <form class='alternativ_form' method="post" action="" id="p_inf_write">
+                <form class='alternativ_form' method="post" action="" id="p_inf_write" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {% comment %} {{form_info.as_p}} {% endcomment %}
                     {{ form_info.interest }} 
                     <p class='p_popup'>2. Введите фотографию для отображения профиля:</p>
                     {{ form_info.photo }} 
@@ -205,7 +204,16 @@
 {% endblock %}                                                    {% comment %} basic блок с основной информацией {% endcomment %}    
 
 
-{% block info_blok %}            
+{% block info_blok %}  
+                {% if logik_1 != True %}
+                <div id='text_logik_1'>
+                <p>Вам открыто комментрование и просмотр постов доступных только членам клуба </p>
+                <p>Но для размещения собственных постов, просьба пройти в настройки </p>
+                <p>И настроить личный профиль!  </p>
+                </div>
+                {% else %}
+                
+
             <div id = 'box_info_blok'>
                 <form class='box_write_info_blok' method="post" action="">
                     {{ form_art.as_p }}
@@ -291,17 +299,12 @@
                 </div>  
                 {% endfor%} 
             </div>
+            {% endif %}
 {% endblock %}        
         
  
 {% block messenges %}  
-<form class='alternativ_form' method="post" action="" id="p_inf_write1" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form_info.as_p }}
-    {{ form_user1.errors }}
-    <p></p>
-    <input class='fd2' id='form_clik1' type="submit" value="Подтверждаю">  
-</form>  
+
 {% endblock %}
 
  

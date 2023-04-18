@@ -447,6 +447,13 @@ label {
 
 }
 
-/* #id_interest {
+#id_interest {
     display: none;
-} */
+}
+
+#text_logik_1 {
+    height: 90%;
+    width: 90%;
+    margin: 20px;
+    border-bottom: solid red 3px;
+}

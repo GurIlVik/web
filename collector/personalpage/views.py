@@ -27,13 +27,21 @@ def personal_page(request, user):
     d = NewArticle.objects.filter(author=user)
     e = PersonalInformationUser()
     f = Catalogy.objects.all().order_by('name')
+    g = ''
     title = 'Кабинет'
     menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
     menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
-    # menu3 = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
-    if password:
+    
+    if password:                                           # если это страница юзера
         menu = menu1
+        g = PresentationUser.objects.filter(user__username = nik_reguest)
+
+        for i in g:
+            if i.in_publishid == True:
+                g = True
+            else:
+                g = False
     elif registered_user:
         menu = menu2
     print(d)
@@ -50,78 +58,22 @@ def personal_page(request, user):
                    'menu' : menu,
                    'form_info' : e,
                    'list_a': f,
+                   'logik_1': g,
                    }
     if search_user == False:
         return HttpResponse('такого пользователя нет')
     else:
-        if request.method == 'POST' and request.FILES:
-            form_user1 = PersonalInformationUser(request.POST, request.FILES)
-            if form_user1.is_valid():
-                form_user1 = form_user1.cleaned_data
-                print('попасть сюда ')
-            #     f = PresentationUser.object.create(
-            #     user = request.user,
-            #     photo = form_user1['photo'],
-            #     profession = form_user1['profession'],       # коллекционер/продавец
-            #     interest = form_user1['interest'],  # список инетересующих тем
-            #     in_publishid = True,
-            # )
-                # form_user1.save()
-                print(form_user1)
-                f = PresentationUser(
-                user = request.user,
-                photo = form_user1['photo'],
-                profession = form_user1['profession'],       # коллекционер/продавец
-                interest = form_user1['interest'],  # список инетересующих тем
-                in_publishid = True,)
-                f.save()
-                
-            # form_user1.is_valid()
-            # form_user1 = form_user1.cleaned_data
-            # print(form_user1['interest'])
-            # print(form_user1['profession'])
-            # file = request.FILES['photo']
-            # print(file)
-            # fs = FileSystemStorage()
-            # filename = fs.save(file.name, file)
-            # print(filename)
-            # file_url = fs.url(filename)
-            # print(file_url)
-            # e = PresentationUser.object.create(
-            #     user = request.user,
-            #     photo = file,
-            #     profession = form_user1['profession'],       # коллекционер/продавец
-            #     interest = form_user1['interest'],  # список инетересующих тем
-            #     in_publishid = True,
-            # )
-            
-            
-            # if form_user1.is_valid():
-            #     print('Cюда бы попасть?')
-            #     form_user1 = form_user1.cleaned_data
-            #     print(form_user1['photo'])
-            #     print(form_user1['interest'])
-            #     print(form_user1['profession'])
-            #     predmet_collection_list = method_main_page_1(form_user1['interest'])
-            #     print('Cюда бы попасть?')
-            #     print(predmet_collection_list)
-                return render(request, 'personalpage/index.html', context)
-            
-            
-            
-        elif request.method == 'POST':
+        if request.method == 'POST':
             form = NewArticleForm(request.POST)
-            
+            form_user1 = PersonalInformationUser(request.POST, request.FILES)
             print(1)
             
             if form.is_valid():
                 cd = form.cleaned_data
                 if 'memory' in request.POST:
-                    print(3)
                     cd = NewArticle.objects.create(author=b, title=cd['title'], 
                                                   text=cd['text'], photo=cd['photo'], 
                                                   categories=cd['categories'], topic = cd['topic'])
-                    print('memory')
                     return render(request, 'personalpage/index.html', context)
                 elif 'write' in request.POST:
                     с = Information_block.objects.create(
@@ -139,43 +91,27 @@ def personal_page(request, user):
                         comment_article = 'пока вопрос',     # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
                         write_author = 'писать автору', 
                         access = True)
-                    print('write')
                     return render(request, 'personalpage/index.html', context)
                 elif 'delete' in request.POST:
                     return render(request, 'personalpage/index.html', context)
-             
-            
-            # elif form_user1.is_valid():
-            #     form_user1 = form_user1.cleaned_data
-            #     predmet_collection_list = method_main_page_1(form_user1['interest'])
-            #     print('Cюда бы попасть?')
-            #     print(predmet_collection_list)
-            #     return render(request, 'personalpage/index.html', context)
-                # Сюда дописывать функцию сохранения черновика
-                
-                
-            
-                    
+            elif form_user1.is_valid():
+                form_user1 = form_user1.cleaned_data
+                f = PresentationUser(
+                user = request.user,
+                # nikname = request.user,
+                photo = form_user1['photo'],
+                profession = form_user1['profession'],       # коллекционер/продавец
+                interest = method_main_page_1(form_user1['interest']),  # список инетересующих тем
+                in_publishid = True,)
+                f.save()
+              
+                return render(request, 'personalpage/index.html', context)
             else:
                 print('что то идет не так')
                 print(form.errors)
-                # print(form_user1.errors)
+                print(form_user1.errors)
                 return render(request, 'personalpage/index.html', context)
-            
-            
         return render(request, 'personalpage/index.html', context)
-    # if search_user:
-    #     password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
-    #     context = {'nik_name' : nik_reguest,
-    #                'access' : password,
-    #                'register' : registered_user,
-    #                'information_block' : a,
-    #                'nik_user' : b, 
-    #                'form_art' : c,
-    #                }
-    #     return render(request, 'personalpage/index.html', context)
-    
-    # return HttpResponse('такого пользователя нет')
 
 
 # Функция получения имени пользователя из запроса 

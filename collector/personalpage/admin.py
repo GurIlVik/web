@@ -34,7 +34,9 @@ class AllowanceAdmin(admin.ModelAdmin):
 admin.site.register(Allowance, AllowanceAdmin)
 
 class PresentationUserAdmin(admin.ModelAdmin):
-    list_display = ['user', 'photo', 'profession', 'FFP', 'interest', 'in_publishid',]
+    list_display = ['user', 
+                    # 'nikname', 
+                    'photo', 'profession', 'FFP', 'interest', 'in_publishid',]
 admin.site.register(PresentationUser, PresentationUserAdmin)
 
 class InfoUserAdmin(admin.ModelAdmin):
