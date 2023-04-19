@@ -13,13 +13,16 @@ from main.views import method_main_page_1
 
 # @ login_required
 def personal_page(request, user): 
-    nik_reguest = getting_nickname_request(request)  # получение имени пришедшего пользователя
-    search_user = user_page_search(user)  # получение булевого есть ли такой пользователь (тру/фальш)
+    if user_page_search(user) == False:
+        return HttpResponse('такого пользователя нет')
+    nik_reguest = getting_nickname_request(request)  # получение имени пришедшего пользователm
+    password = chek_user_access(user, nik_reguest)   # правда - если пришедший это хозяин страницы
+    
     registered_user = chek_user_register(request)  # логик тру пользователь зарегистрирован или нет фальш
-    # print(user)             # имя страницы пользователя
-    # print(nik_reguest)      # имя зашедшего на страницу
-    # print(search_user)      # тру-страница есть фальш - страницы нет
-    # print(registered_user)  # тру-зарегистрирован | нет фальш
+    if password == False:
+        page_owner_permission = function_permission(request, user)                        # допуск на страницу сайта хозяином
+    
+    
     a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
@@ -39,11 +42,6 @@ def personal_page(request, user):
     acesses = Allowance.objects.filter(user__username = user)
     if acesses:
         n, o, p, q = function_acess_user(user)
-    title = 'Кабинет'
-    menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
-    menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
-    menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
-    list_goest = False    # интересант ли гость // лож - нет
     list_collection = PresentationUser.objects.filter(user__username = user)
     if list_collection:
         for i in list_collection:
@@ -51,6 +49,12 @@ def personal_page(request, user):
             k = func_str_for_list(i.interest)
             if i.in_publishid == True:
                 g = True
+        # h, k, g = function_info_user(user)
+    title = 'Кабинет'
+    menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
+    menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
+    menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
+    list_goest = False    # интересант ли гость // лож - нет
     if password:                                           # если это страница юзера
         menu = menu1
     elif registered_user:
@@ -83,12 +87,13 @@ def personal_page(request, user):
                    'acess_info' : p,
                    'acess_mass' : q,
                    }
-    print(list_goest)
-    if search_user == False:
-        return HttpResponse('такого пользователя нет')
-    if password == False and o == 3 or registered_user == False and o == 1 or list_goest == False and o == 2:
+    if (password == False and o == 3) or (registered_user == False and o == 1 and 
+        password == False) or (list_goest == False and o == 2 and 
+        password == False):
         return HttpResponse('пользователь закрыл свою страницу')
-    else:
+    if nik_reguest != user:
+        return redirect(f'/personalpage/{user}/reception')
+    if password:
         if request.method == 'POST':
             form = NewArticleForm(request.POST)
             form_user1 = PersonalInformationUser(request.POST, request.FILES)
@@ -223,3 +228,23 @@ def function_acess_user(user):
         p = acesses.for_inform
         q = acesses.for_messeng
     return n, o, p, q
+
+# вспомогательная получение информации из формы хозяина
+def function_info_user(list_collection):
+    for i in list_collection:
+        h = i
+        k = func_str_for_list(i.interest)
+        if i.in_publishid == True:
+            g = True
+    return h, k, g
+
+
+
+
+
+def personal_page_reception(request, user):
+    return HttpResponse(f'Это приемная пользователя {user}')
+
+# Функция определения допуска на личную страницу 
+def function_permission(request, user):
+    ...
