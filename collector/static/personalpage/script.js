@@ -135,8 +135,8 @@ function find_cat(my_obj) {
     }}
 
 
-function infoUser2() {
+function infoUser2(inf) {
     console.log('1-1');
-    let global2 = document.getElementById('form_use2');
+    let global2 = document.getElementById(inf);
     global2.style.display = 'flex';
 }

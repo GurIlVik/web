@@ -40,7 +40,7 @@ class PresentationUserAdmin(admin.ModelAdmin):
 admin.site.register(PresentationUser, PresentationUserAdmin)
 
 class InfoUserAdmin(admin.ModelAdmin):
-    list_display = ['user', 'name', 'name_last', 'name_first', 'telephon', ]
+    list_display = ['user', 'name', 'name_last', 'name_first', 'telephon', 'in_publishid']
 admin.site.register(InfoUser, InfoUserAdmin)
 
 

@@ -156,7 +156,7 @@
             <div class="alternativ_form_div" >
                 <p class='p_popup'>Настройки доступа к стронице и личной информации</p>
                 <p class='p_popup'>пока информация фидна только Вам:</p>
-                <button class='fd2' onclick="infoUser2()">Настроить</button>
+                <button class='fd2' onclick="infoUser2('form_use2')">Настроить</button>
                 <div id='form_use2'>
                     <form class='alternativ_form' method="post" action="" id="te" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -173,9 +173,21 @@
             </div>
             <div class="alternativ_form_div" >
                 <p class='p_popup'>Контактная информация видна только администрации сайта:</p>
-                <button class='fd2' onclick="infoUser3()">Настроить</button>
+                <button class='fd2' onclick="infoUser2('form_use3')">Настроить</button>
                 <div id='form_use3'>
-                    
+                    <form class='alternativ_form' method="post" action="" id="te" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <p class='p_popup'>1. Имя (наименовнаие организации):</p>
+                        {{ secret_form.name }} 
+                        <p class='p_popup'>2. Отчество (только для физ. лиц):</p>
+                        {{ secret_form.name_last }}
+                        <p class='p_popup'>3. Фамилия (только для физ. лиц):</p>
+                        {{ secret_form.name_first }}
+                        <p class='p_popup'>4. Телефон:</p>
+                        {{ secret_form.telephon }}
+                        <p></p>
+                        <input class='fd2' id='form_clik1' type="submit" value="Подтверждаю">  
+                    </form> 
                 </div>
             </div>
         </div>

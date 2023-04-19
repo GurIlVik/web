@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 # from django.contrib.auth import authenticate, login, logout
-from .forms import PersonalInformationUser, NewArticleForm, AllowanceForm
+from .forms import *
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
@@ -31,6 +31,7 @@ def personal_page(request, user):
     h = None                                    # отображение информации о пользователи из модели
     k = []                                       #   отображение коллекционного листа
     l = AllowanceForm()
+    m = SpecialInfoUser()
     title = 'Кабинет'
     menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
@@ -68,6 +69,7 @@ def personal_page(request, user):
                    'persona' : h,
                    'predmets' : k,
                    'acess_form' : l,
+                   'secret_form' : m,
                    }
     if search_user == False:
         return HttpResponse('такого пользователя нет')
@@ -76,6 +78,7 @@ def personal_page(request, user):
             form = NewArticleForm(request.POST)
             form_user1 = PersonalInformationUser(request.POST, request.FILES)
             form_user2 = AllowanceForm(request.POST)
+            form_user3 = SpecialInfoUser(request.POST)
             print(1)
             
             if form.is_valid():
@@ -129,6 +132,19 @@ def personal_page(request, user):
                 )
                 l.save()
                 print(l.for_page)
+                return render(request, 'personalpage/index.html', context)
+            elif form_user3.is_valid():
+                form_user3 = form_user3.cleaned_data
+                m = InfoUser(
+                    user = request.user,
+                    name = form_user3['name'],
+                    name_last = form_user3['name_last'],
+                    name_first = form_user3['name_first'],
+                    telephon = form_user3['telephon'],
+                    in_publishid = True,
+                )
+                m.save()
+                print(m.name)
                 return render(request, 'personalpage/index.html', context)
             else:
                 print('что то идет не так')

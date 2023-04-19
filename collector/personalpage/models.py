@@ -92,8 +92,9 @@ class InfoUser(models.Model):
     name = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'ИМЯ')
     name_last = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Отчество')
     name_first = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Фамилия')
-    telephon = models.IntegerField( null=True, verbose_name = 'телефон')
+    telephon = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'телефон')
+    in_publishid = models.BooleanField(default=False)         # Если  инфо опубликованна
     def __str__(self):
-        return self.user
+        return str(self.user)
     class Meta:
         verbose_name_plural = 'Секретная' 

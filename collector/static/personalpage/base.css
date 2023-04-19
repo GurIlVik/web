@@ -462,7 +462,7 @@ label {
 
 /* Отображение блока с допусками */
 
-#form_use2 {
+#form_use2, #form_use3 {
     display: none;
     flex-direction: column;
     justify-content: left;
