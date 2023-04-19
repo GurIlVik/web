@@ -133,3 +133,10 @@ function find_cat(my_obj) {
         } else { item.style.display = 'None';
          }
     }}
+
+
+function infoUser2() {
+    console.log('1-1');
+    let global2 = document.getElementById('form_use2');
+    global2.style.display = 'flex';
+}

@@ -7,7 +7,7 @@ from .forms import PersonalInformationUser, NewArticleForm, AllowanceForm
 from django.contrib.auth.models import User
 from . import urls
 from main.models import Information_block, Catalogy
-from .models import NewArticle, PresentationUser
+from .models import NewArticle, PresentationUser, Allowance
 from main.views import method_main_page_1
 
 
@@ -75,6 +75,7 @@ def personal_page(request, user):
         if request.method == 'POST':
             form = NewArticleForm(request.POST)
             form_user1 = PersonalInformationUser(request.POST, request.FILES)
+            form_user2 = AllowanceForm(request.POST)
             print(1)
             
             if form.is_valid():
@@ -94,9 +95,9 @@ def personal_page(request, user):
                         table_contents = c['title'],
                         text_contents = c['text'],
                         symbol_ok = 'ok',
-                        count_symbol_ok = '12',
+                        count_symbol_ok = 0,
                         symbol_bad = 'out',
-                        count_symbol_bad = '3',
+                        count_symbol_bad = 0,
                         comment_article = 'пока вопрос',     # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
                         write_author = 'писать автору', 
                         access = True)
@@ -113,12 +114,27 @@ def personal_page(request, user):
                 interest = method_main_page_1(form_user1['interest']),  # список инетересующих тем
                 in_publishid = True,)
                 f.save()
-              
+                return render(request, 'personalpage/index.html', context)
+            elif form_user2.is_valid():
+                form_user2 = form_user2.cleaned_data
+                print(form_user2['for_page'])
+                print(form_user2['for_inform'])
+                print(form_user2['for_messeng'])
+                l = Allowance(
+                    user = request.user,
+                    for_page = function_acess(form_user2['for_page']),
+                    for_inform = function_acess(form_user2['for_inform']),
+                    for_messeng = function_acess(form_user2['for_messeng']),
+                    in_publishid = True,
+                )
+                l.save()
+                print(l.for_page)
                 return render(request, 'personalpage/index.html', context)
             else:
                 print('что то идет не так')
                 print(form.errors)
                 print(form_user1.errors)
+                print(form_user2.errors)
                 return render(request, 'personalpage/index.html', context)
         return render(request, 'personalpage/index.html', context)
 
@@ -160,3 +176,13 @@ def func_str_for_list(inlist):
                 string = ''
     return res
             
+            
+def function_acess(info):
+    res = 0
+    print(len(str(info)))
+    if 20 < len(str(info)) < 33:
+        res = 1
+    if len(str(info)) > 33:
+        res = 2
+    print(res)
+    return res

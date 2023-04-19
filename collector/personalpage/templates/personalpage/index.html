@@ -154,10 +154,21 @@
             </div>
 
             <div class="alternativ_form_div" >
-                <p class='p_popup'>Настройки доступа к стронице и личной информации:</p>
+                <p class='p_popup'>Настройки доступа к стронице и личной информации</p>
+                <p class='p_popup'>пока информация фидна только Вам:</p>
                 <button class='fd2' onclick="infoUser2()">Настроить</button>
                 <div id='form_use2'>
-                    
+                    <form class='alternativ_form' method="post" action="" id="te" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <p class='p_popup'>1. ДОПУСК К ЛИЧНОЙ СТРАНИЦЕ:</p>
+                        {{ acess_form.for_page }} 
+                        <p class='p_popup'>2. ДОПУСК К ЛИЧНОЙ ИНФОРМАЦИИ НА СТРАНИЦЕ:</p>
+                        {{ acess_form.for_inform }}
+                        <p class='p_popup'>3. ДОПУСК К МЕССЕНЖЕРАМ:</p>
+                        {{ acess_form.for_messeng }}
+                        <p></p>
+                        <input class='fd2' id='form_clik1' type="submit" value="Подтверждаю">  
+                    </form> 
                 </div>
             </div>
             <div class="alternativ_form_div" >
@@ -334,14 +345,6 @@
         
  
 {% block messenges %}  
-<form class='alternativ_form' method="post" action="" id="te" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ acess_form.as_p }} 
-    
-    {{ form_info.profession }}
-    <p></p>
-    <input class='fd2' id='form_clik1' type="submit" value="Подтверждаю">  
-</form> 
 
 {% endblock %}
 

@@ -30,7 +30,7 @@ admin.site.register(NewArticle, NewArticleAdmin)
 # admin.site.register(Professional, ProfessionalAdmin)    
 
 class AllowanceAdmin(admin.ModelAdmin):
-    list_display = ['user', 'for_page', 'for_inform', ]
+    list_display = ['user', 'for_page', 'for_inform', 'for_messeng', 'in_publishid',]
 admin.site.register(Allowance, AllowanceAdmin)
 
 class PresentationUserAdmin(admin.ModelAdmin):

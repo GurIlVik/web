@@ -459,3 +459,15 @@ label {
     margin: 20px;
     border-bottom: solid red 3px;
 }
+
+/* Отображение блока с допусками */
+
+#form_use2 {
+    display: none;
+    flex-direction: column;
+    justify-content: left;
+    align-content: flex-start;
+    width: 95%;
+    left: 5%;
+    top: 5%;
+}

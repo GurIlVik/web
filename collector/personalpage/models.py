@@ -61,13 +61,14 @@ class AllowanceModel(models.Model):
 # МОДЕЛЬ ДОПУСКОВ НА ЛИЧНУЮ СТРАНИЦУ И К ИНФОРМАЦИИ CФОРМИРОВАННЫЙ ПО БУЛЕАН
 class Allowance(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    for_page = models.BooleanField(default=False)  # 0 ни кому, 1 регистрированным, 2 всем
-    for_inform = models.BooleanField(default=False)  # 0 ни кому, 1 регистрированным, 2 всем
-    for_messeng = models.BooleanField(default=False)  # 0 ни кому, 1 регистрированным, 2 всем
+    for_page = models.IntegerField(default=False)  # 0 ни кому, 1 регистрированным, 2 всем
+    for_inform = models.IntegerField(default=False)  # 0 ни кому, 1 регистрированным, 2 всем
+    for_messeng = models.IntegerField(default=False)  # 0 ни кому, 1 регистрированным, 2 всем
+    in_publishid = models.BooleanField(default=False)         # Если  инфо опубликованна
     class Meta:
         verbose_name_plural = 'ДОПУСК ЮЗЕРОВ'                   # отображение в админе единственное число      
     def __str__(self):
-        return self.user    
+        return str(self.user)    
 
 # МОДЕЛЬ ОТОБРАЖЕНИЕ ЛИЧНОЙ ИНФОРМАЦИИ 
 class PresentationUser(models.Model):
