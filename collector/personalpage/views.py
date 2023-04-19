@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 # from django.contrib.auth import authenticate, login, logout
-from .forms import PersonalInformationUser, NewArticleForm
+from .forms import PersonalInformationUser, NewArticleForm, AllowanceForm
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
@@ -30,6 +30,7 @@ def personal_page(request, user):
     g = ''                                      # логика получения информации о заполненности анкеты потльзователя
     h = None                                    # отображение информации о пользователи из модели
     k = []                                       #   отображение коллекционного листа
+    l = AllowanceForm()
     title = 'Кабинет'
     menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
@@ -66,6 +67,7 @@ def personal_page(request, user):
                    'logik_1': g,
                    'persona' : h,
                    'predmets' : k,
+                   'acess_form' : l,
                    }
     if search_user == False:
         return HttpResponse('такого пользователя нет')

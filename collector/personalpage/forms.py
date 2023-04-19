@@ -1,7 +1,7 @@
 from django import forms 
 from django.forms import ClearableFileInput, ModelForm, TextInput
 from main.models import Category, Catalogy, AllowanceComment
-from .models import PresentationUser, Allowance, InfoUser, Professional
+from .models import PresentationUser, AllowanceModel, InfoUser, Professional
 
 class NewArticleForm(forms.Form):
     title = forms.CharField(
@@ -33,19 +33,11 @@ class NewArticleForm(forms.Form):
             initial="сюда:", 
             widget = ClearableFileInput(attrs={'multiple': True, 'class': 'main_form_text'}), 
             )
-    
-# class PersonalInformationUser(forms.ModelForm):
-#     class Meta:
-#         model = PresentationUser
-#         fields = ['photo', "profession", 'interest']
-#         widgets = {'interest': TextInput(attrs={
-#                                                 'placeholder' : "Предмет интереса"})}
-        
 
 class AllowanceForm(forms.ModelForm):
     class Meta:
-        model = Allowance
-        fields = ['for_page', 'for_inform',]     
+        model = AllowanceModel
+        fields = ['for_page', 'for_inform', 'for_messeng']     
 
 class SpecialInfoUser(forms.ModelForm):
      class Meta:

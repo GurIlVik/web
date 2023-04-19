@@ -45,3 +45,7 @@ admin.site.register(InfoUser, InfoUserAdmin)
 
 
 admin.site.register(Professional)   
+admin.site.register(AllowanceModel)
+admin.site.register(AllowanceModel1)
+admin.site.register(AllowanceModel2)
+admin.site.register(AllowanceModel3)

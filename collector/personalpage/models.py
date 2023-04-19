@@ -26,14 +26,46 @@ class Professional(models.Model):
          verbose_name_plural = 'Род деятельности'                 # отображение в админе единственное число      
     def __str__(self):
         return self.name
+
+# МОДЕЛЬ ФОРМЫ по ДОПУСКу К на личную страницу
+class AllowanceModel1(models.Model):
+    name = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Вид допуска на страницу')  # 0 ни кому, 1 регистрированным, 2 всем
+    class Meta: 
+        verbose_name_plural = 'Вид допуска на личную страницу'                   # отображение в админе единственное число      
+    def __str__(self):
+        return self.name  
     
-# МОДЕЛЬ ДОПУСКОВ НА ЛИЧНУЮ СТРАНИЦУ И К ИНФОРМАЦИИ 
+# МОДЕЛЬ ФОРМЫ по ДОПУСКу К личной информации
+class AllowanceModel2(models.Model):
+    name = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Вид допуска на страницу')  # 0 ни кому, 1 регистрированным, 2 всем
+    class Meta: 
+        verbose_name_plural = 'Вид допуска к личной информации'                   # отображение в админе единственное число      
+    def __str__(self):
+        return self.name   
+    
+# МОДЕЛЬ ФОРМЫ по ДОПУСКу К мессенжеру
+class AllowanceModel3(models.Model):
+    name = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Вид допуска на страницу')  # 0 ни кому, 1 регистрированным, 2 всем
+    class Meta: 
+        verbose_name_plural = 'Вид допуска к мессенжеру'                   # отображение в админе единственное число      
+    def __str__(self):
+        return self.name  
+    
+# ПРОМЕЖУТОЧНАЯ ДЛЯ ФОРМЫ    
+class AllowanceModel(models.Model): 
+    for_page = models.ForeignKey(AllowanceModel1, on_delete=models.CASCADE)  # 0 ни кому, 1 регистрированным, 2 всем
+    for_inform = models.ForeignKey(AllowanceModel2, on_delete=models.CASCADE)  # 0 ни кому, 1 регистрированным, 2 всем
+    for_messeng = models.ForeignKey(AllowanceModel3, on_delete=models.CASCADE)
+
+    
+# МОДЕЛЬ ДОПУСКОВ НА ЛИЧНУЮ СТРАНИЦУ И К ИНФОРМАЦИИ CФОРМИРОВАННЫЙ ПО БУЛЕАН
 class Allowance(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    for_page = models.IntegerField( db_index=True, null=True, verbose_name = 'допуск на страницу')  # 0 ни кому, 1 регистрированным, 2 всем
-    for_inform = models.IntegerField(  db_index=True,  null=True, verbose_name = 'допуск к личной информации')  # 0 ни кому, 1 регистрированным, 2 всем
+    for_page = models.BooleanField(default=False)  # 0 ни кому, 1 регистрированным, 2 всем
+    for_inform = models.BooleanField(default=False)  # 0 ни кому, 1 регистрированным, 2 всем
+    for_messeng = models.BooleanField(default=False)  # 0 ни кому, 1 регистрированным, 2 всем
     class Meta:
-        verbose_name_plural = 'ДОПУСК'                   # отображение в админе единственное число      
+        verbose_name_plural = 'ДОПУСК ЮЗЕРОВ'                   # отображение в админе единственное число      
     def __str__(self):
         return self.user    
 

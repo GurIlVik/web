@@ -152,6 +152,7 @@
                 <p class='p_popup'>Настройки личного профиля (обязательны для публикации материалов):</p>
                 <button class='fd2' onclick="infoUser1()">Настроить</button>
             </div>
+
             <div class="alternativ_form_div" >
                 <p class='p_popup'>Настройки доступа к стронице и личной информации:</p>
                 <button class='fd2' onclick="infoUser2()">Настроить</button>
@@ -171,7 +172,7 @@
 
 {% endblock %}
 
-
+{% comment %} блок с личной информацией {% endcomment %}    
 {% block personal_information %}
     {% if logik_1 != True %}
         <div id = 'personal_information1'>
@@ -228,9 +229,10 @@
             </div>
         </div>
     {% endif %}
-{% endblock %}                                                    {% comment %} basic блок с основной информацией {% endcomment %}    
+{% endblock %}                                                    
 
 
+{% comment %} basic блок с основной информацией {% endcomment %}    
 {% block info_blok %}  
                 {% if logik_1 != True %}
                 <div id='text_logik_1'>
@@ -332,6 +334,14 @@
         
  
 {% block messenges %}  
+<form class='alternativ_form' method="post" action="" id="te" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ acess_form.as_p }} 
+    
+    {{ form_info.profession }}
+    <p></p>
+    <input class='fd2' id='form_clik1' type="submit" value="Подтверждаю">  
+</form> 
 
 {% endblock %}
 
