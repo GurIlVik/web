@@ -140,3 +140,11 @@ function infoUser2(inf) {
     let global2 = document.getElementById(inf);
     global2.style.display = 'flex';
 }
+
+function clouseWin(win1) {
+    console.log('lweibhv')
+    let global1 = document.getElementById("alternativ_form_div");
+    let global2 = document.getElementById("alternativ_form_div1");
+    global2.style.display = 'none';
+    global1.style.display = 'none';
+}

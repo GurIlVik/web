@@ -25,8 +25,8 @@ def personal_page(request, user):
     acess_mass = 3                                                           # доступ к мессенжеру
     
     registered_user = chek_user_register(request)                            # логик тру вошедший зарегистрирован Ё нет - фальш
-    list_collection_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
-    list_collection_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
+    list_collection_guest, key_guest, info_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
+    list_collection_owner, key_owner, info_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
     groupmates = func_list_check(list_collection_guest, list_collection_owner) # проверка есть ли в списке похожие интересы есть - правда нет -ложь
                                                     
     acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
@@ -37,29 +37,22 @@ def personal_page(request, user):
             return redirect(f'/personalpage/{user}/block_page')             # перенаправление гостя на страницу блокировки
         else:
             return redirect(f'/personalpage/{user}/reception')              # перенаправление гостя в приемную   
-
-    
     
     a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
-    password = chek_user_access(user, nik_reguest) # логик - тру страница индивида или нет фальш
     d = NewArticle.objects.filter(author=user)
     e = PersonalInformationUser()
     f = Catalogy.objects.all().order_by('name')
-    g = False                                     # логика получения информации о заполненности анкеты потльзователя форма1
-    h = None                                    # отображение информации о пользователи из модели
-    k = []                                       #   отображение коллекционного листа
-    l = AllowanceForm()
     m = SpecialInfoUser()
     title = 'Кабинет'
-    menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
+    # menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
-    menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
+    # menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
+    
 
   
     context = {'nik_name' : nik_reguest,
-                   'access' : password,
                    'register' : registered_user,
                    'information_block' : a,
                    'nik_user' : b, 
@@ -69,10 +62,11 @@ def personal_page(request, user):
                    'menu' : menu1,
                    'form_info' : e,
                    'list_a': f,
-                   'logik_1': g,     # отображение в случае если 1ая форма заполнена(1) не заполнена(0)
-                   'persona' : h,
-                   'predmets' : k,
-                   'acess_form' : l,
+                   'logik_1': key_owner,     # отображение в случае если 1ая форма заполнена(1) не заполнена(0)
+                   'logik_2': function_show_specinf(user),  # отражение в случае если есть спец инфоормация
+                   'persona' : info_owner,   # отображение информации о пользователе
+                   'predmets' : list_collection_owner, # отображение коллекционного листа
+                   'acess_form' : AllowanceForm(),  # форма для забора допусков от пользователя
                    'secret_form' : m,
                    'acess_key' : acess_key,
                    'acess_page' : acess_page,
@@ -237,8 +231,8 @@ def personal_page_reception(request, user):
     acess_mass = 3 
     acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
     registered_user = chek_user_register(request)                            # логик тру вошедший зарегистрирован Ё нет - фальш
-    list_collection_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
-    list_collection_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
+    list_collection_guest, key_guest, info_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
+    list_collection_owner, key_owner, info_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
     groupmates = func_list_check(list_collection_guest, list_collection_owner) # проверка есть ли в списке похожие интересы есть - правда нет -ложь
     
     acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
@@ -277,7 +271,18 @@ def func_list_colliction(request, us):
     if list_coll:                                                        # логика получения листа колекций гостя из базы
         list_coll = PresentationUser.objects.get(user__username = us)
         list_collection_guest = func_str_for_list(list_coll.interest)
-    return list_collection_guest
+        key_info = list_coll.in_publishid
+        person_info = list_coll
+    return list_collection_guest, key_info, person_info
+
+# Функция получения ключа на отражение окна спец информации
+def function_show_specinf(user):
+    res = False
+    param = InfoUser.objects.filter(user__username = user)
+    if param:
+        param = InfoUser.objects.get(user__username = user)
+        res = param.in_publishid
+    return res
 
 # функция поиска совпадений по спискам коллекций
 def func_list_check(l1, l2):

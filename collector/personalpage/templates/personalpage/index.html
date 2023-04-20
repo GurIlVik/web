@@ -13,7 +13,9 @@
             <button class='fd2' onclick="infoUser()">{{ menu.0 }}</button>
         </div>
         <div>
+            {% if acess_key == True %}
             <button class='fd2' onclick="article()">{{ menu.1 }}</button>
+            {% endif %}
         </div> 
         <div>
             <a class='fd2' href="{% url 'main' %}"><button class='fd2'>{{ menu.2 }}</button></a> 
@@ -58,8 +60,6 @@
                     </div>
                 </div>
             </div>
-                
-            
         </form> 
 {% endblock %}
 
@@ -95,6 +95,7 @@
 {% block personal_information_write %}
     <div id="alternativ_form_div" >
         <div id="alternativ_form_div1" >
+            {% if logik_1 != True %}
             <div id='form_use1'>
                 <p class='p_popup'>1. Выбирите предмет интереса: </p><button class='fd2' onclick="viborPredmet()" >Выбрать</button>
                 
@@ -151,9 +152,18 @@
             <div class="alternativ_form_div" >
                 <p class='p_popup'>Настройки личного профиля (обязательны для публикации материалов):</p>
                 <button class='fd2' onclick="infoUser1()">Настроить</button>
+                
             </div>
+            {% else %}
+                <p>Изменение параметров ранее осуществленных настроек в стадии разработки</p>
+                <div></div>
+                <button class='fd2' onclick='clouseWin()'>Закрыть</button>
+            {% endif %}
 
+
+            {% if acess_key != True %}
             <div class="alternativ_form_div" >
+                
                 <p class='p_popup'>Настройки доступа к стронице и личной информации</p>
                 <p class='p_popup'>пока информация фидна только Вам:</p>
                 <button class='fd2' onclick="infoUser2('form_use2')">Настроить</button>
@@ -171,6 +181,12 @@
                     </form> 
                 </div>
             </div>
+            {% else %}
+            <p>Изменение параметров ранее осуществленных настроек в стадии разработки</p>
+            <p></p>
+            <button class='fd2' onclick='clouseWin()'>Закрыть</button>
+            {% endif %}
+            {% if logik_2 != True%}
             <div class="alternativ_form_div" >
                 <p class='p_popup'>Контактная информация видна только администрации сайта:</p>
                 <button class='fd2' onclick="infoUser2('form_use3')">Настроить</button>
@@ -190,6 +206,11 @@
                     </form> 
                 </div>
             </div>
+            {% else %}
+            <p>Изменение параметров ранее осуществленных настроек в стадии разработки</p>
+            <p></p>
+            <button class='fd2' onclick='clouseWin()'>Закрыть</button>
+            {% endif %}
         </div>
     </div>        
 
@@ -259,10 +280,14 @@
 {% block info_blok %}  
                 {% if logik_1 != True %}
                 <div id='text_logik_1'>
-                <p>Вам открыто комментрование и просмотр постов доступных только членам клуба </p>
-                <p>Но для размещения собственных постов, просьба пройти в настройки </p>
-                <p>И настроить личный профиль!  </p>
-                <p>Допуск на обновления до 5 минут</p>
+                    {% if acess_key != True %}
+                    <p>Вам открыто комментрование и просмотр постов доступных только членам клуба </p>
+                    <p>Но для размещения собственных постов, просьба пройти в настройки </p>
+                    <p>И настроить личный профиль!  </p>
+                    <p>Допуск на обновления до 5 минут</p>
+                    {% else %}
+                    <p>Вы пока ни чего не написали</p>
+                    {% endif %}
                 </div>
                 {% else %}
                 
