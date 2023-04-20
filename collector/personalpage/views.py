@@ -74,7 +74,7 @@ def personal_page(request, user):
                    'acess_mass' : acess_mass,
                    }
     if request.method == 'POST':
-        form = NewArticleForm(request.POST)
+        form = NewArticleForm(request.POST, request.FILES)
         form_user1 = PersonalInformationUser(request.POST, request.FILES)
         form_user2 = AllowanceForm(request.POST)
         form_user3 = SpecialInfoUser(request.POST)

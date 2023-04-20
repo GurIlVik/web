@@ -29,7 +29,7 @@
 
 {% comment %} Меню написания статьи  {% endcomment %}
 {% block alternativ_form %}
-        <form class='alternativ_form' method="post" action="" id="alternativ_global">
+        <form class='alternativ_form' method="post" action="" id="alternativ_global" enctype="multipart/form-data">
             {% csrf_token %}
             <div id="pu_div1">
                 <div id="pu_div2">

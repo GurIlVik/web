@@ -29,8 +29,7 @@ class NewArticleForm(forms.Form):
             empty_label = 'К выбору обязателен',
             )
     
-    photo = forms.FileField(label='введите файл',                                          # загрузка файлов
-            initial="сюда:", 
+    photo = forms.FileField(label='введите файл', 
             widget = ClearableFileInput(attrs={'multiple': True, 'class': 'main_form_text'}), 
             )
 
