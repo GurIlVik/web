@@ -1,0 +1,11 @@
+{% extends "personalpage/base.html" %}
+{% csrf_token %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block menu_block %} <p>{{nik_name}}</p> {% endblock %}
+{% block  mistake %} 
+<div class='center'>
+     <a class='fd2' href="{% url 'main' %}"><button class='fd2'>На главную</button></a> 
+</div> 
+{% endblock %}

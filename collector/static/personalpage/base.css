@@ -471,3 +471,12 @@ label {
     left: 5%;
     top: 5%;
 }
+
+.center {
+    height: 200px;
+    width: 200px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    z-index: 20;
+}

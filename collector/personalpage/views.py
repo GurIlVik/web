@@ -14,7 +14,7 @@ from main.views import method_main_page_1
 # @ login_required
 def personal_page(request, user): 
     if user_page_search(user) == False:
-        return HttpResponse('такого пользователя нет')
+        return redirect(f'/personalpage/{user}/mistake')
     nik_reguest = getting_nickname_request(request)  # получение имени пришедшего пользователm
     password = chek_user_access(user, nik_reguest)   # правда - если пришедший это хозяин страницы
     
@@ -90,7 +90,7 @@ def personal_page(request, user):
     if (password == False and o == 3) or (registered_user == False and o == 1 and 
         password == False) or (list_goest == False and o == 2 and 
         password == False):
-        return HttpResponse('пользователь закрыл свою страницу')
+        return redirect(f'/personalpage/{user}/block_page')
     if nik_reguest != user:
         return redirect(f'/personalpage/{user}/reception')
     if password:
@@ -248,3 +248,17 @@ def personal_page_reception(request, user):
 # Функция определения допуска на личную страницу 
 def function_permission(request, user):
     ...
+    
+    
+# отражение в случае ошибки 
+def personal_page_mistake(request, user):
+    context = {'nik_name' : f'Пользователя с псевдонимом {user} не существует.',
+               'title' : 'пользователя нет',
+                   }
+    return render(request, 'personalpage/mistake.html', context)
+
+def personal_block_page(request, user):
+    context = {'nik_name' : f'Приемная {user} закрыта.',
+               'title' : 'блок страницы',
+                   }
+    return render(request, 'personalpage/mistake.html', context)
