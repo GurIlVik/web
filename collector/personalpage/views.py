@@ -28,13 +28,12 @@ def personal_page(request, user):
     list_collection_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
     list_collection_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
     groupmates = func_list_check(list_collection_guest, list_collection_owner) # проверка есть ли в списке похожие интересы есть - правда нет -ложь
-    
-    if password == True:                                                     # получение допусков из базы
-        acesses = Allowance.objects.filter(user__username = user)
-        if acesses:
-            acess_key, acess_page, acess_info, acess_mass = function_acess_user(user)
+                                                    
+    acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
+    if acesses:
+        acess_key, acess_page, acess_info, acess_mass = function_acess_user(user)
     if password == False:
-        if acess_page == 3 or registered_user == False and acess_page == 1 or groupmates == False and acess_page == 2:
+        if (acess_page == 3) or (registered_user == False and acess_page == 1) or (groupmates == False and acess_page == 2):
             return redirect(f'/personalpage/{user}/block_page')             # перенаправление гостя на страницу блокировки
         else:
             return redirect(f'/personalpage/{user}/reception')              # перенаправление гостя в приемную   
@@ -223,16 +222,37 @@ def function_info_user(list_collection):
             g = True
     return h, k, g
 
+# получение доступа по странице
+def function_acess_for_page(ace, reg, group):
+    res = False
+    if (ace == 0) or (ace == 1 and reg == True) or (ace == 2 and group == True):
+        res = True
+    return res
+    
 
-
-
-
+# ОТОБРАЖЕНИЕ страницы в приемной
 def personal_page_reception(request, user):
-    return HttpResponse(f'Это приемная пользователя {user}')
+    nik_reguest = getting_nickname_request(request)                         # получение имени пришедшего пользователm
+    acess_info = 3                                                           # доступ к информации
+    acess_mass = 3 
+    acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
+    registered_user = chek_user_register(request)                            # логик тру вошедший зарегистрирован Ё нет - фальш
+    list_collection_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
+    list_collection_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
+    groupmates = func_list_check(list_collection_guest, list_collection_owner) # проверка есть ли в списке похожие интересы есть - правда нет -ложь
+    
+    acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
+    if acesses:
+        acess_key, acess_page, acess_info, acess_mass = function_acess_user(user)
+        
+    acesses_guest_info = function_acess_for_page(acess_info, registered_user, groupmates) # допуск к информации если правда
+    acesses_guest_mess = function_acess_for_page(acess_mass, registered_user, groupmates) # допуск к мессенжеру если правда
+    context = {
+        'title' : 'Приемная',
+    }
+    return render(request, 'personalpage/reception.html', context)
 
-# Функция определения допуска на личную страницу 
-def function_permission(request, user):
-    ...
+
     
     
 # отражение в случае ошибки 
