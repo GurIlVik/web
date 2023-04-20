@@ -11,16 +11,34 @@ from .models import NewArticle, PresentationUser, Allowance
 from main.views import method_main_page_1
 
 
+
 # @ login_required
 def personal_page(request, user): 
     if user_page_search(user) == False:
-        return redirect(f'/personalpage/{user}/mistake')
-    nik_reguest = getting_nickname_request(request)  # получение имени пришедшего пользователm
-    password = chek_user_access(user, nik_reguest)   # правда - если пришедший это хозяин страницы
+        return redirect(f'/personalpage/{user}/mistake')                    #  отправка на страницу ошибка если пользвоателя нет
+    nik_reguest = getting_nickname_request(request)                         # получение имени пришедшего пользователm
+    password = chek_user_access(user, nik_reguest)                          # правда - если пришедший хозяин страницы
+    # значения допусков по умолчанию 3 - никому 2 одногрупникам 1 членам 0 всем
+    acess_key = False                                                        # есть ли доступ
+    acess_page = 3                                                           # доступ на страницу
+    acess_info = 3                                                           # доступ к информации
+    acess_mass = 3                                                           # доступ к мессенжеру
     
-    registered_user = chek_user_register(request)  # логик тру пользователь зарегистрирован или нет фальш
+    registered_user = chek_user_register(request)                            # логик тру вошедший зарегистрирован Ё нет - фальш
+    list_collection_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
+    list_collection_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
+    groupmates = func_list_check(list_collection_guest, list_collection_owner) # проверка есть ли в списке похожие интересы есть - правда нет -ложь
+    
+    if password == True:                                                     # получение допусков из базы
+        acesses = Allowance.objects.filter(user__username = user)
+        if acesses:
+            acess_key, acess_page, acess_info, acess_mass = function_acess_user(user)
     if password == False:
-        page_owner_permission = function_permission(request, user)                        # допуск на страницу сайта хозяином
+        if acess_page == 3 or registered_user == False and acess_page == 1 or groupmates == False and acess_page == 2:
+            return redirect(f'/personalpage/{user}/block_page')             # перенаправление гостя на страницу блокировки
+        else:
+            return redirect(f'/personalpage/{user}/reception')              # перенаправление гостя в приемную   
+
     
     
     a = Information_block.objects.all()
@@ -35,35 +53,10 @@ def personal_page(request, user):
     k = []                                       #   отображение коллекционного листа
     l = AllowanceForm()
     m = SpecialInfoUser()
-    n = False        # есть ли анкета допусков форма2
-    o = 3            # допуск к личной странице
-    p = 3            # допуск к личной инормации  3-нет 2интересанты 1-клуб 0-все
-    q = 3            # допуск к мессенжеру  3-нет 2интересанты 1-клуб 
-    acesses = Allowance.objects.filter(user__username = user)
-    if acesses:
-        n, o, p, q = function_acess_user(user)
-    list_collection = PresentationUser.objects.filter(user__username = user)
-    if list_collection:
-        for i in list_collection:
-            h = i
-            k = func_str_for_list(i.interest)
-            if i.in_publishid == True:
-                g = True
-        # h, k, g = function_info_user(user)
     title = 'Кабинет'
     menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
     menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
-    list_goest = False    # интересант ли гость // лож - нет
-    if password:                                           # если это страница юзера
-        menu = menu1
-    elif registered_user:
-        menu = menu2
-        us_g = PresentationUser.objects.filter(user__username = nik_reguest)
-        for i in us_g:
-            for j in func_str_for_list(i.interest):
-                if j in k:
-                    list_goest = True
 
   
     context = {'nik_name' : nik_reguest,
@@ -74,7 +67,7 @@ def personal_page(request, user):
                    'form' : c,
                    'for_editorial_office' : d,
                    'title' : title,
-                   'menu' : menu,
+                   'menu' : menu1,
                    'form_info' : e,
                    'list_a': f,
                    'logik_1': g,     # отображение в случае если 1ая форма заполнена(1) не заполнена(0)
@@ -82,91 +75,83 @@ def personal_page(request, user):
                    'predmets' : k,
                    'acess_form' : l,
                    'secret_form' : m,
-                   'acess_key' : n,
-                   'acess_page' : o,
-                   'acess_info' : p,
-                   'acess_mass' : q,
+                   'acess_key' : acess_key,
+                   'acess_page' : acess_page,
+                   'acess_info' : acess_info,
+                   'acess_mass' : acess_mass,
                    }
-    if (password == False and o == 3) or (registered_user == False and o == 1 and 
-        password == False) or (list_goest == False and o == 2 and 
-        password == False):
-        return redirect(f'/personalpage/{user}/block_page')
-    if nik_reguest != user:
-        return redirect(f'/personalpage/{user}/reception')
-    if password:
-        if request.method == 'POST':
-            form = NewArticleForm(request.POST)
-            form_user1 = PersonalInformationUser(request.POST, request.FILES)
-            form_user2 = AllowanceForm(request.POST)
-            form_user3 = SpecialInfoUser(request.POST)
-            print(1)
-            
-            if form.is_valid():
-                cd = form.cleaned_data
-                if 'memory' in request.POST:
-                    cd = NewArticle.objects.create(author=b, title=cd['title'], 
-                                                  text=cd['text'], photo=cd['photo'], 
-                                                  categories=cd['categories'], topic = cd['topic'])
-                    return render(request, 'personalpage/index.html', context)
-                elif 'write' in request.POST:
-                    с = Information_block.objects.create(
-                        picture_author = 'фото',
-                        page_author = b,       # ник автора с отправкой на его страницу
-                        categories = c['categories'],        # категории по списку предметов коллекционирования
-                        topic_interest = c['topic'],      # категории по списку интереса и поиска
-                        table_contents = c['title'],
-                        text_contents = c['text'],
-                        symbol_ok = 'ok',
-                        count_symbol_ok = 0,
-                        symbol_bad = 'out',
-                        count_symbol_bad = 0,
-                        comment_article = 'пока вопрос',     # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
-                        write_author = 'писать автору', 
-                        access = True)
-                    return render(request, 'personalpage/index.html', context)
-                elif 'delete' in request.POST:
-                    return render(request, 'personalpage/index.html', context)
-            elif form_user1.is_valid():
-                form_user1 = form_user1.cleaned_data
-                f = PresentationUser(
+    if request.method == 'POST':
+        form = NewArticleForm(request.POST)
+        form_user1 = PersonalInformationUser(request.POST, request.FILES)
+        form_user2 = AllowanceForm(request.POST)
+        form_user3 = SpecialInfoUser(request.POST)
+        print(1)
+        if form.is_valid():
+            cd = form.cleaned_data
+            if 'memory' in request.POST:
+                cd = NewArticle.objects.create(author=b, title=cd['title'], 
+                                                text=cd['text'], photo=cd['photo'], 
+                                                categories=cd['categories'], topic = cd['topic'])
+                return render(request, 'personalpage/index.html', context)
+            elif 'write' in request.POST:
+                с = Information_block.objects.create(
+                    picture_author = 'фото',
+                    page_author = b,       # ник автора с отправкой на его страницу
+                    categories = c['categories'],        # категории по списку предметов коллекционирования
+                    topic_interest = c['topic'],      # категории по списку интереса и поиска
+                    table_contents = c['title'],
+                    text_contents = c['text'],
+                    symbol_ok = 'ok',
+                    count_symbol_ok = 0,
+                    symbol_bad = 'out',
+                    count_symbol_bad = 0,
+                    comment_article = 'пока вопрос',     # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
+                    write_author = 'писать автору', 
+                    access = True)
+                return render(request, 'personalpage/index.html', context)
+            elif 'delete' in request.POST:
+                return render(request, 'personalpage/index.html', context)
+        elif form_user1.is_valid():
+            form_user1 = form_user1.cleaned_data
+            f = PresentationUser(
+            user = request.user,
+            # nikname = request.user,
+            photo = form_user1['photo'],
+            profession = form_user1['profession'],       # коллекционер/продавец
+            interest = method_main_page_1(form_user1['interest']),  # список инетересующих тем
+            in_publishid = True,)
+            f.save()
+            return render(request, 'personalpage/index.html', context)
+        elif form_user2.is_valid():
+            form_user2 = form_user2.cleaned_data
+            l = Allowance(
                 user = request.user,
-                # nikname = request.user,
-                photo = form_user1['photo'],
-                profession = form_user1['profession'],       # коллекционер/продавец
-                interest = method_main_page_1(form_user1['interest']),  # список инетересующих тем
-                in_publishid = True,)
-                f.save()
-                return render(request, 'personalpage/index.html', context)
-            elif form_user2.is_valid():
-                form_user2 = form_user2.cleaned_data
-                l = Allowance(
-                    user = request.user,
-                    for_page = function_acess(form_user2['for_page']),
-                    for_inform = function_acess(form_user2['for_inform']),
-                    for_messeng = function_acess(form_user2['for_messeng']),
-                    in_publishid = True,
-                )
-                l.save()
-                return render(request, 'personalpage/index.html', context)
-            elif form_user3.is_valid():
-                form_user3 = form_user3.cleaned_data
-                m = InfoUser(
-                    user = request.user,
-                    name = form_user3['name'],
-                    name_last = form_user3['name_last'],
-                    name_first = form_user3['name_first'],
-                    telephon = form_user3['telephon'],
-                    in_publishid = True,
-                )
-                m.save()
-                return render(request, 'personalpage/index.html', context)
-            else:
-                print('что то идет не так')
-                print(form.errors)
-                print(form_user1.errors)
-                print(form_user2.errors)
-                return render(request, 'personalpage/index.html', context)
-        return render(request, 'personalpage/index.html', context)
+                for_page = function_acess(form_user2['for_page']),
+                for_inform = function_acess(form_user2['for_inform']),
+                for_messeng = function_acess(form_user2['for_messeng']),
+                in_publishid = True,
+            )
+            l.save()
+            return render(request, 'personalpage/index.html', context)
+        elif form_user3.is_valid():
+            form_user3 = form_user3.cleaned_data
+            m = InfoUser(
+                user = request.user,
+                name = form_user3['name'],
+                name_last = form_user3['name_last'],
+                name_first = form_user3['name_first'],
+                telephon = form_user3['telephon'],
+                in_publishid = True,
+            )
+            m.save()
+            return render(request, 'personalpage/index.html', context)
+        else:
+            print('что то идет не так')
+            print(form.errors)
+            print(form_user1.errors)
+            print(form_user2.errors)
+            return render(request, 'personalpage/index.html', context)
+    return render(request, 'personalpage/index.html', context)
 
 
 # Функция получения имени пользователя из запроса 
@@ -257,8 +242,27 @@ def personal_page_mistake(request, user):
                    }
     return render(request, 'personalpage/mistake.html', context)
 
+# отражение в случае блокировки страницы 
 def personal_block_page(request, user):
     context = {'nik_name' : f'Приемная {user} закрыта.',
                'title' : 'блок страницы',
                    }
     return render(request, 'personalpage/mistake.html', context)
+
+
+# вспомогательная функция получения коллекционного листа из БД
+def func_list_colliction(request, us):
+    list_collection_guest = []
+    list_coll = PresentationUser.objects.filter(user__username = us)
+    if list_coll:                                                        # логика получения листа колекций гостя из базы
+        list_coll = PresentationUser.objects.get(user__username = us)
+        list_collection_guest = func_str_for_list(list_coll.interest)
+    return list_collection_guest
+
+# функция поиска совпадений по спискам коллекций
+def func_list_check(l1, l2):
+    for i in l1:
+        if i != 'ОБЩЕЕ':
+            if i in l2:
+                return True
+    return False
