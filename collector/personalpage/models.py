@@ -3,15 +3,19 @@ from django.contrib.auth.models import User
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
 
+class Photo(models.Model):
+    image = models.ImageField(upload_to='photos/%Y/%m/%d/',)
+    location = models.ForeignKey('NewArticle', related_name='photo', on_delete=models.CASCADE)
 
 # Модель записи сообщения на сохранение под дальнейшую редакцию
 class NewArticle(models.Model):
-    author = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'автор')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # author = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'автор')
     categories = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'категория')
     topic = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'предмет')
     title = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'название')
     text = models.TextField(null=True, blank=True, verbose_name = 'текст') 
-    photo = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name = 'фото')
+    in_publishid = models.BooleanField(default=False)         # Если  инфо опубликованна
     
     class Meta:
         verbose_name = 'Статья'                 # отображение в админе единственное число

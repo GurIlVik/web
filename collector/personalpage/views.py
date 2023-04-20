@@ -7,9 +7,9 @@ from .forms import *
 from django.contrib.auth.models import User
 from . import urls
 from main.models import Information_block, Catalogy
-from .models import NewArticle, PresentationUser, Allowance
+from .models import NewArticle, PresentationUser, Allowance, Photo
 from main.views import method_main_page_1
-
+from django.core.files.base import ContentFile
 
 
 # @ login_required
@@ -41,7 +41,10 @@ def personal_page(request, user):
     a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
-    d = NewArticle.objects.filter(author=user)
+    d = NewArticle.objects.filter(author__username = user)
+    for i in d:
+        
+        print(i.photo)
     e = PersonalInformationUser()
     f = Catalogy.objects.all().order_by('name')
     m = SpecialInfoUser()
@@ -49,6 +52,9 @@ def personal_page(request, user):
     # menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
     # menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
+    
+    
+    print(key_owner)
     
 
   
@@ -68,13 +74,14 @@ def personal_page(request, user):
                    'predmets' : list_collection_owner, # отображение коллекционного листа
                    'acess_form' : AllowanceForm(),  # форма для забора допусков от пользователя
                    'secret_form' : m,
-                   'acess_key' : acess_key,
+                #    'acess_key' : acess_key,
                    'acess_page' : acess_page,
                    'acess_info' : acess_info,
                    'acess_mass' : acess_mass,
                    }
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)
+        
         form_user1 = PersonalInformationUser(request.POST, request.FILES)
         form_user2 = AllowanceForm(request.POST)
         form_user3 = SpecialInfoUser(request.POST)
@@ -82,9 +89,28 @@ def personal_page(request, user):
         if form.is_valid():
             cd = form.cleaned_data
             if 'memory' in request.POST:
-                cd = NewArticle.objects.create(author=b, title=cd['title'], 
-                                                text=cd['text'], photo=cd['photo'], 
-                                                categories=cd['categories'], topic = cd['topic'])
+                location = NewArticle.objects.create(author=request.user, 
+                                                    title=cd['title'], 
+                                                    text=cd['text'], 
+                                                    categories=cd['categories'], 
+                                                    topic = cd['topic'])
+                for f in request.FILES.getlist('photo'):
+                    print(f.name)
+                    data = f.read()
+                    photo = Photo(location=location)
+                    print(photo)
+                    photo.image.save(f.name, ContentFile(data))
+                    photo.save()
+                    print(photo)
+                    
+                
+                
+                
+                
+                
+                # cd = NewArticle.objects.create(author=b, title=cd['title'], 
+                #                                 text=cd['text'], photo=cd['photo'], 
+                #                                 categories=cd['categories'], topic = cd['topic'])
                 return render(request, 'personalpage/index.html', context)
             elif 'write' in request.POST:
                 с = Information_block.objects.create(
@@ -267,6 +293,8 @@ def personal_block_page(request, user):
 # вспомогательная функция получения коллекционного листа из БД
 def func_list_colliction(request, us):
     list_collection_guest = []
+    key_info = None
+    person_info = None
     list_coll = PresentationUser.objects.filter(user__username = us)
     if list_coll:                                                        # логика получения листа колекций гостя из базы
         list_coll = PresentationUser.objects.get(user__username = us)

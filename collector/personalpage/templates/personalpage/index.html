@@ -13,7 +13,7 @@
             <button class='fd2' onclick="infoUser()">{{ menu.0 }}</button>
         </div>
         <div>
-            {% if acess_key == True %}
+            {% if logik_1 == True %}
             <button class='fd2' onclick="article()">{{ menu.1 }}</button>
             {% endif %}
         </div> 
@@ -278,9 +278,8 @@
 
 {% comment %} basic блок с основной информацией {% endcomment %}    
 {% block info_blok %}  
-                {% if logik_1 != True %}
                 <div id='text_logik_1'>
-                    {% if acess_key != True %}
+                    {% if logik_1 != True %}
                     <p>Вам открыто комментрование и просмотр постов доступных только членам клуба </p>
                     <p>Но для размещения собственных постов, просьба пройти в настройки </p>
                     <p>И настроить личный профиль!  </p>
@@ -289,7 +288,6 @@
                     <p>Вы пока ни чего не написали</p>
                     {% endif %}
                 </div>
-                {% else %}
                 
 
             <div id = 'box_info_blok'>
@@ -315,7 +313,7 @@
                     </div>
                     <div class = 'or_editorial_office3'>
                         <div class = 'or_editorial_office33'>
-                            <p> {{ i.photo}}</p>
+                            <img src="{{ i.photo.url }}"
                         </div>
                     </div>
 
@@ -377,7 +375,7 @@
                 </div>  
                 {% endfor%} 
             </div>
-            {% endif %}
+            
 {% endblock %}        
         
  
