@@ -37,17 +37,24 @@ def personal_page(request, user):
             return redirect(f'/personalpage/{user}/block_page')             # перенаправление гостя на страницу блокировки
         else:
             return redirect(f'/personalpage/{user}/reception')              # перенаправление гостя в приемную   
+
+                                                 
+    key_article = False                                                     # ключ статей
+    d = NewArticle.objects.filter(author__username = user)
+    if d:
+        key_article = True   
+        for i in d:
+            print(i.title)
+            # re = Photo.objects.filter(location__author__username = user)
+            res = Photo.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
+            for j in res:
+                print(j.image)   # получение списка фото к статье
+    
     
     a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
-    d = NewArticle.objects.filter(author__username = user)
-    for i in d:
-        print(i.title)
-        # re = Photo.objects.filter(location__author__username = user)
-        res = Photo.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
-        for j in res:
-            print(j.image)   # получение списка фото к статье
+    
     e = PersonalInformationUser()
     f = Catalogy.objects.all().order_by('name')
     m = SpecialInfoUser()
@@ -80,7 +87,8 @@ def personal_page(request, user):
                 #    'acess_key' : acess_key,
                    'acess_page' : acess_page,
                    'acess_info' : acess_info,
-                   'acess_mass' : acess_mass,
+                   'acess_mass' : acess_mass,                                               # ключ черновиков
+                   'key_article' : key_article, 
                    }
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)
@@ -100,7 +108,8 @@ def personal_page(request, user):
                 for f in request.FILES.getlist('photo'):
                     print(f.name)
                     data = f.read()
-                    photo = Photo(location=location)
+                    photo = Photo.location.set(location)
+                    # photo = Photo(location=location)  работало с ключем ForeignKey
                     print(photo)
                     photo.image.save(f.name, ContentFile(data))
                     photo.save()

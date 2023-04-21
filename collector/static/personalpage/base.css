@@ -59,7 +59,7 @@ header {
 #messenges {
     height: 100%;
     width: 30%;
-    position: relative;
+    
     background-color: rgb(109, 84, 201);
     display: flex;
     flex-direction: column;
@@ -192,7 +192,6 @@ footer {
 #info_blok {
     height: 100%;
     width: max-content;
-    position: relative;
     background-color: rgb(158, 215, 84);
     display: flex;
     flex-direction: column;
