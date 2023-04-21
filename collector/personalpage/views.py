@@ -37,37 +37,19 @@ def personal_page(request, user):
             return redirect(f'/personalpage/{user}/block_page')             # перенаправление гостя на страницу блокировки
         else:
             return redirect(f'/personalpage/{user}/reception')              # перенаправление гостя в приемную   
-
-                                                 
-    key_article = False                                                     # ключ статей
-    d = NewArticle.objects.filter(author__username = user)
-    dict_draft = {}
+        
+    key_article, dict_draft = function_show_drafts(user)    # получение ключа и словаря для отображения страницы
     
-    if d:
-        key_article = True   
-        list_draft = []
-        for i in d:
-            # re = Photo.objects.filter(location__author__username = user)
-            res = Photo.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
-            if res:
-                for j in res:
-                    list_draft.append(j.image)
-            else:
-                list_draft.append(False)
-            dict_draft[i] = list_draft
-            list_draft = []
-  
     a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
-    
     e = PersonalInformationUser()
     f = Catalogy.objects.all().order_by('name')
     m = SpecialInfoUser()
     title = 'Кабинет'
-    # menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
+   
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
-    # menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
+    
  
 
     context = {'nik_name' : nik_reguest,
@@ -333,3 +315,22 @@ def func_list_check(l1, l2):
             if i in l2:
                 return True
     return False
+
+# функция получения ключа и словаря для отображения черновиков на странице
+def function_show_drafts(user):
+    key_article = False                                                     # ключ статей
+    d = NewArticle.objects.filter(author__username = user)
+    dict_draft = {}
+    if d:
+        key_article = True   
+        list_draft = []
+        for i in d:
+            res = Photo.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
+            if res:
+                for j in res:
+                    list_draft.append(j.image)
+            else:
+                list_draft.append(False)
+            dict_draft[i] = list_draft
+            list_draft = []
+    return key_article, dict_draft 

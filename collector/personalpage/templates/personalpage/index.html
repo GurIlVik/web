@@ -302,16 +302,16 @@
                     </div>
                     <div class = 'or_editorial_office3'>
                             {% if value.0 == False %}
-                            <p>фото не загружено</p>
+                            <p class = 'predmet_collection_user3'>фото не загружено</p>
                             {% else %}
-                            <img class='img_for_arts' src="{{ value.0.url }}">  
+                            <img class='img_for_arts' src="{{ value.0.url }}"> 
                             {% endif %}
                     </div>
                     <div class = 'or_editorial_office4'>
                             <p class = 'predmet_collection_user3'>Черновик</p> 
                     </div>
                     <div class = 'or_editorial_office5'>
-                        <button class='fd2' onclick="redaction()">РЕДАКТИРОВАТЬ</button>
+                        <button class='fd2' onclick="redaction({{ key.pk }})">РЕДАКТИРОВАТЬ</button>
                     </div>
                 </div> 
                 {% endfor %}

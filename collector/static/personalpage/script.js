@@ -149,6 +149,6 @@ function clouseWin(win1) {
     global1.style.display = 'none';
 }
 
-function redaction() {
-    console.log('lewfnhliewruhrveio2u')
+function redaction(art) {
+    console.log(art)
 }
