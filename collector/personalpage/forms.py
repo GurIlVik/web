@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ClearableFileInput, ModelForm, TextInput
 from main.models import Category, Catalogy, AllowanceComment
 from .models import PresentationUser, AllowanceModel, InfoUser, Professional
-# from multiupload.fields import MultiFileField
+from multiupload.fields import MultiFileField
 
 class NewArticleForm(forms.Form):
     title = forms.CharField(
@@ -29,9 +29,9 @@ class NewArticleForm(forms.Form):
             label='',
             empty_label = 'К выбору обязателен',
             )
-#     photo = MultiFileField(min_num=0, max_num=20,required=False )
-    photo = forms.ImageField(label=u'введите файл', 
-            widget=forms.FileInput(attrs={'multiple': 'multiple'}))
+    photo = MultiFileField(min_num=0, max_num=5,required=False )
+#     photo = forms.ImageField(label=u'введите файл', 
+#             widget=forms.FileInput(attrs={'multiple': 'multiple'}), required=False)
     
 #     photo = forms.ImageField(label='введите файл', 
 #             widget = ClearableFileInput(attrs={'multiple': True, 'class': 'main_form_text'}), 

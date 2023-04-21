@@ -293,27 +293,26 @@
     {% else %}    
             <div id = 'box_info_blok'>
                 {% for key, value in for_editorial_office.items %}
-                <div id = 'box_for_editorial_office'>
+                <div class = 'box_for_editorial_office'>
                     <div class = 'or_editorial_office1'>
-                        <div class = 'or_editorial_office11'>
-                            <p> {{ key.title }}</p>
-                        </div>
+                            <p class = 'predmet_collection_user3'> {{ key.title }}</p>
                     </div>
                     <div class = 'or_editorial_office2'>
-                        <div class = 'or_editorial_office22'>
-                            <p> {{ key.text }}</p>
-                        </div>
+                            <p class = 'predmet_collection_user3'> {{ key.text }}</p>
                     </div>
                     <div class = 'or_editorial_office3'>
-                        <div class = 'or_editorial_office33'>
-                            {% for photo in value %}
-                            {% comment %} {% k = Photo.objects.filter(location__pk = i.pk) %}
-                            {% for j in k %}{% endcomment %}
-                            <img src="{{ photo.url }}"> 
-                            {% endfor %}
-                        </div>
+                            {% if value.0 == False %}
+                            <p>фото не загружено</p>
+                            {% else %}
+                            <img class='img_for_arts' src="{{ value.0.url }}">  
+                            {% endif %}
                     </div>
-                    <p>Черновик не опубликованно: <button class='fd2'>РЕДАКТИРОВАТЬ</button></p>
+                    <div class = 'or_editorial_office4'>
+                            <p class = 'predmet_collection_user3'>Черновик</p> 
+                    </div>
+                    <div class = 'or_editorial_office5'>
+                        <button class='fd2' onclick="redaction()">РЕДАКТИРОВАТЬ</button>
+                    </div>
                 </div> 
                 {% endfor %}
 

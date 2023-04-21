@@ -47,17 +47,15 @@ def personal_page(request, user):
         key_article = True   
         list_draft = []
         for i in d:
-            print(i.title)
             # re = Photo.objects.filter(location__author__username = user)
             res = Photo.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
-            print('ijfvioewhbroiubhewoiuvgrhbeoiwuhbr')
-            for j in res:
-                list_draft.append(j.image)
-                print(list_draft)
-                print(j.image)   # получение списка фото к статье
+            if res:
+                for j in res:
+                    list_draft.append(j.image)
+            else:
+                list_draft.append(False)
             dict_draft[i] = list_draft
             list_draft = []
-    print(dict_draft)
   
     a = Information_block.objects.all()
     b = user
