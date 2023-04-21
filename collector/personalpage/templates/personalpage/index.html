@@ -6,10 +6,7 @@
 
 {% comment %} ОТОБРАЖЕИЕ МЕНЮ {% endcomment %}
 {% block menu_block %} 
-        {% comment %} {% if access == True %} {% endcomment %}
-        {% comment %} {% for i in menu %} {% endcomment %}
         <div>
-            {% comment %} <button id='header2' class='fd2' onclick="article()">{{ i }}</button> {% endcomment %}
             <button class='fd2' onclick="infoUser()">{{ menu.0 }}</button>
         </div>
         <div>
@@ -23,8 +20,6 @@
         <div>
             <a class='fd2' href="{% url 'logout' %}"><button class='fd2'>{{ menu.3 }}</button></a>
         </div>
-        {% comment %} {% endfor %} {% endcomment %}
-        {% comment %} {% endif %} {% endcomment %}
 {% endblock %}
 
 {% comment %} Меню написания статьи  {% endcomment %}
