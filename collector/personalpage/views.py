@@ -45,17 +45,20 @@ def personal_page(request, user):
     
     if d:
         key_article = True   
+        list_draft = []
         for i in d:
             print(i.title)
             # re = Photo.objects.filter(location__author__username = user)
             res = Photo.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
-            list_draft = []
+            print('ijfvioewhbroiubhewoiuvgrhbeoiwuhbr')
             for j in res:
                 list_draft.append(j.image)
+                print(list_draft)
                 print(j.image)   # получение списка фото к статье
             dict_draft[i] = list_draft
+            list_draft = []
     print(dict_draft)
-    
+  
     a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
@@ -67,18 +70,14 @@ def personal_page(request, user):
     # menu = ['К СЕБЕ', 'НА ГЛАВНУЮ', 'РЕГИСТРАЦИЯ',]
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
     # menu2 = ['К СЕБЕ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
-    
-    
-    print(key_owner)
-    
+ 
 
-  
     context = {'nik_name' : nik_reguest,
                    'register' : registered_user,
                    'information_block' : a,
                    'nik_user' : b, 
                    'form' : c,
-                   'for_editorial_office' : d,
+                   'for_editorial_office' : dict_draft,
                    'title' : title,
                    'menu' : menu1,
                    'form_info' : e,
