@@ -22,7 +22,7 @@ class NewArticle(models.Model):
 
 class Photo(models.Model):
     image = models.ImageField(upload_to='photos/%Y/%m/%d/',)
-    location = models.ManyToManyField(NewArticle, related_name='photo',)
+    location = models.ForeignKey(NewArticle, related_name='photo', on_delete=models.CASCADE)
 
 
 

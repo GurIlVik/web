@@ -41,15 +41,20 @@ def personal_page(request, user):
                                                  
     key_article = False                                                     # ключ статей
     d = NewArticle.objects.filter(author__username = user)
+    dict_draft = {}
+    
     if d:
         key_article = True   
         for i in d:
             print(i.title)
             # re = Photo.objects.filter(location__author__username = user)
             res = Photo.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
+            list_draft = []
             for j in res:
+                list_draft.append(j.image)
                 print(j.image)   # получение списка фото к статье
-    
+            dict_draft[i] = list_draft
+    print(dict_draft)
     
     a = Information_block.objects.all()
     b = user
@@ -108,8 +113,8 @@ def personal_page(request, user):
                 for f in request.FILES.getlist('photo'):
                     print(f.name)
                     data = f.read()
-                    photo = Photo.location.set(location)
-                    # photo = Photo(location=location)  работало с ключем ForeignKey
+                    # photo = Photo.location.set(location)  # отображает в админке но не показывает в другом
+                    photo = Photo(location=location)   # работало с ключем ForeignKey
                     print(photo)
                     photo.image.save(f.name, ContentFile(data))
                     photo.save()

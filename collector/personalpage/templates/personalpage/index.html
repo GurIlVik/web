@@ -278,26 +278,22 @@
 
 {% comment %} basic блок с основной информацией {% endcomment %}    
 {% block info_blok %}  
-    {% if key_article != True %}
+    {% if logik_1 != True %}
         <div id='text_logik_1'>
-            {% if logik_1 != True %}
             <p>Вам открыто комментрование и просмотр постов доступных только членам клуба </p>
             <p>Но для размещения собственных постов, просьба пройти в настройки </p>
             <p>И настроить личный профиль!  </p>
             <p>Допуск на обновления до 5 минут</p>
-            {% endif %}
+        </div>
+    {% else %}
+    {% if key_article != True %}
+        <div id='text_logik_1'>
             <p>Вы пока ни чего не написали</p>
         </div>
     {% else %}    
             <div id = 'box_info_blok'>
-                <form class='box_write_info_blok' method="post" action="">
-                    {{ form_art.as_p }}
-                </form> 
-                
-  
                 {% for i in for_editorial_office %}
                 <div id = 'box_for_editorial_office'>
-                    <button class='fd2'>РЕДАКТИРОВАТЬ</button>
                     <div class = 'or_editorial_office1'>
                         <div class = 'or_editorial_office11'>
                             <p> {{ i.title}}</p>
@@ -310,10 +306,12 @@
                     </div>
                     <div class = 'or_editorial_office3'>
                         <div class = 'or_editorial_office33'>
-                            <img src="{{ i.photo.url }}">
+                            {% comment %} {% k = Photo.objects.filter(location__pk = i.pk) %}
+                            {% for j in k %}
+                            <img src="{{ j.image.url }}"> {% endcomment %}
                         </div>
                     </div>
-
+                    <p>Черновик не опубликованно: <button class='fd2'>РЕДАКТИРОВАТЬ</button></p>
                 </div> 
                 {% endfor %}
 
@@ -373,6 +371,7 @@
                 {% endfor%} 
             </div>
        
+    {% endif %} 
     {% endif %}       
 {% endblock %}        
         
