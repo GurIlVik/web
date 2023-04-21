@@ -3,9 +3,6 @@ from django.contrib.auth.models import User
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
 
-class Photo(models.Model):
-    image = models.ImageField(upload_to='photos/%Y/%m/%d/',)
-    location = models.ForeignKey('NewArticle', related_name='photo', on_delete=models.CASCADE)
 
 # Модель записи сообщения на сохранение под дальнейшую редакцию
 class NewArticle(models.Model):
@@ -22,6 +19,12 @@ class NewArticle(models.Model):
         verbose_name_plural = 'Статьи'          # отображение в админе мн число
         ordering = ['categories', '-topic']      # отображение в админе сортировка - минус обратная сортировка
         # для отображения в админке страницы на русском необходимо перейти в аррс.пи 
+
+class Photo(models.Model):
+    image = models.ImageField(upload_to='photos/%Y/%m/%d/',)
+    location = models.ManyToManyField(NewArticle, related_name='photo',)
+
+
 
 # МОДЕЛЬ разделения на продавцов и коллекционеров 
 class Professional(models.Model):

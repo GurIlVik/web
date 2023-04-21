@@ -43,8 +43,11 @@ def personal_page(request, user):
     c = NewArticleForm()
     d = NewArticle.objects.filter(author__username = user)
     for i in d:
-        
-        print(i.photo)
+        print(i.title)
+        # re = Photo.objects.filter(location__author__username = user)
+        res = Photo.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
+        for j in res:
+            print(j.image)   # получение списка фото к статье
     e = PersonalInformationUser()
     f = Catalogy.objects.all().order_by('name')
     m = SpecialInfoUser()
