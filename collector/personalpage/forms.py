@@ -30,13 +30,17 @@ class NewArticleForm(forms.Form):
             empty_label = 'К выбору обязателен',
             )
     photo = MultiFileField(min_num=0, max_num=5,required=False )
+    
 #     photo = forms.ImageField(label=u'введите файл', 
 #             widget=forms.FileInput(attrs={'multiple': 'multiple'}), required=False)
     
 #     photo = forms.ImageField(label='введите файл', 
 #             widget = ClearableFileInput(attrs={'multiple': True, 'class': 'main_form_text'}), 
-#             )
-
+#           
+    
+    
+    
+    
 class AllowanceForm(forms.ModelForm):
     class Meta:
         model = AllowanceModel

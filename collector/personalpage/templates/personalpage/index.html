@@ -36,6 +36,9 @@
                     <p class='p_popup'>Разрешить ли комментировать статью:</p>
                     <div id="pu_div23">{{ form.allowance }}</div>
                     <p class='p_popup'>Добавление фотографий:</p>
+                    <p class='p_popup2'>ВНИМАНИЕ при сохранении</p>
+                    <p class='p_popup2'>более 5 файлов</p>
+                    <p class='p_popup2'>все данные будут потерены</p>
                     <div id="pu_div24">{{ form.photo }}</div>
                     <p></p>
                     <p></p>
@@ -49,6 +52,7 @@
                     </div>
              
                     <div id="pu_div4">
+                        {{ form.error }}
                         <button class='fd2' type="submit" name='memory'>сохранить</button>  
                         <button class='fd2' type="submit" name='write'>опубликовать</button>
                         <button class='fd2' type="submit" name='delete'>удалить</button>
@@ -290,10 +294,10 @@
                 {% for key, value in for_editorial_office.items %}
                 <div class = 'box_for_editorial_office'>
                     <div class = 'or_editorial_office1'>
-                            <p class = 'predmet_collection_user3'> {{ key.title }}</p>
+                            <p id='key_title_id_{{ key.pk }}' class = 'predmet_collection_user3'> {{ key.title }}</p>
                     </div>
                     <div class = 'or_editorial_office2'>
-                            <p class = 'predmet_collection_user3'> {{ key.text }}</p>
+                            <p id='key_text_id_{{ key.pk }}' class = 'predmet_collection_user3'> {{ key.text }}</p>
                     </div>
                     <div class = 'or_editorial_office3'>
                             {% if value.0 == False %}
@@ -308,6 +312,8 @@
                     <div class = 'or_editorial_office5'>
                         <button class='fd2' onclick="redaction({{ key.pk }})">РЕДАКТИРОВАТЬ</button>
                     </div>
+                </div> 
+                <div class = 'or_editorial_office7' id="id_for_form_{{ key.pk }}">
                 </div> 
                 {% endfor %}
 

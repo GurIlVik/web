@@ -137,5 +137,9 @@ function clouseWin(win1) {
 }
 
 function redaction(art) {
+    
+    let div_info = document.getElementById('id_for_form_'+art)
+
     console.log(art)
+    console.log(div_info)
 }

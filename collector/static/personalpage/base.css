@@ -242,6 +242,9 @@ footer {
     grid-column: 1;
     grid-row: 3;
 }
+.or_editorial_office7 {
+    display: none;
+}
 
 
 /* ОТРАЖЕНИЕ для новой статьи */
@@ -388,6 +391,13 @@ footer {
     margin-top: 50px;
     margin-bottom: 25px;
     font-size: 18px;
+}
+
+.p_popup2 {
+    color: red;
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .p_popup1 {
