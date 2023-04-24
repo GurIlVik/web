@@ -314,62 +314,54 @@
                     </div>
                 </div> 
                 <div class = 'or_editorial_office7' id="id_for_form_{{ key.pk }}">
-                    
+
                 </div> 
                 {% endfor %}
 
   
                 {% for i in information_block %}
                 <div class = 'info_blok_1'>
-                    <div class = 'info_blok_2'>
-                        <div class = 'info_blok_21'>
-                            {{i.picture_author}}
-                        </div>
-                        <div class = 'info_blok_22'>
-                            <div class = 'info_blok_221'>
-                                <div class = 'info_blok_2212'>
-                                    {{i.page_author}}
-                                </div>
-                                <div class = 'info_blok_2213'>
-                                    {{i.time_publication}}
-                                </div>
-                                <div class = 'info_blok_2214'>
-                                    {{i.categories}}
-                                </div>
-                            </div>
-                            <div class = 'info_blok_222'>
-                                {{i.table_contents}}
-                            </div>
-                        </div>
+                    <div class = 'info_blok_7'>
+                        <p class = 'predmet_collection_user5'>{{i.time_publication}}</p> 
                     </div>
-                    <div class = 'info_blok_3'>
-                        {{i.text_contents}}
+                    
+                    <div class = 'info_blok_72'>
+                        <p class = 'predmet_collection_user5'>{{i.topic_interest}}</p> 
                     </div>
-                    <div class = 'info_blok_4'>
-                        <div class = 'info_blok_41'>
-                            <div class = 'info_blok_41'>
-                                {{i.symbol_ok}}
-                            </div>
-                            <div class = 'info_blok_41'>
-                                {{i.count_symbol_ok}}
-                            </div>
-                            <div class = 'info_blok_41'>
-                                {{i.symbol_bad}}
-                            </div>
-                            <div class = 'info_blok_41'>
-                                {{i.count_symbol_bad}}
-                            </div>
-                        </div>
-                        <div class = 'info_blok_42'>
-                            {{i.comment_article}}
-                        </div>
-                        <div class = 'info_blok_43'>
-                            {{i.write_author}}
-                        </div> 
-                        <div class = 'display_none'>
-                        {{i.topic_interest}}
-                        </div> 
-                    </div> 
+                    <div class = 'info_blok_73'>
+                        <p class = 'predmet_collection_user5'>{{i.categories}}</p> 
+                    </div>
+                    <div class = 'info_blok_74'>
+                        <p class = 'predmet_collection_user6'>{{i.table_contents}}</p> 
+                    </div>
+                    <div class = 'info_blok_75'>
+                        <p class = 'predmet_collection_user5'>{{i.text_contents}}</p>
+                    </div>
+                    
+                    <div class = 'info_blok_76'>
+                        {% comment %} bvu√ {% endcomment %}vfhb
+                    </div>
+                    <div class = 'info_blok_77'>
+                        {% comment %} bvu√ {% endcomment %}welhu
+                    </div>
+                    <div class = 'info_blok_78'>
+                        <p class='grid_main_p'>&#x1F44D;</p>
+                    </div>
+                    <div class = 'info_blok_79'>
+                        <p class='predmet_collection_user5'> {{i.count_symbol_ok}} </p>
+                    </div>
+                    <div class = 'info_blok_8'>
+                        <p class='grid_main_p'>&#128078;</p>
+                    </div>
+                    <div class = 'info_blok_81'>
+                        <p class='predmet_collection_user5'>{{i.count_symbol_bad}}</p>
+                    </div>
+                    <div class = 'info_blok_82'>
+                        <button class='fd2' onclick="redaction({{ i.pk }})">РЕДАКТИРОВАТЬ</button>
+                    </div>
+                    <div class = 'info_blok_82'>
+                        <button class='fd2' onclick="redaction({{ i.pk }})">Чиатать полностью</button>
+                    </div>
                 </div>  
                 {% endfor%} 
             </div>

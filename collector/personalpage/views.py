@@ -100,19 +100,9 @@ def personal_page(request, user):
                     if 'memor_' in key:
                         print(4.5)
                         function_rewrite_draft(cd, request, int(key[6:]))
-                        # memory_elem = NewArticle.objects.get(id = int(key[7:]))
-                        # memory_elem.title=cd['title'], 
-                        # memory_elem.text=cd['text'], 
-                        # memory_elem.categories=cd['categories'], 
-                        # memory_elem.topic = cd['topic']
-                        # for f in request.FILES.getlist('photo'):
-                        #     data = f.read()
-                        #     photo = Photo(location=memory_elem)   # работало с ключем ForeignKey
-                        #     photo.image.save(f.name, ContentFile(data))
-                        #     photo.save()
                     elif 'writ_' in key:
-                        function_write_draft(int(key[5:]))
-                        function_write_clean_copy(cd, request, c, b)
+                        function_delete_draft(int(key[5:]))
+                        function_write_clean_copy(cd, b)
                     elif 'delet_' in key:
                         function_delete_draft(int(key[6:]))
                     else:
@@ -350,7 +340,7 @@ def function_write_draft(request, cd):
         photo.save()
 
 # функция записи из формы в модель чистовика - статьи с фотографиями       
-def function_write_clean_copy(request, cd, b):
+def function_write_clean_copy(cd, b):
     с = Information_block.objects.create(
         picture_author = 'фото',
         page_author = b,       # ник автора с отправкой на его страницу

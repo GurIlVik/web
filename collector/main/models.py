@@ -44,7 +44,7 @@ class TopicInterest(models.Model):
 class Information_block(models.Model):
     picture_author = models.CharField(max_length=250)
     page_author = models.CharField(max_length=250)          # ник автора с отправкой на его страницу
-    time_publication = models.TimeField(auto_now_add=True, auto_now = False,)
+    time_publication = models.DateTimeField(auto_now_add=True, auto_now = False,)
     categories = models.CharField(max_length=250)           # категории по списку предметов коллекционирования
     topic_interest = models.CharField(max_length=250)       # категории по списку интереса и поиска
     table_contents = models.CharField(max_length=250)

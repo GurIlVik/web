@@ -47,9 +47,6 @@ header {
 #global {
     width: 100%;
     height: auto;
-    /* height: 1000px; */
-    /* min-height: 100%;
-    max-height: 98%; */
     top: 40px;
     display: flex;
     background-color: aqua;
@@ -70,6 +67,90 @@ header {
     justify-content: flex-start;
 }
 
+/* Отображение опубликованных статей */
+.info_blok_1 {
+    width: 100%;
+    margin: 2px;
+    height: 200px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 4fr 4fr 4fr 4fr;
+    grid-template-rows: 1fr 1fr 2fr 2fr 1fr;
+    border-bottom: 2px solid black;
+    border-top: 1px solid black;
+}
+.info_blok_7 {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row: 1;
+}
+
+.info_blok_72 {
+    grid-column: 6;
+    grid-row: 1;
+}
+
+.info_blok_73 {
+    grid-column: 7;
+    grid-row: 1;
+}
+.info_blok_74 {
+    border-top: 1px solid black;
+    grid-column-start: 1;
+    grid-column-end: 8;
+    grid-row: 2;
+    text-align: center;
+}
+.info_blok_75 {
+    border-top: 2px solid black;
+    grid-column-start: 1;
+    grid-column-end: 8;
+    grid-row-start: 3;
+    grid-row-end: 5;
+    border-bottom: 2px solid black;
+    overflow: hidden;
+}
+
+.info_blok_76 {
+    border-left: 1px solid black;
+    grid-column: 8;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+.info_blok_77 { 
+    border-left: 1px solid black;
+    grid-column: 8;
+    grid-row-start: 4;
+    grid-row-end: 6;
+}
+.info_blok_78 { 
+    grid-column: 1;
+    grid-row: 5;
+}
+.info_blok_79 { 
+    grid-column: 2;
+    grid-row: 5;
+}
+.info_blok_8 { 
+    grid-column: 3;
+    grid-row: 5;
+}
+.info_blok_81 { 
+    grid-column: 4;
+    grid-row: 5;
+}
+.info_blok_82 { 
+    grid-column: 5;
+    grid-row: 5;
+}
+.predmet_collection_user5 {
+    font-size: 16px;
+    color: black;
+}
+.predmet_collection_user6 {
+    font-size: 18px;
+    color: black;
+}
 
 /* ОТОбражение подвала */
 footer {
