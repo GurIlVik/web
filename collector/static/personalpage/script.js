@@ -2,7 +2,6 @@
 
 
 function article() {
-    console.log('kjwdhbv');
     let global = document.getElementById('alternativ_global');
     global.style.display = 'block';
 }
@@ -137,9 +136,29 @@ function clouseWin(win1) {
 }
 
 function redaction(art) {
-    
-    let div_info = document.getElementById('id_for_form_'+art)
+    let div_info = document.getElementById('id_for_form_'+art);
+    let div_info_title = document.getElementById('key_title_id_'+art);
+    let div_info_text = document.getElementById('key_text_id_'+art);
+    console.log(art);
+    console.log(div_info);
+    article();
+    let div_form_topic = document.getElementById('pu_div21');
+    let div_form_categories = document.getElementById('pu_div22');
+    let div_form_allowance = document.getElementById('pu_div23');
+    let div_form_photo = document.getElementById('pu_div24');
+    let div_form_title = document.getElementById('id_title');
+    let div_form_text = document.getElementById('id_text');
+    let title = div_info_title.innerText;
+    console.log(title)
+    let text = div_info_text.innerText;
+    console.log(text)
+    div_form_title.value = title
+    div_form_text.value = text
+    let button_memory = document.getElementById('non_id_memory');
+    button_memory.name = 'memor_'+art
+    let button_write = document.getElementById('non_id_write');
+    button_write.name = 'writ_'+art
+    let button_delete = document.getElementById('non_id_delete');
+    button_delete.name = 'delet_'+art
 
-    console.log(art)
-    console.log(div_info)
 }

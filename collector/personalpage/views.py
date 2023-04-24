@@ -82,50 +82,50 @@ def personal_page(request, user):
         form_user3 = SpecialInfoUser(request.POST)
         print(1)
         if form.is_valid():
+            print(2)
             cd = form.cleaned_data
             if 'memory' in request.POST:
-                location = NewArticle.objects.create(author=request.user, 
-                                                    title=cd['title'], 
-                                                    text=cd['text'], 
-                                                    categories=cd['categories'], 
-                                                    topic = cd['topic'])
-                for f in request.FILES.getlist('photo'):
-                    print(f.name)
-                    data = f.read()
-                    # photo = Photo.location.set(location)  # отображает в админке но не показывает в другом
-                    photo = Photo(location=location)   # работало с ключем ForeignKey
-                    print(photo)
-                    photo.image.save(f.name, ContentFile(data))
-                    photo.save()
-                    print(photo)
-                    
-                
-                
-                
-                
-                
-                # cd = NewArticle.objects.create(author=b, title=cd['title'], 
-                #                                 text=cd['text'], photo=cd['photo'], 
-                #                                 categories=cd['categories'], topic = cd['topic'])
-                return render(request, 'personalpage/index.html', context)
+                print(21)
+                function_write_draft(request, cd)
             elif 'write' in request.POST:
-                с = Information_block.objects.create(
-                    picture_author = 'фото',
-                    page_author = b,       # ник автора с отправкой на его страницу
-                    categories = c['categories'],        # категории по списку предметов коллекционирования
-                    topic_interest = c['topic'],      # категории по списку интереса и поиска
-                    table_contents = c['title'],
-                    text_contents = c['text'],
-                    symbol_ok = 'ok',
-                    count_symbol_ok = 0,
-                    symbol_bad = 'out',
-                    count_symbol_bad = 0,
-                    comment_article = 'пока вопрос',     # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
-                    write_author = 'писать автору', 
-                    access = True)
-                return render(request, 'personalpage/index.html', context)
+                print(22)
+                function_write_clean_copy(request, cd, b)
             elif 'delete' in request.POST:
-                return render(request, 'personalpage/index.html', context)
+                print(23)
+                pass
+            else: 
+                print(3)
+                for key, elem in request.POST.items():
+                    print(4)
+                    if 'memor_' in key:
+                        print(4.5)
+                        function_rewrite_draft(cd, request, int(key[6:]))
+                        # memory_elem = NewArticle.objects.get(id = int(key[7:]))
+                        # memory_elem.title=cd['title'], 
+                        # memory_elem.text=cd['text'], 
+                        # memory_elem.categories=cd['categories'], 
+                        # memory_elem.topic = cd['topic']
+                        # for f in request.FILES.getlist('photo'):
+                        #     data = f.read()
+                        #     photo = Photo(location=memory_elem)   # работало с ключем ForeignKey
+                        #     photo.image.save(f.name, ContentFile(data))
+                        #     photo.save()
+                    elif 'writ_' in key:
+                        function_write_draft(int(key[5:]))
+                        function_write_clean_copy(cd, request, c, b)
+                    elif 'delet_' in key:
+                        function_delete_draft(int(key[6:]))
+                    else:
+                        ('что-то идет не так')
+                
+                                                             
+                    print(key)
+                print(request.POST)
+                print('вот так хрень нельзя же цифру')
+            return render(request, 'personalpage/index.html', context)    
+                
+                
+                
         elif form_user1.is_valid():
             form_user1 = form_user1.cleaned_data
             f = PresentationUser(
@@ -334,3 +334,65 @@ def function_show_drafts(user):
             dict_draft[i] = list_draft
             list_draft = []
     return key_article, dict_draft 
+
+# функция записи из формы в модель черновика - статьи с фотографиями
+def function_write_draft(request, cd):
+    location = NewArticle.objects.create(author=request.user, 
+                                        title=cd['title'], 
+                                        text=cd['text'], 
+                                        categories=cd['categories'], 
+                                        topic = cd['topic'])
+    for f in request.FILES.getlist('photo'):
+        data = f.read()
+        # photo = Photo.location.set(location)  # отображает в админке но не показывает в другом
+        photo = Photo(location=location)   # работало с ключем ForeignKey
+        photo.image.save(f.name, ContentFile(data))
+        photo.save()
+
+# функция записи из формы в модель чистовика - статьи с фотографиями       
+def function_write_clean_copy(request, cd, b):
+    с = Information_block.objects.create(
+        picture_author = 'фото',
+        page_author = b,       # ник автора с отправкой на его страницу
+        categories = cd['categories'],        # категории по списку предметов коллекционирования
+        topic_interest = cd['topic'],      # категории по списку интереса и поиска
+        table_contents = cd['title'],
+        text_contents = cd['text'],
+        symbol_ok = 'ok',
+        count_symbol_ok = 0,
+        symbol_bad = 'out',
+        count_symbol_bad = 0,
+        comment_article = 'пока вопрос',     # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
+        write_author = 'писать автору', 
+        access = True)
+
+# функция удаления черновика
+def function_delete_draft(key):
+    memory_elem = NewArticle.objects.get(id = key)
+    memory_elem.delete()
+
+# функция перезаписи черновика    
+def function_rewrite_draft(cd, request, key):
+    print(cd['title'])
+    
+    print(type(cd['topic']))
+    memory_elem = NewArticle.objects.get(id = key)
+    
+    print(memory_elem.title)
+    
+    memory_elem.title=cd['title'], 
+    
+   
+    memory_elem.text=cd['text'], 
+    memory_elem.categories=cd['categories'], 
+    memory_elem.topic = str(cd['topic'])
+    memory_elem.save()
+    
+    for fail_f in request.FILES.getlist('photo'):
+        
+        data = fail_f.read()
+        photo = Photo(location=memory_elem)   # работало с ключем ForeignKey
+        photo.image.save(fail_f.name, ContentFile(data))
+        photo.save()
+        
+        

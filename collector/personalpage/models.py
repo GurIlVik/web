@@ -19,6 +19,8 @@ class NewArticle(models.Model):
         verbose_name_plural = 'Статьи'          # отображение в админе мн число
         ordering = ['categories', '-topic']      # отображение в админе сортировка - минус обратная сортировка
         # для отображения в админке страницы на русском необходимо перейти в аррс.пи 
+    
+    
 
 class Photo(models.Model):
     image = models.ImageField(upload_to='photos/%Y/%m/%d/',)

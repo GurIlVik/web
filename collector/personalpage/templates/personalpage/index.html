@@ -46,16 +46,16 @@
                 <div id="pu_div3">
                     <div id="pu_div3">
                         <p class='p_popup1'>Название статьи:</p>
-                        {{ form.title }}
+                        <div id="pu_div25">{{ form.title }}</div>
                         <p class='p_popup1'>Текст:</p>
-                        {{ form.text }}
+                        <div id="pu_div26">{{ form.text }}</div>
                     </div>
              
                     <div id="pu_div4">
                         {{ form.error }}
-                        <button class='fd2' type="submit" name='memory'>сохранить</button>  
-                        <button class='fd2' type="submit" name='write'>опубликовать</button>
-                        <button class='fd2' type="submit" name='delete'>удалить</button>
+                        <button class='fd2' type="submit" name='memory' id='non_id_memory'>сохранить</button>  
+                        <button class='fd2' type="submit" name='write' id='non_id_write'>опубликовать</button>
+                        <button class='fd2' type="submit" name='delete' id='non_id_delete'>удалить</button>
                     </div>
                 </div>
             </div>
@@ -314,6 +314,7 @@
                     </div>
                 </div> 
                 <div class = 'or_editorial_office7' id="id_for_form_{{ key.pk }}">
+                    
                 </div> 
                 {% endfor %}
 
