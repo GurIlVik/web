@@ -356,11 +356,14 @@
                     <div class = 'info_blok_81'>
                         <p class='predmet_collection_user5'>{{i.count_symbol_bad}}</p>
                     </div>
-                    <div class = 'info_blok_82'>
+                    {% comment %} <div class = 'info_blok_82'>
                         <button class='fd2' onclick="redaction({{ i.pk }})">РЕДАКТИРОВАТЬ</button>
-                    </div>
+                    </div> {% endcomment %}
                     <div class = 'info_blok_82'>
-                        <button class='fd2' onclick="redaction({{ i.pk }})">Чиатать полностью</button>
+                        <button class='fd2' onclick="redaction({{ i.pk }})">редактировать</button>
+                    </div>
+                    <div class = 'info_blok_83'>
+                        <button class='fd2' onclick="redaction({{ i.pk }})">допуски</button>
                     </div>
                 </div>  
                 {% endfor%} 
