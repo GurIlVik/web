@@ -341,13 +341,21 @@
                     <div class = 'info_blok_75'>
                         <p class = 'predmet_collection_user5'>{{key.text}}</p>
                     </div>
-                    
+                    {% if value.0 == False %}
                     <div class = 'info_blok_76'>
-                        {% comment %} bvu√ {% endcomment %}vfhb
+                        <img class='img_for_arts' src="{{ value.1.url }}"> 
                     </div>
                     <div class = 'info_blok_77'>
-                        {% comment %} bvu√ {% endcomment %}welhu
+                        <img class='img_for_arts' src="{{ value.2.url }}"> 
                     </div>
+                    {% else %}
+                    <div class = 'info_blok_76'>
+                        <p class = 'predmet_collection_user3'>фото не загружено</p>
+                    </div>
+                    <div class = 'info_blok_77'>
+                        <p class = 'predmet_collection_user3'>фото не загружено</p>
+                    </div>
+                    {% endif %}
                     <div class = 'info_blok_78'>
                         <p class='grid_main_p'>&#x1F44D;</p>
                     </div>
