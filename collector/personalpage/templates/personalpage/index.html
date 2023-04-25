@@ -62,7 +62,7 @@
         </form> 
 {% endblock %}
 
-{% comment %} Меню подбора категорий {% endcomment %}
+{% comment %} Меню подбора предмета коллекционирования  {% endcomment %}
 {% block pop_up_list %}
     <div id="alternative_global_3">
         <div class='stringDIV'>
@@ -73,7 +73,9 @@
         <div class='poleDIV'>
             <ul id="list_global">
                 {% for i in list_a %}
+                {% if i != obchee %}
                     <li style="display: inline"><button id={{i.name}} class='fd2' onclick="menuPoint20(this)" >{{ i.name }}</button></li>
+                {% endif %}
                 {% endfor %}
             </ul>
         </div>
@@ -90,7 +92,7 @@
     </div>
 {% endblock %}
 
-{% comment %} Блок ввода персональной информации  {% endcomment %}
+{% comment %} Блок ввода данных персональной информации от юзера {% endcomment %}
 {% block personal_information_write %}
     <div id="alternativ_form_div" >
         <div id="alternativ_form_div1" >
@@ -285,7 +287,7 @@
             <p>Допуск на обновления до 5 минут</p>
         </div>
     {% else %}
-    {% if key_draft != True %}
+    {% if key_draft != True and key_article != True%}
         <div id='text_logik_1'>
             <p>Вы пока ни чего не написали</p>
         </div>

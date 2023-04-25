@@ -42,7 +42,6 @@ def personal_page(request, user):
     key_draft, dict_draft = function_show_drafts(user, NewArticle, Photo)    # получение ключа и словаря для отображения страницы
     key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
     
-    # a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
     e = PersonalInformationUser()
@@ -52,6 +51,10 @@ def personal_page(request, user):
    
     menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
     
+    print(key_draft)
+    print(dict_draft)
+    print(key_article)
+    print(dict_article)
  
 
     context = {'nik_name' : nik_reguest,
@@ -76,7 +79,7 @@ def personal_page(request, user):
                    'acess_mass' : acess_mass,                                               # ключ черновиков
                    'key_article' : key_article, 
                    'key_draft' : key_draft,
-                   
+                   'obchee' : Catalogy.objects.get(name='ОБЩЕЕ'),
                    }
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)
@@ -92,7 +95,7 @@ def personal_page(request, user):
                 function_write_draft(request, cd)
             elif 'write' in request.POST:
                 print(22)
-                function_write_clean_copy(request, cd, b)
+                function_write_clean_copy(cd, request)
             elif 'delete' in request.POST:
                 print(23)
                 pass
@@ -313,17 +316,12 @@ def func_list_check(l1, l2):
 def function_show_drafts(user, clas, photo_clas):
     key_article = False                                                     # ключ статей
     dict_draft = {}
-    print(10000)
-    print(clas)
-    print(photo_clas)
     try:
         dot = clas.objects.filter(author__username = user)
     except OperationalError as error:
         print(error)
     else:
-        if dot == None:
-            pass
-        else:
+        if dot:
             key_article = True   
             list_draft = []
             for i in dot:
@@ -372,8 +370,6 @@ def function_write_clean_copy(cd, request):
         in_publishid = True,
         count_symbol_ok = 0,
         count_symbol_bad = 0,
-        comment_article = 'пока вопрос',     # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
-        write_author = 'писать автору', 
         access = True)
     function_foto_memory(request, PhotoInfoBlock, new_lokus)
     # for f in request.FILES.getlist('photo'):
