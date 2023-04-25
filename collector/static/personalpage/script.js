@@ -1,6 +1,7 @@
 
 
 
+
 function article() {
     let global = document.getElementById('alternativ_global');
     global.style.display = 'block';
@@ -8,7 +9,6 @@ function article() {
 
 
 function infoUser() {
-    console.log('kjwwfvwvfdhbv');
     let global2 = document.getElementById('alternativ_form_div');
     global2.style.display = 'block';
     let global3 = document.getElementById('alternativ_form_div1');
@@ -16,7 +16,6 @@ function infoUser() {
 }
 
 function infoUser1() {
-    console.log('1-1');
     let block1 = document.getElementsByClassName('alternativ_form_div');
     console.log(block1)
     for (let i = 0; i<block1.length; i ++) {
@@ -30,7 +29,6 @@ function infoUser1() {
 }
 
 function viborPredmet(){
-    console.log('1-3')
     let blok2 = document.getElementById('alternative_global_3');
     blok2.style.display = 'block';
     blok2.style.zIndex = '10';
@@ -122,13 +120,11 @@ function find_cat(my_obj) {
 
 
 function infoUser2(inf) {
-    console.log('1-1');
     let global2 = document.getElementById(inf);
     global2.style.display = 'flex';
 }
 
 function clouseWin(win1) {
-    console.log('lweibhv')
     let global1 = document.getElementById("alternativ_form_div");
     let global2 = document.getElementById("alternativ_form_div1");
     global2.style.display = 'none';
@@ -139,8 +135,6 @@ function redaction(art) {
     let div_info = document.getElementById('id_for_form_'+art);
     let div_info_title = document.getElementById('key_title_id_'+art);
     let div_info_text = document.getElementById('key_text_id_'+art);
-    console.log(art);
-    console.log(div_info);
     article();
     let div_form_topic = document.getElementById('pu_div21');
     let div_form_categories = document.getElementById('pu_div22');
@@ -162,3 +156,43 @@ function redaction(art) {
     button_delete.name = 'delet_'+art
 
 }
+
+// Фуекции всплывающего окна и его закрытия
+function fun_foto(param) {
+    let block = param;
+    console.log(param.src)
+    let block2 = document.getElementById('info_blok_90');
+    block2.style.display = 'block';
+    let block3 = document.getElementById('info_blok_91');
+    block3.style.display = 'block';
+    console.log('lwrjbhglkwrjtbgwlrijb')
+    let block5 = document.createElement('img');
+    block5['src'] = param.src;
+    console.log(block5)
+    block5['class'] = 'img_for_arts';
+    block2.appendChild(block5);
+}
+function clouse_photo() {
+    let block2 = document.getElementById('info_blok_90');
+    let block3 = document.getElementById('info_blok_91');
+    block2.style.display = 'none';
+    block3.style.display = 'none';
+}
+
+
+
+
+
+
+
+// Итак в чём же основная проблема с которой столкнулся я. Оказывается “выключить” кнопку можно как угодно, т.е. обратившись к элементу submit в любой доступной форме:
+// Submit.disabled = true;
+// Однако включить (заменим на false) подобным способом не получается и именно поэтому я накопал аж вот такую конструкцию:
+// Document.form_del.elements["submit"].disabled = true;
+// И вот здесь, если мы заменям true на false, то кнопка как включается, так и выключается. Ну и напоследок расшифрую я эту строчку кода:
+// В теущем документе в форме по имени “form_del” в элементе у которого имя “submit” (а у нас в примере это имя носит кнопка) есть свойсто “disabled”, так вот мы включаем его “true” или выключаем “false”. Т.о. включив данное свойство мы сделаем нашу кнопку неактивной, а выключив свойство, наша кнопка снова станет активной.
+// ) ставился вопрос о том, что было бы хорошо кнопкам формы, отправляемой на сервер, ставить свойство disabled = "disabled" .
+// Однако, до сих пор так и не разобрались, зачем это нужно и как все-таки это делать. Казалось бы, что может быть проще и о чем здесь вообще можно разговаривать, ан нет - на поверку все оказалось не так тривиально. Сразу замечу, что нижеследующие рассуждения применимы к обеим типам форм: как отправляемым через обычный SUBMIT, так и с помощью AJAX.
+
+
+

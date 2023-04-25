@@ -42,14 +42,6 @@ def personal_page(request, user):
     key_draft, dict_draft = function_show_drafts(user, NewArticle, Photo)    # получение ключа и словаря для отображения страницы
     key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
     
-    b = user
-    c = NewArticleForm()
-    e = PersonalInformationUser()
-    f = Catalogy.objects.all().order_by('name')
-    m = SpecialInfoUser()
-    title = 'Кабинет'
-   
-    menu1 = ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',]
     
     print(key_draft)
     print(dict_draft)
@@ -59,20 +51,20 @@ def personal_page(request, user):
 
     context = {'nik_name' : nik_reguest,
                    'register' : registered_user,
-                   'information_block' : dict_article,
-                   'nik_user' : b, 
-                   'form' : c,
+                   'information_block' : dict_article,       # словарь с передачей данных опубликованных статей
+                   'nik_user' : user, 
+                   'form' : NewArticleForm(),                # форма на запись черновика
                    'for_editorial_office' : dict_draft,
-                   'title' : title,
-                   'menu' : menu1,
-                   'form_info' : e,
-                   'list_a': f,
+                   'title' : 'Кабинет',
+                   'menu' : ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',],
+                   'form_info' : PersonalInformationUser(),
+                   'list_a': Catalogy.objects.all().order_by('name'),
                    'logik_1': key_owner,     # отображение в случае если 1ая форма заполнена(1) не заполнена(0)
                    'logik_2': function_show_specinf(user),  # отражение в случае если есть спец инфоормация
                    'persona' : info_owner,   # отображение информации о пользователе
                    'predmets' : list_collection_owner, # отображение коллекционного листа
                    'acess_form' : AllowanceForm(),  # форма для забора допусков от пользователя
-                   'secret_form' : m,
+                   'secret_form' : SpecialInfoUser(),
                 #    'acess_key' : acess_key,
                    'acess_page' : acess_page,
                    'acess_info' : acess_info,
@@ -322,17 +314,21 @@ def function_show_drafts(user, clas, photo_clas):
         print(error)
     else:
         if dot:
-            key_article = True   
+            key_article = True  
+            count = 0 
             list_draft = []
             for i in dot:
                 res = photo_clas.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
                 if res:
                     for j in res:
                         list_draft.append(j.image)
+                        count += 1
                 else:
                     list_draft.append(False)
-                dict_draft[i] = list_draft
+                dict_photo = {count : list_draft}
+                dict_draft[i] = dict_photo
                 list_draft = []
+                count = 0
     return key_article, dict_draft 
 
 # функция записи из формы в модель черновика - статьи с фотографиями
@@ -352,11 +348,14 @@ def function_write_draft(request, cd):
 
 # функция записи фотографий 
 def function_foto_memory(request, clas, pole):
+    print(request.FILES.getlist('photo'))
     for f in request.FILES.getlist('photo'):
         data = f.read()
+        print(f)
         # photo = Photo.location.set(location)  # отображает в админке но не показывает в другом
         photo = clas(location=pole)   # работало с ключем ForeignKey
         photo.image.save(f.name, ContentFile(data))
+        print(photo)
         photo.save()
 
 # функция записи из формы в модель чистовика - статьи с фотографиями       
@@ -371,6 +370,7 @@ def function_write_clean_copy(cd, request):
         count_symbol_ok = 0,
         count_symbol_bad = 0,
         access = True)
+    print(new_lokus)
     function_foto_memory(request, PhotoInfoBlock, new_lokus)
     # for f in request.FILES.getlist('photo'):
     #     data = f.read()

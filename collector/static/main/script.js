@@ -95,40 +95,6 @@ function menuPoint3(as) {
     }
 }
 
-
-
-
-// function Comment_authentic_comment_not_register() {
-//     let modal_not_register = document.getElementById('modal_not_register_id');
-//     console.log(modal_not_register)
-//     modal_not_register.style.display = "inline";
-//     console.log('3')
-// }
-
-// function close_modal_not_register() {
-//     let modal_not_register = document.getElementById('modal_not_register_id');
-//     modal_not_register.style.display = "none";
-// }
-
-// window.onclick = function(event) {
-//     let button_not_register = document.getElementById('not_register');
-//     let modal_not_register = document.getElementById ('modal_not_register_id');
-//     let modal_not_register1 = document.getElementById ('modal_not_register_id2');
-//     let modal_not_register2 = document.getElementById ('modal_not_register_id3');
-//     let modal_not_register3 = document.getElementById ('modal_not_register_id3');
-//     if (event.target != button_not_register) {
-//         if (event.target != modal_not_register 
-//             && event.target != modal_not_register1 
-//             && event.target != modal_not_register2
-//             && event.target != modal_not_register3
-//             ) {
-//             close_modal_not_register()
-//         }
-//     } else {
-//         console.log('6')
-//     }
-// }
-
 function comment_for_comment(i) {
     let field_comm_comment = document.getElementById(i);
     field_comm_comment.style.display = 'inline'
@@ -137,60 +103,8 @@ function comment_for_comment(i) {
     let input_id_articl = field_comm_comment[3];
     input_id_articl.value = p_id_articl.innerText
     let input_id_comment = field_comm_comment[4];
-    input_id_comment.value = p_id_comment.innerText
+    input_id_comment.value = p_id_comment.innerText}
 
-    // let text_ar = field_comm_comment[1];
-    // console.log(text_ar)
-    // let button_comment = field_comm_comment[2];
-    // console.log(button_comment)
-    // let input_id_articl = field_comm_comment[3];
-    // console.log(input_id_articl)
-    // let input_id_comment = field_comm_comment[4];
-    // console.log(input_id_comment)
-    // let a = field_comm_comment[0];
-    // console.log(a)
-    // let s = field_comm_comment[6];
-    // console.log(s)
+   
 
-
-
-    // console.log(field_comm_comment.innerHTML)
-    // console.log(field_comm_comment.innerText);
-
-
-
-
-
-    // for (var j = field_comm_comment.length - 1; j>=0; j-=1) {
-    //         console.log(field_comm_comment.childNodes[j].innerHTML);
-    //         console.log(field_comm_comment.childNodes[j].innerText);
-    //         console.log(field_comm_comment.childNodes[j].textContent);
-    //         console.log(field_comm_comment.childNodes[j].value);
-    //     }
-    }
-
-
-
-
-
-    // let f = document.querySelectorAll('info_blok_7');
-    // for (var j = f.length -1; i>=0; i--) {
-    //     console.log(f[j])
-    // }
-    
-    // let f = document.getElementsByClassName('info_blok_73')
-    // f.style.display = 'inline';
-    // let field_input = document.getElementById('comment2_id');
-    // let field_p = document.getElementById('comment2_id_p');
-    // let a = field_p.textContent;
-    // console.log(a);
-
-
-
-// <button class='fd2' id='not_register' onclick="Comment_authentic_comment_not_register()">Комментировать</button>
-// <div class= 'modal_not_register_class' id='modal_not_register_id'>
-//     <div class= 'modal_not_register_contetnt_class'>
-//         <button class='close_modal_not_register' onclick='close_modal_not_register()'>&times;</button>
-//         <p class='close_modal_not_register2'>Вы не прошли регистрацию</p>
-//         <a class='close_modal_not_register2' href="/"><button class='fd2'>Регистрация/ВХОД</button></a></div>
-//     </div>
+  

@@ -152,9 +152,35 @@ header {
     font-size: 16px;
     color: black;
 }
+.info_blok_84 { 
+    grid-column: 8;
+    grid-row: 1;
+}
 .predmet_collection_user6 {
     font-size: 18px;
     color: black;
+    
+}
+
+.info_blok_90, .info_blok_91 {
+    display: none;
+    height: 70%;
+    width: 70%;
+    z-index: 2;
+    position : fixed;
+    overflow : auto;
+    left : 15%;
+    top : 15%;
+}
+.info_blok_91 {
+    z-index: 3;
+    cursor : zoom-out;
+}
+.info_blok_93 {
+    position: relative;
+    right: 0;
+    bottom: 0;
+   color: red;
 }
 
 /* ОТОбражение подвала */
@@ -395,11 +421,15 @@ footer {
 #button_2 {
     grid-row: 4;
     grid-column: 4;
+    position: absolute
 }
 
 .img_for_arts {
     height: 100%;
     width: 100%;
+    cursor: zoom-in;
+    /* position: relative; */
+    
 }
 /* ОТРАЖЕНИЕ для редактируемой  */
 

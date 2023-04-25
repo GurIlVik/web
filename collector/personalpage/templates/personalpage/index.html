@@ -302,11 +302,13 @@
                             <p id='key_text_id_{{ key.pk }}' class = 'predmet_collection_user3'> {{ key.text }}</p>
                     </div>
                     <div class = 'or_editorial_office3'>
-                            {% if value.0 == False %}
-                            <p class = 'predmet_collection_user3'>фото не загружено</p>
-                            {% else %}
-                            <img class='img_for_arts' src="{{ value.0.url }}"> 
-                            {% endif %}
+                            {% for key2, value2 in value.items %}
+                                {% if key2 == 0 %}
+                                <p class = 'predmet_collection_user3'>фото не загружено</p>
+                                {% else %}
+                                <img class='img_for_arts'  onclick='fun_foto(this)' src="{{ value2.0.url }}"> 
+                                {% endif %}
+                            {% endfor %}
                     </div>
                     <div class = 'or_editorial_office4'>
                             <p class = 'predmet_collection_user3'>Черновик</p> 
@@ -341,21 +343,34 @@
                     <div class = 'info_blok_75'>
                         <p class = 'predmet_collection_user5'>{{key.text}}</p>
                     </div>
-                    {% if value.0 == False %}
-                    <div class = 'info_blok_76'>
-                        <img class='img_for_arts' src="{{ value.1.url }}"> 
+                    {% for key2, value2 in value.items %}
+                    <div class = 'info_blok_84'>
+                        <p class = 'predmet_collection_user5'>{{key2}} ФОТО</p>
                     </div>
-                    <div class = 'info_blok_77'>
-                        <img class='img_for_arts' src="{{ value.2.url }}"> 
-                    </div>
-                    {% else %}
-                    <div class = 'info_blok_76'>
-                        <p class = 'predmet_collection_user3'>фото не загружено</p>
-                    </div>
-                    <div class = 'info_blok_77'>
-                        <p class = 'predmet_collection_user3'>фото не загружено</p>
-                    </div>
-                    {% endif %}
+                        {% if key2 == 0 %}
+                        <div class = 'info_blok_76'>
+                            <p class = 'predmet_collection_user3'>фото не загружено</p>                    
+                        </div>
+                        <div class = 'info_blok_77'>
+                            <p class = 'predmet_collection_user3'>фото не загружено</p>
+                        </div>
+                        {% elif key2 == 1 %}
+                        <div class = 'info_blok_76'>
+                            <img class='img_for_arts' onclick='fun_foto(this)' src="{{ value2.0.url }}"> 
+                        </div>
+                        <div class = 'info_blok_77'>
+                            <p class = 'predmet_collection_user3'>фото не загружено</p>
+                        </div>
+                        {% else %}
+                        <div class = 'info_blok_76'>
+                            <img class='img_for_arts' onclick='fun_foto(this)' src="{{ value2.0.url }}"> 
+                        </div>
+                        <div class = 'info_blok_77'>
+                            <img class='img_for_arts' onclick='fun_foto(this)' src="{{ value2.1.url }}"> 
+                        </div>
+                        
+                        {% endif %}
+                    {% endfor %}
                     <div class = 'info_blok_78'>
                         <p class='grid_main_p'>&#x1F44D;</p>
                     </div>
@@ -377,11 +392,18 @@
                     <div class = 'info_blok_83'>
                         <button class='fd2' onclick="redaction({{ key.pk }})">допуски</button>
                     </div>
+                    
                 </div>  
                 {% endfor %} 
                 {% endif %}
             </div>
-       
+    
+        <div class = 'info_blok_90' id='info_blok_90'>
+        </div>        
+        <div class = 'info_blok_91' id='info_blok_91'>
+            <button class = 'info_blok_93' onclick="clouse_photo()">&times;</button>
+        </div>
+
     {% endif %} 
     {% endif %}       
 {% endblock %}        

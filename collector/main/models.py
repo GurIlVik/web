@@ -52,7 +52,7 @@ class Information_block(models.Model):
     time_publication = models.DateTimeField(auto_now_add=True, auto_now = False,)
     count_symbol_ok = models.CharField(max_length=5)
     count_symbol_bad = models.CharField(max_length=5)
-    access = models.BooleanField(null=True)
+    access = models.CharField(max_length=5)
     
     class Meta:
         verbose_name_plural = 'Статьи'
