@@ -164,7 +164,7 @@
             <div class="alternativ_form_div" >
                 
                 <p class='p_popup'>Настройки доступа к стронице и личной информации</p>
-                <p class='p_popup'>пока информация фидна только Вам:</p>
+                <p class='p_popup'>пока информация видна только Вам:</p>
                 <button class='fd2' onclick="infoUser2('form_use2')">Настроить</button>
                 <div id='form_use2'>
                     <form class='alternativ_form' method="post" action="" id="te" enctype="multipart/form-data">
@@ -285,7 +285,7 @@
             <p>Допуск на обновления до 5 минут</p>
         </div>
     {% else %}
-    {% if key_article != True %}
+    {% if key_draft != True %}
         <div id='text_logik_1'>
             <p>Вы пока ни чего не написали</p>
         </div>
@@ -318,24 +318,26 @@
                 </div> 
                 {% endfor %}
 
-  
-                {% for i in information_block %}
+                {% if key_article != True %}
+                <p>Вы пока ни чего не опубликовали</p>
+                {% else %}
+                {% for key, value in information_block.items %}
                 <div class = 'info_blok_1'>
                     <div class = 'info_blok_7'>
-                        <p class = 'predmet_collection_user5'>{{i.time_publication}}</p> 
+                        <p class = 'predmet_collection_user5'>{{key.time_publication}}</p> 
                     </div>
                     
                     <div class = 'info_blok_72'>
-                        <p class = 'predmet_collection_user5'>{{i.topic_interest}}</p> 
+                        <p class = 'predmet_collection_user5'>{{key.categories }}</p> 
                     </div>
                     <div class = 'info_blok_73'>
-                        <p class = 'predmet_collection_user5'>{{i.categories}}</p> 
+                        <p class = 'predmet_collection_user5'>{{key.topic}}</p> 
                     </div>
                     <div class = 'info_blok_74'>
-                        <p class = 'predmet_collection_user6'>{{i.table_contents}}</p> 
+                        <p class = 'predmet_collection_user6'>{{key.title}}</p> 
                     </div>
                     <div class = 'info_blok_75'>
-                        <p class = 'predmet_collection_user5'>{{i.text_contents}}</p>
+                        <p class = 'predmet_collection_user5'>{{key.text}}</p>
                     </div>
                     
                     <div class = 'info_blok_76'>
@@ -348,25 +350,26 @@
                         <p class='grid_main_p'>&#x1F44D;</p>
                     </div>
                     <div class = 'info_blok_79'>
-                        <p class='predmet_collection_user5'> {{i.count_symbol_ok}} </p>
+                        <p class='predmet_collection_user5'> {{key.count_symbol_ok}} </p>
                     </div>
                     <div class = 'info_blok_8'>
                         <p class='grid_main_p'>&#128078;</p>
                     </div>
                     <div class = 'info_blok_81'>
-                        <p class='predmet_collection_user5'>{{i.count_symbol_bad}}</p>
+                        <p class='predmet_collection_user5'>{{key.count_symbol_bad}}</p>
                     </div>
                     {% comment %} <div class = 'info_blok_82'>
                         <button class='fd2' onclick="redaction({{ i.pk }})">РЕДАКТИРОВАТЬ</button>
                     </div> {% endcomment %}
                     <div class = 'info_blok_82'>
-                        <button class='fd2' onclick="redaction({{ i.pk }})">редактировать</button>
+                        <button class='fd2' onclick="redaction({{ key.pk }})">редактировать</button>
                     </div>
                     <div class = 'info_blok_83'>
-                        <button class='fd2' onclick="redaction({{ i.pk }})">допуски</button>
+                        <button class='fd2' onclick="redaction({{ key.pk }})">допуски</button>
                     </div>
                 </div>  
-                {% endfor%} 
+                {% endfor %} 
+                {% endif %}
             </div>
        
     {% endif %} 

@@ -11,9 +11,9 @@ admin.site.register(Category, CategoryAdmin)
         #list_display = ['name']#Category._meta.get_all_field_names()
         
 class Information_block_Admin(admin.ModelAdmin):    
-    list_display = ['picture_author', 'page_author', 'time_publication', 'categories', # категории по списку предметов коллекционирования
-    'topic_interest', 'table_contents', 'text_contents', 'symbol_ok', 'count_symbol_ok', 'symbol_bad', 'count_symbol_bad', 'comment_article',
-    'write_author', 'access',]                           
+    list_display = ['author', 'categories', 'topic', 'title', # категории по списку предметов коллекционирования
+    'text', 'in_publishid', 'time_publication', 'count_symbol_ok', 'count_symbol_bad', 
+    'access',]                           
 admin.site.register(Information_block, Information_block_Admin)
         
 class Amalker_Admin(admin.ModelAdmin):

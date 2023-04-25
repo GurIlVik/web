@@ -6,10 +6,11 @@ from .forms import *
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
-from main.models import Information_block, Catalogy
+from main.models import Information_block, Catalogy, PhotoInfoBlock
 from .models import NewArticle, PresentationUser, Allowance, Photo
 from main.views import method_main_page_1
 from django.core.files.base import ContentFile
+from sqlite3 import OperationalError
 
 
 # @ login_required
@@ -38,9 +39,10 @@ def personal_page(request, user):
         else:
             return redirect(f'/personalpage/{user}/reception')              # перенаправление гостя в приемную   
         
-    key_article, dict_draft = function_show_drafts(user)    # получение ключа и словаря для отображения страницы
+    key_draft, dict_draft = function_show_drafts(user, NewArticle, Photo)    # получение ключа и словаря для отображения страницы
+    key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
     
-    a = Information_block.objects.all()
+    # a = Information_block.objects.all()
     b = user
     c = NewArticleForm()
     e = PersonalInformationUser()
@@ -54,7 +56,7 @@ def personal_page(request, user):
 
     context = {'nik_name' : nik_reguest,
                    'register' : registered_user,
-                   'information_block' : a,
+                   'information_block' : dict_article,
                    'nik_user' : b, 
                    'form' : c,
                    'for_editorial_office' : dict_draft,
@@ -73,10 +75,11 @@ def personal_page(request, user):
                    'acess_info' : acess_info,
                    'acess_mass' : acess_mass,                                               # ключ черновиков
                    'key_article' : key_article, 
+                   'key_draft' : key_draft,
+                   
                    }
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)
-        
         form_user1 = PersonalInformationUser(request.POST, request.FILES)
         form_user2 = AllowanceForm(request.POST)
         form_user3 = SpecialInfoUser(request.POST)
@@ -102,7 +105,7 @@ def personal_page(request, user):
                         function_rewrite_draft(cd, request, int(key[6:]))
                     elif 'writ_' in key:
                         function_delete_draft(int(key[5:]))
-                        function_write_clean_copy(cd, b)
+                        function_write_clean_copy(cd, request)
                     elif 'delet_' in key:
                         function_delete_draft(int(key[6:]))
                     else:
@@ -307,22 +310,31 @@ def func_list_check(l1, l2):
     return False
 
 # функция получения ключа и словаря для отображения черновиков на странице
-def function_show_drafts(user):
+def function_show_drafts(user, clas, photo_clas):
     key_article = False                                                     # ключ статей
-    d = NewArticle.objects.filter(author__username = user)
     dict_draft = {}
-    if d:
-        key_article = True   
-        list_draft = []
-        for i in d:
-            res = Photo.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
-            if res:
-                for j in res:
-                    list_draft.append(j.image)
-            else:
-                list_draft.append(False)
-            dict_draft[i] = list_draft
+    print(10000)
+    print(clas)
+    print(photo_clas)
+    try:
+        dot = clas.objects.filter(author__username = user)
+    except OperationalError as error:
+        print(error)
+    else:
+        if dot == None:
+            pass
+        else:
+            key_article = True   
             list_draft = []
+            for i in dot:
+                res = photo_clas.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
+                if res:
+                    for j in res:
+                        list_draft.append(j.image)
+                else:
+                    list_draft.append(False)
+                dict_draft[i] = list_draft
+                list_draft = []
     return key_article, dict_draft 
 
 # функция записи из формы в модель черновика - статьи с фотографиями
@@ -332,29 +344,44 @@ def function_write_draft(request, cd):
                                         text=cd['text'], 
                                         categories=cd['categories'], 
                                         topic = cd['topic'])
+    function_foto_memory(request, Photo, location)
+    # for f in request.FILES.getlist('photo'):
+    #     data = f.read()
+    #     # photo = Photo.location.set(location)  # отображает в админке но не показывает в другом
+    #     photo = Photo(location=location)   # работало с ключем ForeignKey
+    #     photo.image.save(f.name, ContentFile(data))
+    #     photo.save()
+
+# функция записи фотографий 
+def function_foto_memory(request, clas, pole):
     for f in request.FILES.getlist('photo'):
         data = f.read()
         # photo = Photo.location.set(location)  # отображает в админке но не показывает в другом
-        photo = Photo(location=location)   # работало с ключем ForeignKey
+        photo = clas(location=pole)   # работало с ключем ForeignKey
         photo.image.save(f.name, ContentFile(data))
         photo.save()
 
 # функция записи из формы в модель чистовика - статьи с фотографиями       
-def function_write_clean_copy(cd, b):
-    с = Information_block.objects.create(
-        picture_author = 'фото',
-        page_author = b,       # ник автора с отправкой на его страницу
+def function_write_clean_copy(cd, request):
+    new_lokus = Information_block.objects.create(
+        author = request.user,
         categories = cd['categories'],        # категории по списку предметов коллекционирования
-        topic_interest = cd['topic'],      # категории по списку интереса и поиска
-        table_contents = cd['title'],
-        text_contents = cd['text'],
-        symbol_ok = 'ok',
+        topic = cd['topic'],      # категории по списку интереса и поиска
+        title = cd['title'],
+        text = cd['text'],
+        in_publishid = True,
         count_symbol_ok = 0,
-        symbol_bad = 'out',
         count_symbol_bad = 0,
         comment_article = 'пока вопрос',     # комментарии который необходимо сделать сноской и следовательно не факт что необходи вообще
         write_author = 'писать автору', 
         access = True)
+    function_foto_memory(request, PhotoInfoBlock, new_lokus)
+    # for f in request.FILES.getlist('photo'):
+    #     data = f.read()
+    #     # photo = Photo.location.set(location)  # отображает в админке но не показывает в другом
+    #     photo = PhotoInfoBlock(location=new_lokus)   # работало с ключем ForeignKey
+    #     photo.image.save(f.name, ContentFile(data))
+    #     photo.save()
 
 # функция удаления черновика
 def function_delete_draft(key):
@@ -371,8 +398,6 @@ def function_rewrite_draft(cd, request, key):
     print(memory_elem.title)
     
     memory_elem.title=cd['title'], 
-    
-   
     memory_elem.text=cd['text'], 
     memory_elem.categories=cd['categories'], 
     memory_elem.topic = str(cd['topic'])
