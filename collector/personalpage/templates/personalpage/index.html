@@ -359,7 +359,7 @@
                             <img class='img_for_arts' onclick='fun_foto(this)' src="{{ value2.0.url }}"> 
                         </div>
                         <div class = 'info_blok_77'>
-                            <p class = 'predmet_collection_user3'>фото не загружено</p>
+                            {% comment %} <p class = 'predmet_collection_user3'>фото не загружено</p> {% endcomment %}
                         </div>
                         {% else %}
                         <div class = 'info_blok_76'>
@@ -383,9 +383,6 @@
                     <div class = 'info_blok_81'>
                         <p class='predmet_collection_user5'>{{key.count_symbol_bad}}</p>
                     </div>
-                    {% comment %} <div class = 'info_blok_82'>
-                        <button class='fd2' onclick="redaction({{ i.pk }})">РЕДАКТИРОВАТЬ</button>
-                    </div> {% endcomment %}
                     <div class = 'info_blok_82'>
                         <button class='fd2' onclick="redaction({{ key.pk }})">редактировать</button>
                     </div>

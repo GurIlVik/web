@@ -296,15 +296,17 @@ footer {
 
 .predmet_collection_user3 {
     color: blue;
+    font-size: 18px;
 }
 
-#secret_information_user {
+#secret_information_user, .grid_main_p {
     font-size: 23px;
 }
 
 .predmet_collection_user5 {
     margin-top: 20px;
 }
+
 
 /* БЛОКИ ОТОБРАЖЕНИЯ ЦЕНТРАЛЬНОЙ ЧАСТИ: */
 

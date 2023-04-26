@@ -18,22 +18,23 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     class Meta:
-        verbose_name_plural = 'Категория' 
+        verbose_name_plural = 'Категория публикации(Статья.Объявление.Философия)'
  
-# Основная модель отображения предметов коллекционирования 
+# Основная модель отображения списка предметов коллекционирования 
 class Catalogy(models.Model):
     name = models.CharField(max_length=50, blank=False,)
     def __str__(self):
         return self.name
     class Meta:
-        verbose_name_plural = 'Предмет коллекционирования'
-    
+        verbose_name_plural = 'Предмет коллекционирования(В1)'
+
+# допуск к комментированию статей    
 class AllowanceComment(models.Model):
     name = models.CharField(max_length=50, blank=False,)
     def __str__(self):
         return self.name
     class Meta:
-        verbose_name_plural = 'Словарь(допусков к комментариям)'
+        verbose_name_plural = 'Допуск_коментов(никому,одноклубникам,соколлекционерам)'
 
    
 # вспомогательная модель поиска по интерессу 
