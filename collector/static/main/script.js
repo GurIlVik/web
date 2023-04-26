@@ -107,4 +107,42 @@ function comment_for_comment(i) {
 
    
 
-  
+function fun_foto(param) {
+    console.log(param)
+    let block = param;
+    console.log(param.src)
+    let block2 = document.getElementById('info_blok_90');
+    block2.style.display = 'block';
+    block2.innerHTML = '';
+    let block3 = document.getElementById('info_blok_91');
+    block3.style.display = 'block';
+    console.log('lwrjbhglkwrjtbgwlrijb')
+    let block5 = document.createElement('img');
+    block5['src'] = param.src;
+    // console.log(block5)
+    block2.appendChild(block5);
+    // console.log(block2)
+}
+function clouse_photo() {
+    let block2 = document.getElementById('info_blok_90');
+    let block3 = document.getElementById('info_blok_91');
+    block2.style.display = 'none';
+    block3.style.display = 'none';
+}
+
+document.addEventListener('click', (e) => { // Вешаем обработчик на весь документ
+    let popupBg = document.getElementById('info_blok_91');
+    let popupBg2 = document.getElementsByClassName('img_for_arts')
+    console.log(e.target)
+    let count = 0
+    let string = ''
+    for (let item of popupBg2) {
+        if (e.target == item) { count = 1; string = item}
+    }
+    if (count != 0) {   
+        console.log(count);
+        console.log(string);
+        console.log(popupBg) 
+    } else { clouse_photo(); }
+    }
+    )

@@ -259,9 +259,7 @@ footer {
     grid-column-start: 1;
     grid-column-end: 7;
     text-overflow: ellipsis;
-    /* white-space: nowrap; */
     overflow: hidden;
-    /* display: -webkit-box; */
 	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 }
@@ -283,6 +281,7 @@ footer {
     grid-column-end: 8;
     border-top: 1px blue solid;
     border-bottom: 2px blue solid;
+    overflow: hidden;
 }
 .grid_main_field7, 
 .grid_main_field8 {
@@ -291,9 +290,12 @@ footer {
 }
 .grid_main_field7 {
     margin: 4px 4px 4px 4px;
+    overflow: hidden;
+
 }
 .grid_main_field8 {
     margin: 0px 4px 4px 4px;
+    overflow: hidden;
 }
 .grid_main_field9, 
 .grid_main_field10,
@@ -305,3 +307,30 @@ footer {
     border-top: solid black 3px;
 }
 
+.info_blok_90, .info_blok_91 {
+    display: none;
+    height: 70%;
+    width: 70%;
+    z-index: 2;
+    position : fixed;
+    overflow : auto;
+    left : 15%;
+    top : 15%;
+}
+.info_blok_91 {
+    z-index: 3;
+    cursor : zoom-out;
+}
+.info_blok_93 {
+    position: relative;
+    right: 0;
+    bottom: 0;
+   color: red;
+}
+
+
+.img_for_arts {
+    height: 100%;
+    width: 100%;
+    cursor: zoom-in;
+}

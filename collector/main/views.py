@@ -1,9 +1,35 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Category, Information_block, Article_comments, Amalker, Catalogy
+from .models import Category, Information_block, Article_comments, Amalker, Catalogy, PhotoInfoBlock
 from .forms import *
+from sqlite3 import OperationalError
 
 
+def function_show_article(clas, photo_clas):
+    key_article = False                                                     # ключ статей
+    dict_draft = {}
+    try:
+        dot = clas.objects.all()
+    except OperationalError as error:
+        print(error)
+    else:
+        if dot:
+            key_article = True  
+            count = 0 
+            list_draft = []
+            for i in dot:
+                res = photo_clas.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
+                if res:
+                    for j in res:
+                        list_draft.append(j.image)
+                        count += 1
+                else:
+                    list_draft.append(False)
+                dict_photo = {count : list_draft}
+                dict_draft[i] = dict_photo
+                list_draft = []
+                count = 0
+    return key_article, dict_draft 
         
 # отображение главной страницы
 def main_page(request):
@@ -16,10 +42,14 @@ def main_page(request):
     h = chek_User_authenticated(request, "/", "/account/logout/")  # предоставление путей согласно логик
     j = f'/personalpage/{str(request.user)}'      # получение имени и питу на личную страницу
     # k = f'/personalpage/{str(request.user)}'
+    
+    key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock) 
+    
     context = {
         'a': a,
         "form2" : b,
-        'info_blok': c,
+        'info_blok': dict_article,
+        'key_article' : key_article,
         'amalker' : e,
         'log' : g,
         'puth_exit_enter' : h,
