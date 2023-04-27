@@ -14,15 +14,17 @@ class Amalker(models.Model):
 
 # модель категории статьи
 class Category(models.Model):
-    name = models.TextField(blank=False, unique=True)
+    name = models.TextField(blank=True, unique=True)
+    number = models.IntegerField(blank=True, unique=True)
     def __str__(self):
         return self.name
     class Meta:
-        verbose_name_plural = 'Список(Статья.Объявление.Философия)'
+        verbose_name_plural = 'Список(Объявление.Статья.Философия)'
  
 # модель представления списка объявлений
 class Advertisement(models.Model):
-    name = models.CharField(max_length=50, blank=False,)
+    name = models.CharField(max_length=50, blank=True,)
+    number = models.IntegerField(blank=True, unique=True)
     def __str__(self):
         return self.name
     class Meta:
@@ -39,6 +41,7 @@ class Catalogy(models.Model):
 # допуск к комментированию статей    
 class AllowanceComment(models.Model):
     name = models.CharField(max_length=50, blank=False,)
+    number = models.IntegerField(blank=True, unique=True)
     def __str__(self):
         return self.name
     class Meta:

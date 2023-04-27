@@ -190,15 +190,23 @@ document.addEventListener('click', (e) => { // Вешаем обработчик
     for (let item of popupBg2) {
         if (e.target == item) { count = 1; string = item}
     }
-    if (count != 0) {   
+    if (count == 0) {  
+        clouse_photo(); 
         console.log(count);
         console.log(string);
         console.log(popupBg) 
-    } else { clouse_photo(); }
+    } 
+    // else { clouse_photo(); }
     }
  )
 
+function function_categories(art) {
+    console.log(art)
+    let param = art.value
+    let block1 = document.getElementById(art);
+    console.log(param)
 
+}
 
 
 

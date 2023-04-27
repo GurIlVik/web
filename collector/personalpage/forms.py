@@ -15,11 +15,12 @@ class NewArticleForm(forms.Form):
             empty_label = 'К выбору обязателен',
             # widget=forms.TextInput(attrs={'class': 'main_form_categories'}),
             )  
-    topic = forms.ModelChoiceField(                                                        # каталог
+    topic = forms.ModelChoiceField(                                                        # тема
             queryset=Catalogy.objects.all().order_by('name'),
             label='Предмет коллекционирования',
             empty_label = 'К выбору обязателен',
             )
+    collection = forms.CharField( max_length=150,)   # предметы коллекционирования 
     
     text = forms.CharField( widget=forms.Textarea, 
                         #    initial="текст",                        # текст сообщения

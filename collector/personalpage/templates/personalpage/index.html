@@ -24,15 +24,43 @@
 
 {% comment %} Меню написания статьи  {% endcomment %}
 {% block alternativ_form %}
-        <form class='alternativ_form' method="post" action="" id="alternativ_global" enctype="multipart/form-data">
-            {% csrf_token %}
+        <div id="alternativ_global">
             <div id="pu_div1">
                 <div id="pu_div2">
-                
-                    <p class='p_popup'>Выберите предмет коллекционирования (правила демонстрации смотрите в настойках личного кабинета):</p>
-                    <div id="pu_div21">{{ form.topic }}</div>
-                    <p class='p_popup'>Выберите категорию:</p>
-                    <div id="pu_div22">{{ form.categories }}</div>
+                    {% comment %} <p class='p_popup'>Выберите категорию:</p>
+                    <p class='p_popup3'>объявление - для предоставления коммерческой/деловой информации</p>
+                    <p class='p_popup3'>статья - предназаначенна для просмотра всеми</p>
+                    <p class='p_popup3'>несет образовательну и познавательную информацию</p>
+                    <p class='p_popup3'>философия - отражается только на личной странице</p> {% endcomment %}
+                    
+                    
+                    <div id="pu_div22">
+                        <p class='p_popup'>Выберите категорию:</p>
+                    <p class='p_popup3'>объявление - для предоставления коммерческой/деловой информации</p>
+                    <p class='p_popup3'>статья - предназаначенна для просмотра всеми</p>
+                    <p class='p_popup3'>несет образовательну и познавательную информацию</p>
+                    <p class='p_popup3'>философия - отражается только на личной странице</p>
+                        
+                        <select name="categories" required="" id="id_categories_for_form">
+                        <option value="" selected="">К выбору обязателен</option>
+                        {% for i in category %}
+                        <option value="{{ i.id }}"> {{ i.name }} </option>
+                        {% endfor %}
+                      </select>
+                    <button class='fd2' onclick='function_categories(id_categories_for_form)'>подтверждаю</button> 
+                    {% comment %} <div id="pu_div22"><select name="categories" required="" id="id_categories"> {% endcomment %}
+                    </div>
+                    <div id="pu_div21">
+                        <p class='p_popup'>Выберите подраздел объявления:</p>
+                        {{ form.topic }}
+                    </div>
+
+                    <form class='alternativ_form' method="post" action=""  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div>{{ form.categories }} {{ form.topic }}</div>
+                    
+                    
+                    
                     <p class='p_popup'>Разрешить ли комментировать статью:</p>
                     <div id="pu_div23">{{ form.allowance }}</div>
                     <p class='p_popup'>Добавление фотографий:</p>
@@ -57,9 +85,10 @@
                         <button class='fd2' type="submit" name='write' id='non_id_write'>опубликовать</button>
                         <button class='fd2' type="submit" name='delete' id='non_id_delete'>удалить</button>
                     </div>
+                </form>
                 </div>
             </div>
-        </form> 
+    </div>
 {% endblock %}
 
 {% comment %} Меню подбора предмета коллекционирования  {% endcomment %}

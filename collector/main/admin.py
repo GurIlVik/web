@@ -3,7 +3,7 @@ from .models import *
 
 
 class CategoryAdmin(admin.ModelAdmin):   # ОСНОВНОЙ СПИСОК ПРЕДМЕТОВ КОЛЛЕКЦИОНИРРОВАНИЯ
-    list_display = ['name']
+    list_display = ['name', 'number']
 admin.site.register(Category, CategoryAdmin)    
    
         
@@ -33,13 +33,13 @@ admin.site.register(TopicInterest, TopicInterestAdmin)
 admin.site.register(ArticleСommentsTwo) 
 
 class AdvertisementAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'number']
 admin.site.register(Advertisement, AdvertisementAdmin)    
 
 class CatalogyAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name',]
 admin.site.register(Catalogy, CatalogyAdmin)   
 
 class AllowanceCommentAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'number']
 admin.site.register(AllowanceComment, AllowanceCommentAdmin) 
