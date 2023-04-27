@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Category, Information_block, Article_comments, Amalker, Catalogy, PhotoInfoBlock
+from .models import *
 from .forms import *
 from sqlite3 import OperationalError
 
@@ -107,7 +107,7 @@ def publication(request, author, id):
     k = Information_block.objects.get(id = id)
     j = f'/personalpage/{str(request.user)}'
     form = CommemtUser()
-    comm = Article_comments.objects.filter(whom_message = k.id)
+    comm = ArticleComments.objects.filter(whom_message = k.id)
     form2 = CommentForComment()
     context = {'a' : author,
             'info_blok' : c, 
@@ -122,7 +122,7 @@ def publication(request, author, id):
         if form.is_valid(): 
             form = form.cleaned_data
             k = Information_block.objects.get(id = id)
-            Article_comments.objects.create(
+            ArticleComments.objects.create(
                 whom_message = k.id,                                        # ID статьи автора статьи
                 whose_message = request.user,                               #  имя комментатора
                 text_message = form['comment'],                                        #  текст комментария

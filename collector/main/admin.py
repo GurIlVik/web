@@ -3,12 +3,9 @@ from .models import *
 
 
 class CategoryAdmin(admin.ModelAdmin):   # ОСНОВНОЙ СПИСОК ПРЕДМЕТОВ КОЛЛЕКЦИОНИРРОВАНИЯ
-    #list_display = ('title', 'author', 'price')
-#admin.site.register(Book, BookAdmin)
-    list_display = ['name']#Category._meta.get_all_field_names()
+    list_display = ['name']
 admin.site.register(Category, CategoryAdmin)    
-    #class meta:
-        #list_display = ['name']#Category._meta.get_all_field_names()
+   
         
 class Information_block_Admin(admin.ModelAdmin):    
     list_display = ['author', 'categories', 'topic', 'title', # категории по списку предметов коллекционирования
@@ -20,24 +17,28 @@ class Amalker_Admin(admin.ModelAdmin):
     list_display = ['name_seller', 'tabloid', 'time_publication', 'time_ending', 'categories', ]
 admin.site.register(Amalker, Amalker_Admin)    
     
-class Article_comments_Admin(admin.ModelAdmin):  
-    list_display = ['whom_message', 'time_publication', 'whose_message', 'text_message', 'count_symbol_ok', 'symbol_bad',
-    'count_symbol_bad','comment_article', 'write_author',]
-admin.site.register(Article_comments, Article_comments_Admin)    
+# class Article_comments_Admin(admin.ModelAdmin):  
+    # list_display = ['whom_message', 'time_publication', 'whose_message', 'text_message', 'count_symbol_ok', 'symbol_bad',
+    # 'count_symbol_bad','comment_article', 'write_author',]
+admin.site.register(ArticleСomments)    
 
 
 class TopicInterestAdmin(admin.ModelAdmin):
     list_display = ['name']
 admin.site.register(TopicInterest, TopicInterestAdmin)   
 
-class  Article_commentsTwoAdmin(admin.ModelAdmin):
-     list_display = ['whom_message', 'time_publication', 'whose_message', 'text_message', 'count_symbol_ok', 'id_articl',
-    'count_symbol_bad','id_comment', 'write_author', 'access']
-admin.site.register(Article_commentsTwo, Article_commentsTwoAdmin) 
+# class  Article_commentsTwoAdmin(admin.ModelAdmin):
+    #  list_display = ['whom_message', 'time_publication', 'whose_message', 'text_message', 'count_symbol_ok', 'id_articl',
+    # 'count_symbol_bad','id_comment', 'write_author', 'access']
+admin.site.register(ArticleСommentsTwo) 
+
+class AdvertisementAdmin(admin.ModelAdmin):
+    list_display = ['name']
+admin.site.register(Advertisement, AdvertisementAdmin)    
 
 class CatalogyAdmin(admin.ModelAdmin):
     list_display = ['name']
-admin.site.register(Catalogy, CatalogyAdmin)    
+admin.site.register(Catalogy, CatalogyAdmin)   
 
 class AllowanceCommentAdmin(admin.ModelAdmin):
     list_display = ['name']

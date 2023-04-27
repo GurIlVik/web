@@ -18,7 +18,15 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     class Meta:
-        verbose_name_plural = 'Категория публикации(Статья.Объявление.Философия)'
+        verbose_name_plural = 'Список(Статья.Объявление.Философия)'
+ 
+# модель представления списка объявлений
+class Advertisement(models.Model):
+    name = models.CharField(max_length=50, blank=False,)
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name_plural = 'Список(Услуги,ищу,продаю)'
  
 # Основная модель отображения списка предметов коллекционирования 
 class Catalogy(models.Model):
@@ -34,7 +42,7 @@ class AllowanceComment(models.Model):
     def __str__(self):
         return self.name
     class Meta:
-        verbose_name_plural = 'Допуск_коментов(никому,одноклубникам,соколлекционерам)'
+        verbose_name_plural = 'Список(никому,одноклубникам,соколлекционерам)'
 
    
 # вспомогательная модель поиска по интерессу 
@@ -64,31 +72,31 @@ class PhotoInfoBlock(models.Model):
     location = models.ForeignKey(Information_block, related_name='photo', on_delete=models.CASCADE)
 
 # модель представления комментария 
-class Article_comments(models.Model):  
-    whom_message = models.CharField(max_length=50)
+class ArticleСomments(models.Model):  
+#     whom_message = models.CharField(max_length=50)
     time_publication = models.TimeField(auto_now_add=True, auto_now = False,)
-    whose_message = models.CharField(max_length=50)
-    text_message = models.TextField(blank=True)
-    count_symbol_ok = models.CharField(max_length=5)
-    symbol_bad = models.CharField(max_length=1, null=False)               
-    count_symbol_bad = models.CharField(max_length=5, null=True)
-    comment_article = models.CharField(max_length=50, null=False)
-    write_author = models.CharField(max_length=50, null=False)
-    access = models.BooleanField(null=False)
+#     whose_message = models.CharField(max_length=50)
+#     text_message = models.TextField(blank=True)
+#     count_symbol_ok = models.CharField(max_length=5)
+#     symbol_bad = models.CharField(max_length=1, null=False)               
+#     count_symbol_bad = models.CharField(max_length=5, null=True)
+#     comment_article = models.CharField(max_length=50, null=False)
+#     write_author = models.CharField(max_length=50, null=False)
+#     access = models.BooleanField(null=False)
     class Meta:
         verbose_name_plural = 'комментарий'
 
 # модель представления комментария на комментарий
-class Article_commentsTwo(models.Model):  
-    whom_message = models.CharField(max_length=50)                              # кому ответ
+class ArticleСommentsTwo(models.Model):  
+#     whom_message = models.CharField(max_length=50)                              # кому ответ
     time_publication = models.TimeField(auto_now_add=True, auto_now = False,)   
-    whose_message = models.CharField(max_length=50)                             # кто ответил
-    text_message = models.TextField(blank=True)
-    count_symbol_ok = models.CharField(max_length=5)                            # счетчик +
-    id_articl = models.CharField(max_length=1, null=False)                      # id статьи
-    count_symbol_bad = models.CharField(max_length=5, null=True)                # счетчик -
-    id_comment = models.CharField(max_length=50, null=False)                    # id коммента
-    write_author = models.CharField(max_length=50, null=False)
-    access = models.BooleanField(null=False)
+#     whose_message = models.CharField(max_length=50)                             # кто ответил
+#     text_message = models.TextField(blank=True)
+#     count_symbol_ok = models.CharField(max_length=5)                            # счетчик +
+#     id_articl = models.CharField(max_length=1, null=False)                      # id статьи
+#     count_symbol_bad = models.CharField(max_length=5, null=True)                # счетчик -
+#     id_comment = models.CharField(max_length=50, null=False)                    # id коммента
+#     write_author = models.CharField(max_length=50, null=False)
+#     access = models.BooleanField(null=False)
     class Meta:
         verbose_name_plural = 'комм на комм'
