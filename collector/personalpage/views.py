@@ -197,12 +197,13 @@ def func_str_for_list(inlist):
             
 # функция получения цифрового значения доступов            
 def function_acess(info):
+    print(len(str(info)))
     res = 3
-    if 10 < len(str(info)) < 19:
+    if 1 < len(str(info)) <= 5:
         res = 0
-    if 20 < len(str(info)) < 33:
+    if 12 < len(str(info)) <= 14:
         res = 1
-    if len(str(info)) > 33:
+    if len(str(info)) > 15:
         res = 2
     return res
 
@@ -339,12 +340,6 @@ def function_write_draft(request, cd):
                                         categories=cd['categories'], 
                                         topic = cd['topic'])
     function_foto_memory(request, Photo, location)
-    # for f in request.FILES.getlist('photo'):
-    #     data = f.read()
-    #     # photo = Photo.location.set(location)  # отображает в админке но не показывает в другом
-    #     photo = Photo(location=location)   # работало с ключем ForeignKey
-    #     photo.image.save(f.name, ContentFile(data))
-    #     photo.save()
 
 # функция записи фотографий 
 def function_foto_memory(request, clas, pole):
@@ -372,12 +367,7 @@ def function_write_clean_copy(cd, request):
         access = True)
     print(new_lokus)
     function_foto_memory(request, PhotoInfoBlock, new_lokus)
-    # for f in request.FILES.getlist('photo'):
-    #     data = f.read()
-    #     # photo = Photo.location.set(location)  # отображает в админке но не показывает в другом
-    #     photo = PhotoInfoBlock(location=new_lokus)   # работало с ключем ForeignKey
-    #     photo.image.save(f.name, ContentFile(data))
-    #     photo.save()
+   
 
 # функция удаления черновика
 def function_delete_draft(key):

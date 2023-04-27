@@ -40,7 +40,7 @@ class Professional(models.Model):
 class AllowanceModel1(models.Model):
     name = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Вид допуска на страницу')  # 0 ни кому, 1 регистрированным, 2 всем
     class Meta: 
-        verbose_name_plural = 'Вид допуска на личную страницу'                   # отображение в админе единственное число      
+        verbose_name_plural = 'на ЛС(всем, никому, обноклубникам, соколлекционерам)'                   # отображение в админе единственное число      
     def __str__(self):
         return self.name  
     
@@ -48,7 +48,7 @@ class AllowanceModel1(models.Model):
 class AllowanceModel2(models.Model):
     name = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Вид допуска на страницу')  # 0 ни кому, 1 регистрированным, 2 всем
     class Meta: 
-        verbose_name_plural = 'Вид допуска к личной информации'                   # отображение в админе единственное число      
+        verbose_name_plural = 'к персинф(всем, никому, обноклубникам, соколлекционерам)'                  # отображение в админе единственное число      
     def __str__(self):
         return self.name   
     
@@ -56,7 +56,7 @@ class AllowanceModel2(models.Model):
 class AllowanceModel3(models.Model):
     name = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Вид допуска на страницу')  # 0 ни кому, 1 регистрированным, 2 всем
     class Meta: 
-        verbose_name_plural = 'Вид допуска к мессенжеру'                   # отображение в админе единственное число      
+        verbose_name_plural = 'к почте(никому, обноклубникам, соколлекционерам)'                   # отображение в админе единственное число      
     def __str__(self):
         return self.name  
     
