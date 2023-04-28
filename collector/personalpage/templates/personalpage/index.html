@@ -58,7 +58,9 @@
                         <select name="categories" required="" id="id_advertisment_for_form">
                             <option value="" selected="">К выбору обязателен</option>
                             {% for i in advertisment %}
+                            {% if i.name != drugoe %}
                             <option value="{{ i.number }}"> {{ i.name }} </option>
+                            {% endif %}
                             {% endfor %}
                           </select>
                           <button class='fd2' onclick='function_advertisment(id_categories_for_form)'>подтверждаю</button> 
@@ -309,6 +311,7 @@
         </div>
     {% else %}    
             <div id = 'box_info_blok'>
+                {% if key_draft == True %}
                 {% for key, value in for_editorial_office.items %}
                 <div class = 'box_for_editorial_office'>
                     <div class = 'or_editorial_office1'>
@@ -337,6 +340,7 @@
 
                 </div> 
                 {% endfor %}
+                {% endif %}
 
                 {% if key_article != True %}
                 <p>Вы пока ни чего не опубликовали</p>
@@ -348,16 +352,22 @@
                     </div>
                     
                     <div class = 'info_blok_72'>
-                        <p class = 'predmet_collection_user5'>{{key.categories }}</p> 
+                        {% if key.categories == '1' %}
+                        <p class = 'predmet_collection_user5'>Объявление</p> 
+                        {% elif key.categories == '2' %}
+                        <p class = 'predmet_collection_user5'>Cтатья</p>
+                        {% else %}
+                        <p class = 'predmet_collection_user5'>Философия</p>
+                        {% endif %}
                     </div>
                     <div class = 'info_blok_73'>
-                        <p class = 'predmet_collection_user5'>{{key.topic}}</p> 
+                        <p class = 'predmet_collection_user5'>{{key.collection}}</p> 
                     </div>
                     <div class = 'info_blok_74'>
-                        <p class = 'predmet_collection_user6'>{{key.title}}</p> 
+                        <p class = 'predmet_collection_user6' id='art_title_id_{{key.pk}}'>{{key.title}}</p> 
                     </div>
                     <div class = 'info_blok_75'>
-                        <p class = 'predmet_collection_user5'>{{key.text}}</p>
+                        <p class = 'predmet_collection_user5' id='art_text_id_{{key.pk}}'>{{key.text}}</p>
                     </div>
                     {% for key2, value2 in value.items %}
                     <div class = 'info_blok_84'>
@@ -400,10 +410,10 @@
                         <p class='predmet_collection_user5'>{{key.count_symbol_bad}}</p>
                     </div>
                     <div class = 'info_blok_82'>
-                        <button class='fd2' onclick="redaction({{ key.pk }})">редактировать</button>
+                        <button class='fd2' onclick="redaction2({{ key.pk }})">редактировать</button>
                     </div>
                     <div class = 'info_blok_83'>
-                        <button class='fd2' onclick="redaction({{ key.pk }})">допуски</button>
+                        <button class='fd2' onclick="redaction2({{ key.pk }})">допуски</button>
                     </div>
                     
                 </div>  

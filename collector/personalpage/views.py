@@ -11,7 +11,7 @@ from .models import NewArticle, PresentationUser, Allowance, Photo
 from main.views import method_main_page_1
 from django.core.files.base import ContentFile
 from sqlite3 import OperationalError
-
+from django.core.exceptions import ObjectDoesNotExist
 
 # @ login_required
 def personal_page(request, user): 
@@ -74,6 +74,7 @@ def personal_page(request, user):
                    'obchee' : Catalogy.objects.get(name='0'),
                    'category' : Category.objects.all().order_by('name'),
                    'advertisment' : Advertisement.objects.all().order_by('name'),
+                   'drugoe' : 'другое',
                    }
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)
@@ -101,9 +102,12 @@ def personal_page(request, user):
                         print(4.5)
                         function_rewrite_draft(cd, request, int(key[6:]))
                     elif 'writ_' in key:
+                        print(4.8)
                         function_delete_draft(int(key[5:]))
                         function_write_clean_copy(cd, request)
+                        
                     elif 'delet_' in key:
+                        print(4.7)
                         function_delete_draft(int(key[6:]))
                     else:
                         ('что-то идет не так')
@@ -336,11 +340,13 @@ def function_show_drafts(user, clas, photo_clas):
 
 # функция записи из формы в модель черновика - статьи с фотографиями
 def function_write_draft(request, cd):
+    print(6)
     location = NewArticle.objects.create(author=request.user, 
                                         title=cd['title'], 
                                         text=cd['text'], 
                                         categories=cd['categories'], 
-                                        topic = cd['topic'])
+                                        topic = cd['topic'],
+                                        collection = cd['collection'],)
     function_foto_memory(request, Photo, location)
 
 # функция записи фотографий 
@@ -371,31 +377,44 @@ def function_write_clean_copy(cd, request):
     function_foto_memory(request, PhotoInfoBlock, new_lokus)
    
 
-# функция удаления черновика
+# функция удаления черновика и чистовика
 def function_delete_draft(key):
-    memory_elem = NewArticle.objects.get(id = key)
-    memory_elem.delete()
+    try:
+        memory_elem = NewArticle.objects.get(id = key)
+    except:
+        print(' не удалил из черновика')
+    else:
+        memory_elem.delete()
+    try:
+        memory_elem = Information_block.objects.get(id = key)
+    except:
+        print('не удалил из чистовика')
+    else:
+        memory_elem.delete()
 
 # функция перезаписи черновика    
 def function_rewrite_draft(cd, request, key):
     print(cd['title'])
     
     print(type(cd['topic']))
-    memory_elem = NewArticle.objects.get(id = key)
-    
-    print(memory_elem.title)
-    
-    memory_elem.title=cd['title'], 
-    memory_elem.text=cd['text'], 
-    memory_elem.categories=cd['categories'], 
-    memory_elem.topic = str(cd['topic'])
-    memory_elem.save()
-    
-    for fail_f in request.FILES.getlist('photo'):
+    try:
+        memory_elem = NewArticle.objects.get(id = key)
+    except:
+        function_write_draft(request, cd)
+    else:
+        print(memory_elem.title)
         
-        data = fail_f.read()
-        photo = Photo(location=memory_elem)   # работало с ключем ForeignKey
-        photo.image.save(fail_f.name, ContentFile(data))
-        photo.save()
+        memory_elem.title=cd['title'], 
+        memory_elem.text=cd['text'], 
+        memory_elem.categories=cd['categories'], 
+        memory_elem.topic = str(cd['topic'])
+        memory_elem.save()
+        
+        for fail_f in request.FILES.getlist('photo'):
+            
+            data = fail_f.read()
+            photo = Photo(location=memory_elem)   # работало с ключем ForeignKey
+            photo.image.save(fail_f.name, ContentFile(data))
+            photo.save()
         
         
