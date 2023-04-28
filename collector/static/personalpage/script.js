@@ -317,6 +317,64 @@ function comment_articl(art) {
     let block3 = document.getElementById('pu_div24');
     block3.style.display = 'block';
     block2.style.display = 'none';
+    let general = document.getElementById('pu_div28');
+    let bl_v_c = document.getElementById('id_categories');
+    let bl_v_t = document.getElementById('id_topic');
+    let bl_v_o = document.getElementById('id_collection');
+    let bl_v_a = document.getElementById('id_allowance');
+
+    let bl_v_t_t = document.getElementById('id_popup_text_topic_text');
+    let bl_v_o_t = document.getElementById('id_popup_text_object_text');
+
+    let bl_pr_c = document.getElementById('id_popup_text_category');
+    let bl_pr_t = document.getElementById('id_popup_text_topic_value');
+    let bl_pr_o = document.getElementById('id_popup_text_collection_value');
+    let bl_pr_a = document.getElementById('id_popup_text_advertisment');
+
+   
+    let text = '';
+    let text2 = '';
+    let text3 = '';
+    let text4 = '';
+    if (bl_v_c.value == 1 ) { 
+        text = 'объявление';
+        if (bl_v_t.value == 1 ) {
+            text2 = 'Поиск';
+        } else if (bl_v_t.value == 2 ) {
+            text2 = 'Продажа';
+        } else if (bl_v_t.value == 3 ) {
+            text2 = 'Услуга';
+        }
+        text3 = bl_v_o.value;
+}
+    else if (bl_v_c.value == 2 ) { 
+        text = 'Статья';
+        bl_v_o_t.style.display = 'none';
+        text3 = bl_v_o.value;
+ }
+    else { 
+        text = 'философия';
+        bl_v_o_t.style.display = 'none';
+        bl_v_t_t.style.display = 'none';
+    } 
+    if (bl_v_a.value == 3 ) { text4 = 'никому'}
+    else if (bl_v_a.value == 2 ) { text4 = 'coколлекционерам'}
+    else if (bl_v_a.value == 1 ) { text4 = 'одноклубникам'}
+
+
+    
+    bl_pr_c.innerText = text;
+    console.log(bl_pr_c);
+    bl_pr_t.innerText = text2;
+    console.log(bl_pr_t);
+    bl_pr_o.innerText = text3;
+    console.log(bl_pr_o);
+    bl_pr_a.innerText = text4;
+    console.log(bl_pr_a);
+
+
+
+    general.style.display = 'block';
 }
 
 function id_photo_s() {
@@ -328,6 +386,14 @@ function id_photo_s() {
     block3.value = block2.value;
     console.log(block3);
 }
+
+function vseSNachala() {
+    let block1 = document.getElementById("pu_div28");
+    block1.style.display = 'none';
+    let block3 = document.getElementById("pu_div20");
+    block3.style.display = 'block';
+}
+
 
 // Итак в чём же основная проблема с которой столкнулся я. Оказывается “выключить” кнопку можно как угодно, т.е. обратившись к элементу submit в любой доступной форме:
 // Submit.disabled = true;
