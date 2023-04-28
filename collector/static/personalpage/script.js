@@ -43,19 +43,31 @@ function menuPoint20(object) {
     for (let item of value_list) {
         list_object.push(item.textContent)
         }
+    console.log('lerkfnvlerkjbvlerkjbelrbv')    
     console.log(list_object);
-    key = control_word (list_object, object.id)
+    let key = control_word (list_object, object.id)
+    console.log(key)
     if (key == false) {
         let div_object = document.getElementById('plusPredmet');
         let div_object2 = document.getElementById('id_interest');
-        div_object2.style.zIndex = '-1000'
-        div_object.innerHTML += `<p><span>&ensp;&ensp;</span><span class="Child_main_menu2">${object.id}</span><span>,</span></p> `
-        div_object2.innerText += '${object.id}'
-        list_object.push(object.id)
+        let div_object3 = document.getElementById('id_collection');
+
+        div_object2.style.zIndex = '-1000';
+        div_object.innerHTML += `<p><span>&ensp;&ensp;</span><span class="Child_main_menu2">${object.id}</span><span>,</span></p> `;
+        div_object2.innerText += '${object.id}';
+        // console.log(div_object3);
+        // console.log(div_object3.innerText);
+        console.log('${object.id}');
+        div_object3.innerText += '${object.id}';
+        // console.log(div_object3);
+        console.log('weklrjnrjnijbnijnljknbljkbnljkbnljkb')
+        list_object.push(object.id);
+        console.log('weklrjnrjnijbnijnljknbljkbnljkbnljkb')
         console.log(list_object);
-        let object_id2 = object.id + ', '
+        let object_id2 = object.id + ', ';
         console.log('value kukuk156', object.id);
         div_object2.value += object_id2;
+        div_object3.value += object_id2;
         console.log(list_object);
         console.log(div_object2);
         // find_cat('')
@@ -68,15 +80,25 @@ function menuPoint25() {
     value_list.innerHTML = `<p>Предмет коллекционирования:</p>`
     console.log(value_list.innerText)
     let div_object2 = document.getElementById('id_interest');
-    div_object2.value = ''
-    console.log(div_object2)
-    div_object2.style.zIndex = '-10'
+    let div_object3 = document.getElementById('id_collection');
+    div_object2.value = '';
+    
+    console.log(div_object2);
+    div_object2.style.zIndex = '-10';
     console.log(div_object2.value);
+    div_object3.value = '';
+    console.log(div_object3.value);
 }
 
 function menuPoint24() {
     let block = document.getElementById('alternative_global_3');
     block.style.display = 'none';
+    let div_object2 = document.getElementById('id_interest');
+    let div_object3 = document.getElementById('id_collection');
+    console.log(div_object2);
+    console.log(div_object3);
+    console.log(div_object2.value);
+    console.log(div_object3.value);
 }
 
 // ввод меню для добавления элемента
@@ -96,10 +118,10 @@ function control_word (list_object, object) {
     let lis_ob_li = list_object.length;
     key = false;
     for (let i = 0; i <= lis_ob_li; i +=1) {
-        console.log(list_object[i]);
-        console.log(typeof(list_object[i]));
-        console.log(object);
-        console.log(typeof(object));
+        // console.log(list_object[i]);
+        // console.log(typeof(list_object[i]));
+        // console.log(object);
+        // console.log(typeof(object));
         if (list_object[i] == object) {
             key = true;
             return key
@@ -192,9 +214,9 @@ document.addEventListener('click', (e) => { // Вешаем обработчик
     }
     if (count == 0) {  
         clouse_photo(); 
-        console.log(count);
-        console.log(string);
-        console.log(popupBg) 
+        // console.log(count);
+        // console.log(string);
+        // console.log(popupBg) 
     } 
     // else { clouse_photo(); }
     }
@@ -203,12 +225,38 @@ document.addEventListener('click', (e) => { // Вешаем обработчик
 function function_categories(art) {
     console.log(art)
     let param = art.value
-    let block1 = document.getElementById(art);
+    let block1 = document.getElementById('pu_div20');
     console.log(param)
-
+    if (param == 1) {
+        let block2 = document.getElementById('pu_div21');
+        block2.style.display = 'block';
+        console.log(block2)
+    } else if (param == 2) {
+        let block3 = document.getElementById('pu_div22');
+        block3.style.display = 'block';
+        console.log(block3)
+    } else if (param == 3) {
+        let block4 = document.getElementById('pu_div23');
+        block4.style.display = 'block';
+        console.log(block4)
+    }
+    block1.style.display = 'none';
+    let block6 = document.getElementById('id_categories');
+    block6.value = param
+    console.log(block6.value)
 }
 
+function function_advertisment(art) {
+    let param = art.value
+    let block1 = document.getElementById('pu_div21');
+    let block3 = document.getElementById('pu_div22');
+    block3.style.display = 'block';
+    block1.style.display = 'none';
+    let block6 = document.getElementById('id_topic');
+    block6.value = param
 
+
+}
 
 
 

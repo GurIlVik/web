@@ -6,7 +6,7 @@ from .forms import *
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
-from main.models import Information_block, Catalogy, PhotoInfoBlock, Category
+from main.models import Information_block, Catalogy, PhotoInfoBlock, Category, Advertisement
 from .models import NewArticle, PresentationUser, Allowance, Photo
 from main.views import method_main_page_1
 from django.core.files.base import ContentFile
@@ -73,6 +73,7 @@ def personal_page(request, user):
                    'key_draft' : key_draft,
                    'obchee' : Catalogy.objects.get(name='ОБЩЕЕ'),
                    'category' : Category.objects.all().order_by('name'),
+                   'advertisment' : Advertisement.objects.all().order_by('name'),
                    }
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)

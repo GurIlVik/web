@@ -9,17 +9,19 @@ class NewArticleForm(forms.Form):
         #     initial="название", 
                             max_length=150,                            # название статьи
             widget=forms.TextInput(attrs={'class': 'main_form_title'})) 
-    categories = forms.ModelChoiceField(                                                   # категория
-            queryset=Category.objects.all().order_by('name'),
-            label='Категория статьи',
-            empty_label = 'К выбору обязателен',
-            # widget=forms.TextInput(attrs={'class': 'main_form_categories'}),
-            )  
-    topic = forms.ModelChoiceField(                                                        # тема
-            queryset=Catalogy.objects.all().order_by('name'),
-            label='Предмет коллекционирования',
-            empty_label = 'К выбору обязателен',
-            )
+    categories = forms.CharField(max_length=3)
+#     categories = forms.ModelChoiceField(                                                   # категория
+#             queryset=Category.objects.all().order_by('name'),
+#             label='Категория статьи',
+#             empty_label = 'К выбору обязателен',
+#             # widget=forms.TextInput(attrs={'class': 'main_form_categories'}),
+#             )  
+    topic = forms.CharField(max_length=3)
+#     topic = forms.ModelChoiceField(                                                        # тема
+#             queryset=Catalogy.objects.all().order_by('name'),
+#             label='Предмет коллекционирования',
+#             empty_label = 'К выбору обязателен',
+#             )
     collection = forms.CharField( max_length=150,)   # предметы коллекционирования 
     
     text = forms.CharField( widget=forms.Textarea, 

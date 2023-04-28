@@ -505,6 +505,10 @@ footer {
     background-color: rgb(153, 46, 131);
 }
 
+#pu_div23,  #pu_div22, #pu_div24,  #pu_div21, #pu_div26{
+    display: none;
+}
+
 #pu_div3 {
     width: 1200px;
     min-width: 60%;

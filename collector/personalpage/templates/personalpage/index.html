@@ -34,17 +34,16 @@
                     <p class='p_popup3'>философия - отражается только на личной странице</p> {% endcomment %}
                     
                     
-                    <div id="pu_div22">
+                    <div id="pu_div20">
                         <p class='p_popup'>Выберите категорию:</p>
-                    <p class='p_popup3'>объявление - для предоставления коммерческой/деловой информации</p>
-                    <p class='p_popup3'>статья - предназаначенна для просмотра всеми</p>
-                    <p class='p_popup3'>несет образовательну и познавательную информацию</p>
-                    <p class='p_popup3'>философия - отражается только на личной странице</p>
-                        
+                        <p class='p_popup3'>объявление - для предоставления коммерческой/деловой информации</p>
+                        <p class='p_popup3'>статья - предназаначенна для просмотра всеми</p>
+                        <p class='p_popup3'>несет образовательну и познавательную информацию</p>
+                        <p class='p_popup3'>философия - отражается только на личной странице</p>
                         <select name="categories" required="" id="id_categories_for_form">
                         <option value="" selected="">К выбору обязателен</option>
                         {% for i in category %}
-                        <option value="{{ i.id }}"> {{ i.name }} </option>
+                        <option value="{{ i.number }}"> {{ i.name }} </option>
                         {% endfor %}
                       </select>
                     <button class='fd2' onclick='function_categories(id_categories_for_form)'>подтверждаю</button> 
@@ -52,17 +51,35 @@
                     </div>
                     <div id="pu_div21">
                         <p class='p_popup'>Выберите подраздел объявления:</p>
-                        {{ form.topic }}
+                        <p class='p_popup3'>Ищу - для объявление о поиске интересующего предмета коллекционирования</p>
+                        <p class='p_popup3'>Продам - о продаже предмета коллекционирования</p>
+                        <p class='p_popup3'>Сделаю - об услуге которую готовы оказать</p>
+                        <p class='p_popup3'>в рамках своей деятельности</p>
+                        <select name="categories" required="" id="id_advertisment_for_form">
+                            <option value="" selected="">К выбору обязателен</option>
+                            {% for i in advertisment %}
+                            <option value="{{ i.number }}"> {{ i.name }} </option>
+                            {% endfor %}
+                          </select>
+                          <button class='fd2' onclick='function_advertisment(id_categories_for_form)'>подтверждаю</button> 
                     </div>
+                    <div id="pu_div22">
+                        <p class='p_popup'>Нажмите для выбора тематики:</p>
+                        <button class='fd2' onclick='viborPredmet()'>Выбор:</button> 
+                    </div>
+                    <div id="pu_div23">
+                        <p class='p_popup'>Разрешить ли комментировать статью:</p>
+                    </div>
+
 
                     <form class='alternativ_form' method="post" action=""  enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div>{{ form.categories }} {{ form.topic }}</div>
+                    <div id="pu_div26">{{ form.categories }} {{ form.topic }}{{ form.allowance }}{{ form.collection }}</div>
                     
                     
                     
                     <p class='p_popup'>Разрешить ли комментировать статью:</p>
-                    <div id="pu_div23">{{ form.allowance }}</div>
+                    
                     <p class='p_popup'>Добавление фотографий:</p>
                     <p class='p_popup2'>ВНИМАНИЕ при сохранении</p>
                     <p class='p_popup2'>более 5 файлов</p>
@@ -91,35 +108,7 @@
     </div>
 {% endblock %}
 
-{% comment %} Меню подбора предмета коллекционирования  {% endcomment %}
-{% block pop_up_list %}
-    <div id="alternative_global_3">
-        <div class='stringDIV'>
-            <p style="display: inline">Введите в поле название предмета коллекционирования: </p>
-            <input style="display: inline" id="poisk" type="text" oninput="find_cat(this)" >
-        </div>
 
-        <div class='poleDIV'>
-            <ul id="list_global">
-                {% for i in list_a %}
-                {% if i != obchee %}
-                    <li style="display: inline"><button id={{i.name}} class='fd2' onclick="menuPoint20(this)" >{{ i.name }}</button></li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class='stringDIV' id='plusPredmet'>
-            <p>Предмет коллекционирования:</p>
-            </div>   
-                <div class='stringDIV'>
-                    <button class='fd2' onclick="menuPoint23()" >Добавить еще предмет</button>
-                    <button class='fd2' onclick="menuPoint25()" >СБРОС</button>
-                    <button class='fd2' onclick="menuPoint24()" >ЗАПОМНИТЬ</button>
-
-            </div>    
-    </div>
-{% endblock %}
 
 {% comment %} Блок ввода данных персональной информации от юзера {% endcomment %}
 {% block personal_information_write %}
@@ -439,4 +428,32 @@
 <p>почтовик</p>
 {% endblock %}
 
- 
+ {% comment %} Меню подбора предмета коллекционирования  {% endcomment %}
+{% block pop_up_list %}
+    <div id="alternative_global_3">
+        <div class='stringDIV'>
+            <p style="display: inline">Введите в поле название предмета коллекционирования: </p>
+            <input style="display: inline" id="poisk" type="text" oninput="find_cat(this)" >
+        </div>
+
+        <div class='poleDIV'>
+            <ul id="list_global">
+                {% for i in list_a %}
+                {% if i != obchee %}
+                    <li style="display: inline"><button id={{i.name}} class='fd2' onclick="menuPoint20(this)" >{{ i.name }}</button></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class='stringDIV' id='plusPredmet'>
+            <p>Предмет коллекционирования:</p>
+            </div>   
+                <div class='stringDIV'>
+                    <button class='fd2' onclick="menuPoint23()" >Добавить еще предмет</button>
+                    <button class='fd2' onclick="menuPoint25()" >СБРОС</button>
+                    <button class='fd2' onclick="menuPoint24()" >ЗАПОМНИТЬ</button>
+
+            </div>    
+    </div>
+{% endblock %}
