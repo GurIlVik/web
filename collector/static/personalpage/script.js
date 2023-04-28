@@ -34,6 +34,14 @@ function viborPredmet(){
     blok2.style.zIndex = '10';
 }
 
+function viborPredmet_2() {
+    viborPredmet();
+    let blok2 = document.getElementById('pu_div22');
+    blok2.style.display = 'none';
+    let blok3 = document.getElementById('pu_div23');
+    blok3.style.display = 'block';
+
+}
 
 // разрисовывание функции объектов
 function menuPoint20(object) {
@@ -51,6 +59,7 @@ function menuPoint20(object) {
         let div_object = document.getElementById('plusPredmet');
         let div_object2 = document.getElementById('id_interest');
         let div_object3 = document.getElementById('id_collection');
+        console.log(div_object2)
 
         div_object2.style.zIndex = '-1000';
         div_object.innerHTML += `<p><span>&ensp;&ensp;</span><span class="Child_main_menu2">${object.id}</span><span>,</span></p> `;
@@ -234,10 +243,16 @@ function function_categories(art) {
     } else if (param == 2) {
         let block3 = document.getElementById('pu_div22');
         block3.style.display = 'block';
+        let block5 = document.getElementById('id_topic');
+        block5.value = 0;
         console.log(block3)
     } else if (param == 3) {
         let block4 = document.getElementById('pu_div23');
         block4.style.display = 'block';
+        let block5 = document.getElementById('id_topic');
+        block5.value = 0;
+        let block6 = document.getElementById('id_collection');
+        block6.value = 0;
         console.log(block4)
     }
     block1.style.display = 'none';
@@ -258,7 +273,27 @@ function function_advertisment(art) {
 
 }
 
+function comment_articl(art) {
+    console.log(art);
+    let block1 = document.getElementById('id_allowance');
+    block1.value = art;
+    console.log(block1.value);
+    console.log(typeof(block1.value));
+    let block2 = document.getElementById('pu_div23');
+    let block3 = document.getElementById('pu_div24');
+    block3.style.display = 'block';
+    block2.style.display = 'none';
+}
 
+function id_photo_s() {
+    let block1 = document.getElementById("pu_div24");
+    block1.style.display = 'none';
+    let block2 = document.getElementById("id_photo_s");
+    console.log(block2.value);
+    let block3 = document.getElementById("id_photo");
+    block3.value = block2.value;
+    console.log(block3);
+}
 
 // Итак в чём же основная проблема с которой столкнулся я. Оказывается “выключить” кнопку можно как угодно, т.е. обратившись к элементу submit в любой доступной форме:
 // Submit.disabled = true;

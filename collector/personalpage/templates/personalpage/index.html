@@ -65,44 +65,42 @@
                     </div>
                     <div id="pu_div22">
                         <p class='p_popup'>Нажмите для выбора тематики:</p>
-                        <button class='fd2' onclick='viborPredmet()'>Выбор:</button> 
+                        <button class='fd2' onclick='viborPredmet_2()'>Выбор:</button> 
                     </div>
                     <div id="pu_div23">
-                        <p class='p_popup'>Разрешить ли комментировать статью:</p>
+                        <p class='p_popup'>Допуск к комментированию:</p>
+                        <button class='fd2' onclick='comment_articl(1)'>одноклубникам</button> 
+                        <button class='fd2' onclick='comment_articl(2)'>соколлекционерам</button> 
+                        <button class='fd2' onclick='comment_articl(3)'>никому</button> 
                     </div>
+                    
 
-
-                    <form class='alternativ_form' method="post" action=""  enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div id="pu_div26">{{ form.categories }} {{ form.topic }}{{ form.allowance }}{{ form.collection }}</div>
                     
-                    
-                    
-                    <p class='p_popup'>Разрешить ли комментировать статью:</p>
-                    
-                    <p class='p_popup'>Добавление фотографий:</p>
-                    <p class='p_popup2'>ВНИМАНИЕ при сохранении</p>
-                    <p class='p_popup2'>более 5 файлов</p>
-                    <p class='p_popup2'>все данные будут потерены</p>
-                    <div id="pu_div24">{{ form.photo }}</div>
-                    <p></p>
-                    <p></p>
                 </div>  
                 <div id="pu_div3">
-                    <div id="pu_div3">
-                        <p class='p_popup1'>Название статьи:</p>
-                        <div id="pu_div25">{{ form.title }}</div>
-                        <p class='p_popup1'>Текст:</p>
-                        <div id="pu_div26">{{ form.text }}</div>
-                    </div>
-             
-                    <div id="pu_div4">
-                        {{ form.error }}
-                        <button class='fd2' type="submit" name='memory' id='non_id_memory'>сохранить</button>  
-                        <button class='fd2' type="submit" name='write' id='non_id_write'>опубликовать</button>
-                        <button class='fd2' type="submit" name='delete' id='non_id_delete'>удалить</button>
-                    </div>
-                </form>
+                    <form class='alternativ_form' method="post" action=""  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div id="pu_div30">{{ form.categories }} {{ form.topic }}{{ form.allowance }}{{ form.collection }}</div>
+                        <div id="pu_div3">
+                            <p class='p_popup1'>Название статьи:</p>
+                            <div id="pu_div25">{{ form.title }}</div>
+                            <p class='p_popup1'>Текст:</p>
+                            <div id="pu_div26">{{ form.text }}</div>
+                            <div id="pu_div24">
+                                <p class='p_popup'>Добавление фотографий:</p>
+                                <p class='p_popup2'>ВНИМАНИЕ при сохранении более 5 файлов все данные будут потерены</p>
+                                {{ form.photo }}
+                            </div>
+                        </div>
+                
+                        <div id="pu_div4">
+                            {{ form.error }}
+                            <button class='fd2' type="submit" name='memory' id='non_id_memory'>сохранить</button>  
+                            <button class='fd2' type="submit" name='write' id='non_id_write'>опубликовать</button>
+                            <button class='fd2' type="submit" name='delete' id='non_id_delete'>удалить</button>
+                        
+                        </div>
+                    </form>
                 </div>
             </div>
     </div>
@@ -456,4 +454,8 @@
 
             </div>    
     </div>
+    <form class='alternativ_form' method="post" action="" id="p_inf_write_block" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_info.interest }} 
+    </form>
 {% endblock %}

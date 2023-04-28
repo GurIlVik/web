@@ -71,7 +71,7 @@ def personal_page(request, user):
                    'acess_mass' : acess_mass,                                               # ключ черновиков
                    'key_article' : key_article, 
                    'key_draft' : key_draft,
-                   'obchee' : Catalogy.objects.get(name='ОБЩЕЕ'),
+                   'obchee' : Catalogy.objects.get(name='0'),
                    'category' : Category.objects.all().order_by('name'),
                    'advertisment' : Advertisement.objects.all().order_by('name'),
                    }

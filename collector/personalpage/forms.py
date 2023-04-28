@@ -27,11 +27,7 @@ class NewArticleForm(forms.Form):
     text = forms.CharField( widget=forms.Textarea, 
                         #    initial="текст",                        # текст сообщения
             ) 
-    allowance = forms.ModelChoiceField(                                                        # каталог
-            queryset=AllowanceComment.objects.all().order_by('name'),
-            label='',
-            empty_label = 'К выбору обязателен',
-            )
+    allowance = forms.CharField(max_length=3)
     photo = MultiFileField(min_num=0, max_num=5,required=False )
     
 #     photo = forms.ImageField(label=u'введите файл', 

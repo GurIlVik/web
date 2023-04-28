@@ -505,8 +505,11 @@ footer {
     background-color: rgb(153, 46, 131);
 }
 
-#pu_div23,  #pu_div22, #pu_div24,  #pu_div21, #pu_div26{
+#pu_div23,  #pu_div22, #pu_div24,  #pu_div21 {
     display: none;
+}
+#pu_div30 {
+    display: block;
 }
 
 #pu_div3 {
@@ -686,4 +689,8 @@ label {
     left: 50%;
     position: absolute;
     z-index: 20;
+}
+
+#p_inf_write_block {
+    display: none;
 }
