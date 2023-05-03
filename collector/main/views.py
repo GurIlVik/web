@@ -85,7 +85,7 @@ def publication(request, author, id):
             'form' : form,
             'key_comments' : key_comments,
             'dict_comments' : dict_comments,
-            'model' : comm,
+            'model' : dict_comments,
             'form2' : form2,
             } 
     if request.method == 'POST':
