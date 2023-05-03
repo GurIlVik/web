@@ -1,0 +1,38 @@
+{% load static %}
+{% csrf_token %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static '/main/base.css' %}" type='text/css'> 
+    <script src="{% static '/main/script.js' %}"></script> 
+</head>
+<body>
+    <header>
+        {% block menu_block %} {% endblock %}
+    </header>
+
+    {% block  alternative_global %}{% endblock %} 
+
+
+    <div id="global">
+        {% block content %}   {% endblock %}  
+         
+        
+
+    </div>
+
+    <footer>
+        <div id="f_d1">
+            <div>&nbsp  Творческая студия:</div> 
+            <div>&nbsp  GurIlVik</div> 
+            <div>&nbsp  gilvik1@yandex.ru</div>
+        </div> 
+    </footer>  
+
+</body> 
+</html>    

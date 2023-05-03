@@ -57,7 +57,8 @@ class TopicInterest(models.Model):
 class Information_block(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)  
     categories = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'категория')
-    topic = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'предмет')
+    topic = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'тема')
+    collection = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'предмет')
     title = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'название')
     text = models.TextField(null=True, blank=True, verbose_name = 'текст') 
     in_publishid = models.BooleanField(default=False)         # Если  инфо опубликованна

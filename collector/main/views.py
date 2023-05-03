@@ -5,30 +5,55 @@ from .forms import *
 from sqlite3 import OperationalError
 
 
-def function_show_article(clas, photo_clas):
+def function_show_article_2(dot, key_article, photo_clas, dict_draft):
+    if dot:
+        key_article = True  
+        count = 0 
+        list_draft = []
+        for i in dot:
+            print(i)
+            print(i.pk)
+            res = photo_clas.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
+            if res:
+                for j in res:
+                    list_draft.append(j.image)
+                    count += 1
+            else:
+                list_draft.append(False)
+            dict_photo = {count : list_draft}
+            dict_draft[i] = dict_photo
+            list_draft = []
+            count = 0
+    return key_article, dict_draft
+            
+# проверка 
+def function_show_article(clas, photo_clas, filter_list = False):
     key_article = False                                                     # ключ статей
     dict_draft = {}
-    try:
-        dot = clas.objects.all()
-    except OperationalError as error:
-        print(error)
+    if filter_list == False:
+        try:
+            dot = clas.objects.all()
+        except OperationalError as error:
+            print(error)
+        else:
+            key_article, dict_draft = function_show_article_2(dot, key_article, photo_clas, dict_draft)
     else:
-        if dot:
-            key_article = True  
-            count = 0 
-            list_draft = []
-            for i in dot:
-                res = photo_clas.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
-                if res:
-                    for j in res:
-                        list_draft.append(j.image)
-                        count += 1
-                else:
-                    list_draft.append(False)
-                dict_photo = {count : list_draft}
-                dict_draft[i] = dict_photo
-                list_draft = []
-                count = 0
+        dot = []
+        dot2 = []
+        count = 0
+        print('wlkfejbv')
+        for elem in filter_list:
+            try:
+                dot1 = clas.objects.all()
+            except OperationalError as error:
+                print(error)
+            else:
+                for i in dot1:
+                    print(i)
+                    print(i.collection)     # ЭТО ПРЕДМЕТ КОЛЛЕКЦИОНИРОВАНИЯ
+                    
+        if count!= 0: 
+            key_article, dict_draft = function_show_article_2(dot, key_article, photo_clas, dict_draft)
     return key_article, dict_draft 
         
 # отображение главной страницы
@@ -54,17 +79,23 @@ def main_page(request):
         'log' : g,
         'puth_exit_enter' : h,
         'puth_paesonalpage' : j,
-        # 'puth_publication' : k,
+        'obchee' : Catalogy.objects.get(name='0'),
     }
     if request.method == 'POST':
         form = ProstoList(request.POST) 
         if form.is_valid(): 
             form = form.cleaned_data
+            print(form)
+            print('form')
             predmet_collection_list = method_main_page_1(form['pole']) # В этом списке выбранные категории предметов
-            context['info_blok'] = method_main_page_2(predmet_collection_list, c)
-            context['amalker'] = method_main_page_2(predmet_collection_list, e)
-            c = method_main_page_2(predmet_collection_list, c)
-            e = method_main_page_2(predmet_collection_list, e)
+            key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, predmet_collection_list) 
+            # context['info_blok'] = method_main_page_2(predmet_collection_list, c)
+            # context['amalker'] = method_main_page_2(predmet_collection_list, e)
+            # c = method_main_page_2(predmet_collection_list, c)
+            # e = method_main_page_2(predmet_collection_list, e)
+            print(predmet_collection_list)
+            print(key_article)
+            print(dict_article)
             return render(request, 'main/index.html', context)
         return render(request, 'main/index.html', context)
     

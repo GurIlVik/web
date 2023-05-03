@@ -8,7 +8,7 @@ admin.site.register(Category, CategoryAdmin)
    
         
 class Information_block_Admin(admin.ModelAdmin):    
-    list_display = ['author', 'categories', 'topic', 'title', # категории по списку предметов коллекционирования
+    list_display = ['author', 'categories', 'topic', 'title', 'collection',# категории по списку предметов коллекционирования
     'text', 'in_publishid', 'time_publication', 'count_symbol_ok', 'count_symbol_bad', 
     'access',]                           
 admin.site.register(Information_block, Information_block_Admin)

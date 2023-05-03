@@ -27,13 +27,6 @@
         <div id="alternativ_global">
             <div id="pu_div1">
                 <div id="pu_div2">
-                    {% comment %} <p class='p_popup'>Выберите категорию:</p>
-                    <p class='p_popup3'>объявление - для предоставления коммерческой/деловой информации</p>
-                    <p class='p_popup3'>статья - предназаначенна для просмотра всеми</p>
-                    <p class='p_popup3'>несет образовательну и познавательную информацию</p>
-                    <p class='p_popup3'>философия - отражается только на личной странице</p> {% endcomment %}
-                    
-                    
                     <div id="pu_div20">
                         <p class='p_popup'>Выберите категорию:</p>
                         <p class='p_popup3'>объявление - для предоставления коммерческой/деловой информации</p>
@@ -47,7 +40,6 @@
                         {% endfor %}
                       </select>
                     <button class='fd2' onclick='function_categories(id_categories_for_form)'>подтверждаю</button> 
-                    {% comment %} <div id="pu_div22"><select name="categories" required="" id="id_categories"> {% endcomment %}
                     </div>
                     <div id="pu_div21">
                         <p class='p_popup'>Выберите подраздел объявления:</p>
@@ -375,7 +367,8 @@
                         {% endif %}
                     </div>
                     <div class = 'info_blok_73'>
-                        <p class = 'predmet_collection_user5'>{{key.collection}}</p> 
+                        {% comment %} <p class = 'predmet_collection_user5'>{{key.collection}}</p>  {% endcomment %}
+                        <p class = 'predmet_collection_user5'>&nbsp</p>
                     </div>
                     <div class = 'info_blok_74'>
                         <p class = 'predmet_collection_user6' id='art_title_id_{{key.pk}}'>{{key.title}}</p> 

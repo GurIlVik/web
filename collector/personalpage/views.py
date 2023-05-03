@@ -363,10 +363,13 @@ def function_foto_memory(request, clas, pole):
 
 # функция записи из формы в модель чистовика - статьи с фотографиями       
 def function_write_clean_copy(cd, request):
+    print(cd['categories'])
+    print(cd['topic'])
     new_lokus = Information_block.objects.create(
         author = request.user,
-        categories = cd['categories'],        # категории по списку предметов коллекционирования
-        topic = cd['topic'],      # категории по списку интереса и поиска
+        categories = cd['categories'],   
+        topic = cd['topic'],     
+        collection = cd['collection'],      
         title = cd['title'],
         text = cd['text'],
         in_publishid = True,
