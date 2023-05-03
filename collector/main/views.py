@@ -11,8 +11,8 @@ def function_show_article_2(dot, key_article, photo_clas, dict_draft):
         count = 0 
         list_draft = []
         for i in dot:
-            print(i)
-            print(i.pk)
+            # print(i)
+            # print(i.pk)
             res = photo_clas.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
             if res:
                 for j in res:
@@ -42,18 +42,28 @@ def function_show_article(clas, photo_clas, filter_list = False):
         dot2 = []
         count = 0
         print('wlkfejbv')
-        for elem in filter_list:
-            try:
-                dot1 = clas.objects.all()
-            except OperationalError as error:
-                print(error)
-            else:
-                for i in dot1:
-                    print(i)
-                    print(i.collection)     # ЭТО ПРЕДМЕТ КОЛЛЕКЦИОНИРОВАНИЯ
-                    
+        
+        try:
+            dot1 = clas.objects.all()
+        except OperationalError as error:
+            print(error)
+        else:
+            for i in dot1:
+                for elem in filter_list:
+                    if elem in i.collection and i not in dot:
+                        count += 1
+                        # print('zdec zikl')
+                        # print(elem)
+                        # print(i.collection)
+                        # print(i)
+                        # print(dot)
+                        dot.append(i)
+                        # print(dot)
+        # print(dot)    
+        # print('до функции')        
         if count!= 0: 
             key_article, dict_draft = function_show_article_2(dot, key_article, photo_clas, dict_draft)
+    # print(key_article, dict_draft)
     return key_article, dict_draft 
         
 # отображение главной страницы
@@ -88,7 +98,7 @@ def main_page(request):
             print(form)
             print('form')
             predmet_collection_list = method_main_page_1(form['pole']) # В этом списке выбранные категории предметов
-            key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, predmet_collection_list) 
+            context['key_article'], context['info_blok'] = function_show_article(Information_block, PhotoInfoBlock, predmet_collection_list) 
             # context['info_blok'] = method_main_page_2(predmet_collection_list, c)
             # context['amalker'] = method_main_page_2(predmet_collection_list, e)
             # c = method_main_page_2(predmet_collection_list, c)
