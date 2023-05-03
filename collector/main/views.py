@@ -6,19 +6,6 @@ from sqlite3 import OperationalError
 from django.contrib.auth.models import User
 from personalpage.models import PresentationUser
 
-def list_interest_user(param):
-    list_interes = ['ОБЩЕЕ']
-    string = ''
-    for i, elem in enumerate(param[2:]):
-        if elem not in "' ],":
-            string += elem
-        elif elem == "'" and param[2:][i+1] == ',' or elem == "'" and param[2:][i+1] == ']':
-            list_interes.append(string)
-            string = ''
-        elif elem == "]" or elem == "," or elem == "'":
-            pass
-    return list_interes
-
 
 # отображение главной страницы
 def main_page(request):
@@ -34,13 +21,9 @@ def main_page(request):
     
     list_interest = list_interest_user(list_interest)
     key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock) 
-    print('wdlkfjnvwlkjnv')
-    print(list_interest)
-    print(key_article)
-    print(dict_article)
     if list_interest:
-        print('wdlkfjnvwlkjnv')
         key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, filter_list = list_interest) 
+        
     print(key_article)
     print(dict_article)
     
@@ -66,7 +49,22 @@ def main_page(request):
     
     return render(request, 'main/index.html', context)
      
-
+def function_show_comments(param, key):
+    key_article = False                                                     # ключ статей
+    list_draft = []
+    dot = ''
+    try:
+        dot = param.objects.filter()
+    except OperationalError as error:
+        print('ошибочка')
+    else:
+        key_article = True
+        print(dot)
+        if dot:
+            for i in dot:
+                list_draft. append(i)
+    return key_article, list_draft
+    
 
 # отображение страницы публикации
 def publication(request, author, id):
@@ -74,12 +72,19 @@ def publication(request, author, id):
     k = Information_block.objects.get(id = id)
     j = f'/personalpage/{str(request.user)}'
     form = CommemtUser()
-    comm = ArticleComments.objects.filter(whom_message = k.id)
+    # comm = ArticleСomments.objects.filter(publication = k.pk)
     form2 = CommentForComment()
+    print(k)
+    print(k.pk)
+    # print(comm)
+    key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+    
     context = {'a' : author,
             'info_blok' : c, 
             'puth_paesonalpage' : j,
             'form' : form,
+            'key_comments' : key_comments,
+            'dict_comments' : dict_comments,
             'model' : comm,
             'form2' : form2,
             } 
@@ -89,14 +94,14 @@ def publication(request, author, id):
         if form.is_valid(): 
             form = form.cleaned_data
             k = Information_block.objects.get(id = id)
-            ArticleComments.objects.create(
-                whom_message = k.id,                                        # ID статьи автора статьи
-                whose_message = request.user,                               #  имя комментатора
-                text_message = form['comment'],                                        #  текст комментария
-                count_symbol_ok = 0,                                        # 
-                count_symbol_bad = 0,  
-                access = True     #
-            )
+            # ArticleComments.objects.create(
+            #     whom_message = k.id,                                        # ID статьи автора статьи
+            #     whose_message = request.user,                               #  имя комментатора
+            #     text_message = form['comment'],                                        #  текст комментария
+            #     count_symbol_ok = 0,                                        # 
+            #     count_symbol_bad = 0,  
+            #     access = True     #
+            # )
             return render(request, 'main/publication.html', context)
         elif form2.is_valid(): 
             form2 = form2.cleaned_data
@@ -191,3 +196,19 @@ def chek_User_authenticated(request, a = None, b = None):
     if request.user.is_authenticated:
         a = b
     return a
+
+# функция получение списка из строки класса личных настроект пользователя
+def list_interest_user(param):
+    list_interes = ['ОБЩЕЕ']
+    string = ''
+    for i, elem in enumerate(param[2:]):
+        if elem not in "' ],":
+            string += elem
+        elif elem == "'" and param[2:][i+1] == ',' or elem == "'" and param[2:][i+1] == ']':
+            list_interes.append(string)
+            string = ''
+        elif elem == "]" or elem == "," or elem == "'":
+            pass
+    return list_interes
+
+

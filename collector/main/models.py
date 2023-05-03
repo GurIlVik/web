@@ -77,16 +77,14 @@ class PhotoInfoBlock(models.Model):
 
 # модель представления комментария 
 class ArticleСomments(models.Model):  
-#     whom_message = models.CharField(max_length=50)
+    autor_publication = models.ForeignKey(User, on_delete=models.CASCADE)  
+    publication = models.ForeignKey(Information_block, on_delete=models.CASCADE)  
     time_publication = models.TimeField(auto_now_add=True, auto_now = False,)
-#     whose_message = models.CharField(max_length=50)
-#     text_message = models.TextField(blank=True)
-#     count_symbol_ok = models.CharField(max_length=5)
-#     symbol_bad = models.CharField(max_length=1, null=False)               
-#     count_symbol_bad = models.CharField(max_length=5, null=True)
-#     comment_article = models.CharField(max_length=50, null=False)
-#     write_author = models.CharField(max_length=50, null=False)
-#     access = models.BooleanField(null=False)
+    autor_message = models.CharField(max_length=50)
+    text_message = models.TextField(blank=True)
+    count_symbol_ok = models.CharField(max_length=5)
+    count_symbol_bad = models.CharField(max_length=5, null=True)
+
     class Meta:
         verbose_name_plural = 'комментарий'
 

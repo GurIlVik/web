@@ -110,7 +110,8 @@
             <div id='info_blok_6'>
                 <p>  </p>
             </div>
-            {% for j in model %}
+            {% if key_comments == True %}
+            {% for j in dict_comments %}
             <div class='info_blok_7'>
                 <div class='info_blok_71'>
                     <p>{{ j.whose_message }}</p>
@@ -137,6 +138,7 @@
                 </div>
             </div>
             {% endfor%}
+            {% endif %}
 
         </div>
         {% endfor%}
