@@ -6,21 +6,9 @@ from sqlite3 import OperationalError
 from django.contrib.auth.models import User
 from personalpage.models import PresentationUser
 
-
 # отображение главной страницы
 def main_page(request):
-    list_interest = []
-   
-    
-    try:
-        list_interest = PresentationUser.objects.get(user=request.user).interest
-    except:
-        print('ну нет интереса')
-        list_int = Catalogy.objects.all()
-        for elem in list_int:
-            list_interest.append(elem.name)
-    else: 
-        list_interest = list_interest_user(list_interest)
+    list_interest = function_list_interes(request)
     print(list_interest)
     a = Catalogy.objects.all().order_by('name')  # сортировка списка по имени в базе
     b = ProstoList('prosto_list')
@@ -61,6 +49,8 @@ def main_page(request):
     
     return render(request, 'main/index.html', context)
     
+   
+
 # отображение страницы публикации
 def publication(request, author, id):
     c = Information_block.objects.filter(id = id)
@@ -70,7 +60,20 @@ def publication(request, author, id):
     # comm = ArticleСomments.objects.filter(publication = k.pk)
     form2 = CommentForComment()
     print('start')
-    # print(c)
+    list_int2 = []
+    strin = ''
+    for elem in k.collection:
+        if elem not in ', ':
+            strin += elem
+        elif elem ==',':
+            list_int2.append(strin)
+            strin = ''
+            
+    # print(k.collection)
+    # print(list_int2)
+    acess_comm = function_acess_comment(k.access, request, list_int2)
+    
+    # print(acess_comm)
     # print(k.pk)
     # print(k)
     photo_autor = PresentationUser.objects.get(user=k.author).photo
@@ -88,6 +91,7 @@ def publication(request, author, id):
             'model' : dict_comments,
             'form2' : form2,
             'photo_autor' : photo_autor,
+            'acess_comm' : acess_comm,
             } 
     if request.method == 'POST':
         form = CommentUser(request.POST)
@@ -242,5 +246,34 @@ def function_show_comments(param, key):
             for i in dot:
                 list_draft. append(i)
     return key_article, list_draft
-  
+
+# функция отображения листа коллкционных предметов  
+def function_list_interes(request):
+    list_interest = []
+    try:
+        list_interest = PresentationUser.objects.get(user=request.user).interest
+    except:
+        print('ну нет интереса')
+        list_int = Catalogy.objects.all()
+        for elem in list_int:
+            list_interest.append(elem.name)
+    else: 
+        list_interest = list_interest_user(list_interest)
+    return list_interest
+
+ # функция проверки допуска для комментирования 
+def function_acess_comment(key, request, list_int2):
+    res = False
+    list_interest = function_list_interes(request)
+    param = False
+    for i in list_interest:
+        for j in list_int2:
+            if i == j:
+                param = True
+                break
+    if int(key) == 1 and request.user.is_authenticated:
+        res = True
+    elif int(key) == 2 and param == True:
+        res = True
+    return res  
 

@@ -375,7 +375,7 @@ def function_write_clean_copy(cd, request):
         in_publishid = True,
         count_symbol_ok = 0,
         count_symbol_bad = 0,
-        access = True)
+        access = cd['allowance'],)
     print(new_lokus)
     function_foto_memory(request, PhotoInfoBlock, new_lokus)
    
