@@ -24,8 +24,8 @@ def main_page(request):
     if list_interest:
         key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, filter_list = list_interest) 
         
-    print(key_article)
-    print(dict_article)
+    # print(key_article)
+    # print(dict_article)
     
     context = {
         'a': a,
@@ -59,13 +59,12 @@ def function_show_comments(param, key):
         print('ошибочка')
     else:
         key_article = True
-        print(dot)
+        # print(dot)
         if dot:
             for i in dot:
                 list_draft. append(i)
     return key_article, list_draft
     
-
 # отображение страницы публикации
 def publication(request, author, id):
     c = Information_block.objects.filter(id = id)
@@ -74,9 +73,12 @@ def publication(request, author, id):
     form = CommemtUser()
     # comm = ArticleСomments.objects.filter(publication = k.pk)
     form2 = CommentForComment()
-    print(k)
+    print('start')
+    print(c)
     print(k.pk)
-    # print(comm)
+    print(k)
+    photo_autor = PresentationUser.objects.get(user=request.user).photo
+    print(photo_autor)
     key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
     
     context = {'a' : author,
@@ -87,6 +89,7 @@ def publication(request, author, id):
             'dict_comments' : dict_comments,
             'model' : dict_comments,
             'form2' : form2,
+            'photo_autor' : photo_autor,
             } 
     if request.method == 'POST':
         form = CommemtUser(request.POST)

@@ -56,27 +56,30 @@
 {% endblock %}
 
  
-{% block content %}    
-        <div id="advertisement"> 
-            {% for i in amalker %}
-            <div class = 'amalker_blok_1'>
-                <div class = 'amalker_blok_2'>
-                    {{i.name_seller}}
-                </div>
-                <div class = 'amalker_blok_3'>
-                    {{i.tabloid}}
-                </div>
+    
+        
+{% block amalker %}      
+    {% for i in amalker %}
+        <div class = 'amalker_blok_1'>
+            <div class = 'amalker_blok_2'>
+                {{i.name_seller}}
             </div>
-            {% endfor%}   
-        </div>    
+            <div class = 'amalker_blok_3'>
+                {{i.tabloid}}
+            </div>
+        </div>
+    {% endfor%}  
+{% endblock %}  
+       
 
-        <div id="basic">
-            {% if key_article != True %}
-                <p>Странно, но в этом разделе нет публикаций</p>
-            {% else %}
+        
+{% block content %}
+    {% if key_article != True %}
+        <p>Странно, но в этом разделе нет публикаций</p>
+    {% else %}
 
-            {% for key, value in info_blok.items %}
-            {% csrf_token %}
+    {% for key, value in info_blok.items %}
+        {% csrf_token %}
             <div class = 'info_blok_grid_main' id='{{key.id}}'>
                 <div class = 'grid_main_field1'>
                         <a href="/personalpage/{{ key.author }}" class='grid_main_p'>
@@ -156,10 +159,6 @@
 
 
         </div>
-
-    </div>
-
-    
-    
 {% endblock %}
-</html>
+
+

@@ -108,10 +108,11 @@ function comment_for_comment(i) {
    
 
 function fun_foto(param) {
-    console.log(param)
+    console.log(param);
     let block = param;
-    console.log(param.src)
+    console.log(param.src);
     let block2 = document.getElementById('info_blok_90');
+    console.log(block2);
     block2.style.display = 'block';
     block2.innerHTML = '';
     let block3 = document.getElementById('info_blok_91');
