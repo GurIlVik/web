@@ -117,12 +117,26 @@ function fun_foto(param) {
     block2.innerHTML = '';
     let block3 = document.getElementById('info_blok_91');
     block3.style.display = 'block';
-    console.log('lwrjbhglkwrjtbgwlrijb')
+    console.log('lwrjbhglkwrjtbgwlrijb');
+    console.log(param.src);
+    
+
     let block5 = document.createElement('img');
     block5['src'] = param.src;
-    // console.log(block5)
+    
     block2.appendChild(block5);
-    // console.log(block2)
+
+    console.log(block2)
+
+    // res_1 = 'http://127.0.0.1:8030'
+    // res = param.src.slice(res_1.length, param.src.length)
+    // res4 = 'url('+res+')'
+    // block2.style.backgroundImage = res4;
+    // block2.style.backgroundSize = 'contain';
+    // block2.style.width = '80%';
+    // block2.style.height = '80%';
+    // block3.style.paddingTop = '42.857%';
+    // block2.style.outline = '1px solid red';
 }
 function clouse_photo() {
     let block2 = document.getElementById('info_blok_90');

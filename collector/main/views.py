@@ -9,7 +9,19 @@ from personalpage.models import PresentationUser
 
 # отображение главной страницы
 def main_page(request):
-    list_interest = PresentationUser.objects.get(user=request.user).interest
+    list_interest = []
+   
+    
+    try:
+        list_interest = PresentationUser.objects.get(user=request.user).interest
+    except:
+        print('ну нет интереса')
+        list_int = Catalogy.objects.all()
+        for elem in list_int:
+            list_interest.append(elem.name)
+    else: 
+        list_interest = list_interest_user(list_interest)
+    print(list_interest)
     a = Catalogy.objects.all().order_by('name')  # сортировка списка по имени в базе
     b = ProstoList('prosto_list')
     c = Information_block.objects.all()
@@ -19,7 +31,7 @@ def main_page(request):
     h = chek_User_authenticated(request, "/", "/logout/")  # предоставление путей согласно логик
     j = f'/personalpage/{str(request.user)}'      # получение имени и питу на личную страницу
     
-    list_interest = list_interest_user(list_interest)
+    # list_interest = list_interest_user(list_interest)
     key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock) 
     if list_interest:
         key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, filter_list = list_interest) 
@@ -48,41 +60,27 @@ def main_page(request):
         return render(request, 'main/index.html', context)
     
     return render(request, 'main/index.html', context)
-     
-def function_show_comments(param, key):
-    key_article = False                                                     # ключ статей
-    list_draft = []
-    dot = ''
-    try:
-        dot = param.objects.filter()
-    except OperationalError as error:
-        print('ошибочка')
-    else:
-        key_article = True
-        # print(dot)
-        if dot:
-            for i in dot:
-                list_draft. append(i)
-    return key_article, list_draft
     
 # отображение страницы публикации
 def publication(request, author, id):
     c = Information_block.objects.filter(id = id)
     k = Information_block.objects.get(id = id)
     j = f'/personalpage/{str(request.user)}'
-    form = CommemtUser()
+    form = CommentUser()
     # comm = ArticleСomments.objects.filter(publication = k.pk)
     form2 = CommentForComment()
     print('start')
-    print(c)
-    print(k.pk)
-    print(k)
-    photo_autor = PresentationUser.objects.get(user=request.user).photo
-    print(photo_autor)
+    # print(c)
+    # print(k.pk)
+    # print(k)
+    photo_autor = PresentationUser.objects.get(user=k.author).photo
+    # print(photo_autor)
     key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+    blok_publik = function_show_publik(id)
     
     context = {'a' : author,
             'info_blok' : c, 
+            'blok_publik' : blok_publik,
             'puth_paesonalpage' : j,
             'form' : form,
             'key_comments' : key_comments,
@@ -92,7 +90,7 @@ def publication(request, author, id):
             'photo_autor' : photo_autor,
             } 
     if request.method == 'POST':
-        form = CommemtUser(request.POST)
+        form = CommentUser(request.POST)
         form2 = CommentForComment(request.POST)
         if form.is_valid(): 
             form = form.cleaned_data
@@ -214,4 +212,35 @@ def list_interest_user(param):
             pass
     return list_interes
 
+# функция подготовки словаря для распечатки статьи 
+def function_show_publik(param):
+    list_photo = []
+    k = Information_block.objects.get(id = param)
+    try:
+        d = PhotoInfoBlock.objects.filter(location__pk=k.pk)
+    except:
+        print('нет фото')
+    else:
+        for elem in d:
+            list_photo.append(elem.image)
+    dict_pablik = {k : list_photo}
+    return dict_pablik 
+
+# функция отображения имеющихся комментариев    
+def function_show_comments(param, key):
+    key_article = False                                                     # ключ статей
+    list_draft = []
+    dot = ''
+    try:
+        dot = param.objects.filter()
+    except OperationalError as error:
+        print('ошибочка')
+    else:
+        key_article = True
+        # print(dot)
+        if dot:
+            for i in dot:
+                list_draft. append(i)
+    return key_article, list_draft
+  
 

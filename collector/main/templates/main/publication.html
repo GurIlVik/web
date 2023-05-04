@@ -75,19 +75,23 @@
     
 {% block content %}   
         
-    {% for i in info_blok %}
+    {% for key, value in blok_publik.items %}
         
 
                {% comment %} basic блок с основной информацией {% endcomment %}    
        
             <div id="info_blok_1"> 
-                {{i.table_contents}}
+                {{ key.title }}
             </div>
             <div id="info_blok_2"> 
-                {{i.text_contents}}
+                {{ key.text }}
             </div>
             <div id="info_blok_3"> 
-                ЗДЕСЬ ДОЛЖНЫ БЫТЬ ФОТО
+                {% for elem in value %}
+                <div class="photo_publik"> 
+                    <img class='img_for_arts' onclick='fun_foto(this)' src="{{ elem.url }}"> 
+                </div>
+                {% endfor %}
             </div>
             <div id="info_blok_4"> 
                 <div id="info_blok_41"> 
@@ -95,13 +99,13 @@
                         <p class='grid_main_p'>&#x1F44D;</p>
                     </div>
                     <div class = 'grid_main_field10'>
-                        <p class='grid_main_p'> {{i.count_symbol_ok}} </p>
+                        <p class='grid_main_p'> {{key.count_symbol_ok}} </p>
                     </div>
                     <div class = 'grid_main_field11'>
                         <p class='grid_main_p'>&#128078;</p>
                     </div>
                     <div class = 'grid_main_field12'>
-                        <p class='grid_main_p'>{{i.count_symbol_bad}}</p>
+                        <p class='grid_main_p'>{{key.count_symbol_bad}}</p>
                     </div>
                 </div>
                 <div id="info_blok_42"> 
