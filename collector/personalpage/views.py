@@ -407,9 +407,9 @@ def function_rewrite_draft(cd, request, key):
     else:
         print(memory_elem.title)
         
-        memory_elem.title=cd['title'], 
-        memory_elem.text=cd['text'], 
-        memory_elem.categories=cd['categories'], 
+        memory_elem.title=cd['title']
+        memory_elem.text=cd['text'] 
+        memory_elem.categories=cd['categories'] 
         memory_elem.topic = str(cd['topic'])
         memory_elem.save()
         

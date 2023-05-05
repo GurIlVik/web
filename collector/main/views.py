@@ -98,15 +98,13 @@ def publication(request, author, id):
         form2 = CommentForComment(request.POST)
         if form.is_valid(): 
             form = form.cleaned_data
-            k = Information_block.objects.get(id = id)
-            # ArticleComments.objects.create(
-            #     whom_message = k.id,                                        # ID статьи автора статьи
-            #     whose_message = request.user,                               #  имя комментатора
-            #     text_message = form['comment'],                                        #  текст комментария
-            #     count_symbol_ok = 0,                                        # 
-            #     count_symbol_bad = 0,  
-            #     access = True     #
-            # )
+            asss = ArticleСomments.objects.create(autor_publication = User.objects.get(username = author),                                        # ID статьи автора статьи
+                publication = k,
+                autor_message = request.user,                               #  имя комментатора
+                text_message = form['comment'],                                        #  текст комментария
+                count_symbol_ok = 0,                                        # 
+                count_symbol_bad = 0,  
+            )
             return render(request, 'main/publication.html', context)
         elif form2.is_valid(): 
             form2 = form2.cleaned_data
