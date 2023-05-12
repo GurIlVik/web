@@ -11,10 +11,13 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body style="background-image:url('{% static 'start/start.jpg'%}')">
+<body>
    
 
-
+    <div id='global'>
+        {% block content %}
+        {% endblock %}
+    </div> 
 
     <footer>
         <div id="f_d1">
