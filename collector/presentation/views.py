@@ -5,5 +5,5 @@ from personalpage.models import PresentationUser
 
 # отображение главной страницы
 def index_1(request):
-    context = {'word1' : 'сайт коллекционер'}
+    context = {'word1' : 'Клюб коллекционеров'}
     return render(request, 'presentation/index_1.html', context)
