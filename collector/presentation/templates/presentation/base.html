@@ -1,0 +1,50 @@
+{% load static %}
+{% csrf_token %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'presentation/base.css' %}" type="text/css">
+    <script src="{% static 'start/script.js'%}"></script>   
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body style="background-image:url('{% static 'start/start.jpg'%}')">
+    <header>
+        <div id="f_d2">
+            {% if request.user.is_authenticated %}
+            <div ><a class='fd2' href="{% url 'main' %}"><button class='fd2'>На главную</button></a></div>
+            <div ><a class='fd2' href="/personalpage/{{ puth_paesonalpage }}"><button class='fd2'>В личный кабинет</button></a></div>
+            <div ><a class='fd2' href="{% url 'logout' %}"><button class='fd2'>ВЫХОД</button></a></div>
+            {% else %}
+            <div ><a class='fd2' href="{% url 'login' %}"><button class='fd2'>Вход с паролем</button></a></div> 
+            <div ><a class='fd2' href="{% url 'login_email' %}"><button class='fd2'>Забыли пароль</button></a></div> 
+            <div ><a class='fd2' href="{% url 'register' %}"><button class='fd2'>Регистрация</button></a></div>
+            <div ><a class='fd2' href="{% url 'main' %}"><button class='fd2'>Без регистрация</button></a></div>
+            {% endif %}
+        </div> 
+    </header>s
+
+
+
+    <div id='global'>
+        {% block Slogan %}
+        {% endblock %}
+    </div>
+
+
+    <footer>
+        <div id="f_d1">
+            <div>&nbsp  Творческая студия:</div> 
+            <div>&nbsp  GurIlVik</div> 
+            <div>&nbsp  gilvik1@yandex.ru</div>
+        </div>
+        <div id="f_d2">
+            <p id='p_footer'>Любое копирование и использование информации с этого сайта является подлостью и делает человека мерзостью</p>
+        </div>  
+    </footer>  
+</body>
+</html>

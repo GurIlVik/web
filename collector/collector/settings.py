@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'start.apps.StartConfig',
     'main.apps.MainConfig',
     'personalpage.apps.PersonalpageConfig',
+    'presentation.apps.PresentationConfig',
     'crispy_forms',
     "crispy_bootstrap4",
 ]
