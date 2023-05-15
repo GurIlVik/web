@@ -63,6 +63,7 @@ def publication(request, author, id):
     
     # comm = ArticleСomments.objects.filter(publication = k.pk)
     form2 = CommentForComment()
+    form3 = CommentForComment2()
     print('start')
     list_int2 = []    # получение списка предметов
     strin = ''
@@ -97,12 +98,14 @@ def publication(request, author, id):
             'dict_comments' : dict_comments,
             'model' : dict_comments,
             'form2' : form2,
+            'form3' : form3,
             'photo_autor' : photo_autor,
             'acess_comm' : acess_comm,
             } 
     if request.method == 'POST':
         form = CommentUser(request.POST)
         form2 = CommentForComment(request.POST)
+        form3 = CommentForComment2(request.POST)
         if form.is_valid(): 
             form = form.cleaned_data
             asss = ArticleСomments.objects.create(autor_publication = User.objects.get(username = author),                                        # ID статьи автора статьи
@@ -115,6 +118,27 @@ def publication(request, author, id):
             key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
             context['key_comments'] = key_comments
             context['dict_comments'] = dict_comments
+            return render(request, 'main/publication.html', context)
+        
+        elif form3.is_valid():
+            form3 = form3.cleaned_data
+            print('комментарий 3')
+            dert = ArticleСommentsTwo.objects.get(id=form3['comment2_id']).comment.pk
+            print(dert)
+            print(form3)
+            # print(dert.comment.pk)
+            # print(dert.pk)
+            # print(dert.comment)
+            # der = ArticleСomments.objects.get(id=dert.pk),
+            # print(der)
+            asss = ArticleСommentsTwo.objects.create(
+                author_comment = form3['author_comment'],
+                comment = ArticleСommentsTwo.objects.get(id=form3['comment2_id']).comment,
+                author_re_comment = User.objects.get(username = request.user),
+                text_message = form3['comment2'],
+                count_symbol_ok = 0,                                     
+                count_symbol_bad = 0, 
+            )
             return render(request, 'main/publication.html', context)
         elif form2.is_valid(): 
             form2 = form2.cleaned_data
@@ -270,8 +294,6 @@ def function_show_comments(param, key):
         # else:
         if dot:
             for i in dot:
-                print('try - lj ytuj ')
-                print(i.pk)
                 try:
                     dot2 = ArticleСommentsTwo.objects.filter(comment=i.pk)
                 except OperationalError as error:
@@ -282,9 +304,6 @@ def function_show_comments(param, key):
                         # print(i)
                         # print(dot2)
                         for j in dot2:
-                            
-                            print('abuyz')
-                            print(j)
                             list_draft2.append(ArticleСommentsTwo.objects.get(id=j.id))
                     else:
                         list_draft2 = False

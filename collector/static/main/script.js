@@ -108,7 +108,25 @@ function comment_for_comment(i) {
     console.log(p_id_articl);
 }
 
-   
+function comment_for_comment2(i, author) {
+    console.log(12);
+    console.log(i);
+    console.log(author);
+    let string = 'comm_comm_' + i
+    console.log(string)
+    let field_comm_comment = document.getElementById(string);
+    field_comm_comment.style.display = 'inline';
+    console.log(field_comm_comment);
+    string = 'comment2_id_i_' + i;
+    let field_comm_comment2 = document.getElementById(string);
+    field_comm_comment2.value= i;
+    string = 'author_comment_' + i;
+    let field_comm_comment3 = document.getElementById(string);
+    field_comm_comment3.value= author;
+    console.log(12);
+    console.log(field_comm_comment2.value);
+    console.log(field_comm_comment3.value);
+}
 
 function fun_foto(param) {
     console.log(param);
@@ -122,25 +140,12 @@ function fun_foto(param) {
     block3.style.display = 'block';
     console.log('lwrjbhglkwrjtbgwlrijb');
     console.log(param.src);
-    
-
     let block5 = document.createElement('img');
     block5['src'] = param.src;
-    
     block2.appendChild(block5);
-
     console.log(block2)
-
-    // res_1 = 'http://127.0.0.1:8030'
-    // res = param.src.slice(res_1.length, param.src.length)
-    // res4 = 'url('+res+')'
-    // block2.style.backgroundImage = res4;
-    // block2.style.backgroundSize = 'contain';
-    // block2.style.width = '80%';
-    // block2.style.height = '80%';
-    // block3.style.paddingTop = '42.857%';
-    // block2.style.outline = '1px solid red';
 }
+
 function clouse_photo() {
     let block2 = document.getElementById('info_blok_90');
     let block3 = document.getElementById('info_blok_91');
