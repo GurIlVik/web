@@ -26,10 +26,10 @@ class TopicInterestAdmin(admin.ModelAdmin):
     list_display = ['name']
 admin.site.register(TopicInterest, TopicInterestAdmin)   
 
-# class  Article_commentsTwoAdmin(admin.ModelAdmin):
-#      list_display = ['whom_message', 'time_publication', 'whose_message', 'text_message', 'count_symbol_ok', 'id_articl',
-#     'count_symbol_bad','id_comment', 'write_author', 'access']
-# admin.site.register(ArticleСommentsTwo) 
+class  Article_commentsTwoAdmin(admin.ModelAdmin):
+     list_display = ['author_comment', 'comment', 'time_publication', 'text_message', 'count_symbol_ok', 'author_re_comment',
+    'count_symbol_bad',]
+admin.site.register(ArticleСommentsTwo) 
 
 class AdvertisementAdmin(admin.ModelAdmin):
     list_display = ['name', 'number']

@@ -95,15 +95,18 @@ function menuPoint3(as) {
     }
 }
 
+// функция комментирования комментатора
 function comment_for_comment(i) {
+    console.log(12);
     let field_comm_comment = document.getElementById(i);
-    field_comm_comment.style.display = 'inline'
-    let p_id_articl = document.getElementById('comment2_id_p_'+i);
-    let p_id_comment = document.getElementById('comment2_id_id_p_'+i);
-    let input_id_articl = field_comm_comment[3];
-    input_id_articl.value = p_id_articl.innerText
-    let input_id_comment = field_comm_comment[4];
-    input_id_comment.value = p_id_comment.innerText}
+    field_comm_comment.style.display = 'inline';
+    console.log(i);
+    let string = 'comment2_id_i_'+i;
+    console.log(string);
+    let p_id_articl = document.getElementById(string);
+    p_id_articl.value = i;
+    console.log(p_id_articl);
+}
 
    
 

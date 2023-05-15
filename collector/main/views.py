@@ -49,18 +49,22 @@ def main_page(request):
     
     return render(request, 'main/index.html', context)
     
-   
 
 # отображение страницы публикации
 def publication(request, author, id):
+    print(1)
     c = Information_block.objects.filter(id = id)
     k = Information_block.objects.get(id = id)
     j = f'/personalpage/{str(request.user)}'
     form = CommentUser()
+    # print(c)
+    # print(k)
+    # print(2)
+    
     # comm = ArticleСomments.objects.filter(publication = k.pk)
     form2 = CommentForComment()
     print('start')
-    list_int2 = []
+    list_int2 = []    # получение списка предметов
     strin = ''
     for elem in k.collection:
         if elem not in ', ':
@@ -69,16 +73,19 @@ def publication(request, author, id):
             list_int2.append(strin)
             strin = ''
             
-    # print(k.collection)
+    # print(strin)
     # print(list_int2)
     acess_comm = function_acess_comment(k.access, request, list_int2)
     
-    # print(acess_comm)
+    print(acess_comm) # допуск к комментированию
     # print(k.pk)
     # print(k)
     photo_autor = PresentationUser.objects.get(user=k.author).photo
     # print(photo_autor)
+    print(k.pk)
     key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+    print(key_comments)
+    print(dict_comments)
     blok_publik = function_show_publik(id)
     
     context = {'a' : author,
@@ -105,11 +112,23 @@ def publication(request, author, id):
                 count_symbol_ok = 0,                                        # 
                 count_symbol_bad = 0,  
             )
+            key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+            context['key_comments'] = key_comments
+            context['dict_comments'] = dict_comments
             return render(request, 'main/publication.html', context)
         elif form2.is_valid(): 
             form2 = form2.cleaned_data
+            print('комментарий 2')
             print(form2)
-            print(form2['comment2_id'])
+            asss = ArticleСommentsTwo.objects.create(
+                author_comment = str(ArticleСomments.objects.get(id=form2['comment2_id']).autor_publication),
+                comment = ArticleСomments.objects.get(id=form2['comment2_id']),
+                author_re_comment = User.objects.get(username = request.user),
+                text_message = form2['comment2'],
+                count_symbol_ok = 0,                                     
+                count_symbol_bad = 0, 
+            )
+            print(asss)
             return render(request, 'main/publication.html', context)
         else:
             return HttpResponse('ЧТО_ТО ОПЯТЬ НЕ ТАК')
@@ -234,12 +253,13 @@ def function_show_comments(param, key):
     list_draft = []
     dot = ''
     try:
-        dot = param.objects.filter()
+        dot = param.objects.filter(publication=key)
     except OperationalError as error:
         print('ошибочка')
     else:
         key_article = True
-        # print(dot)
+        print(dot)
+        
         if dot:
             for i in dot:
                 list_draft. append(i)

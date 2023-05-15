@@ -79,7 +79,7 @@ class PhotoInfoBlock(models.Model):
 class ArticleСomments(models.Model):  
     autor_publication = models.ForeignKey(User, on_delete=models.CASCADE)  
     publication = models.ForeignKey(Information_block, on_delete=models.CASCADE)  
-    time_publication = models.TimeField(auto_now_add=True, auto_now = False,)
+    time_publication = models.DateTimeField(auto_now_add=True, auto_now = False,)
     autor_message = models.CharField(max_length=50)
     text_message = models.TextField(blank=True)
     count_symbol_ok = models.CharField(max_length=5)
@@ -90,15 +90,13 @@ class ArticleСomments(models.Model):
 
 # модель представления комментария на комментарий
 class ArticleСommentsTwo(models.Model):  
-#     whom_message = models.CharField(max_length=50)                              # кому ответ
-    time_publication = models.TimeField(auto_now_add=True, auto_now = False,)   
-#     whose_message = models.CharField(max_length=50)                             # кто ответил
-#     text_message = models.TextField(blank=True)
-#     count_symbol_ok = models.CharField(max_length=5)                            # счетчик +
-#     id_articl = models.CharField(max_length=1, null=False)                      # id статьи
-#     count_symbol_bad = models.CharField(max_length=5, null=True)                # счетчик -
-#     id_comment = models.CharField(max_length=50, null=False)                    # id коммента
-#     write_author = models.CharField(max_length=50, null=False)
-#     access = models.BooleanField(null=False)
+    author_comment = models.CharField(max_length=50)   # кому ответ
+    comment = models.ForeignKey(ArticleСomments, on_delete=models.CASCADE)   # привязка к комментарию
+    time_publication = models.DateTimeField(auto_now_add=True, auto_now = False,)   
+    author_re_comment = models.ForeignKey(User, on_delete=models.CASCADE)   # кому ответ
+    text_message = models.TextField(blank=True)
+    count_symbol_ok = models.CharField(max_length=5)                            # счетчик +
+    count_symbol_bad = models.CharField(max_length=5, null=True)                # счетчик -
+
     class Meta:
         verbose_name_plural = 'комм на комм'
