@@ -475,9 +475,11 @@ footer {
     grid-template-columns: 20fr 20fr 20fr 2fr 4fr 2fr 4fr;
     grid-template-rows: 1fr;
     font-size: 18px;
+    border-top: #000 solid 3px;
 }
 .info_blok_72 {
     font-size: 18px;
+    /* border-bottom: #000 solid 3px; */
 }
 
 .info_blok_73 {
@@ -497,4 +499,21 @@ footer {
 
 .comment2_id_p {
     display: none;
+}
+
+.info_blok_8 {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 80%;
+    left: 20%;
+    border-bottom: #000 solid 2px;
+    border-bottom: solid 1px black;
+}
+.info_blok_81 {
+    display: grid;
+    grid-template-columns: 20fr 20fr 20fr 20fr 2fr 4fr 2fr 4fr;
+    grid-template-rows: 1fr;
+    font-size: 18px;
+    border-top: solid 1px black;
 }

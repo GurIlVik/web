@@ -250,7 +250,7 @@ def function_show_publik(param):
 # функция отображения имеющихся комментариев    
 def function_show_comments(param, key):
     key_article = False                                                     # ключ статей
-    list_draft = []
+    list_draft = {}
     dot = ''
     try:
         dot = param.objects.filter(publication=key)
@@ -258,11 +258,38 @@ def function_show_comments(param, key):
         print('ошибочка')
     else:
         key_article = True
-        print(dot)
+        print('в функции')
         
+        dot2 = ''
+        list_draft2 = []
+        
+        # try:
+        #     dot2 = ArticleСommentsTwo.objects.filter(publication=dot.pk)
+        # except OperationalError as error:
+        #     print('ошибочка')
+        # else:
         if dot:
             for i in dot:
-                list_draft. append(i)
+                print('try - lj ytuj ')
+                print(i.pk)
+                try:
+                    dot2 = ArticleСommentsTwo.objects.filter(comment=i.pk)
+                except OperationalError as error:
+                    print('ошибочка')
+                else:
+                    if dot2:
+                        # list_draft2 = dot2
+                        # print(i)
+                        # print(dot2)
+                        for j in dot2:
+                            
+                            print('abuyz')
+                            print(j)
+                            list_draft2.append(ArticleСommentsTwo.objects.get(id=j.id))
+                    else:
+                        list_draft2 = False
+                list_draft[i] = list_draft2,
+                list_draft2 = []
     return key_article, list_draft
 
 # функция отображения листа коллкционных предметов  
