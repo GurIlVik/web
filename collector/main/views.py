@@ -126,11 +126,6 @@ def publication(request, author, id):
             dert = ArticleСommentsTwo.objects.get(id=form3['comment2_id']).comment.pk
             print(dert)
             print(form3)
-            # print(dert.comment.pk)
-            # print(dert.pk)
-            # print(dert.comment)
-            # der = ArticleСomments.objects.get(id=dert.pk),
-            # print(der)
             asss = ArticleСommentsTwo.objects.create(
                 author_comment = form3['author_comment'],
                 comment = ArticleСommentsTwo.objects.get(id=form3['comment2_id']).comment,
@@ -139,20 +134,25 @@ def publication(request, author, id):
                 count_symbol_ok = 0,                                     
                 count_symbol_bad = 0, 
             )
+            key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+            context['key_comments'] = key_comments
+            context['dict_comments'] = dict_comments
             return render(request, 'main/publication.html', context)
         elif form2.is_valid(): 
             form2 = form2.cleaned_data
             print('комментарий 2')
             print(form2)
             asss = ArticleСommentsTwo.objects.create(
-                author_comment = str(ArticleСomments.objects.get(id=form2['comment2_id']).autor_publication),
+                author_comment = str(ArticleСomments.objects.get(id=form2['comment2_id']).autor_message),
                 comment = ArticleСomments.objects.get(id=form2['comment2_id']),
                 author_re_comment = User.objects.get(username = request.user),
                 text_message = form2['comment2'],
                 count_symbol_ok = 0,                                     
                 count_symbol_bad = 0, 
             )
-            print(asss)
+            key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+            context['key_comments'] = key_comments
+            context['dict_comments'] = dict_comments
             return render(request, 'main/publication.html', context)
         else:
             return HttpResponse('ЧТО_ТО ОПЯТЬ НЕ ТАК')
