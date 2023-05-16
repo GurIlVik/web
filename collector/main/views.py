@@ -55,23 +55,58 @@ def main_page(request):
             print('форма 2')
             form2 = form2.cleaned_data
             article = Information_block.objects.get(id = int(form2['count'][2:]))
-            asss = CountArticle.objects.create(
-                author_count = request.user,
-                article_count = article,
-                count_simbol = True,
-                simbol = form2['count'][0],
-            )
-            number = int(article.count_symbol_ok) + 1
-            
-            if form2['count'][0] == "+":
-                number = int(article.count_symbol_ok) + 1
-                article.count_symbol_ok = number
-            elif form2['count'][0] == "-":
-                number = int(article.count_symbol_bad) + 1
-                article.count_symbol_bad = number
-            article.save()
-            print(form2['count'][2:])
-            print(form2['count']) 
+            # check_count_article = CountArticle.objects.get(article_count = article)
+            # print(article)
+            print(form2['count'][0])
+            try:
+                check_count_article = CountArticle.objects.get(article_count = article)
+                print(check_count_article)
+            except:
+                save_count_article(article, request, form2)
+            else:
+                if check_count_article.count_simbol:
+                    print(form2['count'][0])
+                    if check_count_article.simbol == form2['count'][0] or check_count_article.simbol == ' ':
+                        if form2['count'][0] == '+':
+                            number = int(article.count_symbol_ok) - 1
+                            article.count_symbol_ok = number
+                            article.save()
+                        elif form2['count'][0] == '-':
+                            number = int(article.count_symbol_bad) - 1
+                            article.count_symbol_bad = number
+                            article.save()
+                        check_count_article.simbol = ' '
+                        check_count_article.count_simbol = False
+                    else:
+                        if form2['count'][0] == '+':    
+                            number = int(article.count_symbol_ok) + 1
+                            article.count_symbol_ok = number
+                            number = int(article.count_symbol_bad) - 1  
+                            article.count_symbol_bad = number
+                            article.save()
+                            check_count_article.simbol = '+'
+                        else:   
+                            number = int(article.count_symbol_ok) - 1
+                            article.count_symbol_ok = number
+                            number = int(article.count_symbol_bad) + 1  
+                            article.count_symbol_bad = number
+                            article.save()  
+                        check_count_article.count_simbol = True
+                else:
+                    if check_count_article.simbol == ' ' or check_count_article.simbol == form2['count'][0]:
+                        check_count_article.count_simbol = True    
+                        check_count_article.simbol = form2['count'][0]  
+                        print('wofknv', check_count_article.simbol)
+                        check_count_article.save()
+                        if form2['count'][0] == '+':    
+                            number = int(article.count_symbol_ok) + 1
+                            article.count_symbol_ok = number   
+                        else:  
+                            number = int(article.count_symbol_bad) + 1  
+                            article.count_symbol_bad = number
+                        article.save()  
+                check_count_article.save()  
+                
             if list_interest:
                 key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = list_interest) 
             else:
@@ -83,8 +118,26 @@ def main_page(request):
         return render(request, 'main/index.html', context)
     
     return render(request, 'main/index.html', context)
+ 
+def count_for_article(article, form2):
+    if form2['count'][0] == "+":
+        number = int(article.count_symbol_ok) + 1
+        article.count_symbol_ok = number
+    elif form2['count'][0] == "-":
+        number = int(article.count_symbol_bad) + 1
+        article.count_symbol_bad = number
+    article.save()
     
-
+def save_count_article(article, request, form2):
+    asss = CountArticle.objects.create(
+        author_count = request.user,
+        article_count = article,
+        count_simbol = True,
+        simbol = form2['count'][0],
+    )
+    count_for_article(article, form2)
+    
+    
 
 
 # отображение страницы публикации
@@ -197,12 +250,11 @@ def publication(request, author, id):
         print('без запроса')
         return render(request, 'main/publication.html', context)
     
-    
     # дополнительная функция получения словаря статей
 def function_show_article_2(dot, key_article, photo_clas, dict_draft, request,):
-    print('функция счетчика')
+    # print('функция счетчика')
     user = request.user
-    print(user)
+    # print(user)
     if dot:
         key_article = True  
         count = 0 
@@ -210,8 +262,8 @@ def function_show_article_2(dot, key_article, photo_clas, dict_draft, request,):
         simbol_count = False
         list_count_draft = []
         for i in dot:
-            print('функция счетчика после фор')
-            print(i)
+            # print('функция счетчика после фор')
+            # print(i)
             res = photo_clas.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
             if res:
                 for j in res:
@@ -220,8 +272,8 @@ def function_show_article_2(dot, key_article, photo_clas, dict_draft, request,):
             else:
                 list_draft.append(False)
             dict_photo = {count : list_draft}
-            print('мловарь', dict_photo)
-            print('list draft', list_draft)
+            # print('мловарь', dict_photo)
+            # print('list draft', list_draft)
             simbol_c = CountArticle.objects.filter(author_count = user, article_count=i.pk)
             for j in simbol_c:
                 simbol_count = j.simbol

@@ -140,7 +140,7 @@
                     {% if value.1 != '-'%}
                     <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="countsInt('-', '1', '{{ key.id }}')">&#128078;</button>
                     {% else %}
-                    <button class = 'grid_main_p' id="c+{{ key.id }}" onclick="countsInt('+', '1', '{{ key.id }}')">&#10060;</button>
+                    <button class = 'grid_main_p' id="c+{{ key.id }}" onclick="countsInt('-', '1', '{{ key.id }}')">&#10060;</button>
                     {% endif %}
                     {% else %}
                     <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="holl({{ key.id }})">&#128078;</button>
