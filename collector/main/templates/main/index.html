@@ -55,9 +55,6 @@
             </div>    
     </div>
 {% endblock %}
-
- 
-    
         
 {% block amalker %}      
     {% for i in amalker %}
@@ -71,8 +68,6 @@
         </div>
     {% endfor%}  
 {% endblock %}  
-       
-
         
 {% block content %}
     {% if key_article != True %}
@@ -93,7 +88,7 @@
                 <div class = 'grid_main_field3'>
                     <p class='grid_main_p'></p>
                 </div>
-                {% for key2, value2 in value.items %}
+                {% for key2, value2 in value.0.items %}
                 <div class = 'grid_main_field4'>
                     <p class='grid_main_p'>{{key2}} ФОТО</p>
                 </div>
@@ -127,17 +122,47 @@
                     {% endif %}
                 {% endfor %}
                 <div class = 'grid_main_field9'>
-                    <p class='grid_main_p'>&#x1F44D;</p>
+                    {% if request.user.is_authenticated %}
+                    {% if value.1 != '+'%}
+                    <button class = 'grid_main_p' id="c+{{ key.id }}" onclick="countsInt('+', '1', '{{ key.id }}')">&#x1F44D;</button>
+                    {% else %}
+                    <button class = 'grid_main_p' id="c+{{ key.id }}" onclick="countsInt('+', '1', '{{ key.id }}')">&#10060;</button>
+                    {% endif %}
+                    {% else %}
+                    <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="holl({{ key.id }})">&#128078;</button>
+                    {% endif %}
                 </div>
                 <div class = 'grid_main_field10'>
                     <p class='grid_main_p'> {{ key.count_symbol_ok }} </p>
                 </div>
                 <div class = 'grid_main_field11'>
-                    <p class='grid_main_p'>&#128078;</p>
+                    {% if request.user.is_authenticated %}
+                    {% if value.1 != '-'%}
+                    <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="countsInt('-', '1', '{{ key.id }}')">&#128078;</button>
+                    {% else %}
+                    <button class = 'grid_main_p' id="c+{{ key.id }}" onclick="countsInt('+', '1', '{{ key.id }}')">&#10060;</button>
+                    {% endif %}
+                    {% else %}
+                    <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="holl({{ key.id }})">&#128078;</button>
+                    {% endif %}
                 </div>
                 <div class = 'grid_main_field12'>
                     <p class='grid_main_p'>{{ key.count_symbol_bad }}</p>
                 </div>
+                {% if request.user.is_authenticated %}
+                <div class = 'grid_main_field20' id="form_count_{{ key.id }}">
+                    <form id='form_{{ key.id }}' method="post" action="">
+                        {% csrf_token %}
+                        <button type="submit" class='fd2' class="id_comment2">Подтверждаю</button>
+                        <input type="text" name="count" required="" id="count_text_1_{{ key.id }}" class='count_text_1'>
+                    </form>
+                </div>
+                {% else %}
+                <div class = 'grid_main_field20' id="form_count_{{ key.id }}">
+                    <a href="/">Пройдите регистрацию</a>
+                </div>
+                {% endif %}
+
                 <div class = 'grid_main_field13'>
                     <a href='/main/{{key.author}}/{{key.id}}' class='grid_main_p'>Подробнее</a>
                 </div>

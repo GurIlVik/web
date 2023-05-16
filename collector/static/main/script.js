@@ -169,3 +169,20 @@ document.addEventListener('click', (e) => { // Вешаем обработчик
     } else { clouse_photo(); }
     }
     )
+
+function countsInt(symbol, number, key) {
+    let string = 'form_count_' + key;
+    let popupBg = document.getElementById(string);
+    popupBg.style.display = 'block';
+    string = 'count_text_1_' + key;
+    console.log(string)
+    let popupInput = document.getElementById(string);
+    popupInput.value = symbol + '&' + key;
+    console.log(popupInput.value)
+}
+
+function holl(key){
+    let string = 'form_count_' + key;
+    let popupBg = document.getElementById(string);
+    popupBg.style.display = 'block';
+}

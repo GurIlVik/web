@@ -9,7 +9,7 @@ from personalpage.models import PresentationUser
 # отображение главной страницы
 def main_page(request):
     list_interest = function_list_interes(request)
-    print(list_interest)
+    # print(list_interest)
     a = Catalogy.objects.all().order_by('name')  # сортировка списка по имени в базе
     b = ProstoList('prosto_list')
     c = Information_block.objects.all()
@@ -20,16 +20,17 @@ def main_page(request):
     j = f'/personalpage/{str(request.user)}'      # получение имени и питу на личную страницу
     
     # list_interest = list_interest_user(list_interest)
-    key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock) 
     if list_interest:
-        key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, filter_list = list_interest) 
-        
+        key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = list_interest) 
+    else:
+        key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request)     
     # print(key_article)
     # print(dict_article)
     
     context = {
         'a': a,
-        "form2" : b,
+        "form" : b,
+        'form2' : CountText1(),
         'info_blok': dict_article,
         'key_article' : key_article,
         'amalker' : e,
@@ -40,15 +41,51 @@ def main_page(request):
     }
     if request.method == 'POST':
         form = ProstoList(request.POST) 
+        form2 = CountText1(request.POST)
+        print(10)
         if form.is_valid(): 
+            print(11)
             form = form.cleaned_data
+            print(form)
             predmet_collection_list = method_main_page_1(form['pole']) # В этом списке выбранные категории предметов
-            context['key_article'], context['info_blok'] = function_show_article(Information_block, PhotoInfoBlock, filter_list = predmet_collection_list) 
+            context['key_article'], context['info_blok'] = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = predmet_collection_list) 
             return render(request, 'main/index.html', context)
+        elif form2.is_valid():
+            print(12)
+            print('форма 2')
+            form2 = form2.cleaned_data
+            article = Information_block.objects.get(id = int(form2['count'][2:]))
+            asss = CountArticle.objects.create(
+                author_count = request.user,
+                article_count = article,
+                count_simbol = True,
+                simbol = form2['count'][0],
+            )
+            number = int(article.count_symbol_ok) + 1
+            
+            if form2['count'][0] == "+":
+                number = int(article.count_symbol_ok) + 1
+                article.count_symbol_ok = number
+            elif form2['count'][0] == "-":
+                number = int(article.count_symbol_bad) + 1
+                article.count_symbol_bad = number
+            article.save()
+            print(form2['count'][2:])
+            print(form2['count']) 
+            if list_interest:
+                key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = list_interest) 
+            else:
+                key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request)      
+            context['info_blok'] = dict_article
+            context['key_article'] = key_article
+            return render(request, 'main/index.html', context)
+        print(13)
         return render(request, 'main/index.html', context)
     
     return render(request, 'main/index.html', context)
     
+
+
 
 # отображение страницы публикации
 def publication(request, author, id):
@@ -162,12 +199,19 @@ def publication(request, author, id):
     
     
     # дополнительная функция получения словаря статей
-def function_show_article_2(dot, key_article, photo_clas, dict_draft):
+def function_show_article_2(dot, key_article, photo_clas, dict_draft, request,):
+    print('функция счетчика')
+    user = request.user
+    print(user)
     if dot:
         key_article = True  
         count = 0 
         list_draft = []
+        simbol_count = False
+        list_count_draft = []
         for i in dot:
+            print('функция счетчика после фор')
+            print(i)
             res = photo_clas.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
             if res:
                 for j in res:
@@ -176,41 +220,48 @@ def function_show_article_2(dot, key_article, photo_clas, dict_draft):
             else:
                 list_draft.append(False)
             dict_photo = {count : list_draft}
-            dict_draft[i] = dict_photo
+            print('мловарь', dict_photo)
+            print('list draft', list_draft)
+            simbol_c = CountArticle.objects.filter(author_count = user, article_count=i.pk)
+            for j in simbol_c:
+                simbol_count = j.simbol
+            list_count_draft.append(dict_photo)
+            list_count_draft.append(simbol_count)
+            dict_draft[i] = list_count_draft
             list_draft = []
-            count = 0
+            count = 0   
+            simbol_count = False
+            list_count_draft = [] 
     return key_article, dict_draft
             
 # проверка словаря статей
-def function_show_article(clas, photo_clas, filter_list = False):
+def function_show_article(clas, photo_clas, request, filter_list = False):
     key_article = False                                                     # ключ статей
     dict_draft = {}
-    print(filter_list)
+    # print(filter_list)
     if filter_list == False:
         try:
             dot = clas.objects.all()
         except OperationalError as error:
             print(error)
         else:
-            key_article, dict_draft = function_show_article_2(dot, key_article, photo_clas, dict_draft)
+            key_article, dict_draft = function_show_article_2(dot, key_article, photo_clas, dict_draft, request,)
     else:
         dot = []
         count = 0
-        print(filter_list)
+        # print(filter_list)
         try:
             dot1 = clas.objects.all()
         except OperationalError as error:
             print(error)
         else:
             for i in dot1:
-                print(i)
                 for elem in filter_list:
-                    print(elem)
                     if elem in i.collection and i not in dot:
                         count += 1
                         dot.append(i)   
         if count!= 0: 
-            key_article, dict_draft = function_show_article_2(dot, key_article, photo_clas, dict_draft)
+            key_article, dict_draft = function_show_article_2(dot, key_article, photo_clas, dict_draft, request,)
     return key_article, dict_draft 
 
 # Вспомогательная функция сортировки коллекционных предметов пришедших с формы после JScript

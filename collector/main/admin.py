@@ -42,3 +42,7 @@ admin.site.register(Catalogy, CatalogyAdmin)
 class AllowanceCommentAdmin(admin.ModelAdmin):
     list_display = ['name', 'number']
 admin.site.register(AllowanceComment, AllowanceCommentAdmin) 
+
+class CountArticleAdmin(admin.ModelAdmin):
+    list_display = ['author_count', 'article_count', 'count_simbol', 'simbol']
+admin.site.register(CountArticle, CountArticleAdmin)

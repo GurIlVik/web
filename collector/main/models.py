@@ -100,3 +100,9 @@ class ArticleСommentsTwo(models.Model):
 
     class Meta:
         verbose_name_plural = 'комм на комм'
+        
+class CountArticle(models.Model):
+    author_count = models.ForeignKey(User, on_delete=models.CASCADE)  
+    article_count = models.ForeignKey(Information_block, on_delete=models.CASCADE)  
+    count_simbol = models.BooleanField(default=False)
+    simbol = models.CharField(max_length=1)

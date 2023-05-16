@@ -531,3 +531,41 @@ footer {
     grid-column-start: 1;
     grid-column-end: 9;
 }
+
+/* Отображение стчетчиков */
+.grid_main_field20 {
+    display: none;
+    z-index: 10;
+    grid-row: 5;
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+.count_text_1 {
+    display: none;
+}
+
+.grid_main_field9, .grid_main_field10, .grid_main_field11, .grid_main_field12, .grid_main_field13,
+.grid_main_field14, .grid_main_field15{
+    grid-row: 5;
+}
+.grid_main_field9 {
+    grid-column: 1;
+} 
+.grid_main_field10 {
+    grid-column: 2;
+}
+.grid_main_field11 {
+    grid-column: 3;
+} 
+.grid_main_field12 {
+    grid-column: 4;
+}
+.grid_main_field13 {
+    grid-column: 5;
+}
+.grid_main_field14 {
+    grid-column: 6;
+} 
+.grid_main_field15 {
+    grid-column: 7;
+}

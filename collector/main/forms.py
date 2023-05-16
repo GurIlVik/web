@@ -16,3 +16,6 @@ class CommentForComment2(Form):
     comment2 = forms.CharField(widget=forms.Textarea(attrs={'cols':60, 'rows':20})) 
     comment2_id = forms.CharField(min_length=1, max_length=150) # ид статьи
     author_comment = forms.CharField(min_length=1, max_length=150) # ид коммента
+    
+class CountText1(forms.Form):
+    count = forms.CharField(max_length=150) 

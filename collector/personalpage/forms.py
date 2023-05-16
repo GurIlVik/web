@@ -63,3 +63,4 @@ class PersonalInformationUser(forms.Form):
     
     photo = forms.ImageField(label='введите файл',                                       # загрузка файлов
             )
+    
