@@ -89,8 +89,8 @@ def publication(request, author, id):
     # # print(photo_autor)
     # print(k.pk)
     key_comments, dict_comments = function_show_comments(ArticleСomments, request, k.pk)
-    print(key_comments)
-    print(dict_comments)
+    # print(key_comments)
+    # print(dict_comments)
     blok_publik = function_show_publik(id)
     count_int_art = count_for_article_publication(CountArticle, request, k)
     # count_int_com = count_for_article_publication(CountComment, request, k)
@@ -111,8 +111,6 @@ def publication(request, author, id):
             'form5' : CountText2(),
             'form6' : CountText3(),
             "simbol_4" : count_int_art,
-            # "simbol_5" : count_int_com,
-            # "simbol_6" : count_int_com2,
             } 
     if request.method == 'POST':
         form = CommentUser(request.POST)
@@ -121,6 +119,7 @@ def publication(request, author, id):
         form4 = CountText1(request.POST)
         form5 = CountText2(request.POST)
         form6 = CountText3(request.POST)
+        print(form6)
         if form.is_valid(): 
             print('комментарий 2')
             form = form.cleaned_data
@@ -181,12 +180,12 @@ def publication(request, author, id):
             context['blok_publik'] = function_show_publik(id)
             return render(request, 'main/publication.html', context)
         elif form5.is_valid():
-            print('счетчик1')
+            print('счетчик2')
             form5 = form5.cleaned_data
             print(form5)
             return render(request, 'main/publication.html', context)
         elif form6.is_valid():
-            print('счетчик1')
+            print('счетчик3')
             form6 = form6.cleaned_data
             print(form6)
             return render(request, 'main/publication.html', context)
@@ -350,12 +349,8 @@ def function_show_comments(param, request, key):
                     print('ошибочка')
                 else:
                     if dot2:
-                        print('ЭТО НАЧАЛО ЦИКЛА')
-                        # list_draft2 = dot2
-                        # print(i)
-                        # print(dot2)
                         for j in dot2:
-                            print("Это его второй цикл в котором ошибка ")
+                            # print("Это его второй цикл в котором ошибка ")
                             simbol2 = count_for_article_publication(CountComment2, request, j)
                             # list_draft2.append(ArticleСommentsTwo.objects.get(id=j.id))
                             dict_com2[j] = simbol2
@@ -367,15 +362,11 @@ def function_show_comments(param, request, key):
                         list_draft2 = False
                 simbol = count_for_article_publication(CountComment, request, i)
                 dict_com[simbol] = list_draft2
-                print(dict_com)
-                # print('это симовл-', i, simbol)
                 list_draft[i] = dict_com
                 # print('ЭТО КОНЕЧНЫЙ ВАРИАНТ -', list_draft )
                 list_draft2 = []
                 dict_com = {}
-                dict_com2 = {}
-                
-    print('ЭТО КОНЕЧНЫЙ ВАРИАНТ -', list_draft )           
+                dict_com2 = {}    
     return key_article, list_draft
 
 # функция отображения листа коллкционных предметов  
@@ -508,13 +499,14 @@ def count_for_article_publication(clas, request, articl):
             print(error) 
             print('ytn nfrjq pfgbcb djj,ot')
         else:
-            print('xnj-nj tcnm ')
+            pass
+            # print('xnj-nj tcnm ')
             
         if count_ints:
             for i in count_ints:
                 count_int = i.simbol 
         else:
-            print('xnj-nj tcnm ')
+            
             count_int = False
     return count_int      
 

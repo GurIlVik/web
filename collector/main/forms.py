@@ -24,4 +24,4 @@ class CountText2(forms.Form):
     count2 = forms.CharField(max_length=150) 
     
 class CountText3(forms.Form):
-    count2 = forms.CharField(max_length=150) 
+    count3 = forms.CharField(max_length=150) 
