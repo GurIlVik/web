@@ -58,55 +58,7 @@ def main_page(request):
             # check_count_article = CountArticle.objects.get(article_count = article)
             # print(article)
             print(form2['count'][0])
-            try:
-                check_count_article = CountArticle.objects.get(article_count = article)
-                print(check_count_article)
-            except:
-                save_count_article(article, request, form2)
-            else:
-                if check_count_article.count_simbol:
-                    print(form2['count'][0])
-                    if check_count_article.simbol == form2['count'][0] or check_count_article.simbol == ' ':
-                        if form2['count'][0] == '+':
-                            number = int(article.count_symbol_ok) - 1
-                            article.count_symbol_ok = number
-                            article.save()
-                        elif form2['count'][0] == '-':
-                            number = int(article.count_symbol_bad) - 1
-                            article.count_symbol_bad = number
-                            article.save()
-                        check_count_article.simbol = ' '
-                        check_count_article.count_simbol = False
-                    else:
-                        if form2['count'][0] == '+':    
-                            number = int(article.count_symbol_ok) + 1
-                            article.count_symbol_ok = number
-                            number = int(article.count_symbol_bad) - 1  
-                            article.count_symbol_bad = number
-                            article.save()
-                            check_count_article.simbol = '+'
-                        else:   
-                            number = int(article.count_symbol_ok) - 1
-                            article.count_symbol_ok = number
-                            number = int(article.count_symbol_bad) + 1  
-                            article.count_symbol_bad = number
-                            article.save()  
-                        check_count_article.count_simbol = True
-                else:
-                    if check_count_article.simbol == ' ' or check_count_article.simbol == form2['count'][0]:
-                        check_count_article.count_simbol = True    
-                        check_count_article.simbol = form2['count'][0]  
-                        print('wofknv', check_count_article.simbol)
-                        check_count_article.save()
-                        if form2['count'][0] == '+':    
-                            number = int(article.count_symbol_ok) + 1
-                            article.count_symbol_ok = number   
-                        else:  
-                            number = int(article.count_symbol_bad) + 1  
-                            article.count_symbol_bad = number
-                        article.save()  
-                check_count_article.save()  
-                
+            function_count_interes(article, request, form2)
             if list_interest:
                 key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = list_interest) 
             else:
@@ -135,6 +87,7 @@ def save_count_article(article, request, form2):
         count_simbol = True,
         simbol = form2['count'][0],
     )
+    print(asss)
     count_for_article(article, form2)
     
     
@@ -254,6 +207,7 @@ def publication(request, author, id):
 def function_show_article_2(dot, key_article, photo_clas, dict_draft, request,):
     # print('функция счетчика')
     user = request.user
+    
     # print(user)
     if dot:
         key_article = True  
@@ -274,7 +228,11 @@ def function_show_article_2(dot, key_article, photo_clas, dict_draft, request,):
             dict_photo = {count : list_draft}
             # print('мловарь', dict_photo)
             # print('list draft', list_draft)
-            simbol_c = CountArticle.objects.filter(author_count = user, article_count=i.pk)
+            simbol_c = ''
+            if user.is_authenticated:
+                simbol_c = CountArticle.objects.filter(author_count = user, article_count=i.pk)
+            else:
+                simbol_c = CountArticle.objects.filter(article_count=i.pk)    
             for j in simbol_c:
                 simbol_count = j.simbol
             list_count_draft.append(dict_photo)
@@ -444,3 +402,72 @@ def function_acess_comment(key, request, list_int2):
         res = True
     return res  
 
+# функция перезаписи счетчиков
+def function_count_interes(article, request, form2):
+    user = request.user
+    print(user)
+    check_count_articles = ''
+    print(article)
+    print(request)
+    print(form2['count'][0])
+    try:
+        check_count_articles = CountArticle.objects.filter(author_count = user, article_count=article)
+        print(check_count_articles)
+    except:
+        print('ошибка распознования пользователя')
+        save_count_article(article, request, form2)
+    else:
+        if check_count_articles:
+            for check_count_article in check_count_articles:
+                print('lrnv')
+                if check_count_article.count_simbol:
+                    print(form2['count'][0])
+                    if check_count_article.simbol == form2['count'][0] or check_count_article.simbol == ' ':
+                        print('=')
+                        if form2['count'][0] == '+':
+                            number = int(article.count_symbol_ok) - 1
+                            article.count_symbol_ok = number
+                            article.save()
+                        elif form2['count'][0] == '-':
+                            number = int(article.count_symbol_bad) - 1
+                            article.count_symbol_bad = number
+                            article.save()
+                        check_count_article.simbol = ' '
+                        check_count_article.count_simbol = False
+                    else:
+                        print('1=')
+                        if form2['count'][0] == '+': 
+                            print('+')
+                            number = int(article.count_symbol_ok) + 1
+                            article.count_symbol_ok = number
+                            number = int(article.count_symbol_bad) - 1  
+                            article.count_symbol_bad = number
+                            article.save()
+                            check_count_article.simbol = '+'
+                        else: 
+                            print('-')  
+                            number = int(article.count_symbol_ok) - 1
+                            article.count_symbol_ok = number
+                            number = int(article.count_symbol_bad) + 1  
+                            article.count_symbol_bad = number
+                            article.save()  
+                            check_count_article.simbol = '-'
+                        check_count_article.count_simbol = True
+                        check_count_article.save()
+                        print(check_count_article.simbol)
+                else:
+                    if check_count_article.simbol == ' ' or check_count_article.simbol == form2['count'][0]:
+                        check_count_article.count_simbol = True    
+                        check_count_article.simbol = form2['count'][0]  
+                        print('wofknv', check_count_article.simbol)
+                        check_count_article.save()
+                        if form2['count'][0] == '+':    
+                            number = int(article.count_symbol_ok) + 1
+                            article.count_symbol_ok = number   
+                        else:  
+                            number = int(article.count_symbol_bad) + 1  
+                            article.count_symbol_bad = number
+                        article.save()  
+                check_count_article.save()         
+        else:
+            save_count_article(article, request, form2)
