@@ -106,3 +106,21 @@ class CountArticle(models.Model):
     article_count = models.ForeignKey(Information_block, on_delete=models.CASCADE)  
     count_simbol = models.BooleanField(default=False)
     simbol = models.CharField(max_length=1)
+    class Meta:
+        verbose_name_plural = 'Счетчик на статьи'
+    
+class CountComment(models.Model):
+    author_count = models.ForeignKey(User, on_delete=models.CASCADE)  
+    article_count = models.ForeignKey(ArticleСomments, on_delete=models.CASCADE)  
+    count_simbol = models.BooleanField(default=False)
+    simbol = models.CharField(max_length=1)
+    class Meta:
+        verbose_name_plural = 'Счетчик на комментрии'
+    
+class CountComment2(models.Model):
+    author_count = models.ForeignKey(User, on_delete=models.CASCADE)  
+    article_count = models.ForeignKey(ArticleСommentsTwo, on_delete=models.CASCADE)  
+    count_simbol = models.BooleanField(default=False)
+    simbol = models.CharField(max_length=1)
+    class Meta:
+        verbose_name_plural = 'Счетчик на коммккомм'

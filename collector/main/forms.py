@@ -19,3 +19,9 @@ class CommentForComment2(Form):
     
 class CountText1(forms.Form):
     count = forms.CharField(max_length=150) 
+    
+class CountText2(forms.Form):
+    count2 = forms.CharField(max_length=150) 
+    
+class CountText3(forms.Form):
+    count2 = forms.CharField(max_length=150) 

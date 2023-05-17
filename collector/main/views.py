@@ -71,28 +71,6 @@ def main_page(request):
     
     return render(request, 'main/index.html', context)
  
-def count_for_article(article, form2):
-    if form2['count'][0] == "+":
-        number = int(article.count_symbol_ok) + 1
-        article.count_symbol_ok = number
-    elif form2['count'][0] == "-":
-        number = int(article.count_symbol_bad) + 1
-        article.count_symbol_bad = number
-    article.save()
-    
-def save_count_article(article, request, form2):
-    asss = CountArticle.objects.create(
-        author_count = request.user,
-        article_count = article,
-        count_simbol = True,
-        simbol = form2['count'][0],
-    )
-    print(asss)
-    count_for_article(article, form2)
-    
-    
-
-
 # отображение страницы публикации
 def publication(request, author, id):
     print(1)
@@ -100,38 +78,23 @@ def publication(request, author, id):
     k = Information_block.objects.get(id = id)
     j = f'/personalpage/{str(request.user)}'
     form = CommentUser()
-    # print(c)
-    # print(k)
-    # print(2)
-    
-    # comm = ArticleСomments.objects.filter(publication = k.pk)
     form2 = CommentForComment()
     form3 = CommentForComment2()
     print('start')
-    list_int2 = []    # получение списка предметов
-    strin = ''
-    for elem in k.collection:
-        if elem not in ', ':
-            strin += elem
-        elif elem ==',':
-            list_int2.append(strin)
-            strin = ''
-            
-    # print(strin)
-    # print(list_int2)
+    list_int2 = check_predmet_collection(k.collection)
     acess_comm = function_acess_comment(k.access, request, list_int2)
     
-    print(acess_comm) # допуск к комментированию
-    # print(k.pk)
-    # print(k)
+    # print(acess_comm) # допуск к комментированию
     photo_autor = PresentationUser.objects.get(user=k.author).photo
-    # print(photo_autor)
-    print(k.pk)
-    key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+    # # print(photo_autor)
+    # print(k.pk)
+    key_comments, dict_comments = function_show_comments(ArticleСomments, request, k.pk)
     print(key_comments)
     print(dict_comments)
     blok_publik = function_show_publik(id)
-    
+    count_int_art = count_for_article_publication(CountArticle, request, k)
+    # count_int_com = count_for_article_publication(CountComment, request, k)
+    # count_int_com2 = count_for_article_publication(CountComment2, request, k)
     context = {'a' : author,
             'info_blok' : c, 
             'blok_publik' : blok_publik,
@@ -144,12 +107,22 @@ def publication(request, author, id):
             'form3' : form3,
             'photo_autor' : photo_autor,
             'acess_comm' : acess_comm,
+            'form4' : CountText1(),
+            'form5' : CountText2(),
+            'form6' : CountText3(),
+            "simbol_4" : count_int_art,
+            # "simbol_5" : count_int_com,
+            # "simbol_6" : count_int_com2,
             } 
     if request.method == 'POST':
         form = CommentUser(request.POST)
         form2 = CommentForComment(request.POST)
         form3 = CommentForComment2(request.POST)
+        form4 = CountText1(request.POST)
+        form5 = CountText2(request.POST)
+        form6 = CountText3(request.POST)
         if form.is_valid(): 
+            print('комментарий 2')
             form = form.cleaned_data
             asss = ArticleСomments.objects.create(autor_publication = User.objects.get(username = author),                                        # ID статьи автора статьи
                 publication = k,
@@ -158,7 +131,7 @@ def publication(request, author, id):
                 count_symbol_ok = 0,                                        # 
                 count_symbol_bad = 0,  
             )
-            key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+            key_comments, dict_comments = function_show_comments(ArticleСomments, request, k.pk)
             context['key_comments'] = key_comments
             context['dict_comments'] = dict_comments
             return render(request, 'main/publication.html', context)
@@ -177,14 +150,14 @@ def publication(request, author, id):
                 count_symbol_ok = 0,                                     
                 count_symbol_bad = 0, 
             )
-            key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+            key_comments, dict_comments = function_show_comments(ArticleСomments, request, k.pk)
             context['key_comments'] = key_comments
             context['dict_comments'] = dict_comments
             return render(request, 'main/publication.html', context)
         elif form2.is_valid(): 
             form2 = form2.cleaned_data
             print('комментарий 2')
-            print(form2)
+            # print(form2)
             asss = ArticleСommentsTwo.objects.create(
                 author_comment = str(ArticleСomments.objects.get(id=form2['comment2_id']).autor_message),
                 comment = ArticleСomments.objects.get(id=form2['comment2_id']),
@@ -193,9 +166,29 @@ def publication(request, author, id):
                 count_symbol_ok = 0,                                     
                 count_symbol_bad = 0, 
             )
-            key_comments, dict_comments = function_show_comments(ArticleСomments, k.pk)
+            key_comments, dict_comments = function_show_comments(ArticleСomments, request, k.pk)
             context['key_comments'] = key_comments
             context['dict_comments'] = dict_comments
+            return render(request, 'main/publication.html', context)
+        elif form4.is_valid():
+            print('счетчик1')
+            form4 = form4.cleaned_data
+            print(form4)
+            article = k
+            function_count_interes(article, request, form4)
+            count_int_art = count_for_article_publication(CountArticle, request, k)
+            context['simbol_4'] = count_int_art
+            context['blok_publik'] = function_show_publik(id)
+            return render(request, 'main/publication.html', context)
+        elif form5.is_valid():
+            print('счетчик1')
+            form5 = form5.cleaned_data
+            print(form5)
+            return render(request, 'main/publication.html', context)
+        elif form6.is_valid():
+            print('счетчик1')
+            form6 = form6.cleaned_data
+            print(form6)
             return render(request, 'main/publication.html', context)
         else:
             return HttpResponse('ЧТО_ТО ОПЯТЬ НЕ ТАК')
@@ -205,10 +198,7 @@ def publication(request, author, id):
     
     # дополнительная функция получения словаря статей
 def function_show_article_2(dot, key_article, photo_clas, dict_draft, request,):
-    # print('функция счетчика')
     user = request.user
-    
-    # print(user)
     if dot:
         key_article = True  
         count = 0 
@@ -333,26 +323,25 @@ def function_show_publik(param):
     return dict_pablik 
 
 # функция отображения имеющихся комментариев    
-def function_show_comments(param, key):
+def function_show_comments(param, request, key):
     key_article = False                                                     # ключ статей
     list_draft = {}
     dot = ''
+    dict_com = {}
+    dict_com2 = {}
     try:
         dot = param.objects.filter(publication=key)
     except OperationalError as error:
         print('ошибочка')
     else:
         key_article = True
-        print('в функции')
+        print('в функции function_show_comments')
         
         dot2 = ''
         list_draft2 = []
+        simbol = ''
+        simbol2 = ''
         
-        # try:
-        #     dot2 = ArticleСommentsTwo.objects.filter(publication=dot.pk)
-        # except OperationalError as error:
-        #     print('ошибочка')
-        # else:
         if dot:
             for i in dot:
                 try:
@@ -361,15 +350,32 @@ def function_show_comments(param, key):
                     print('ошибочка')
                 else:
                     if dot2:
+                        print('ЭТО НАЧАЛО ЦИКЛА')
                         # list_draft2 = dot2
                         # print(i)
                         # print(dot2)
                         for j in dot2:
-                            list_draft2.append(ArticleСommentsTwo.objects.get(id=j.id))
+                            print("Это его второй цикл в котором ошибка ")
+                            simbol2 = count_for_article_publication(CountComment2, request, j)
+                            # list_draft2.append(ArticleСommentsTwo.objects.get(id=j.id))
+                            dict_com2[j] = simbol2
+                            # print('это символ2', dict_com2 )
+                            list_draft2.append(dict_com2)
+                            # print(list_draft2)
+                            dict_com2 = {}
                     else:
                         list_draft2 = False
-                list_draft[i] = list_draft2,
+                simbol = count_for_article_publication(CountComment, request, i)
+                dict_com[simbol] = list_draft2
+                print(dict_com)
+                # print('это симовл-', i, simbol)
+                list_draft[i] = dict_com
+                # print('ЭТО КОНЕЧНЫЙ ВАРИАНТ -', list_draft )
                 list_draft2 = []
+                dict_com = {}
+                dict_com2 = {}
+                
+    print('ЭТО КОНЕЧНЫЙ ВАРИАНТ -', list_draft )           
     return key_article, list_draft
 
 # функция отображения листа коллкционных предметов  
@@ -405,11 +411,10 @@ def function_acess_comment(key, request, list_int2):
 # функция перезаписи счетчиков
 def function_count_interes(article, request, form2):
     user = request.user
-    print(user)
     check_count_articles = ''
-    print(article)
-    print(request)
-    print(form2['count'][0])
+    # print(article)
+    # print(request)
+    # print(form2['count'][0])
     try:
         check_count_articles = CountArticle.objects.filter(author_count = user, article_count=article)
         print(check_count_articles)
@@ -419,11 +424,10 @@ def function_count_interes(article, request, form2):
     else:
         if check_count_articles:
             for check_count_article in check_count_articles:
-                print('lrnv')
                 if check_count_article.count_simbol:
-                    print(form2['count'][0])
+                    # print(form2['count'][0])
                     if check_count_article.simbol == form2['count'][0] or check_count_article.simbol == ' ':
-                        print('=')
+                        # print('=')
                         if form2['count'][0] == '+':
                             number = int(article.count_symbol_ok) - 1
                             article.count_symbol_ok = number
@@ -435,7 +439,7 @@ def function_count_interes(article, request, form2):
                         check_count_article.simbol = ' '
                         check_count_article.count_simbol = False
                     else:
-                        print('1=')
+                        # print('1=')
                         if form2['count'][0] == '+': 
                             print('+')
                             number = int(article.count_symbol_ok) + 1
@@ -445,7 +449,7 @@ def function_count_interes(article, request, form2):
                             article.save()
                             check_count_article.simbol = '+'
                         else: 
-                            print('-')  
+                            # print('-')  
                             number = int(article.count_symbol_ok) - 1
                             article.count_symbol_ok = number
                             number = int(article.count_symbol_bad) + 1  
@@ -454,12 +458,12 @@ def function_count_interes(article, request, form2):
                             check_count_article.simbol = '-'
                         check_count_article.count_simbol = True
                         check_count_article.save()
-                        print(check_count_article.simbol)
+                        # print(check_count_article.simbol)
                 else:
                     if check_count_article.simbol == ' ' or check_count_article.simbol == form2['count'][0]:
                         check_count_article.count_simbol = True    
                         check_count_article.simbol = form2['count'][0]  
-                        print('wofknv', check_count_article.simbol)
+                        # print('wofknv', check_count_article.simbol)
                         check_count_article.save()
                         if form2['count'][0] == '+':    
                             number = int(article.count_symbol_ok) + 1
@@ -471,3 +475,59 @@ def function_count_interes(article, request, form2):
                 check_count_article.save()         
         else:
             save_count_article(article, request, form2)
+            
+# функция сохранения счетчиков интереса
+def count_for_article(article, form2):
+    if form2['count'][0] == "+":
+        number = int(article.count_symbol_ok) + 1
+        article.count_symbol_ok = number
+    elif form2['count'][0] == "-":
+        number = int(article.count_symbol_bad) + 1
+        article.count_symbol_bad = number
+    article.save()
+    
+# функция сохранения счетчиков интереса    
+def save_count_article(article, request, form2):
+    asss = CountArticle.objects.create(
+        author_count = request.user,
+        article_count = article,
+        count_simbol = True,
+        simbol = form2['count'][0],
+    )
+    print(asss)
+    count_for_article(article, form2)
+    
+# функция получения знака счетчика комментария если есть
+def count_for_article_publication(clas, request, articl):
+    count_int = False
+    count_ints = False
+    if request.user.is_authenticated:
+        try:
+            count_ints = clas.objects.filter(author_count = request.user, article_count=articl)
+        except OperationalError as error:
+            print(error) 
+            print('ytn nfrjq pfgbcb djj,ot')
+        else:
+            print('xnj-nj tcnm ')
+            
+        if count_ints:
+            for i in count_ints:
+                count_int = i.simbol 
+        else:
+            print('xnj-nj tcnm ')
+            count_int = False
+    return count_int      
+
+# получение списка коллекций
+def check_predmet_collection(param):
+    list_int2 = []    # получение списка предметов
+    strin = ''
+    for elem in param:
+        if elem not in ', ':
+            strin += elem
+        elif elem ==',':
+            list_int2.append(strin)
+            strin = ''
+    return list_int2
+
+
