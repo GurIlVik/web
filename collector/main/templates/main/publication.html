@@ -248,7 +248,7 @@
                             {% else %}
                             <button class = 'grid_main_p' id="c-{{ key3.id }}" onclick="holl({{ key3.id }})">&#128078;</button>
                         {% endif %}
-                        <p>{{ ij.count_symbol_bad }}</p>
+                        <p>{{ key3.count_symbol_bad }}</p>
                         {% if request.user.is_authenticated %}
                         <div class = 'grid_main_field20' id="form_count_{{ key3.id }}">
                             <form id='form_{{ key3.id }}' method="post" action="">
