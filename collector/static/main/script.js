@@ -181,8 +181,17 @@ function countsInt(symbol, number, key) {
     console.log(popupInput.value)
 }
 
-function holl(key){
-    let string = 'form_count_' + key;
+function holl(key, strin){
+    let string = strin + key;
     let popupBg = document.getElementById(string);
     popupBg.style.display = 'block';
+}
+
+function write_autor(symbol, key) {
+    let string = 'id_write_' + key;
+    let popupBg = document.getElementById(string);
+    popupBg.style.display = 'block';
+    string = 'write_id_' + key;
+    let popupBg2 = document.getElementById(string);
+    popupBg2.value = key
 }

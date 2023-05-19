@@ -25,3 +25,9 @@ class CountText2(forms.Form):
     
 class CountText3(forms.Form):
     count3 = forms.CharField(max_length=150) 
+    
+class WriteAuthor(forms.Form):
+    text = forms.CharField(widget=forms.Textarea(attrs={'cols':60, 'rows':20}), label='Написать')
+    number = forms.CharField(max_length=200)
+    
+   

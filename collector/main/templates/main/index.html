@@ -143,7 +143,7 @@
                     <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="countsInt('-', '1', '{{ key.id }}')">&#10060;</button>
                     {% endif %}
                     {% else %}
-                    <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="holl({{ key.id }})">&#128078;</button>
+                    <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="holl({{ key.id }}, 'form_count_')">&#128078;</button>
                     {% endif %}
                 </div>
                 <div class = 'grid_main_field12'>
@@ -167,7 +167,22 @@
                     <a href='/main/{{key.author}}/{{key.id}}' class='grid_main_p'>Подробнее</a>
                 </div>
                 <div class = 'grid_main_field14'>
-                    <p class='grid_main_p'>&#x270D; Автору</p>
+                    {% if request.user.is_authenticated %}
+                    <button class = 'grid_main_p' id="art-{{ key.id }}" onclick="write_autor('+', '{{ key.id }}')"><p class='grid_main_p'>&#x270D; Автору</p></button>
+                    {% else %}
+                    <button class = 'grid_main_p' id="art-{{ key.id }}" onclick="holl({{ key.id }}, 'id_write_p_')"><p class='grid_main_p'>&#x270D; Автору</p></button>
+                    {% endif %}
+                    <div class='write_1' id="id_write_p_{{ key.id }}">
+                        <a href="/">Пройдите регистрацию</a>
+                    </div>
+                </div>
+                <div class='write' id="id_write_{{ key.id }}">
+                    <form id='form_write_{{ key.id }}' method="post" action="">
+                        {% csrf_token %}
+                        <input type="text" name="number" required="" id="write_id_{{ key.id }}" class='write_2'>
+                        <textarea cols="60" name="text" rows="20" required="" id="textarea_{{ key.id }}"></textarea>
+                        <button type="submit" class='fd2' class="id_comment2">Подтверждаю</button>
+                    </form>
                 </div>
                 <div class = 'grid_main_field15'>
                     <p class='grid_main_p'>Не показывать</p>
@@ -181,9 +196,6 @@
             <div class = 'info_blok_91' id='info_blok_91'>
                 <button class = 'info_blok_93' onclick="clouse_photo()">&times;</button>
             </div>
-
-
-
         </div>
 {% endblock %}
 

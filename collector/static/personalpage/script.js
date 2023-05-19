@@ -394,7 +394,13 @@ function vseSNachala() {
     block3.style.display = 'block';
 }
 
-
+//  функция открытия рекламного блока
+function amalker_blok() {
+    console.log('я в функции рек блока')
+    let block1 = document.getElementById("amalker_global");
+    console.log(block1)
+    block1.style.display = 'block';
+}
 // Итак в чём же основная проблема с которой столкнулся я. Оказывается “выключить” кнопку можно как угодно, т.е. обратившись к элементу submit в любой доступной форме:
 // Submit.disabled = true;
 // Однако включить (заменим на false) подобным способом не получается и именно поэтому я накопал аж вот такую конструкцию:

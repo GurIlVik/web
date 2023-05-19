@@ -124,3 +124,11 @@ class CountComment2(models.Model):
     simbol = models.CharField(max_length=1)
     class Meta:
         verbose_name_plural = 'Счетчик на коммккомм'
+        
+class LetterAuthor(models.Model):
+    correspondent = models.ForeignKey(User, on_delete=models.CASCADE)  # спрашивающий
+    article = models.ForeignKey(Information_block, on_delete=models.CASCADE)
+    auhtor = models.CharField(max_length=150)
+    text = models.TextField(blank=True)
+    class Meta:
+        verbose_name_plural = 'письма'

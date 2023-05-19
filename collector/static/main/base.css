@@ -569,3 +569,22 @@ footer {
 .grid_main_field15 {
     grid-column: 7;
 }
+/* отображение поля написать автору */
+.write, .write_1, .write_2 {
+    display: none;
+    z-index: 10;
+    grid-row-start: 1;
+    grid-row-end: 8;
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
+.write {
+    width: 300px;
+    height: 200px;
+    background-color: aqua;
+}
+.write_3 {
+    width: 270px;
+    height: 120px;
+}

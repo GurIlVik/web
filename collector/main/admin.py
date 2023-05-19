@@ -54,3 +54,7 @@ admin.site.register(CountComment, CountCommentAdmin)
 class CountComment2Admin(admin.ModelAdmin):
     list_display = ['author_count', 'article_count', 'count_simbol', 'simbol']
 admin.site.register(CountComment2, CountComment2Admin)
+
+class LetterAuthorAdmin(admin.ModelAdmin):
+    list_display = ['correspondent', 'article', 'auhtor', 'text']
+admin.site.register(LetterAuthor, LetterAuthorAdmin)

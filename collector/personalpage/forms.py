@@ -64,3 +64,6 @@ class PersonalInformationUser(forms.Form):
     photo = forms.ImageField(label='введите файл',                                       # загрузка файлов
             )
     
+class AmalkerBlok(forms.Form):
+    text = forms.CharField(max_length=150,label='введите текст до 40 символов')
+    photo = forms.ImageField(label='введите файл')

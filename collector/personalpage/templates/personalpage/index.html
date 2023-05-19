@@ -6,6 +6,11 @@
 
 {% comment %} ОТОБРАЖЕИЕ МЕНЮ {% endcomment %}
 {% block menu_block %} 
+    {% if logik_for_button_amalker == True %}
+        <div>
+            <a class='fd2' href="{% url 'main' %}"><button class='fd2'>{{ menu.4 }}</button></a> 
+        </div>
+    {% endif %}
         <div>
             <button class='fd2' onclick="infoUser()">{{ menu.0 }}</button>
         </div>
@@ -113,8 +118,6 @@
             </div>
     </div>
 {% endblock %}
-
-
 
 {% comment %} Блок ввода данных персональной информации от юзера {% endcomment %}
 {% block personal_information_write %}
@@ -227,7 +230,7 @@
                         <p class='p_popup'>4. Телефон:</p>
                         {{ secret_form.telephon }}
                         <p></p>
-                        <input class='fd2' id='form_clik1' type="submit" value="Подтверждаю">  
+                        <input class='fd2' id='form_clik1' type="submit" name='user' value="Подтверждаю">  
                     </form> 
                 </div>
             </div>
@@ -440,7 +443,39 @@
         
  
 {% block messenges %}  
-<p>почтовик</p>
+    {% if key_messages != True %}
+        <p>У Вас нет сообщений</p>
+    {% else %}
+        {% for key, value in dict_messages.items %}
+            {% if key == 'letter' %}
+                {% for elem in value %}
+                    <div class='letter'>
+                        <div class='letter1'>
+                            {{ elem.correspondent }}
+                        </div>
+                        <div class='letter2'>
+                            <p class='grid_main_p'>к статье </p>
+                        </div>
+                        <div class='letter3'>
+                            {{ elem.article.title }}
+                        </div>
+                        <div class='letter4'>
+                            {{ elem.text }}
+                        </div>
+                        <div class='letter5'>
+                            <button class='fd2' onclick="menuPoint23()" >Ответить</button>
+                        </div>
+                        <div class='letter6'>
+                            <p class='grid_main_p'>или</p>
+                        </div>
+                        <div class='letter7'>
+                            <button class='fd2' type="submit" name='delete' id='non_id_delete'>Удалить</button>
+                        </div> 
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
 
  {% comment %} Меню подбора предмета коллекционирования  {% endcomment %}
@@ -468,11 +503,34 @@
                     <button class='fd2' onclick="menuPoint23()" >Добавить еще предмет</button>
                     <button class='fd2' onclick="menuPoint25()" >СБРОС</button>
                     <button class='fd2' onclick="menuPoint24()" >ЗАПОМНИТЬ</button>
-
             </div>    
     </div>
-    <form class='alternativ_form' method="post" action="" id="p_inf_write_block" enctype="multipart/form-data">
+    <form class='alternativ_form' method="post" action="" id="p_inf_write_block" >
         {% csrf_token %}
         {{ form_info.interest }} 
     </form>
 {% endblock %}
+
+
+{% comment %} блок запуска рекламы  {% endcomment %}
+{% comment %} {% block amalker_form %}
+    <div class='stringDIV' id="amalker_global">
+        <div class='stringDIV' id="amalker_global2">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <input type="submit" value="Опубликовать">
+            </form>
+            <form class='alternativ_form' method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p class='p_popup'>1. Имя (наименовнаие организации):</p>
+                {{ AmalkerBlok.text }} 
+                <p class='p_popup'>2. Отчество (только для физ. лиц):</p>
+                {{ AmalkerBlok.photo }}
+                
+                <p></p>
+                <input class='fd2' id='form_clik1' type="submit" name='amalker' value="Подтверждаю">  
+            </form> 
+        </div>
+    </div>
+{% endblock %} {% endcomment %}

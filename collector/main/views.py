@@ -25,7 +25,6 @@ def main_page(request):
     else:
         key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request)     
     # print(key_article)
-    # print(dict_article)
     
     context = {
         'a': a,
@@ -38,11 +37,14 @@ def main_page(request):
         'puth_exit_enter' : h,
         'puth_paesonalpage' : j,
         'obchee' : Catalogy.objects.get(name='0'),
+        # 'write' : WriteAuthor()
     }
     if request.method == 'POST':
         form = ProstoList(request.POST) 
         form2 = CountText1(request.POST)
-        # print(10)
+        form3 = WriteAuthor(request.POST)
+        print(10)
+        print(form3)
         if form.is_valid(): 
             # print(11)
             form = form.cleaned_data
@@ -68,7 +70,19 @@ def main_page(request):
             context['info_blok'] = dict_article
             context['key_article'] = key_article
             return render(request, 'main/index.html', context)
-        # print(13)
+        elif form3.is_valid():
+            print(12)
+            form3 = form3.cleaned_data
+            # asss = str(Information_block.objects.get(id = int(form3['number'])).author)
+            asss = LetterAuthor.objects.create(
+                correspondent = User.objects.get(username = request.user),
+                article = Information_block.objects.get(id = int(form3['number'])),
+                auhtor = str(Information_block.objects.get(id = int(form3['number'])).author),
+                text = form3['text'],       
+            )
+            print(asss)
+            return render(request, 'main/index.html', context)
+        print(13)
         return render(request, 'main/index.html', context)
     
     return render(request, 'main/index.html', context)

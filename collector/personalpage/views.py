@@ -6,7 +6,7 @@ from .forms import *
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
-from main.models import Information_block, Catalogy, PhotoInfoBlock, Category, Advertisement
+from main.models import Information_block, Catalogy, PhotoInfoBlock, Category, Advertisement, LetterAuthor
 from .models import NewArticle, PresentationUser, Allowance, Photo
 from main.views import method_main_page_1
 from django.core.files.base import ContentFile
@@ -42,11 +42,14 @@ def personal_page(request, user):
     key_draft, dict_draft = function_show_drafts(user, NewArticle, Photo)    # получение ключа и словаря для отображения страницы
     key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
     
+    logik_for_button_amalker = function_button_amalker(info_owner.profession)
     
-    print(key_draft)
-    print(dict_draft)
-    print(key_article)
-    print(dict_article)
+    key_messages, dict_messages = function_show_messages(user)
+    # print(logik_for_button_amalker)
+    # print(key_draft)
+    print(key_messages)
+    print(dict_messages)
+    # print(dict_article)
  
 
     context = {'nik_name' : nik_reguest,
@@ -56,7 +59,7 @@ def personal_page(request, user):
                    'form' : NewArticleForm(),                # форма на запись черновика
                    'for_editorial_office' : dict_draft,
                    'title' : 'Кабинет',
-                   'menu' : ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД',],
+                   'menu' : ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД', 'РЕКЛАМА'],
                    'form_info' : PersonalInformationUser(),
                    'list_a': Catalogy.objects.all().order_by('name'),
                    'logik_1': key_owner,     # отображение в случае если 1ая форма заполнена(1) не заполнена(0)
@@ -64,7 +67,7 @@ def personal_page(request, user):
                    'persona' : info_owner,   # отображение информации о пользователе
                    'predmets' : list_collection_owner, # отображение коллекционного листа
                    'acess_form' : AllowanceForm(),  # форма для забора допусков от пользователя
-                   'secret_form' : SpecialInfoUser(),
+                #    'secret_form' : SpecialInfoUser(),
                 #    'acess_key' : acess_key,
                    'acess_page' : acess_page,
                    'acess_info' : acess_info,
@@ -75,13 +78,21 @@ def personal_page(request, user):
                    'category' : Category.objects.all().order_by('name'),
                    'advertisment' : Advertisement.objects.all().order_by('name'),
                    'drugoe' : 'другое',
+                   'logik_for_button_amalker' : logik_for_button_amalker,
+                   'AmalkerBlok' : AmalkerBlok(),
+                   'key_messages' : key_messages,
+                   'dict_messages' : dict_messages,                   
                    }
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)
         form_user1 = PersonalInformationUser(request.POST, request.FILES)
         form_user2 = AllowanceForm(request.POST)
         form_user3 = SpecialInfoUser(request.POST)
+        form_amalker = AmalkerBlok(request.POST)
         print(1)
+        print(form_user3)
+        print(78)
+        print(form_amalker)
         if form.is_valid():
             print(2)
             cd = form.cleaned_data
@@ -121,6 +132,7 @@ def personal_page(request, user):
                 
                 
         elif form_user1.is_valid():
+            print(34)
             form_user1 = form_user1.cleaned_data
             f = PresentationUser(
             user = request.user,
@@ -132,6 +144,7 @@ def personal_page(request, user):
             f.save()
             return render(request, 'personalpage/index.html', context)
         elif form_user2.is_valid():
+            print(44)
             form_user2 = form_user2.cleaned_data
             l = Allowance(
                 user = request.user,
@@ -142,18 +155,29 @@ def personal_page(request, user):
             )
             l.save()
             return render(request, 'personalpage/index.html', context)
-        elif form_user3.is_valid():
-            form_user3 = form_user3.cleaned_data
-            m = InfoUser(
-                user = request.user,
-                name = form_user3['name'],
-                name_last = form_user3['name_last'],
-                name_first = form_user3['name_first'],
-                telephon = form_user3['telephon'],
-                in_publishid = True,
-            )
-            m.save()
+        elif form_amalker.is_valid():
+            print(64)
+            form = form_amalker.cleaned_data
+            print(form)
             return render(request, 'personalpage/index.html', context)
+        elif form_user3.is_valid():
+            print(54)
+            form_user3 = form_user3.cleaned_data
+            if 'user' in request:
+                print(55)
+                m = InfoUser(
+                    user = request.user,
+                    name = form_user3['name'],
+                    name_last = form_user3['name_last'],
+                    name_first = form_user3['name_first'],
+                    telephon = form_user3['telephon'],
+                    in_publishid = True,
+                )
+                m.save()
+                print(56)
+                return render(request, 'personalpage/index.html', context)
+            else:
+                pass
         else:
             print('что то идет не так')
             print(form.errors)
@@ -262,10 +286,7 @@ def personal_page_reception(request, user):
         'title' : 'Приемная',
     }
     return render(request, 'personalpage/reception.html', context)
-
-
-    
-    
+ 
 # отражение в случае ошибки 
 def personal_page_mistake(request, user):
     context = {'nik_name' : f'Пользователя с псевдонимом {user} не существует.',
@@ -379,7 +400,6 @@ def function_write_clean_copy(cd, request):
     print(new_lokus)
     function_foto_memory(request, PhotoInfoBlock, new_lokus)
    
-
 # функция удаления черновика и чистовика
 def function_delete_draft(key):
     try:
@@ -420,4 +440,28 @@ def function_rewrite_draft(cd, request, key):
             photo.image.save(fail_f.name, ContentFile(data))
             photo.save()
         
-        
+# функция допуска пользователя к кнопке для рекламы 
+def function_button_amalker(param):
+    if str(param) == 'эксперт' or str(param) == 'продавец':
+        return True
+    return False
+
+# функция предоставления информации о сообщениях автору страницы
+def function_show_messages(user):
+    elem = ''
+    key_messages = False
+    dict_messages = {}
+    list_messages = []
+    try:
+        elem = LetterAuthor.objects.filter(auhtor = user)
+    except:
+        print('oib,j')
+    else:
+        key_messages = True
+        for i in elem:
+            list_messages.append(i)
+            # print(list_messages)
+        dict_messages['letter'] = list_messages
+        list_messages = []
+    # print(dict_messages)        
+    return key_messages, dict_messages

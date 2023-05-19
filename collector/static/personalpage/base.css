@@ -694,3 +694,66 @@ label {
 #p_inf_write_block {
     display: none;
 }
+
+#amalker_global {
+    display: none;
+    /* display: absolute; */
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    z-index: 10;
+    display: none;
+    border: solid 3px black;
+    background-color: rgba(233, 234, 234, 0.945);
+}
+
+#amalker_global2 {
+    width: 260px;
+}
+
+.letter {
+    display: grid;
+    grid-template-columns: 5fr 3fr 7fr;
+    grid-template-rows: 1fr 5fr 1fr;
+    padding: 3px;
+    border: solid 2px black;
+    height: 180px;
+    font-size: 18px;
+}
+.letter1 {
+    grid-row: 1;
+    grid-column: 1;
+}
+.letter2 {
+    grid-row: 1;
+    grid-column: 2;
+    overflow: hidden;
+    border-left: solid black 1px;
+    border-right: solid black 1px;
+}
+.letter3 {
+    grid-row: 1;
+    grid-column: 3;
+    overflow: hidden;
+}
+.letter4 {
+    border-top: solid black 2px;
+    border-bottom: solid black 2px;
+    grid-row: 2;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+.letter5 {
+    grid-row: 3;
+    grid-column: 1;
+}
+.letter6 {
+    grid-row: 3;
+    grid-column: 2;
+}
+.letter7 {
+    grid-row: 3;
+    grid-column: 3;
+}
