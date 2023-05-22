@@ -473,7 +473,11 @@
                                 <p class='grid_main_p'>или</p>
                             </div>
                             <div class='letter7'>
-                                <button class='fd2' type="submit" name='delete' id='non_id_delete'>Удалить</button>
+                                <form id='answer_del_id_{{ kw2.id }}' method="post" action="" class='answer_one_del'>
+                                    {% csrf_token %}
+                                    <input type="text" name="id_answer" required="" id="write_del_id_{{ kw2.id }}" class='answer__2' value='{{ kw2.id }}' >
+                                    <button class='fd2' type="submit">Удалить</button> 
+                                </form>
                             </div> 
                         </div>
                         <form id='answer_one_{{ kw2.id }}' method="post" action="" class='answer_one'>
@@ -523,26 +527,3 @@
     </form>
 {% endblock %}
 
-
-{% comment %} блок запуска рекламы  {% endcomment %}
-{% comment %} {% block amalker_form %}
-    <div class='stringDIV' id="amalker_global">
-        <div class='stringDIV' id="amalker_global2">
-            <form action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                
-                <input type="submit" value="Опубликовать">
-            </form>
-            <form class='alternativ_form' method="post" action="" enctype="multipart/form-data">
-                {% csrf_token %}
-                <p class='p_popup'>1. Имя (наименовнаие организации):</p>
-                {{ AmalkerBlok.text }} 
-                <p class='p_popup'>2. Отчество (только для физ. лиц):</p>
-                {{ AmalkerBlok.photo }}
-                
-                <p></p>
-                <input class='fd2' id='form_clik1' type="submit" name='amalker' value="Подтверждаю">  
-            </form> 
-        </div>
-    </div>
-{% endblock %} {% endcomment %}

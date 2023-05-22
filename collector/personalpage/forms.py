@@ -71,3 +71,6 @@ class AmalkerBlok(forms.Form):
 class Answer(forms.Form):
     text_answer = forms.CharField(widget=forms.Textarea, )
     id_answer = forms.CharField(max_length=150)
+    
+class DelletAnswer(forms.Form):
+    id_answer = forms.CharField(max_length=150)

@@ -47,8 +47,8 @@ def personal_page(request, user):
     key_messages, dict_messages = function_show_messages(user)
     # print(logik_for_button_amalker)
     # print(key_draft)
-    print(key_messages)
-    print(dict_messages)
+    # print(key_messages)
+    # print(dict_messages)
     # print(dict_article)
  
 
@@ -91,10 +91,11 @@ def personal_page(request, user):
         form_user3 = SpecialInfoUser(request.POST)
         form_amalker = AmalkerBlok(request.POST)
         form_answer = Answer(request.POST)
+        form_dell_answer = DelletAnswer(request.POST)
         print(1)
-        print(form_user3)
-        print(78)
-        print(form_answer)
+        # print(form_user3)
+        # print(78)
+        # print(form_dell_answer)
         if form.is_valid():
             print(2)
             cd = form.cleaned_data
@@ -180,6 +181,15 @@ def personal_page(request, user):
             context['key_messages'] = key_messages
             context['dict_messages'] = dict_messages
             return render(request, 'personalpage/index.html', context)
+        elif form_dell_answer.is_valid():
+            form_dell_answer = form_dell_answer.cleaned_data
+            letter = LetterAuthor.objects.get(id = str(form_dell_answer['id_answer']))
+            letter.delete()
+            key_messages, dict_messages = function_show_messages(user)
+            print(letter)
+            context['key_messages'] = key_messages
+            context['dict_messages'] = dict_messages
+            return render(request, 'personalpage/index.html', context)
         elif form_user3.is_valid():
             print(54)
             form_user3 = form_user3.cleaned_data
@@ -205,7 +215,6 @@ def personal_page(request, user):
             print(form_user2.errors)
             return render(request, 'personalpage/index.html', context)
     return render(request, 'personalpage/index.html', context)
-
 
 # Функция получения имени пользователя из запроса 
 def getting_nickname_request(request):
@@ -480,24 +489,24 @@ def function_show_messages(user):
         key_messages = True
         dict_p = {}
         for i in elem:
-            print('в цикле')
+            # print('в цикле')
             # print(i)
             # print(i.text)
             text = function_forming_string(i)
-            print(text)
+            # print(text)
             dict_p[i] = text
             list_messages.append(dict_p)
             dict_p = {}
             # print(list_messages)
         dict_messages['letter'] = list_messages
         list_messages = []
-    print(dict_messages)        
+    # print(dict_messages)        
     return key_messages, dict_messages
 
 # дополнительная функция получение списка строк для вывода в поле письмо автору
 def function_forming_string(i):
-    print(i)
-    print(i.text)
+    # print(i)
+    # print(i.text)
     string = ''
     stringf = []
     for num in range(len(i.text)):
@@ -512,6 +521,6 @@ def function_forming_string(i):
                 string = ''
         elif num == len(i.text)-1:
             stringf.append(string)
-    print(stringf)
+    # print(stringf)
     return stringf
             
