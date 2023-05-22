@@ -401,6 +401,25 @@ function amalker_blok() {
     console.log(block1)
     block1.style.display = 'block';
 }
+
+function answer(elem) {
+    console.log('я в функции ответа')
+    let string = 'answer_one_' + elem
+    let block1 = document.getElementById(string);
+    console.log(block1)
+    block1.style.display = 'flex';
+    string = 'write_id_' + elem;
+    let block2 = document.getElementById(string);
+    block2.value = elem;
+    console.log(block2.value)
+}
+
+
+
+
+
+
+
 // Итак в чём же основная проблема с которой столкнулся я. Оказывается “выключить” кнопку можно как угодно, т.е. обратившись к элементу submit в любой доступной форме:
 // Submit.disabled = true;
 // Однако включить (заменим на false) подобным способом не получается и именно поэтому я накопал аж вот такую конструкцию:

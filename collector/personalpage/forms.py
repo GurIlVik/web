@@ -67,3 +67,7 @@ class PersonalInformationUser(forms.Form):
 class AmalkerBlok(forms.Form):
     text = forms.CharField(max_length=150,label='введите текст до 40 символов')
     photo = forms.ImageField(label='введите файл')
+    
+class Answer(forms.Form):
+    text_answer = forms.CharField(widget=forms.Textarea, )
+    id_answer = forms.CharField(max_length=150)

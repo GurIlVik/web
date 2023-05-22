@@ -463,7 +463,7 @@
                             {{ elem.text }}
                         </div>
                         <div class='letter5'>
-                            <button class='fd2' onclick="menuPoint23()" >Ответить</button>
+                            <button class='fd2' onclick="answer({{ elem.id }})" >Ответить</button>
                         </div>
                         <div class='letter6'>
                             <p class='grid_main_p'>или</p>
@@ -472,6 +472,13 @@
                             <button class='fd2' type="submit" name='delete' id='non_id_delete'>Удалить</button>
                         </div> 
                     </div>
+                    <form id='answer_one_{{ elem.id }}' method="post" action="" class='answer_one'>
+                        {% csrf_token %}
+                        <input type="text" name="id_answer" required="" id="write_id_{{ elem.id }}" class='answer__2'>
+                        <textarea cols="30" name="text_answer" rows="4" required="" id="write_area_{{ elem.id }}" class='answer_1'></textarea>
+                        <button type="submit" class='fd2_2' class="id_comment2"> <div class="text_vertical">ВВОД  </div>
+                        </button>
+                    </form>
                 {% endfor %}
             {% endif %}
         {% endfor %}

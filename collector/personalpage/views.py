@@ -81,7 +81,8 @@ def personal_page(request, user):
                    'logik_for_button_amalker' : logik_for_button_amalker,
                    'AmalkerBlok' : AmalkerBlok(),
                    'key_messages' : key_messages,
-                   'dict_messages' : dict_messages,                   
+                   'dict_messages' : dict_messages,    
+                   'form_answer' : Answer(),         
                    }
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)
@@ -89,10 +90,11 @@ def personal_page(request, user):
         form_user2 = AllowanceForm(request.POST)
         form_user3 = SpecialInfoUser(request.POST)
         form_amalker = AmalkerBlok(request.POST)
+        form_answer = Answer(request.POST)
         print(1)
         print(form_user3)
         print(78)
-        print(form_amalker)
+        print(form_answer)
         if form.is_valid():
             print(2)
             cd = form.cleaned_data
@@ -160,6 +162,9 @@ def personal_page(request, user):
             form = form_amalker.cleaned_data
             print(form)
             return render(request, 'personalpage/index.html', context)
+        elif form_answer.is_valid():
+            form_answer = form_answer.cleaned_data
+            print(form_answer)
         elif form_user3.is_valid():
             print(54)
             form_user3 = form_user3.cleaned_data
