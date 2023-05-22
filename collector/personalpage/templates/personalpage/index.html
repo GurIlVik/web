@@ -449,36 +449,41 @@
         {% for key, value in dict_messages.items %}
             {% if key == 'letter' %}
                 {% for elem in value %}
-                    <div class='letter'>
-                        <div class='letter1'>
-                            {{ elem.correspondent }}
+
+                {% for kw2, value2 in elem.items %}
+                        <div class='letter'>
+                            <div class='letter1'>
+                                {{ kw2.correspondent }}
+                            </div>
+                            <div class='letter2'>
+                                <p class='grid_main_p'>к статье </p>
+                            </div>
+                            <div class='letter3'>
+                                {{ kw2.article.title }}
+                            </div>
+                            <div class='letter4'>
+                                {% for elem in value2 %}
+                                <p> {{ elem }} </p>
+                                {% endfor %}
+                            </div>
+                            <div class='letter5'>
+                                <button class='fd2' onclick="answer({{ kw2.id }})" >Ответить</button>
+                            </div>
+                            <div class='letter6'>
+                                <p class='grid_main_p'>или</p>
+                            </div>
+                            <div class='letter7'>
+                                <button class='fd2' type="submit" name='delete' id='non_id_delete'>Удалить</button>
+                            </div> 
                         </div>
-                        <div class='letter2'>
-                            <p class='grid_main_p'>к статье </p>
-                        </div>
-                        <div class='letter3'>
-                            {{ elem.article.title }}
-                        </div>
-                        <div class='letter4'>
-                            {{ elem.text }}
-                        </div>
-                        <div class='letter5'>
-                            <button class='fd2' onclick="answer({{ elem.id }})" >Ответить</button>
-                        </div>
-                        <div class='letter6'>
-                            <p class='grid_main_p'>или</p>
-                        </div>
-                        <div class='letter7'>
-                            <button class='fd2' type="submit" name='delete' id='non_id_delete'>Удалить</button>
-                        </div> 
-                    </div>
-                    <form id='answer_one_{{ elem.id }}' method="post" action="" class='answer_one'>
-                        {% csrf_token %}
-                        <input type="text" name="id_answer" required="" id="write_id_{{ elem.id }}" class='answer__2'>
-                        <textarea cols="30" name="text_answer" rows="4" required="" id="write_area_{{ elem.id }}" class='answer_1'></textarea>
-                        <button type="submit" class='fd2_2' class="id_comment2"> <div class="text_vertical">ВВОД  </div>
-                        </button>
-                    </form>
+                        <form id='answer_one_{{ kw2.id }}' method="post" action="" class='answer_one'>
+                            {% csrf_token %}
+                            <input type="text" name="id_answer" required="" id="write_id_{{ kw2.id }}" class='answer__2'>
+                            <textarea cols="30" name="text_answer" rows="4" required="" id="write_area_{{ kw2.id }}" class='answer_1'></textarea>
+                            <button type="submit" class='fd2_2' class="id_comment2"> <div class="text_vertical">ВВОД  </div>
+                            </button>
+                        </form>
+                    {% endfor %}
                 {% endfor %}
             {% endif %}
         {% endfor %}

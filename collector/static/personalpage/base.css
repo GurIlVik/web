@@ -744,6 +744,7 @@ label {
     grid-row: 2;
     grid-column-start: 1;
     grid-column-end: 4;
+    overflow-y: scroll;
 }
 .letter5 {
     grid-row: 3;

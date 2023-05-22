@@ -165,6 +165,21 @@ def personal_page(request, user):
         elif form_answer.is_valid():
             form_answer = form_answer.cleaned_data
             print(form_answer)
+            letter = LetterAuthor.objects.get(id = str(form_answer['id_answer']))
+            print(letter)
+            messeng = f"{letter.text} &$&ответ {letter.auhtor}: {form_answer['text_answer']} "
+            print(messeng)
+            correspondent = letter.auhtor
+            auhtor = str(letter.correspondent)
+            print()
+            letter.correspondent = User.objects.get(username=correspondent)
+            letter.auhtor = auhtor
+            letter.text = messeng
+            letter.save()
+            key_messages, dict_messages = function_show_messages(user)
+            context['key_messages'] = key_messages
+            context['dict_messages'] = dict_messages
+            return render(request, 'personalpage/index.html', context)
         elif form_user3.is_valid():
             print(54)
             form_user3 = form_user3.cleaned_data
@@ -463,10 +478,39 @@ def function_show_messages(user):
         print('oib,j')
     else:
         key_messages = True
+        dict_p = {}
         for i in elem:
-            list_messages.append(i)
+            print('в цикле')
+            # print(i)
+            # print(i.text)
+            text = function_forming_string(i)
+            print(text)
+            dict_p[i] = text
+            list_messages.append(dict_p)
+            dict_p = {}
             # print(list_messages)
         dict_messages['letter'] = list_messages
         list_messages = []
-    # print(dict_messages)        
+    print(dict_messages)        
     return key_messages, dict_messages
+
+def function_forming_string(i):
+    print(i)
+    print(i.text)
+    string = ''
+    stringf = []
+    for num in range(len(i.text)):
+        if num < len(i.text)-1:
+        # print(elem)
+            if i.text[num] not in '&$':
+                string += i.text[num]
+            elif i.text[num] == '&':
+                pass
+            elif i.text[num] == '$':
+                stringf.append(string)
+                string = ''
+        elif num == len(i.text)-1:
+            stringf.append(string)
+    print(stringf)
+    return stringf
+            
