@@ -588,3 +588,12 @@ footer {
     width: 270px;
     height: 120px;
 }
+
+/* .write_stat {
+    display: none;
+    z-index: 10; 
+    position: absolute; 
+    left: -500px;
+    height: auto;
+    width: auto;
+} */

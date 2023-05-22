@@ -92,9 +92,17 @@
             {% endfor %}
         </div>
             <div id="info_blok_4"> 
+                <div class='write' id="id_write_{{ key.id }}">
+                    <form id='form_write_{{ key.id }}' method="post" action="">
+                        {% csrf_token %}
+                        <input type="text" name="number" required="" id="write_id_{{ key.id }}" class='write_2'>
+                        <textarea cols="60" name="text" rows="5" required="" id="textarea_{{ key.id }}"></textarea>
+                        <button type="submit" class='fd2' class="id_comment2">Подтверждаю</button>
+                    </form>
+                </div>
                 <div id="info_blok_41"> 
                     <div class = 'grid_main_field9'>
-                        {% comment %} <p class='grid_main_p'>&#x1F44D;</p> {% endcomment %}
+                        
                         {% if request.user.is_authenticated %}
                             {% if simbol_4 != '+'%}
                             <button class = 'grid_main_p' id="c+{{ key.id }}" onclick="countsInt('+', '1', '{{ key.id }}')">&#x1F44D;</button>
@@ -109,7 +117,6 @@
                         <p class='grid_main_p'> {{key.count_symbol_ok}} </p>
                     </div>
                     <div class = 'grid_main_field11'>
-                        {% comment %} <p class='grid_main_p'>&#128078;</p> {% endcomment %}
                         {% if request.user.is_authenticated %}
                             {% if simbol_4 != '-'%}
                             <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="countsInt('-', '1', '{{ key.id }}')">&#128078;</button>
@@ -138,11 +145,16 @@
                     {% endif %}
 
                 </div>
-                <div id="info_blok_42"> 
-                    <div class = 'grid_main_field14'>
-                        <p class='grid_main_p'>&#x270D; Автору</p>
+                <div class = 'grid_main_field14'>
+                    {% if request.user.is_authenticated %}
+                    <button class = 'grid_main_p' id="art-{{ key.id }}" onclick="write_autor('+', '{{ key.id }}')"><p class='grid_main_p'>&#x270D; Автору</p></button>
+                    {% else %}
+                    <button class = 'grid_main_p' id="art-{{ key.id }}" onclick="holl({{ key.id }}, 'id_write_p_')"><p class='grid_main_p'>&#x270D; Автору</p></button>
+                    {% endif %}
+                    <div class='write_1' id="id_write_p_{{ key.id }}">
+                        <a href="/">Пройдите регистрацию</a>
                     </div>
-                </div>
+                </div>    
             </div>
                 {% if acess_comm == False %}
                     <p id='info_blok_51'>Автор закрыл комментарии</p>
@@ -178,7 +190,6 @@
                         <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="holl({{ key.id }})">&#128078;</button>
                     {% endif %}
                     <p>{{ key.count_symbol_ok }}</p>
-                {% comment %} <p>&#128078;</p> {% endcomment %}
                     {% if request.user.is_authenticated %}
                         {% if key2 != '-'%}
                         <button class = 'grid_main_p' id="c-{{ key.id }}" onclick="countsInt('-', '1', '{{ key.id }}')">&#128078;</button>
@@ -222,7 +233,9 @@
                 <div class='info_blok_8'>
                     {% for elem in value2 %}
                     {% for key3, value3 in elem.items %}
+                    
                     <div class='info_blok_81'>
+                        
                         <p>ответил: {{ key3.author_re_comment }}</p>
                         <p>{{ key3.time_publication | date:"j E Y" }}</p>
                         <p>на комментарий: {{ key3.author_comment }}</p>
@@ -272,7 +285,7 @@
                                 <input type="text" name="comment2_id" required="" id="comment2_id_i_{{ key3.id }}" class='comment2_id_p'>
                                 <input type="text" name="author_comment" required="" id="author_comment_{{ key3.id }}" class='comment2_id_p'>
                             </form>
-                        </div>
+                        </div> 
                     </div>
                     {% endfor %}  
                     {% endfor %}  

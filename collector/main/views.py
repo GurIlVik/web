@@ -6,6 +6,9 @@ from sqlite3 import OperationalError
 from django.contrib.auth.models import User
 from personalpage.models import PresentationUser
 
+
+
+
 # отображение главной страницы
 def main_page(request):
     list_interest = function_list_interes(request)
@@ -135,7 +138,8 @@ def publication(request, author, id):
         form4 = CountText1(request.POST)
         form5 = CountText2(request.POST)
         form6 = CountText3(request.POST)
-        # print(form6)
+        form7 = WriteAuthor(request.POST)
+        print(form7)
         if form.is_valid(): 
             # print('комментарий 2')
             form = form.cleaned_data
@@ -222,6 +226,15 @@ def publication(request, author, id):
             context['key_comments'] = key_comments
             context['dict_comments'] = dict_comments
             # print(33)
+            return render(request, 'main/publication.html', context)
+        elif form7.is_valid():
+            form7 = form7.cleaned_data
+            asss = LetterAuthor.objects.create(
+                correspondent = User.objects.get(username = request.user),
+                article = Information_block.objects.get(id = int(form7['number'])),
+                auhtor = str(Information_block.objects.get(id = int(form7['number'])).author),
+                text = form7['text'],       
+            )
             return render(request, 'main/publication.html', context)
         else:
             return HttpResponse('ЧТО_ТО ОПЯТЬ НЕ ТАК')

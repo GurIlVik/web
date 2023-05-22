@@ -494,6 +494,7 @@ def function_show_messages(user):
     print(dict_messages)        
     return key_messages, dict_messages
 
+# дополнительная функция получение списка строк для вывода в поле письмо автору
 def function_forming_string(i):
     print(i)
     print(i.text)
