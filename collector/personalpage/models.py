@@ -107,3 +107,19 @@ class InfoUser(models.Model):
         return str(self.user)
     class Meta:
         verbose_name_plural = 'Секретная' 
+        
+# Модель отображения визитки продавца или эксперта       
+class BusnessCard(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Название организации или ИП')
+    adress = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Адрес')
+    email = models.EmailField(null=True, blank=True, verbose_name = 'Электронная почта')
+    telephon = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Телефон')
+    time = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Рабочее время')
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
+    profile = models.TextField(null=True, blank=True, verbose_name = 'описание деятельности') 
+    def __str__(self):
+        return str(self.name)
+    class Meta:
+        verbose_name_plural = 'Визитки' 
+        
