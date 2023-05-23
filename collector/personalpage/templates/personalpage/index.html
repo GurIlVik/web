@@ -322,7 +322,7 @@
 
 
 {% comment %} basic блок с основной информацией {% endcomment %}    
-{% block info_blok %}  
+{% block info_blok %} 
     {% if logik_1 != True %}
         <div id='text_logik_1'>
             <p>Вам открыто комментрование и просмотр постов доступных только членам клуба </p>
@@ -332,6 +332,12 @@
         </div>
     {% else %}
     {% if key_draft != True and key_article != True%}
+    {% if logik_for_button_amalker == True %} 
+    
+kejhgfbwierhbrwoeirub
+
+
+    {% endif %}
         <div id='text_logik_1'>
             <p>Вы пока ни чего не написали</p>
         </div>

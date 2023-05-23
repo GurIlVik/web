@@ -110,6 +110,7 @@ class InfoUser(models.Model):
  
 # Модель отображения визитки продавца или эксперта       
 class BusnessCard(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Название организации или ИП')
     adress = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'Адрес')
     email = models.EmailField(null=True, blank=True, verbose_name = 'Электронная почта')

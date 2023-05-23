@@ -38,10 +38,10 @@ def personal_page(request, user):
         
     key_draft, dict_draft = function_show_drafts(user, NewArticle, Photo)    # получение ключа и словаря для отображения страницы
     key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
-
-    logik_for_button_amalker = function_button_amalker(info_owner)
-    
+    logik_for_button_amalker = function_button_amalker(info_owner) 
     key_messages, dict_messages = function_show_messages(user)
+    
+    # key_bc, buseness_card = function_show_buseness_card(user)
     
     # print(logik_for_button_amalker)
     # print(key_draft)
@@ -535,4 +535,16 @@ def function_forming_string(i):
             stringf.append(string)
     # print(stringf)
     return stringf
-            
+ 
+# вспомогательная функция отображения визитки магазина
+def function_show_buseness_card(user):
+    elem = ''
+    key = False
+    try:
+        elem = BusnessCard.objects.get(auhtor = user)
+    except:
+        print('oib,j')
+    else:
+        key = True
+    return key, elem
+           
