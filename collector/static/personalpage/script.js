@@ -414,9 +414,29 @@ function answer(elem) {
     console.log(block2.value)
 }
 
+function amalker() {
+    // console.log('я в функции рек блока')
+    let block1 = document.getElementById("menu_1");
+    block1.style.display = 'none';
+    let block2 = document.getElementById('menu_2');
+    block2.style.display = 'block';
+    block2.style.background = 'red';
+    let block3 = document.getElementById('menu_3');
+    block3.style.display = 'block';
+    block3.style.background = 'red';
+}
 
-
-
+function amalker2() {
+    console.log('я в функции рек блока')
+    let block1 = document.getElementById("business_card");
+    block1.style.display = 'block';
+    let block4 = document.getElementById("menu_1");
+    block4.style.display = 'block';
+    let block2 = document.getElementById('menu_2');
+    block2.style.display = 'none';
+    let block3 = document.getElementById('menu_3');
+    block3.style.display = 'none';
+}
 
 
 

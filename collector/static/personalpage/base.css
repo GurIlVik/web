@@ -814,3 +814,14 @@ label {
     min-width: 40px;
     border: 1px solid black;
 }
+
+#menu_2, #menu_3 {
+    display: none;
+    z-index: 2;
+}
+
+/* блок с заполнением рекламы */
+#business_card {
+    display: none;
+    z-index: 2;
+}

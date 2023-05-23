@@ -1,7 +1,7 @@
 from django import forms 
 from django.forms import ClearableFileInput, ModelForm, TextInput
 from main.models import Category, Catalogy, AllowanceComment
-from .models import PresentationUser, AllowanceModel, InfoUser, Professional
+from .models import PresentationUser, AllowanceModel, InfoUser, Professional, BusnessCard
 from multiupload.fields import MultiFileField
 
 class NewArticleForm(forms.Form):
@@ -74,3 +74,8 @@ class Answer(forms.Form):
     
 class DelletAnswer(forms.Form):
     id_answer = forms.CharField(max_length=150)
+    
+class BusnessCard(forms.ModelForm):
+     class Meta:
+        model = BusnessCard
+        fields = ['name', 'adress', 'email', 'telephon', 'time', 'photo', 'profile'] 

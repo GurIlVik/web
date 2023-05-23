@@ -7,8 +7,14 @@
 {% comment %} ОТОБРАЖЕИЕ МЕНЮ {% endcomment %}
 {% block menu_block %} 
     {% if logik_for_button_amalker == True %}
-        <div>
-            <a class='fd2' href="{% url 'main' %}"><button class='fd2'>{{ menu.4 }}</button></a> 
+        <div id='menu_1'>
+            <button class='fd2' onclick='amalker()'>{{ menu.4 }}</button> 
+        </div>
+        <div id='menu_2'>
+            <button class='fd2' onclick='amalker2()'>Сделать визитку</button> 
+        </div>
+        <div id='menu_3'>
+            <button class='fd2' onclick='amalker3()'>Подать рекламу</button> 
         </div>
     {% endif %}
         <div>
@@ -26,6 +32,17 @@
             <a class='fd2' href="{% url 'logout' %}"><button class='fd2'>{{ menu.3 }}</button></a>
         </div>
 {% endblock %}
+
+{% block business_card %}
+    <div id="business_card">
+        <form class='alternativ_form' method="post" action=""  enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form_b_card|crispy }}
+                <button class='fd2' type="submit" name='memory' id='non_id_memory'>сохранить</button>  
+            
+        </form>
+    </div>
+{% endblock%}
 
 {% comment %} Меню написания статьи  {% endcomment %}
 {% block alternativ_form %}
