@@ -49,11 +49,10 @@ def main_page(request):
         print(10)
         print(form3)
         if form.is_valid(): 
-            # print(11)
             form = form.cleaned_data
-            # print(form)
             predmet_collection_list = method_main_page_1(form['pole']) # В этом списке выбранные категории предметов
             context['key_article'], context['info_blok'] = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = predmet_collection_list) 
+            
             return render(request, 'main/index.html', context)
         elif form2.is_valid():
             form2 = form2.cleaned_data
@@ -80,7 +79,6 @@ def main_page(request):
             return render(request, 'main/index.html', context)
         print(13)
         return render(request, 'main/index.html', context)
-    
     return render(request, 'main/index.html', context)
  
 # отображение страницы публикации

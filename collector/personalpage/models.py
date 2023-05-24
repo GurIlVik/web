@@ -82,9 +82,7 @@ class Allowance(models.Model):
 # МОДЕЛЬ ОТОБРАЖЕНИЕ ЛИЧНОЙ ИНФОРМАЦИИ 
 class PresentationUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    # nikname = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'НИК')
     photo = models.ImageField(upload_to=f"photos/%Y/%m/%d/", verbose_name='Фото')
-    # photo = models.ImageField(upload_to=f"photos/{User.username}/%Y/%m/%d/", verbose_name='Фото')
     profession = models.ForeignKey('Professional', on_delete=models.PROTECT, verbose_name='Род деятельности')        # коллекционер/продавец
     FFP = models.CharField( max_length=100, null=True, blank=True, verbose_name = 'ФФП')
     interest = models.CharField( max_length=255, null=True)  # список инетересующих тем

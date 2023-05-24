@@ -9,13 +9,16 @@
         <button class='fd2' onclick="menuPoint2()">Предмет коллекции</button>
     </div>
     <div>
-        <button class='fd2' onclick="menuPoint3(0)">Статьи</button>
+        <button class='fd2' onclick="menuPoint3(5)">Статьи</button>
     </div>
     <div>
-        <button class='fd2' onclick="menuPoint3(1)">Я ищу:</button>
+        <button class='fd2' onclick="menuPoint3(2)">Я ищу:</button>
     </div>
     <div>
-        <button class='fd2' onclick="menuPoint3(2)">Ищут</button>
+        <button class='fd2' onclick="menuPoint3(1)">Ищут</button>
+    </div>
+    <div>
+        <button class='fd2' onclick="menuPoint3(3)">Услуги</button>
     </div>
     {% if request.user.is_authenticated %}
     <div ><a href="{{ puth_paesonalpage }}"><button class='fd2'>Своя страница</button></a></div>
@@ -184,7 +187,7 @@
                     </form>
                 </div>
                 <div class = 'grid_main_field15'>
-                    <p class='grid_main_p'>Не показывать</p><div class='display_none'>{{ key.categories }}</div>
+                    <p class='grid_main_p'>Не показывать</p><div class='display_none'>{{ key.categories }}</div><div class='display_none2'>{{ key.topic }}</div>
                 </div>
             </div>
             

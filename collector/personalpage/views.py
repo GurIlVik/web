@@ -90,7 +90,6 @@ def personal_page(request, user):
             form_user1 = form_user1.cleaned_data
             f = PresentationUser(
             user = request.user,
-            # nikname = request.user,
             photo = form_user1['photo'],
             profession = form_user1['profession'],       # коллекционер/продавец
             interest = method_main_page_1(form_user1['interest']),  # список инетересующих тем
@@ -99,6 +98,7 @@ def personal_page(request, user):
             context['logik_for_button_amalker'] = function_button_amalker(info_owner)
             list_collection_owner, key_owner, info_owner = func_list_colliction(request, user)
             context['persona'] = info_owner
+            context['logik_for_button_amalker'] = logik_for_button_amalker
             return render(request, 'personalpage/index.html', context)
         elif form_user2.is_valid():
             print(44)
@@ -375,8 +375,8 @@ def function_foto_memory(request, clas, pole):
 
 # функция записи из формы в модель чистовика - статьи с фотографиями       
 def function_write_clean_copy(cd, request):
-    print(cd['categories'])
-    print(cd['topic'])
+    print('category', cd['categories'])
+    print('topic', cd['topic'])
     new_lokus = Information_block.objects.create(
         author = request.user,
         categories = cd['categories'],   

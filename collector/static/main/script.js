@@ -85,21 +85,23 @@ function menuPoint3(as) {
     console.log('value_list4')
     let value_list4 = document.getElementsByClassName("info_blok_grid_main");
     let value_list3 = document.getElementsByClassName("display_none");
-    
-    console.log(value_list3.innerHTML)
+    let value_list2 = document.getElementsByClassName("display_none2");
+    console.log(as)
     console.log(value_list3)
     for (var i = value_list3.length - 1; i >= 0; i--) {
         let a = value_list3[i].innerHTML.trim();
+        let b = value_list2[i].innerHTML.trim();
         console.log(a)
-        // console.log(value_list3.innerHTML)
-        
-        if (a == as) {
+        console.log('ntgthm ,')
+        console.log(b)
+        if (a == 2 && as == 5 || as == 1 && as == b || as == 2 && as == b || as ==3 && as == b) {
             value_list4[i].style.display = "grid";
         } else {
             value_list4[i].style.display = "none";
+            }
         }
     }
-}
+
 
 // функция комментирования комментатора
 function comment_for_comment(i) {
