@@ -56,15 +56,9 @@ def main_page(request):
             context['key_article'], context['info_blok'] = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = predmet_collection_list) 
             return render(request, 'main/index.html', context)
         elif form2.is_valid():
-            # print(12)
-            # print('форма 2')
             form2 = form2.cleaned_data
             locus = form2['count']
-            # print(locus)
             article = Information_block.objects.get(id = int(locus[2:]))
-            # check_count_article = CountArticle.objects.get(article_count = article)
-            # print(article)
-            # print(form2['count'][0])
             function_count_interes(article, request, locus)
             if list_interest:
                 key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = list_interest) 
@@ -76,7 +70,6 @@ def main_page(request):
         elif form3.is_valid():
             print(12)
             form3 = form3.cleaned_data
-            # asss = str(Information_block.objects.get(id = int(form3['number'])).author)
             asss = LetterAuthor.objects.create(
                 correspondent = User.objects.get(username = request.user),
                 article = Information_block.objects.get(id = int(form3['number'])),
@@ -99,21 +92,12 @@ def publication(request, author, id):
     form = CommentUser()
     form2 = CommentForComment()
     form3 = CommentForComment2()
-    # print('start')
     list_int2 = check_predmet_collection(k.collection)
     acess_comm = function_acess_comment(k.access, request, list_int2)
-    
-    # print(acess_comm) # допуск к комментированию
     photo_autor = PresentationUser.objects.get(user=k.author).photo
-    # # print(photo_autor)
-    # print(k.pk)
     key_comments, dict_comments = function_show_comments(ArticleСomments, request, k.pk)
-    # print(key_comments)
-    # print(dict_comments)
     blok_publik = function_show_publik(id)
     count_int_art = count_for_article_publication(CountArticle, request, k)
-    # count_int_com = count_for_article_publication(CountComment, request, k)
-    # count_int_com2 = count_for_article_publication(CountComment2, request, k)
     context = {'a' : author,
             'info_blok' : c, 
             'blok_publik' : blok_publik,
@@ -139,9 +123,7 @@ def publication(request, author, id):
         form5 = CountText2(request.POST)
         form6 = CountText3(request.POST)
         form7 = WriteAuthor(request.POST)
-        print(form7)
         if form.is_valid(): 
-            # print('комментарий 2')
             form = form.cleaned_data
             asss = ArticleСomments.objects.create(autor_publication = User.objects.get(username = author),                                        # ID статьи автора статьи
                 publication = k,
@@ -157,10 +139,7 @@ def publication(request, author, id):
         
         elif form3.is_valid():
             form3 = form3.cleaned_data
-            # print('комментарий 3')
             dert = ArticleСommentsTwo.objects.get(id=form3['comment2_id']).comment.pk
-            # print(dert)
-            # print(form3)
             asss = ArticleСommentsTwo.objects.create(
                 author_comment = form3['author_comment'],
                 comment = ArticleСommentsTwo.objects.get(id=form3['comment2_id']).comment,
@@ -175,8 +154,6 @@ def publication(request, author, id):
             return render(request, 'main/publication.html', context)
         elif form2.is_valid(): 
             form2 = form2.cleaned_data
-            # print('комментарий 2')
-            # print(form2)
             asss = ArticleСommentsTwo.objects.create(
                 author_comment = str(ArticleСomments.objects.get(id=form2['comment2_id']).autor_message),
                 comment = ArticleСomments.objects.get(id=form2['comment2_id']),
@@ -190,9 +167,7 @@ def publication(request, author, id):
             context['dict_comments'] = dict_comments
             return render(request, 'main/publication.html', context)
         elif form4.is_valid():
-            # print('счетчик1')
             form4 = form4.cleaned_data
-            # print(form4)
             article = k
             locus = form4['count']
             function_count_interes(article, request, locus)
@@ -201,31 +176,22 @@ def publication(request, author, id):
             context['blok_publik'] = function_show_publik(id)
             return render(request, 'main/publication.html', context)
         elif form5.is_valid():
-            # print('счетчик2')
             form5 = form5.cleaned_data
             comment_interes = ArticleСomments.objects.get(id = int(form5['count2'][2:]))
-            # print(21)
             locus = form5['count2']
-            # print(comment_interes)
             function_count_interes(comment_interes, request, locus, class2=CountComment)
-            # print(22)
             key_comments, dict_comments = function_show_comments(ArticleСomments, request, k.pk)
-            # print(form5)
             context['key_comments'] = key_comments
             context['dict_comments'] = dict_comments
-            # print(33)
             return render(request, 'main/publication.html', context)
         elif form6.is_valid():
-            # print('счетчик3')
             form6 = form6.cleaned_data
             comment_interes = ArticleСommentsTwo.objects.get(id = int(form6['count3'][2:]))
             locus = form6['count3']
             function_count_interes(comment_interes, request, locus, class2=CountComment2)
             key_comments, dict_comments = function_show_comments(ArticleСomments, request, k.pk)
-            # print(form6)
             context['key_comments'] = key_comments
             context['dict_comments'] = dict_comments
-            # print(33)
             return render(request, 'main/publication.html', context)
         elif form7.is_valid():
             form7 = form7.cleaned_data
@@ -262,8 +228,6 @@ def function_show_article_2(dot, key_article, photo_clas, dict_draft, request,):
             else:
                 list_draft.append(False)
             dict_photo = {count : list_draft}
-            # print('мловарь', dict_photo)
-            # print('list draft', list_draft)
             simbol_c = ''
             if user.is_authenticated:
                 simbol_c = CountArticle.objects.filter(author_count = user, article_count=i.pk)
@@ -531,12 +495,6 @@ def count_for_article(article, locus):
     
 # функция сохранения счетчиков интереса    
 def save_count_article(article, request, locus, class2=CountArticle,):
-    # print(501)
-    # print(class2)
-    # print(503)
-    # print(request.user)
-    # print(article)
-    # print(locus[0])
     asss = class2.objects.create(
         author_count = request.user,
         article_count = article,

@@ -82,13 +82,19 @@ function menuPoint23() {
 
 // функция отображения по интересу пользователя.
 function menuPoint3(as) {
-    let value_list4 = document.getElementsByClassName("info_blok_1");
+    console.log('value_list4')
+    let value_list4 = document.getElementsByClassName("info_blok_grid_main");
     let value_list3 = document.getElementsByClassName("display_none");
+    
+    console.log(value_list3.innerHTML)
+    console.log(value_list3)
     for (var i = value_list3.length - 1; i >= 0; i--) {
         let a = value_list3[i].innerHTML.trim();
-        let b = value_list4[i];
+        console.log(a)
+        // console.log(value_list3.innerHTML)
+        
         if (a == as) {
-            value_list4[i].style.display = "flex";
+            value_list4[i].style.display = "grid";
         } else {
             value_list4[i].style.display = "none";
         }

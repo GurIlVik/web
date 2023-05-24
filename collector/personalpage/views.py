@@ -40,15 +40,6 @@ def personal_page(request, user):
     key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
     logik_for_button_amalker = function_button_amalker(info_owner) 
     key_messages, dict_messages = function_show_messages(user)
-    
-    # key_bc, buseness_card = function_show_buseness_card(user)
-    
-    # print(logik_for_button_amalker)
-    # print(key_draft)
-    # print(key_messages)
-    # print(dict_messages)
-    # print(dict_article)
- 
 
     context = {'nik_name' : nik_reguest,
                    'register' : registered_user,

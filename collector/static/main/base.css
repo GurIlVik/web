@@ -540,7 +540,7 @@ footer {
     grid-column-start: 1;
     grid-column-end: 5;
 }
-.count_text_1 {
+.count_text_1, .display_none {
     display: none;
 }
 
