@@ -1,9 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
-# from django.contrib.auth import authenticate, login, logout
 from .forms import *
-# from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import urls
 from main.models import Information_block, Catalogy, PhotoInfoBlock, Category, Advertisement, LetterAuthor
@@ -41,10 +38,11 @@ def personal_page(request, user):
         
     key_draft, dict_draft = function_show_drafts(user, NewArticle, Photo)    # получение ключа и словаря для отображения страницы
     key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
-    
-    logik_for_button_amalker = function_button_amalker(info_owner.profession)
-    
+    logik_for_button_amalker = function_button_amalker(info_owner) 
     key_messages, dict_messages = function_show_messages(user)
+    
+    # key_bc, buseness_card = function_show_buseness_card(user)
+    
     # print(logik_for_button_amalker)
     # print(key_draft)
     # print(key_messages)
@@ -67,8 +65,6 @@ def personal_page(request, user):
                    'persona' : info_owner,   # отображение информации о пользователе
                    'predmets' : list_collection_owner, # отображение коллекционного листа
                    'acess_form' : AllowanceForm(),  # форма для забора допусков от пользователя
-                #    'secret_form' : SpecialInfoUser(),
-                #    'acess_key' : acess_key,
                    'acess_page' : acess_page,
                    'acess_info' : acess_info,
                    'acess_mass' : acess_mass,                                               # ключ черновиков
@@ -82,7 +78,8 @@ def personal_page(request, user):
                    'AmalkerBlok' : AmalkerBlok(),
                    'key_messages' : key_messages,
                    'dict_messages' : dict_messages,    
-                   'form_answer' : Answer(),         
+                   'form_answer' : Answer(),    
+                   "form_b_card" : BusnessCard()     
                    }
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)
@@ -92,48 +89,11 @@ def personal_page(request, user):
         form_amalker = AmalkerBlok(request.POST)
         form_answer = Answer(request.POST)
         form_dell_answer = DelletAnswer(request.POST)
-        print(1)
-        # print(form_user3)
-        # print(78)
-        # print(form_dell_answer)
+        form_b_card = BusnessCard(request.POST, request.FILES) 
         if form.is_valid():
-            print(2)
-            cd = form.cleaned_data
-            if 'memory' in request.POST:
-                print(21)
-                function_write_draft(request, cd)
-            elif 'write' in request.POST:
-                print(22)
-                function_write_clean_copy(cd, request)
-            elif 'delete' in request.POST:
-                print(23)
-                pass
-            else: 
-                print(3)
-                for key, elem in request.POST.items():
-                    print(4)
-                    if 'memor_' in key:
-                        print(4.5)
-                        function_rewrite_draft(cd, request, int(key[6:]))
-                    elif 'writ_' in key:
-                        print(4.8)
-                        function_delete_draft(int(key[5:]))
-                        function_write_clean_copy(cd, request)
-                        
-                    elif 'delet_' in key:
-                        print(4.7)
-                        function_delete_draft(int(key[6:]))
-                    else:
-                        ('что-то идет не так')
-                
-                                                             
-                    print(key)
-                print(request.POST)
-                print('вот так хрень нельзя же цифру')
-            return render(request, 'personalpage/index.html', context)    
-                
-                
-                
+            function_article(form, request)
+            context = context_for_write_article(context, user)
+            return render(request, 'personalpage/index.html', context)        
         elif form_user1.is_valid():
             print(34)
             form_user1 = form_user1.cleaned_data
@@ -145,6 +105,9 @@ def personal_page(request, user):
             interest = method_main_page_1(form_user1['interest']),  # список инетересующих тем
             in_publishid = True,)
             f.save()
+            context['logik_for_button_amalker'] = function_button_amalker(info_owner)
+            list_collection_owner, key_owner, info_owner = func_list_colliction(request, user)
+            context['persona'] = info_owner
             return render(request, 'personalpage/index.html', context)
         elif form_user2.is_valid():
             print(44)
@@ -190,6 +153,15 @@ def personal_page(request, user):
             context['key_messages'] = key_messages
             context['dict_messages'] = dict_messages
             return render(request, 'personalpage/index.html', context)
+        
+        elif form_b_card.is_valid():
+            post = form_b_card.save()
+            # post.save()
+            # form_b_card = form_b_card.cleaned_data
+            print(post)
+            # form_b_card.save()
+            
+            
         elif form_user3.is_valid():
             print(54)
             form_user3 = form_user3.cleaned_data
@@ -208,6 +180,7 @@ def personal_page(request, user):
                 return render(request, 'personalpage/index.html', context)
             else:
                 pass
+       
         else:
             print('что то идет не так')
             print(form.errors)
@@ -293,7 +266,6 @@ def function_acess_for_page(ace, reg, group):
         res = True
     return res
     
-
 # ОТОБРАЖЕНИЕ страницы в приемной
 def personal_page_reception(request, user):
     nik_reguest = getting_nickname_request(request)                         # получение имени пришедшего пользователm
@@ -329,7 +301,6 @@ def personal_block_page(request, user):
                'title' : 'блок страницы',
                    }
     return render(request, 'personalpage/mistake.html', context)
-
 
 # вспомогательная функция получения коллекционного листа из БД
 def func_list_colliction(request, us):
@@ -471,8 +442,10 @@ def function_rewrite_draft(cd, request, key):
         
 # функция допуска пользователя к кнопке для рекламы 
 def function_button_amalker(param):
-    if str(param) == 'эксперт' or str(param) == 'продавец':
-        return True
+    print(param)
+    if param != None:
+        if str(param.profession) == 'эксперт' or str(param.profession) == 'продавец':
+            return True
     return False
 
 # функция предоставления информации о сообщениях автору страницы
@@ -523,4 +496,48 @@ def function_forming_string(i):
             stringf.append(string)
     # print(stringf)
     return stringf
-            
+ 
+# вспомогательная функция отображения визитки магазина
+def function_show_buseness_card(user):
+    elem = ''
+    key = False
+    try:
+        elem = BusnessCard.objects.get(auhtor = user)
+    except:
+        print('oib,j')
+    else:
+        key = True
+    return key, elem
+ 
+#  функция записи статей
+def function_article(form, request): 
+    cd = form.cleaned_data
+    if 'memory' in request.POST:
+        function_write_draft(request, cd)
+    elif 'write' in request.POST:
+        function_write_clean_copy(cd, request)
+    elif 'delete' in request.POST:
+        print(23)
+        pass
+    else: 
+        for key, elem in request.POST.items():
+            if 'memor_' in key:
+                function_rewrite_draft(cd, request, int(key[6:]))
+            elif 'writ_' in key:
+                function_delete_draft(int(key[5:]))
+                function_write_clean_copy(cd, request)
+            elif 'delet_' in key:
+                function_delete_draft(int(key[6:]))
+            else:
+                ('что-то идет не так')
+        print('вот так хрень нельзя же цифру') 
+        
+# подготовка контекста к нраспечатке
+def context_for_write_article(context, user):
+    key_draft, dict_draft = function_show_drafts(user, NewArticle, Photo)    # получение ключа и словаря для отображения страницы
+    key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
+    context['key_draft'] = key_draft
+    context['for_editorial_office'] = dict_draft
+    context['information_block'] = dict_article
+    context['key_article'] = key_article      
+    return context

@@ -107,7 +107,7 @@ class InfoUser(models.Model):
         return str(self.user)
     class Meta:
         verbose_name_plural = 'Секретная' 
-        
+
 # Модель отображения визитки продавца или эксперта       
 class BusnessCard(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -122,4 +122,4 @@ class BusnessCard(models.Model):
         return str(self.name)
     class Meta:
         verbose_name_plural = 'Визитки' 
-        
+

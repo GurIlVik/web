@@ -43,6 +43,9 @@ class InfoUserAdmin(admin.ModelAdmin):
     list_display = ['user', 'name', 'name_last', 'name_first', 'telephon', 'in_publishid']
 admin.site.register(InfoUser, InfoUserAdmin)
 
+class BusnessCardAdmin(admin.ModelAdmin):
+    list_display = ['name', 'adress', 'email', 'telephon', 'time', 'photo', 'profile'] 
+admin.site.register(BusnessCard, BusnessCardAdmin)
 
 admin.site.register(Professional)   
 admin.site.register(Photo)
