@@ -5,11 +5,13 @@
   html,
   body {
     height: 100%;
+    min-height: 700px;
+    /* min-height: 100%; */
   }
 
 
 body {
-    height: inherit;
+    /* height: inherit; */
     width: auto;
     background: #fff7fc79;
     padding: 0px;
@@ -20,7 +22,6 @@ body {
 }
 
 header {
-    
     height: 40px;
     width: 100%;
     background: #c0c4ac79;
@@ -81,6 +82,7 @@ header {
 
 #global {
     width: 100%;
+    min-height: 100%;
     top: 40px;
     display: flex;
     background-color: aqua;
