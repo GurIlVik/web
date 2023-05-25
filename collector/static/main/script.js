@@ -19,10 +19,6 @@ function control_word (list_object, object) {
     let lis_ob_li = list_object.length;
     key = false;
     for (let i = 0; i <= lis_ob_li; i +=1) {
-        console.log(list_object[i]);
-        console.log(typeof(list_object[i]));
-        console.log(object);
-        console.log(typeof(object));
         if (list_object[i] == object) {
             key = true;
             return key
