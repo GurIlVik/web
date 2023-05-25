@@ -5,15 +5,13 @@
   html,
   body {
     height: 100%;
-    min-height: 700px;
-    /* min-height: 100%; */
+    min-height: 100%;
+    background-color: rgb(249, 251, 248);
   }
 
 
 body {
-    /* height: inherit; */
     width: auto;
-    background: #fff7fc79;
     padding: 0px;
     margin: 0px;
     display: flex;
@@ -24,7 +22,6 @@ body {
 header {
     height: 40px;
     width: 100%;
-    background: #c0c4ac79;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -81,11 +78,10 @@ header {
 }
 
 #global {
-    width: 100%;
-    min-height: 100%;
+    /* height: 100%; */
+    /* min-height: 100%; */
     top: 40px;
     display: flex;
-    background-color: aqua;
     flex-direction: row;
     font-size: 2vw;
     justify-content: center;
@@ -95,7 +91,7 @@ header {
 #advertisement {
     width: 230px;
     height: 100%;
-    background-color: chocolate;
+    /* background-color: chocolate; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -110,7 +106,7 @@ header {
     border-style: solid;
     border-width: 2px;
     border-color: black;
-    background-color: rgb(113, 228, 228);
+    /* background-color: rgb(113, 228, 228); */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -120,7 +116,7 @@ header {
     height: 25%;
     width: 100%;
     font-size: 1vw;
-    background-color: rgb(72, 32, 204);
+    /* background-color: rgb(72, 32, 204); */
     
 }
 
@@ -128,8 +124,6 @@ header {
     height: 75%;
     width: 100%;
     font-size: 1vw;
-    background-color: rgb(220, 98, 23);
-    
 }
 
 .display_none {
@@ -138,8 +132,8 @@ header {
 
 #basic {
     height: 100%;
+    min-height: 1200px;
     width: 85%;
-    background-color: darkcyan;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -150,10 +144,10 @@ footer {
     background: #23041979;
     height: 45px;
     width: 100%;
-    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
+    /* position: sticky; */
 }
 
 #f_d1 {
@@ -187,7 +181,7 @@ footer {
     height: 120px;
     width: 400px;
     overflow: auto;
-    background-color: rgb(227, 239, 223, 0.6);
+    /* background-color: rgb(227, 239, 223, 0.6); */
     border: 1px solid rgba(118, 230, 81, 0.7);
 }
 
@@ -491,7 +485,7 @@ footer {
     top: 0; left: 0; bottom: 0; right: 0;
     height: 200px;
     width: 80%;
-    background-color: rgb(210, 255, 240);
+    /* background-color: rgb(210, 255, 240); */
     border: #000 solid 2px;
 }
 .id_comment2 {
@@ -583,8 +577,8 @@ footer {
 
 .write {
     width: 300px;
-    height: 200px;
-    background-color: aqua;
+    height: 120px;
+    /* background-color: aqua; */
 }
 .write_3 {
     width: 270px;
