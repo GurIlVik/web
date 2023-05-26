@@ -19,7 +19,6 @@ def main_page(request):
             form = form.cleaned_data
             predmet_collection_list = method_main_page_1(form['pole']) # В этом списке выбранные категории предметов
             context['key_article'], context['info_blok'] = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = predmet_collection_list) 
-            return render(request, 'main/index.html', context)
         elif form2.is_valid():
             form2 = form2.cleaned_data
             locus = form2['count']
@@ -36,8 +35,6 @@ def main_page(request):
                 text = form3['text'],       
             )
             context = work_context(request)
-            return render(request, 'main/index.html', context)
-        print(13)
         return render(request, 'main/index.html', context)
     return render(request, 'main/index.html', context)
  
@@ -176,8 +173,6 @@ def function_show_article_2(dot, key_article, photo_clas, dict_draft, request,):
         simbol_count = False
         list_count_draft = []
         for i in dot:
-            # print('функция счетчика после фор')
-            # print(i)
             res = photo_clas.objects.filter(location__pk = i.pk) # запрос получения фотограпфий через id
             if res:
                 for j in res:
