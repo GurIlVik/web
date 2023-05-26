@@ -18,7 +18,7 @@ def main_page(request):
         if form.is_valid(): 
             form = form.cleaned_data
             predmet_collection_list = method_main_page_1(form['pole']) # В этом списке выбранные категории предметов
-            context = work_context(request)
+            context['key_article'], context['info_blok'] = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = predmet_collection_list) 
             return render(request, 'main/index.html', context)
         elif form2.is_valid():
             form2 = form2.cleaned_data
@@ -28,7 +28,6 @@ def main_page(request):
             context = work_context(request)
             return render(request, 'main/index.html', context)
         elif form3.is_valid():
-            print(12)
             form3 = form3.cleaned_data
             asss = LetterAuthor.objects.create(
                 correspondent = User.objects.get(username = request.user),
