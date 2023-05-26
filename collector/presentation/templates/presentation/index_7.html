@@ -1,0 +1,30 @@
+{% extends "presentation/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ word1 }}{% endblock %}
+
+{% block content %}
+<div>
+    <p>&nbsp</p>
+    <p>&nbsp</p>
+    <h2>почта:    giv123@mail.ru</h2> 
+    <p>&nbsp</p>
+    <h2>телефон:  8-926-616-86-21</h2>
+    <p>&nbsp</p>
+    <h2>Гурьянов Илья Викторович</h2>
+    <p>&nbsp</p>
+    <p>&nbsp</p>
+    <p>&nbsp</p>
+    <p>&nbsp</p>
+    <h2>Github</h2>
+    <p>&nbsp</p>
+    <h4>https://github.com/GurIlVik?tab=repositories</h4>
+</div>
+<div id="img">
+    <a href="http://qrcoder.ru" target="_blank"><img src="http://qrcoder.ru/code/?https%3A%2F%2Fgithub.com%2FGurIlVik%3Ftab%3Drepositories&6&0" width="246" height="246" border="0" title="QR код"></a>
+</div>
+
+{% comment %} http://qrcoder.ru/code/?https%3A%2F%2Fgithub.com%2FGurIlVik%3Ftab%3Drepositories&6&0 {% endcomment %}
+
+{% endblock %}

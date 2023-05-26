@@ -9,6 +9,9 @@ urlpatterns = [
     path('с', index_3),
     path('d', index_4),
     path('e', index_5),
+    path('f', index_6),
+    path('g', index_7),
+    
     
     # path('<author>/<id>', publication, name='author_publication'),
 

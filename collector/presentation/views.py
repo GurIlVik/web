@@ -23,3 +23,15 @@ def index_4(request):
 def index_5(request):
     context = {'word1' : 'Клюб коллекционеров'}
     return render(request, 'presentation/index_5.html', context)
+
+def index_6(request):
+    context = {'word1' : 'Клюб коллекционеров'}
+    return render(request, 'presentation/index_6.html', context)
+
+def index_7(request):
+    context = {'word1' : 'Клюб коллекционеров'}
+    return render(request, 'presentation/index_7.html', context)
+
+def index_8(request):
+    context = {'word1' : 'Клюб коллекционеров'}
+    return render(request, 'presentation/index_8.html', context)
