@@ -181,20 +181,41 @@ def personal_page_reception(request, user):
     nik_reguest = getting_nickname_request(request)                         # получение имени пришедшего пользователm
     acess_info = 3                                                           # доступ к информации
     acess_mass = 3 
+    acess_page = 3
     acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
     registered_user = chek_user_register(request)                            # логик тру вошедший зарегистрирован Ё нет - фальш
-    list_collection_guest, key_guest, info_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
     list_collection_owner, key_owner, info_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
-    groupmates = func_list_check(list_collection_guest, list_collection_owner) # проверка есть ли в списке похожие интересы есть - правда нет -ложь
     
     acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
     if acesses:
         acess_key, acess_page, acess_info, acess_mass = function_acess_user(user)
-        
-    acesses_guest_info = function_acess_for_page(acess_info, registered_user, groupmates) # допуск к информации если правда
-    acesses_guest_mess = function_acess_for_page(acess_mass, registered_user, groupmates) # допуск к мессенжеру если правда
+
+    key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
+    logik_for_button_amalker = function_button_amalker(info_owner) 
+    print(dict_article)
+    print(2)
+    print(key_article)
     context = {
         'title' : 'Приемная',
+        'register' : registered_user,
+                   'information_block' : dict_article,       # словарь с передачей данных опубликованных статей
+                   'nik_user' : user, 
+                   'title' : 'Кабинет',
+                   'menu' : ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД', 'РЕКЛАМА'],
+                   'list_a': Catalogy.objects.all().order_by('name'),
+                   'logik_1': key_owner,     # отображение в случае если 1ая форма заполнена(1) не заполнена(0)
+                   'logik_2': function_show_specinf(user),  # отражение в случае если есть спец инфоормация
+                   'persona' : info_owner,   # отображение информации о пользователе
+                   'predmets' : list_collection_owner, # отображение коллекционного листа
+                   'acess_page' : acess_page,
+                   'acess_info' : acess_info,
+                   'acess_mass' : acess_mass,                                               # ключ черновиков
+                   'key_article' : key_article, 
+                   'obchee' : Catalogy.objects.get(name='0'),
+                   'category' : Category.objects.all().order_by('name'),
+                   'advertisment' : Advertisement.objects.all().order_by('name'),
+                   'drugoe' : 'другое',
+                   'logik_for_button_amalker' : logik_for_button_amalker,  
     }
     return render(request, 'personalpage/reception.html', context)
  

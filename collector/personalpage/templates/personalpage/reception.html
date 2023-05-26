@@ -3,4 +3,167 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+{% block menu_block %} 
+    {% if logik_for_button_amalker == True %}
+        <div id='menu_1'>
+            <button class='fd2' onclick='amalker()'>{{ menu.4 }}</button> 
+        </div>
+        <div id='menu_2'>
+            <button class='fd2' onclick='amalker2()'>Сделать визитку</button> 
+        </div>
+        <div id='menu_3'>
+            <button class='fd2' onclick='amalker3()'>Подать рекламу</button> 
+        </div>
+    {% endif %}
+        <div>
+            <a class='fd2' href="{% url 'main' %}"><button class='fd2'>{{ menu.2 }}</button></a> 
+        </div> 
+        <div>
+            <a class='fd2' href="{% url 'logout' %}"><button class='fd2'>{{ menu.3 }}</button></a>
+        </div>
+{% endblock %}
+
+{% comment %} блок с личной информацией {% endcomment %}    
+{% block personal_information %}
+    {% if logik_1 != True %}
+        <div id = 'personal_information1'>
+            <div id = 'photo_user'>
+                Здесь может быть фото
+            </div>
+            <div id = 'nik_user'>
+                
+                {{nik_user}}
+            </div>
+            <div id = 'status_user'>
+                <p>Род деятельности</p>
+            </div>
+            <div id = 'class_user'>
+                <p>не является ФФП</p>
+            </div>
+            <div id = 'predmet_collection_user'>
+                <div id = 'predmet_collection_user2'>
+                    <p>Интересует</p>
+                </div>
+                <div class = 'predmet_collection_user3'>
+                    <p>Предмет интереса</p>
+                    <p>Предмет интереса</p>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div id = 'personal_information1'>
+            <div id = 'photo_user'>
+                <img src="{{ persona.photo.url }}"
+                width="100%" height:"100%" object-fit:'contain'
+                >
+            </div>
+            <div id = 'nik_user'>
+                {{nik_user}}
+            </div>
+            <div id = 'status_user'>
+                <p>{{ persona.profession }}</p>
+            </div>
+            <div id = 'class_user'>
+                <p>не является ФФП</p>
+            </div>
+            <div id = 'predmet_collection_user'>
+                <div id = 'predmet_collection_user2'>
+                    <p>Интересует:</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                </div>
+                <div class = 'predmet_collection_user3'>
+                    {% for i in predmets %}
+                    <p class='predmet_collection_user5'> {{ i }} </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}  
+
+{% block info_blok %}
+    {% if key_article != True %}
+        <p>Странно, но в этом разделе нет публикаций</p>
+    {% else %}
+
+    
+
+    {% for key, value in information_block.items %}
+                <div class = 'info_blok_1'>
+                    <div class = 'info_blok_7'>
+                        <p class = 'predmet_collection_user5'>{{key.time_publication}}</p> 
+                    </div>
+                    
+                    <div class = 'info_blok_72'>
+                        {% if key.categories == '1' %}
+                        <p class = 'predmet_collection_user5'>Объявление</p> 
+                        {% elif key.categories == '2' %}
+                        <p class = 'predmet_collection_user5'>Cтатья</p>
+                        {% else %}
+                        <p class = 'predmet_collection_user5'>Философия</p>
+                        {% endif %}
+                    </div>
+                    <div class = 'info_blok_73'>
+                        {% comment %} <p class = 'predmet_collection_user5'>{{key.collection}}</p>  {% endcomment %}
+                        <p class = 'predmet_collection_user5'>&nbsp</p>
+                    </div>
+                    <div class = 'info_blok_74'>
+                        <p class = 'predmet_collection_user6' id='art_title_id_{{key.pk}}'>{{key.title}}</p> 
+                    </div>
+                    <div class = 'info_blok_75'>
+                        <p class = 'predmet_collection_user5' id='art_text_id_{{key.pk}}'>{{key.text}}</p>
+                    </div>
+                    {% for key2, value2 in value.items %}
+                    <div class = 'info_blok_84'>
+                        <p class = 'predmet_collection_user5'>{{key2}} ФОТО</p>
+                    </div>
+                        {% if key2 == 0 %}
+                        <div class = 'info_blok_76'>
+                            <p class = 'predmet_collection_user3'>фото не загружено</p>                    
+                        </div>
+                        <div class = 'info_blok_77'>
+                            <p class = 'predmet_collection_user3'>фото не загружено</p>
+                        </div>
+                        {% elif key2 == 1 %}
+                        <div class = 'info_blok_76'>
+                            <img class='img_for_arts' onclick='fun_foto(this)' src="{{ value2.0.url }}"> 
+                        </div>
+                        <div class = 'info_blok_77'>
+                            {% comment %} <p class = 'predmet_collection_user3'>фото не загружено</p> {% endcomment %}
+                        </div>
+                        {% else %}
+                        <div class = 'info_blok_76'>
+                            <img class='img_for_arts' onclick='fun_foto(this)' src="{{ value2.0.url }}"> 
+                        </div>
+                        <div class = 'info_blok_77'>
+                            <img class='img_for_arts' onclick='fun_foto(this)' src="{{ value2.1.url }}"> 
+                        </div>
+                        
+                        {% endif %}
+                    {% endfor %}
+                    <div class = 'info_blok_78'>
+                        <p class='grid_main_p'>&#x1F44D;</p>
+                    </div>
+                    <div class = 'info_blok_79'>
+                        <p class='predmet_collection_user5'> {{key.count_symbol_ok}} </p>
+                    </div>
+                    <div class = 'info_blok_8'>
+                        <p class='grid_main_p'>&#128078;</p>
+                    </div>
+                    <div class = 'info_blok_81'>
+                        <p class='predmet_collection_user5'>{{key.count_symbol_bad}}</p>
+                    </div>
+                    <div class = 'info_blok_82'>
+                        <button class='fd2' onclick="redaction2({{ key.pk }})">редактировать</button>
+                    </div>
+                    <div class = 'info_blok_83'>
+                        <button class='fd2' onclick="redaction2({{ key.pk }})">допуски</button>
+                    </div>
+                    
+                </div>  
+                {% endfor %} 
+    {% endif %}
+{% endblock %}
+
 
