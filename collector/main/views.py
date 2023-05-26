@@ -8,63 +8,24 @@ from personalpage.models import PresentationUser
 
 
 
-
 # отображение главной страницы
 def main_page(request):
-    list_interest = function_list_interes(request)
-    # print(list_interest)
-    a = Catalogy.objects.all().order_by('name')  # сортировка списка по имени в базе
-    b = ProstoList('prosto_list')
-    c = Information_block.objects.all()
-    e = Amalker.objects.all()
-    predmet_collection_list = []   # В этом списке выбранные категории предметов
-    g = chek_User_authenticated(request, 'Регистрация/ВХОД', 'ВЫХОД') # предоставление значений согласно логик
-    h = chek_User_authenticated(request, "/", "/logout/")  # предоставление путей согласно логик
-    j = f'/personalpage/{str(request.user)}'      # получение имени и питу на личную страницу
-    
-    # list_interest = list_interest_user(list_interest)
-    if list_interest:
-        key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = list_interest) 
-    else:
-        key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request)     
-    # print(key_article)
-    
-    context = {
-        'a': a,
-        "form" : b,
-        'form2' : CountText1(),
-        'info_blok': dict_article,
-        'key_article' : key_article,
-        'amalker' : e,
-        'log' : g,
-        'puth_exit_enter' : h,
-        'puth_paesonalpage' : j,
-        'obchee' : Catalogy.objects.get(name='0'),
-        # 'write' : WriteAuthor()
-    }
+    context = work_context(request)
     if request.method == 'POST':
         form = ProstoList(request.POST) 
         form2 = CountText1(request.POST)
         form3 = WriteAuthor(request.POST)
-        print(10)
-        print(form3)
         if form.is_valid(): 
             form = form.cleaned_data
             predmet_collection_list = method_main_page_1(form['pole']) # В этом списке выбранные категории предметов
-            context['key_article'], context['info_blok'] = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = predmet_collection_list) 
-            
+            context = work_context(request)
             return render(request, 'main/index.html', context)
         elif form2.is_valid():
             form2 = form2.cleaned_data
             locus = form2['count']
             article = Information_block.objects.get(id = int(locus[2:]))
             function_count_interes(article, request, locus)
-            if list_interest:
-                key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = list_interest) 
-            else:
-                key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request)      
-            context['info_blok'] = dict_article
-            context['key_article'] = key_article
+            context = work_context(request)
             return render(request, 'main/index.html', context)
         elif form3.is_valid():
             print(12)
@@ -75,7 +36,7 @@ def main_page(request):
                 auhtor = str(Information_block.objects.get(id = int(form3['number'])).author),
                 text = form3['text'],       
             )
-            print(asss)
+            context = work_context(request)
             return render(request, 'main/index.html', context)
         print(13)
         return render(request, 'main/index.html', context)
@@ -536,4 +497,32 @@ def check_predmet_collection(param):
             strin = ''
     return list_int2
 
-
+# функция подготовки контекста
+def work_context(request):
+    list_interest = function_list_interes(request)
+    # print(list_interest)
+    a = Catalogy.objects.all().order_by('name')  # сортировка списка по имени в базе
+    b = ProstoList('prosto_list')
+    c = Information_block.objects.all()
+    e = Amalker.objects.all()
+    predmet_collection_list = []   # В этом списке выбранные категории предметов
+    g = chek_User_authenticated(request, 'Регистрация/ВХОД', 'ВЫХОД') # предоставление значений согласно логик
+    h = chek_User_authenticated(request, "/", "/logout/")  # предоставление путей согласно логик
+    j = f'/personalpage/{str(request.user)}'      # получение имени и питу на личную страницу
+    if list_interest:
+        key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request, filter_list = list_interest) 
+    else:
+        key_article, dict_article = function_show_article(Information_block, PhotoInfoBlock, request)   
+    context = {
+        'a': a,
+        "form" : b,
+        'form2' : CountText1(),
+        'info_blok': dict_article,
+        'key_article' : key_article,
+        'amalker' : e,
+        'log' : g,
+        'puth_exit_enter' : h,
+        'puth_paesonalpage' : j,
+        'obchee' : Catalogy.objects.get(name='0'),
+    }
+    return context

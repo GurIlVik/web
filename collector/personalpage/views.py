@@ -10,68 +10,10 @@ from django.core.files.base import ContentFile
 from sqlite3 import OperationalError
 from django.core.exceptions import ObjectDoesNotExist
 
+
 # @ login_required
 def personal_page(request, user): 
-    if user_page_search(user) == False:
-        return redirect(f'/personalpage/{user}/mistake')                    #  отправка на страницу ошибка если пользвоателя нет
-    nik_reguest = getting_nickname_request(request)                         # получение имени пришедшего пользователm
-    password = chek_user_access(user, nik_reguest)                          # правда - если пришедший хозяин страницы
-    # значения допусков по умолчанию 3 - никому 2 одногрупникам 1 членам 0 всем
-    acess_key = False                                                        # есть ли доступ
-    acess_page = 3                                                           # доступ на страницу
-    acess_info = 3                                                           # доступ к информации
-    acess_mass = 3                                                           # доступ к мессенжеру
-    
-    registered_user = chek_user_register(request)                            # логик тру вошедший зарегистрирован Ё нет - фальш
-    list_collection_guest, key_guest, info_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
-    list_collection_owner, key_owner, info_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
-    groupmates = func_list_check(list_collection_guest, list_collection_owner) # проверка есть ли в списке похожие интересы есть - правда нет -ложь
-                                                    
-    acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
-    if acesses:
-        acess_key, acess_page, acess_info, acess_mass = function_acess_user(user)
-    if password == False:
-        if (acess_page == 3) or (registered_user == False and acess_page == 1) or (groupmates == False and acess_page == 2):
-            return redirect(f'/personalpage/{user}/block_page')             # перенаправление гостя на страницу блокировки
-        else:
-            return redirect(f'/personalpage/{user}/reception')              # перенаправление гостя в приемную   
-        
-    key_draft, dict_draft = function_show_drafts(user, NewArticle, Photo)    # получение ключа и словаря для отображения страницы
-    key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
-    logik_for_button_amalker = function_button_amalker(info_owner) 
-    key_messages, dict_messages = function_show_messages(user)
-
-    context = {'nik_name' : nik_reguest,
-                   'register' : registered_user,
-                   'information_block' : dict_article,       # словарь с передачей данных опубликованных статей
-                   'nik_user' : user, 
-                   'form' : NewArticleForm(),                # форма на запись черновика
-                   'for_editorial_office' : dict_draft,
-                   'title' : 'Кабинет',
-                   'menu' : ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД', 'РЕКЛАМА'],
-                   'form_info' : PersonalInformationUser(),
-                   'list_a': Catalogy.objects.all().order_by('name'),
-                   'logik_1': key_owner,     # отображение в случае если 1ая форма заполнена(1) не заполнена(0)
-                   'logik_2': function_show_specinf(user),  # отражение в случае если есть спец инфоормация
-                   'persona' : info_owner,   # отображение информации о пользователе
-                   'predmets' : list_collection_owner, # отображение коллекционного листа
-                   'acess_form' : AllowanceForm(),  # форма для забора допусков от пользователя
-                   'acess_page' : acess_page,
-                   'acess_info' : acess_info,
-                   'acess_mass' : acess_mass,                                               # ключ черновиков
-                   'key_article' : key_article, 
-                   'key_draft' : key_draft,
-                   'obchee' : Catalogy.objects.get(name='0'),
-                   'category' : Category.objects.all().order_by('name'),
-                   'advertisment' : Advertisement.objects.all().order_by('name'),
-                   'drugoe' : 'другое',
-                   'logik_for_button_amalker' : logik_for_button_amalker,
-                   'AmalkerBlok' : AmalkerBlok(),
-                   'key_messages' : key_messages,
-                   'dict_messages' : dict_messages,    
-                   'form_answer' : Answer(),    
-                   "form_b_card" : BusnessCard()     
-                   }
+    context = work_context(request, user)
     if request.method == 'POST':
         form = NewArticleForm(request.POST, request.FILES)
         form_user1 = PersonalInformationUser(request.POST, request.FILES)
@@ -83,10 +25,9 @@ def personal_page(request, user):
         form_b_card = BusnessCard(request.POST, request.FILES) 
         if form.is_valid():
             function_article(form, request)
-            context = context_for_write_article(context, user)
+            context = work_context(request, user)
             return render(request, 'personalpage/index.html', context)        
         elif form_user1.is_valid():
-            print(34)
             form_user1 = form_user1.cleaned_data
             f = PresentationUser(
             user = request.user,
@@ -95,13 +36,9 @@ def personal_page(request, user):
             interest = method_main_page_1(form_user1['interest']),  # список инетересующих тем
             in_publishid = True,)
             f.save()
-            context['logik_for_button_amalker'] = function_button_amalker(info_owner)
-            list_collection_owner, key_owner, info_owner = func_list_colliction(request, user)
-            context['persona'] = info_owner
-            context['logik_for_button_amalker'] = logik_for_button_amalker
+            context = work_context(request, user)
             return render(request, 'personalpage/index.html', context)
         elif form_user2.is_valid():
-            print(44)
             form_user2 = form_user2.cleaned_data
             l = Allowance(
                 user = request.user,
@@ -111,53 +48,38 @@ def personal_page(request, user):
                 in_publishid = True,
             )
             l.save()
+            context = work_context(request, user)
             return render(request, 'personalpage/index.html', context)
         elif form_amalker.is_valid():
-            print(64)
             form = form_amalker.cleaned_data
-            print(form)
+            context = work_context(request, user)
             return render(request, 'personalpage/index.html', context)
         elif form_answer.is_valid():
             form_answer = form_answer.cleaned_data
-            print(form_answer)
             letter = LetterAuthor.objects.get(id = str(form_answer['id_answer']))
-            print(letter)
             messeng = f"{letter.text} &$&ответ {letter.auhtor}: {form_answer['text_answer']} "
-            print(messeng)
             correspondent = letter.auhtor
             auhtor = str(letter.correspondent)
-            print()
             letter.correspondent = User.objects.get(username=correspondent)
             letter.auhtor = auhtor
             letter.text = messeng
             letter.save()
-            key_messages, dict_messages = function_show_messages(user)
-            context['key_messages'] = key_messages
-            context['dict_messages'] = dict_messages
+            context = work_context(request, user)
             return render(request, 'personalpage/index.html', context)
         elif form_dell_answer.is_valid():
             form_dell_answer = form_dell_answer.cleaned_data
             letter = LetterAuthor.objects.get(id = str(form_dell_answer['id_answer']))
             letter.delete()
-            key_messages, dict_messages = function_show_messages(user)
-            print(letter)
-            context['key_messages'] = key_messages
-            context['dict_messages'] = dict_messages
+            context = work_context(request, user)
             return render(request, 'personalpage/index.html', context)
         
-        elif form_b_card.is_valid():
-            post = form_b_card.save()
-            # post.save()
-            # form_b_card = form_b_card.cleaned_data
-            print(post)
-            # form_b_card.save()
+        # elif form_b_card.is_valid():
+        #     post = form_b_card.save()
             
             
         elif form_user3.is_valid():
-            print(54)
             form_user3 = form_user3.cleaned_data
             if 'user' in request:
-                print(55)
                 m = InfoUser(
                     user = request.user,
                     name = form_user3['name'],
@@ -167,16 +89,13 @@ def personal_page(request, user):
                     in_publishid = True,
                 )
                 m.save()
-                print(56)
+                context = work_context(request, user)
                 return render(request, 'personalpage/index.html', context)
             else:
                 pass
        
         else:
             print('что то идет не так')
-            print(form.errors)
-            print(form_user1.errors)
-            print(form_user2.errors)
             return render(request, 'personalpage/index.html', context)
     return render(request, 'personalpage/index.html', context)
 
@@ -531,4 +450,68 @@ def context_for_write_article(context, user):
     context['for_editorial_office'] = dict_draft
     context['information_block'] = dict_article
     context['key_article'] = key_article      
+    return context
+
+# функция подготовки контекста
+def work_context(request, user):
+    if user_page_search(user) == False:
+        return redirect(f'/personalpage/{user}/mistake')                    #  отправка на страницу ошибка если пользвоателя нет
+    nik_reguest = getting_nickname_request(request)                         # получение имени пришедшего пользователm
+    password = chek_user_access(user, nik_reguest)                          # правда - если пришедший хозяин страницы
+    # значения допусков по умолчанию 3 - никому 2 одногрупникам 1 членам 0 всем
+    acess_key = False                                                        # есть ли доступ
+    acess_page = 3                                                           # доступ на страницу
+    acess_info = 3                                                           # доступ к информации
+    acess_mass = 3                                                           # доступ к мессенжеру
+    
+    registered_user = chek_user_register(request)                            # логик тру вошедший зарегистрирован Ё нет - фальш
+    list_collection_guest, key_guest, info_guest = func_list_colliction(request, nik_reguest)       # лист предметов коллекции пришедшего    
+    list_collection_owner, key_owner, info_owner = func_list_colliction(request, user)              # лист предметов коллекции хозяина
+    groupmates = func_list_check(list_collection_guest, list_collection_owner) # проверка есть ли в списке похожие интересы есть - правда нет -ложь
+                                                    
+    acesses = Allowance.objects.filter(user__username = user)                # получение допусков из базы
+    if acesses:
+        acess_key, acess_page, acess_info, acess_mass = function_acess_user(user)
+    if password == False:
+        if (acess_page == 3) or (registered_user == False and acess_page == 1) or (groupmates == False and acess_page == 2):
+            return redirect(f'/personalpage/{user}/block_page')             # перенаправление гостя на страницу блокировки
+        else:
+            return redirect(f'/personalpage/{user}/reception')              # перенаправление гостя в приемную   
+        
+    key_draft, dict_draft = function_show_drafts(user, NewArticle, Photo)    # получение ключа и словаря для отображения страницы
+    key_article, dict_article = function_show_drafts(user, Information_block, PhotoInfoBlock) 
+    logik_for_button_amalker = function_button_amalker(info_owner) 
+    key_messages, dict_messages = function_show_messages(user)
+
+    context = {'nik_name' : nik_reguest,
+                   'register' : registered_user,
+                   'information_block' : dict_article,       # словарь с передачей данных опубликованных статей
+                   'nik_user' : user, 
+                   'form' : NewArticleForm(),                # форма на запись черновика
+                   'for_editorial_office' : dict_draft,
+                   'title' : 'Кабинет',
+                   'menu' : ['НАСТРОЙКИ', 'НАПИСАТЬ', 'К ОБЩЕСТВУ', 'ВЫХОД', 'РЕКЛАМА'],
+                   'form_info' : PersonalInformationUser(),
+                   'list_a': Catalogy.objects.all().order_by('name'),
+                   'logik_1': key_owner,     # отображение в случае если 1ая форма заполнена(1) не заполнена(0)
+                   'logik_2': function_show_specinf(user),  # отражение в случае если есть спец инфоормация
+                   'persona' : info_owner,   # отображение информации о пользователе
+                   'predmets' : list_collection_owner, # отображение коллекционного листа
+                   'acess_form' : AllowanceForm(),  # форма для забора допусков от пользователя
+                   'acess_page' : acess_page,
+                   'acess_info' : acess_info,
+                   'acess_mass' : acess_mass,                                               # ключ черновиков
+                   'key_article' : key_article, 
+                   'key_draft' : key_draft,
+                   'obchee' : Catalogy.objects.get(name='0'),
+                   'category' : Category.objects.all().order_by('name'),
+                   'advertisment' : Advertisement.objects.all().order_by('name'),
+                   'drugoe' : 'другое',
+                   'logik_for_button_amalker' : logik_for_button_amalker,
+                   'AmalkerBlok' : AmalkerBlok(),
+                   'key_messages' : key_messages,
+                   'dict_messages' : dict_messages,    
+                   'form_answer' : Answer(),    
+                   "form_b_card" : BusnessCard()     
+                   }
     return context
